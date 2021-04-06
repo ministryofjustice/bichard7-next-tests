@@ -1,0 +1,22 @@
+{
+  "name": "bichard7-next-tests",
+  "version": "1.0.0",
+  "description": "Tests for Bichard",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ministryofjustice/bichard7-next-tests.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ministryofjustice/bichard7-next-tests/issues"
+  },
+  "homepage": "https://github.com/ministryofjustice/bichard7-next-tests#readme",
+  "dependencies": {
+    "@cucumber/cucumber": "^7.0.0",
+    "pg-promise": "^10.10.1"
+  }
+}
