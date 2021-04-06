@@ -1,7 +1,10 @@
 var { After, Before } = require("@cucumber/cucumber");
 
-// Synchronous
-Before(async function () {});
+Before(async function () {
+  await this.db.clearExceptions();
+});
 
-// Asynchronous Promise
-After(async function () {});
+After(async function () {
+  await this.browser.close();
+  // await this.db.clearExceptions();
+});

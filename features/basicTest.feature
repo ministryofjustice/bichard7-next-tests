@@ -3,8 +3,8 @@ Feature: Basic end-to-end test
   I want to make sure the message is displayed in the Bichard UI
 
   Scenario: Raising an exception message
-    Given I am logged into the Bichard UI as an exception handler
-    And a message is received
+    Given a message is received
+    And I am logged into the Bichard UI as an exception handler
     When I view the list of exceptions
-    Then the exception list should contain "Rigout Dean"
-    And the record should not have any PNC errors
+    Then the exception list should contain a record for "Rigout Dean"
+    And the record for "Rigout Dean" should not have any PNC errors

@@ -4,7 +4,7 @@
   "description": "Tests for Bichard",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js --publish-quiet"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,10 @@
   "homepage": "https://github.com/ministryofjustice/bichard7-next-tests#readme",
   "dependencies": {
     "@cucumber/cucumber": "^7.0.0",
-    "pg-promise": "^10.10.1"
+    "pg-promise": "^10.10.1",
+    "stompit": "^1.0.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^8.0.0"
   }
 }
