@@ -4,6 +4,7 @@ const puppeteer = require("puppeteer");
 
 Given(
   "I am logged into the Bichard UI as an exception handler",
+  { timeout: 60 * 1000 },
   async function () {
     const page = await this.browser.newPage("/bichard-ui");
     await page.type("#username", "bichard01");
