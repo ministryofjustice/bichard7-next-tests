@@ -10,7 +10,6 @@ const retryDelay = async (condition, retryFunction, delay) => {
         console.log("Success");
         resolve();
       } else {
-        console.log("Failure");
         await retryFunction();
         setTimeout(test, delay);
       }
@@ -48,17 +47,22 @@ Then(
   { timeout: 20 * 1000 },
   async function (recordName) {
     const page = this.browser.currentPage();
-    await retryDelay(
-      async () =>
+
+    const checkForRecord = async () => {
+      page.waitForNavigation();
+      return (
         (await page.$(
           ".resultsTable a.br7_exception_list_record_table_link"
-        )) !== null,
-      async () =>
-        await page.click(
-          '.br7_exception_list_filter_table input[type="submit"]'
-        ),
-      1000
-    );
+        )) !== null
+      );
+    };
+
+    const reloadPage = async () => {
+      page.waitForNavigation();
+      await page.click('.br7_exception_list_filter_table input[type="submit"]');
+    };
+
+    await retryDelay(checkForRecord, reloadPage, 1000);
     await page.waitForFunction(
       `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${recordName}')`
     );
