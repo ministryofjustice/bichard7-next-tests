@@ -2,9 +2,26 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 const assert = require("assert").strict;
 const puppeteer = require("puppeteer");
 
+const retryDelay = async (condition, retryFunction, delay) => {
+  return new Promise(async (resolve) => {
+    const test = async () => {
+      const result = await condition();
+      if (result) {
+        console.log("Success");
+        resolve();
+      } else {
+        console.log("Failure");
+        await retryFunction();
+        setTimeout(test, delay);
+      }
+    };
+    await test();
+  });
+};
+
 Given(
   "I am logged into the Bichard UI as an exception handler",
-  { timeout: 60 * 1000 },
+  { timeout: 20 * 1000 },
   async function () {
     const page = await this.browser.newPage("/bichard-ui");
     await page.type("#username", "bichard01");
@@ -28,10 +45,19 @@ When("I view the list of exceptions", async function () {
 
 Then(
   "the exception list should contain a record for {string}",
+  { timeout: 20 * 1000 },
   async function (recordName) {
     const page = this.browser.currentPage();
-    await page.waitForSelector(
-      ".resultsTable a.br7_exception_list_record_table_link"
+    await retryDelay(
+      async () =>
+        (await page.$(
+          ".resultsTable a.br7_exception_list_record_table_link"
+        )) !== null,
+      async () =>
+        await page.click(
+          '.br7_exception_list_filter_table input[type="submit"]'
+        ),
+      1000
     );
     await page.waitForFunction(
       `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${recordName}')`
