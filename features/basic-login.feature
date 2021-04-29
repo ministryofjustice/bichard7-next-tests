@@ -4,7 +4,8 @@ Feature: Basic end-to-end test
 
   Scenario: Raising an exception message
     Given a message is received
-    And I am logged into the Bichard UI as an exception handler
+    And there is a valid record for "Rigout Dean" in the PNC
+    And I am logged in as an "exception handler"
     When I view the list of exceptions
     Then the exception list should contain a record for "Rigout Dean"
     And the record for "Rigout Dean" should not have any PNC errors
