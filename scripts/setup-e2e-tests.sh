@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 env_check() {
   if [ -z "$WORKSPACE" ]
@@ -82,9 +82,10 @@ then
   exit 1
 fi
 
+mkdir -p workspaces
 rm -f $TEST_ENV_FILE
 
-echo "export STACK_TYPE=\"${STACK_TYPE}\"" >> $TEST_ENV_FILE
+echo "export STACK_TYPE=\"${STACK_TYPE}\"" > $TEST_ENV_FILE
 echo "export DB_HOST=\"${DB_HOST}\"" >> $TEST_ENV_FILE
 echo "export UI_HOST=\"${WAS_IP}\""  >> $TEST_ENV_FILE
 echo "export UI_PORT=\"443\""  >> $TEST_ENV_FILE
