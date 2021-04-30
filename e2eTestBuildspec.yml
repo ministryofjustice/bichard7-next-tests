@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - /bin/bash e2e-tests/scripts/configure_codebuild_image.sh
+      - /bin/bash scripts/configure_codebuild_image.sh
   build:
     commands:
       - set -e
@@ -19,7 +19,6 @@ phases:
       - openvpn --config ~/cjse-${WORKSPACE}-config.ovpn --daemon
       - export STACK_TYPE="$(echo $WORKSPACE | sed 's/dev-//g')"
       - make setup-e2e-tests
-      - cd e2e-tests
       - npm i
       - source ./workspaces/${WORKSPACE}.env
       - CI=true npm run test

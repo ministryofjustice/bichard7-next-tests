@@ -40,7 +40,7 @@ function fetchParam() {
 }
 
 mkdir -p e2e-tests/workspaces
-TEST_ENV_FILE="e2e-tests/workspaces/${WORKSPACE}.env"
+TEST_ENV_FILE="workspaces/${WORKSPACE}.env"
 rm -f $TEST_ENV_FILE
 
 if [ "$WORKSPACE" = 'local' ]
