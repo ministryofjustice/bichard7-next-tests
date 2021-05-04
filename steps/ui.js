@@ -61,15 +61,19 @@ const openRecordFor = async (name) => {
 const isExceptionEditable = async () => {
   await page.waitForSelector("#br7_exception_details");
   await page.click("#br7_button_Defendant");
-  await page.waitForSelector("input[type='text'][name='newValue(ASN)']");
+  await page.waitForSelector(".br7_exception_details_column_name");
+
+  const editException = await page.$("input[type='text'][name='newValue(ASN)']");
+
+  return Boolean(editException);
 };
 
-const menuItemNotVisible = async (sectionName) => {
+const isMenuItemVisible = async (sectionName) => {
   const triggersBtn = await page.$(
-    `br7_exception_details_court_data_tabs_table input[type='submit'][value='${sectionName}']`
+    `.br7_exception_details_court_data_tabs_table input[type='submit'][value='${sectionName}']`
   );
 
-  expect(triggersBtn).toBeNull();
+  return Boolean(triggersBtn);
 };
 
 module.exports = {
@@ -79,6 +83,6 @@ module.exports = {
   findRecordFor,
   goToExceptionList,
   isExceptionEditable,
-  menuItemNotVisible,
+  isMenuItemVisible,
   openRecordFor
 };
