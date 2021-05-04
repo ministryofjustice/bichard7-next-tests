@@ -13,7 +13,7 @@ const {
 const Bichard = require("../../utils/helpers");
 const loadRelativeFeature = require("../../utils/load-relative-feature");
 
-const feature = loadRelativeFeature("./exception-handler.feature");
+const feature = loadRelativeFeature("./trigger-handler.feature");
 
 // shared background steps
 const givenAMessageIsReceived = (given) => {
@@ -29,8 +29,8 @@ const andThereIsAValidRecordInThePNC = (and) => {
   });
 };
 
-const andIAmLoggedInAsAn = (and) => {
-  and(/^I am logged in as an "(.*)"$/, logInAs);
+const andIAmLoggedInAsA = (and) => {
+  and(/^I am logged in as a "(.*)"$/, logInAs);
 };
 
 const whenIViewTheExceptionList = (when) => {
@@ -42,38 +42,40 @@ const andIOpenTheRecordFor = (and) => {
 };
 
 defineFeature(feature, (test) => {
-  test("Exception handler can see exceptions", async ({ given, and, when, then }) => {
+  test("Trigger handler can see triggers", async ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
-    andIAmLoggedInAsAn(and);
+    andIAmLoggedInAsA(and);
     whenIViewTheExceptionList(when);
-    then(/I see exception "(.*)" in the "(.*)" column/, checkValueInColumn);
-    and(/I cannot see "(.*)" in the "(.*)" column/, checkValueNotInColumn);
+
+    then(/^I see trigger "(.*)" in the "(.*)" column$/, checkValueInColumn);
+    and(/^I cannot see "(.*)" in the "(.*)" column$/, checkValueNotInColumn);
   });
 
-  test("Exception handlers can handle exceptions", ({ given, and, when, then }) => {
+  test("Trigger handlers can handle triggers", ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
-    andIAmLoggedInAsAn(and);
+    andIAmLoggedInAsA(and);
     whenIViewTheExceptionList(when);
     andIOpenTheRecordFor(and);
 
-    then("I can correct the exception", async () => {
+    then("I cannot correct the exception", async () => {
       const editable = await isExceptionEditable();
-      expect(editable).toBe(true);
+
+      expect(editable).toBe(false);
     });
   });
 
-  test("Exception handlers cannot see triggers", ({ given, and, when, then }) => {
+  test("Trigger handlers can see triggers", ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
-    andIAmLoggedInAsAn(and);
+    andIAmLoggedInAsA(and);
     whenIViewTheExceptionList(when);
     andIOpenTheRecordFor(and);
 
-    then(/the "(.*)" menu item is not visible/, async (sectionName) => {
+    then(/the "(.*)" menu item is visible/, async (sectionName) => {
       const visible = await isMenuItemVisible(sectionName);
-      expect(visible).toBe(false);
+      expect(visible).toBe(true);
     });
   });
 });
