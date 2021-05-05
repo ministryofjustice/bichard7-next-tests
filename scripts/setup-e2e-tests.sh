@@ -49,9 +49,10 @@ then
 fi
 
 AWS_CLI_PATH="$(which aws)"
+PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pncemulator" | cut -c1-32)
 aws_credential_check
 WAS_IP=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7 --query 'LoadBalancers[0].DNSName' --output text)
-PNC_HOST=$($AWS_CLI_PATH ec2 describe-instances --region eu-west-2 --filters Name=tag:Name,Values=cjse-${WORKSPACE}-bichard-7-pncemulator  Name=instance-state-name,Values=running --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
+PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names ${PNC_ELB_NAME} --query 'LoadBalancers[0].DNSName' --output text)
 
 if [ "$STACK_TYPE" = 'next' ]
 then
@@ -105,3 +106,4 @@ else
 fi
 
 echo 'Done'
+
