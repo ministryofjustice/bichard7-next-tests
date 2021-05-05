@@ -7,7 +7,8 @@ const {
   isExceptionEditable,
   isMenuItemVisible,
   openRecordFor,
-  containsValue
+  containsValue,
+  reallocateCase
 } = require("../../steps/ui");
 const Bichard = require("../../utils/helpers");
 const loadRelativeFeature = require("../../utils/load-relative-feature");
@@ -83,5 +84,15 @@ defineFeature(feature, (test) => {
       const visible = await isMenuItemVisible(sectionName);
       expect(visible).toBe(true);
     });
+  });
+
+  test("General handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
+    givenAMessageIsReceived(given);
+    andThereIsAValidRecordInThePNC(and);
+    andIAmLoggedInAsA(and);
+    whenIViewTheExceptionList(when);
+    andIOpenTheRecordFor(and);
+
+    then(/I can reallocate the case to another force area/, reallocateCase);
   });
 });

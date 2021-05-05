@@ -84,4 +84,17 @@ defineFeature(feature, (test) => {
       expect(visible).toBe(true);
     });
   });
+
+  test("Trigger handlers cannot reallocate cases to another force area", ({ given, and, when, then }) => {
+    givenAMessageIsReceived(given);
+    andThereIsAValidRecordInThePNC(and);
+    andIAmLoggedInAsA(and);
+    whenIViewTheExceptionList(when);
+    andIOpenTheRecordFor(and);
+
+    then(/I cannot reallocate the case to another force area$/, async () => {
+      const reallocateBtn = await page.$("#reallocateAction");
+      expect(reallocateBtn).toBeFalsy();
+    });
+  });
 });
