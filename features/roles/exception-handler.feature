@@ -11,8 +11,8 @@ Feature: Exception handler permissions
     When I view the list of exceptions
 
   Scenario: Exception handler can see exceptions
-    Then I see exception "HO100300" in the "Reason" column
-    And I cannot see "TRPR0010" in the "Reason" column
+    Then I see exception "HO100300" in the exception list table
+    And I cannot see "TRPR0010" in the exception list table
 
   Scenario: Exception handlers can handle exceptions
     And I open the record for "Rigout Dean"

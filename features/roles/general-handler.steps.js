@@ -3,16 +3,16 @@ const { logInAs } = require("../../steps/auth");
 const { sendMessage } = require("../../steps/mq");
 const { createValidRecordInPNC } = require("../../steps/pnc");
 const {
-  containsValue,
   goToExceptionList,
   isExceptionEditable,
   isMenuItemVisible,
-  openRecordFor
+  openRecordFor,
+  containsValue
 } = require("../../steps/ui");
 const Bichard = require("../../utils/helpers");
 const loadRelativeFeature = require("../../utils/load-relative-feature");
 
-const feature = loadRelativeFeature("./trigger-handler.feature");
+const feature = loadRelativeFeature("./general-handler.feature");
 
 // shared background steps
 const givenAMessageIsReceived = (given) => {
@@ -41,7 +41,7 @@ const andIOpenTheRecordFor = (and) => {
 };
 
 defineFeature(feature, (test) => {
-  test("Trigger handler can see triggers", async ({ given, and, when, then }) => {
+  test("General handler can see triggers", async ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
     andIAmLoggedInAsA(and);
@@ -52,34 +52,34 @@ defineFeature(feature, (test) => {
       expect(isVisible).toBe(true);
     });
 
-    and(/^I cannot see "(.*)" in the exception list table$/, async (value) => {
+    and(/^I see "(.*)" in the exception list table$/, async (value) => {
       const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
-      expect(isVisible).toBe(false);
+      expect(isVisible).toBe(true);
     });
   });
 
-  test("Trigger handlers cannot handle exceptions", ({ given, and, when, then }) => {
+  test("General handlers can handle exceptions", ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
     andIAmLoggedInAsA(and);
     whenIViewTheExceptionList(when);
     andIOpenTheRecordFor(and);
 
-    then("I cannot correct the exception", async () => {
+    then("I can correct the exception", async () => {
       const editable = await isExceptionEditable();
 
-      expect(editable).toBe(false);
+      expect(editable).toBe(true);
     });
   });
 
-  test("Trigger handlers can handle triggers", ({ given, and, when, then }) => {
+  test("General handlers can handle triggers", ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
     andIAmLoggedInAsA(and);
     whenIViewTheExceptionList(when);
     andIOpenTheRecordFor(and);
 
-    then(/^the "(.*)" menu item is visible$/, async (sectionName) => {
+    then(/the "(.*)" menu item is visible/, async (sectionName) => {
       const visible = await isMenuItemVisible(sectionName);
       expect(visible).toBe(true);
     });

@@ -3,8 +3,7 @@ const { logInAs } = require("../../steps/auth");
 const { sendMessage } = require("../../steps/mq");
 const { createValidRecordInPNC } = require("../../steps/pnc");
 const {
-  checkValueInColumn,
-  checkValueNotInColumn,
+  containsValue,
   goToExceptionList,
   isExceptionEditable,
   isMenuItemVisible,
@@ -47,8 +46,16 @@ defineFeature(feature, (test) => {
     andThereIsAValidRecordInThePNC(and);
     andIAmLoggedInAsAn(and);
     whenIViewTheExceptionList(when);
-    then(/I see exception "(.*)" in the "(.*)" column/, checkValueInColumn);
-    and(/I cannot see "(.*)" in the "(.*)" column/, checkValueNotInColumn);
+
+    then(/^I see exception "(.*)" in the exception list table$/, async (value) => {
+      const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
+      expect(isVisible).toBe(true);
+    });
+
+    and(/^I cannot see "(.*)" in the exception list table$/, async (value) => {
+      const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
+      expect(isVisible).toBe(false);
+    });
   });
 
   test("Exception handlers can handle exceptions", ({ given, and, when, then }) => {
