@@ -21,34 +21,14 @@ const checkNoPncErrors = async () => {
   );
 };
 
-const getFirstRecordCellValue = async (page, columnName) => {
-  await page.waitForSelector(".br7_exception_list_record_table_header");
-  const exceptionListHeaders = await page.$$eval(".br7_exception_list_record_table_header", (headers) =>
-    headers.map((h) => h.textContent)
-  );
+const containsValue = async (page, selector, value) => {
+  await page.waitForSelector(selector);
 
-  const colNumber = exceptionListHeaders.indexOf(columnName) + 1; // needed for a selector which is not 0-indexed
+  const matches = await page.$$(selector).then((els) => els.map((el) => el.getProperty("innerText")));
+  const innerTexts = await Promise.all(matches);
+  const jsonValues = await Promise.all(await innerTexts.map((m) => m.jsonValue()));
 
-  const cellValue = await page
-    .$(`.resultsTable > tbody > tr:nth-child(3) > td:nth-child(${colNumber})`)
-    .then((el) => el.getProperty("innerText"))
-    .then((el) => el.jsonValue());
-
-  return cellValue;
-};
-
-const checkValueInColumn = async (exceptionCode, columnName) => {
-  await waitForRecord(page);
-  const actualExceptionCode = await getFirstRecordCellValue(page, columnName);
-
-  expect(actualExceptionCode).toContain(exceptionCode);
-};
-
-const checkValueNotInColumn = async (exceptionCode, columnName) => {
-  await waitForRecord(page);
-  const actualExceptionCode = await getFirstRecordCellValue(page, columnName);
-
-  expect(actualExceptionCode).not.toContain(exceptionCode);
+  return Boolean(jsonValues.find((j) => j.includes(value)));
 };
 
 const openRecordFor = async (name) => {
@@ -78,8 +58,7 @@ const isMenuItemVisible = async (sectionName) => {
 
 module.exports = {
   checkNoPncErrors,
-  checkValueInColumn,
-  checkValueNotInColumn,
+  containsValue,
   findRecordFor,
   goToExceptionList,
   isExceptionEditable,
