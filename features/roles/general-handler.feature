@@ -22,3 +22,6 @@ Feature: General handler permissions
     And I open the record for "Rigout Dean"
     Then the "Triggers" menu item is visible
     
+  Scenario: General handlers can reallocate cases to another force area
+    And I open the record for "Rigout Dean"
+    Then I can reallocate the case to another force area

@@ -56,6 +56,32 @@ const isMenuItemVisible = async (sectionName) => {
   return Boolean(triggersBtn);
 };
 
+const reallocateCase = async () => {
+  await page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
+  await page.waitForSelector("#reallocateAction");
+
+  // Bedfordshire Police has value 28...
+  await page.select("#reallocateAction", "28");
+
+  await page.click("input[value='OK']");
+
+  await page.waitForSelector(".resultsTable a.br7_exception_list_record_table_link");
+  await page.click(".resultsTable a.br7_exception_list_record_table_link");
+
+  await page.waitForSelector(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
+
+  await page.click(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
+
+  await page.waitForSelector("#br7_exception_details_display_notes tr > td");
+
+  const latestNote = await page
+    .$("#br7_exception_details_display_notes tr > td")
+    .then((el) => el.getProperty("innerText"))
+    .then((el) => el.jsonValue());
+
+  expect(latestNote).toContain("Case reallocated to new force owner");
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -63,5 +89,6 @@ module.exports = {
   goToExceptionList,
   isExceptionEditable,
   isMenuItemVisible,
-  openRecordFor
+  openRecordFor,
+  reallocateCase
 };
