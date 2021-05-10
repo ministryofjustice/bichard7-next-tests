@@ -85,7 +85,7 @@ defineFeature(feature, (test) => {
     });
   });
 
-  test.only("Exception handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
+  test("Exception handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
     givenAMessageIsReceived(given);
     andThereIsAValidRecordInThePNC(and);
     andIAmLoggedInAsAn(and);

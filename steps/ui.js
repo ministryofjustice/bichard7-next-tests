@@ -38,10 +38,22 @@ const openRecordFor = async (name) => {
   await page.waitForSelector("#br7_exception_details_pnc_data_table");
 };
 
+const loadRecordTab = async (selectorToClick, selectorToWaitFor) => {
+  await page.waitForSelector(selectorToClick);
+  await page.click(selectorToClick);
+  await page.waitForSelector(selectorToWaitFor);
+};
+
+const loadDefendantTab = async () => {
+  await loadRecordTab("#br7_button_Defendant", ".br7_exception_details_column_name");
+};
+
+const loadTriggersTab = async () => {
+  await loadRecordTab("#br7_button_Trigger", ".br7_exception_details_trigger_description_column");
+};
+
 const isExceptionEditable = async () => {
-  await page.waitForSelector("#br7_exception_details");
-  await page.click("#br7_button_Defendant");
-  await page.waitForSelector(".br7_exception_details_column_name");
+  await loadDefendantTab();
 
   const editException = await page.$("input[type='text'][name='newValue(ASN)']");
 
@@ -89,6 +101,8 @@ module.exports = {
   goToExceptionList,
   isExceptionEditable,
   isMenuItemVisible,
+  loadDefendantTab,
+  loadTriggersTab,
   openRecordFor,
   reallocateCase
 };
