@@ -6,7 +6,6 @@ const puppeteerConfig = () => {
   return {
     browserContext: "incognito",
     launch: {
-      dumpio: true,
       baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
       headless: process.env.HEADLESS !== "false",
       args: [
