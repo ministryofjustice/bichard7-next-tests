@@ -47,8 +47,10 @@ defineFeature(feature, (test) => {
       const editable = await isExceptionEditable();
       expect(editable).toBe(false);
 
-      const editBtns = await page.$$("#br7_exception_details_view_edit_buttons > input");
-      expect(editBtns).toEqual([]);
+      // auditors can only select "Return To List" so there should only be one "edit" button
+      const editBtnsWrapper = await page.waitForSelector("#br7_exception_details_view_edit_buttons");
+      const editBtns = await editBtnsWrapper.$$eval("input", (inputs) => inputs.length);
+      expect(editBtns).toEqual(1);
     });
   });
 });

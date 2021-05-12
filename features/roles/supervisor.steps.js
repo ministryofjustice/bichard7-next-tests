@@ -78,9 +78,8 @@ defineFeature(feature, (test) => {
       // remove user
       await page.click(removeUserCheckboxSelector);
       await page.click("input[type='submit'][value='Remove Selected Users']");
-      const remove = await page.$(removeUserCheckboxSelector);
 
-      expect(remove).toBeNull();
+      await page.waitForFunction(() => !document.querySelector("input[type='checkbox'][name='usersToRemove']"));
     });
   });
 });
