@@ -2,6 +2,11 @@ require("expect-puppeteer");
 const Bichard = require("./utils/helpers");
 const { logout } = require("./utils/urls");
 
+// increase puppeteer timeout for jsdom-based tests
+if (typeof page !== "undefined") {
+  page.setDefaultTimeout(60000);
+}
+
 if (process.env.CI) {
   jest.setTimeout(60000);
 } else {
