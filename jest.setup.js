@@ -3,7 +3,6 @@ const Bichard = require("./utils/helpers");
 const { logout } = require("./utils/urls");
 
 if (process.env.CI) {
-  console.log("Setting timeout to 60 seconds");
   jest.setTimeout(60000);
 } else {
   jest.setTimeout(20000);
