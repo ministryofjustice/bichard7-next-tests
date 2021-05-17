@@ -2,6 +2,9 @@ require("expect-puppeteer");
 const Bichard = require("./utils/helpers");
 const { logout } = require("./utils/urls");
 
+// run tests a max of 3 times just in case
+jest.retryTimes(3);
+
 // increase puppeteer timeout for jsdom-based tests
 if (typeof page !== "undefined") {
   page.setDefaultTimeout(60000);
