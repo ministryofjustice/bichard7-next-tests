@@ -66,12 +66,19 @@ const exceptionIsEditable = async () => {
   expect(editable).toBe(true);
 };
 
-const isMenuItemVisible = async (sectionName) => {
+const isButtonVisible = async (sectionName) => {
   const triggersBtn = await page.$(
     `.br7_exception_details_court_data_tabs_table input[type='submit'][value='${sectionName}']`
   );
 
   return Boolean(triggersBtn);
+};
+
+const clickMainTab = async (label) => {
+  await page.waitForSelector("span.wpsNavLevel1");
+
+  const links = await page.$$eval("span.wpsNavLevel1", (sections) => sections.map((s) => s.textContent));
+  expect(links).toContain(label);
 };
 
 const reallocateCase = async () => {
@@ -125,13 +132,13 @@ const cannotSeeException = async (exception) => {
   expect(isVisible).toBe(false);
 };
 
-const menuIsNotVisible = async (sectionName) => {
-  const visible = await isMenuItemVisible(sectionName);
+const buttonIsNotVisible = async (sectionName) => {
+  const visible = await isButtonVisible(sectionName);
   expect(visible).toBe(false);
 };
 
-const menuIsVisible = async (sectionName) => {
-  const visible = await isMenuItemVisible(sectionName);
+const buttonIsVisible = async (sectionName) => {
+  const visible = await isButtonVisible(sectionName);
   expect(visible).toBe(true);
 };
 
@@ -157,13 +164,57 @@ const exceptionIsReadOnly = async () => {
   expect(editBtns).toEqual(1);
 };
 
+const canSeeReports = async () => {
+  const [, reportsBtn] = await page.$$("span.wpsNavLevel1");
+  await reportsBtn.click();
+
+  await page.waitForSelector("#report-index-list .wpsNavLevel2");
+
+  await expect(page).toMatch("Live Status Summary");
+};
+
+const canSeeQAStatus = async () => {
+  await page.waitForSelector(".resultsTable");
+
+  const exceptionTableHeaders = await page.$$eval(".resultsTable th", (headers) =>
+    headers.map((h) => h.textContent.trim())
+  );
+
+  expect(exceptionTableHeaders).toContain("QA Status");
+};
+
+const visitTeamPage = async () => {
+  await page.waitForSelector("span.wpsNavLevel1");
+
+  const links = await page.$$eval("span.wpsNavLevel1", (sections) => sections.map((s) => s.textContent));
+  expect(links).toContain("Team");
+
+  const [, , teamBtn] = await page.$$("span.wpsNavLevel1");
+  await Promise.all([teamBtn.click(), page.waitForSelector("#br7_team_management_own_team")]);
+  await expect(page).toMatch("My Team Members");
+};
+
+const editTeam = async () => {
+  const removeUserCheckboxSelector = "input[type='checkbox'][name='usersToRemove']";
+
+  // add user
+  await expect(page).toFill("input[name='userToAdd']", "username");
+  await expect(page).toClick("input[type='submit'][value='Add User']");
+  await page.waitForSelector(removeUserCheckboxSelector);
+
+  // remove user
+  await page.click(removeUserCheckboxSelector);
+  await page.click("input[type='submit'][value='Remove Selected Users']");
+
+  await page.waitForFunction(() => !document.querySelector("input[type='checkbox'][name='usersToRemove']"));
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
   findRecordFor,
   goToExceptionList,
   isExceptionEditable,
-  isMenuItemVisible,
   loadDefendantTab,
   loadTriggersTab,
   openRecordFor,
@@ -173,9 +224,14 @@ module.exports = {
   canSeeException,
   cannotSeeException,
   exceptionIsEditable,
-  menuIsNotVisible,
-  menuIsVisible,
+  buttonIsVisible,
+  buttonIsNotVisible,
+  clickMainTab,
   triggersAreVisible,
   exceptionsAreVisible,
-  exceptionIsReadOnly
+  exceptionIsReadOnly,
+  canSeeReports,
+  canSeeQAStatus,
+  visitTeamPage,
+  editTeam
 };

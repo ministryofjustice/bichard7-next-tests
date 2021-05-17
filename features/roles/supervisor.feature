@@ -1,9 +1,9 @@
 Feature: Supervisor role
 
-    Supervisors can:
-    - run reports
-    - perform quality control
-    - manage their team
+  Supervisors can:
+  - run reports
+  - perform quality control
+  - manage their team
 
   Scenario: Supervisors can run reports
     Given I am logged in as a "supervisor"
@@ -18,6 +18,5 @@ Feature: Supervisor role
 
   Scenario: Supervisors can manage their team
     Given I am logged in as a "supervisor"
-    When I click the "Team" menu button
-    Then I am taken to the Team Management screen
-    And I can add and remove members from my team
+    When I visit the Team Management screen
+    Then I can add and remove members from my team

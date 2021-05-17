@@ -9,7 +9,7 @@ const {
   canSeeException,
   cannotSeeException,
   exceptionIsEditable,
-  menuIsNotVisible
+  buttonIsNotVisible
 } = require("../../steps/ui");
 const Bichard = require("../../utils/helpers");
 const loadRelativeFeature = require("../../utils/load-relative-feature");
@@ -41,7 +41,7 @@ defineFeature(feature, (test) => {
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/I open the record for "(.*)"/, openRecordFor);
-    then(/the "(.*)" menu item is not visible/, menuIsNotVisible);
+    then(/the "(.*)" menu item is not visible/, buttonIsNotVisible);
   });
 
   test("Exception handlers can reallocate cases to another force area", ({ given, and, when, then }) => {

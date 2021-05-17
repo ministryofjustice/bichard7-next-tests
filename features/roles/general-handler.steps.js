@@ -8,7 +8,7 @@ const {
   reallocateCase,
   exceptionIsEditable,
   canSeeException,
-  menuIsVisible,
+  buttonIsVisible,
   canSeeTrigger
 } = require("../../steps/ui");
 const Bichard = require("../../utils/helpers");
@@ -41,7 +41,7 @@ defineFeature(feature, (test) => {
     and(/^I am logged in as a "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/^I open the record for "(.*)"/, openRecordFor);
-    then(/^the "(.*)" menu item is visible/, menuIsVisible);
+    then(/^the "(.*)" menu item is visible/, buttonIsVisible);
   });
 
   test("General handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
