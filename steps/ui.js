@@ -33,9 +33,10 @@ const containsValue = async (page, selector, value) => {
 
 const openRecordFor = async (name) => {
   await waitForRecord(page);
-  await page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
-
-  await page.waitForSelector("#br7_exception_details_pnc_data_table");
+  await Promise.all([
+    page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`),
+    page.waitForSelector("#br7_exception_details_pnc_data_table")
+  ]);
 };
 
 const loadRecordTab = async (selectorToClick, selectorToWaitFor) => {
@@ -60,7 +61,17 @@ const isExceptionEditable = async () => {
   return Boolean(editException);
 };
 
-const isMenuItemVisible = async (sectionName) => {
+const exceptionIsEditable = async () => {
+  const editable = await isExceptionEditable();
+  expect(editable).toBe(true);
+};
+
+const exceptionIsNotEditable = async () => {
+  const editable = await isExceptionEditable();
+  expect(editable).toBe(false);
+};
+
+const isButtonVisible = async (sectionName) => {
   const triggersBtn = await page.$(
     `.br7_exception_details_court_data_tabs_table input[type='submit'][value='${sectionName}']`
   );
@@ -68,19 +79,31 @@ const isMenuItemVisible = async (sectionName) => {
   return Boolean(triggersBtn);
 };
 
+const clickMainTab = async (label) => {
+  await page.waitForSelector("span.wpsNavLevel1");
+
+  const links = await page.$$eval("span.wpsNavLevel1", (sections) => sections.map((s) => s.textContent));
+  expect(links).toContain(label);
+};
+
 const reallocateCase = async () => {
-  await page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
-  await page.waitForSelector("#reallocateAction");
+  await Promise.all([
+    page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']"),
+    page.waitForNavigation()
+  ]);
 
   // Bedfordshire Police has value 28...
   await page.select("#reallocateAction", "28");
 
-  await page.click("input[value='OK']");
+  await Promise.all([
+    page.click("input[value='OK']"),
+    page.waitForSelector(".resultsTable a.br7_exception_list_record_table_link")
+  ]);
 
-  await page.waitForSelector(".resultsTable a.br7_exception_list_record_table_link");
-  await page.click(".resultsTable a.br7_exception_list_record_table_link");
-
-  await page.waitForSelector(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
+  await Promise.all([
+    page.click(".resultsTable a.br7_exception_list_record_table_link"),
+    page.waitForSelector(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']")
+  ]);
 
   await page.click(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
 
@@ -94,15 +117,133 @@ const reallocateCase = async () => {
   expect(latestNote).toContain("Case reallocated to new force owner");
 };
 
+const canSeeTrigger = async (value) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
+  expect(isVisible).toBe(true);
+};
+
+const cannotSeeTrigger = async (value) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
+  expect(isVisible).toBe(false);
+};
+
+const canSeeException = async (exception) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", exception);
+  expect(isVisible).toBe(true);
+};
+
+const cannotSeeException = async (exception) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", exception);
+  expect(isVisible).toBe(false);
+};
+
+const buttonIsNotVisible = async (sectionName) => {
+  const visible = await isButtonVisible(sectionName);
+  expect(visible).toBe(false);
+};
+
+const buttonIsVisible = async (sectionName) => {
+  const visible = await isButtonVisible(sectionName);
+  expect(visible).toBe(true);
+};
+
+const triggersAreVisible = async () => {
+  await loadTriggersTab();
+
+  await expect(page).toMatch("TRPR0010 - Bail conditions imposed/varied/cancelled - update remand screen");
+};
+
+const exceptionsAreVisible = async () => {
+  await loadDefendantTab();
+
+  await expect(page).toMatch("HO100300 - Organisation not recognised");
+};
+
+const exceptionIsReadOnly = async () => {
+  const editable = await isExceptionEditable();
+  expect(editable).toBe(false);
+
+  // auditors can only select "Return To List" so there should only be one "edit" button
+  const editBtnsWrapper = await page.waitForSelector("#br7_exception_details_view_edit_buttons");
+  const editBtns = await editBtnsWrapper.$$eval("input", (inputs) => inputs.length);
+  expect(editBtns).toEqual(1);
+};
+
+const canSeeReports = async () => {
+  const [, reportsBtn] = await page.$$("span.wpsNavLevel1");
+  await reportsBtn.click();
+
+  await page.waitForSelector("#report-index-list .wpsNavLevel2");
+
+  await expect(page).toMatch("Live Status Summary");
+};
+
+const canSeeQAStatus = async () => {
+  await page.waitForSelector(".resultsTable");
+
+  const exceptionTableHeaders = await page.$$eval(".resultsTable th", (headers) =>
+    headers.map((h) => h.textContent.trim())
+  );
+
+  expect(exceptionTableHeaders).toContain("QA Status");
+};
+
+const visitTeamPage = async () => {
+  await page.waitForSelector("span.wpsNavLevel1");
+
+  const links = await page.$$eval("span.wpsNavLevel1", (sections) => sections.map((s) => s.textContent));
+  expect(links).toContain("Team");
+
+  const [, , teamBtn] = await page.$$("span.wpsNavLevel1");
+  await Promise.all([teamBtn.click(), page.waitForSelector("#br7_team_management_own_team")]);
+  await expect(page).toMatch("My Team Members");
+};
+
+const editTeam = async () => {
+  const removeUserCheckboxSelector = "input[type='checkbox'][name='usersToRemove']";
+
+  // add user
+  await expect(page).toFill("input[name='userToAdd']", "username");
+  await expect(page).toClick("input[type='submit'][value='Add User']");
+  await page.waitForSelector(removeUserCheckboxSelector);
+
+  // remove user
+  await page.click(removeUserCheckboxSelector);
+  await page.click("input[type='submit'][value='Remove Selected Users']");
+
+  await page.waitForFunction(() => !document.querySelector("input[type='checkbox'][name='usersToRemove']"));
+};
+
+const cannotReallocateCase = async () => {
+  const reallocateBtn = await page.$("#reallocateAction");
+  expect(reallocateBtn).toBeFalsy();
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
   findRecordFor,
   goToExceptionList,
   isExceptionEditable,
-  isMenuItemVisible,
   loadDefendantTab,
   loadTriggersTab,
   openRecordFor,
-  reallocateCase
+  reallocateCase,
+  cannotReallocateCase,
+  canSeeTrigger,
+  cannotSeeTrigger,
+  canSeeException,
+  cannotSeeException,
+  exceptionIsEditable,
+  exceptionIsNotEditable,
+  buttonIsVisible,
+  buttonIsNotVisible,
+  clickMainTab,
+  triggersAreVisible,
+  exceptionsAreVisible,
+  exceptionIsReadOnly,
+  canSeeReports,
+  canSeeQAStatus,
+  visitTeamPage,
+  editTeam
 };

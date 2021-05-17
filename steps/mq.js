@@ -1,8 +1,9 @@
 const Bichard = require("../utils/helpers");
 
 const sendMessage = async (messageId) => {
+  const messageIdVal = messageId || "court_result_input_1";
   const helpers = new Bichard();
-  await helpers.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageId);
+  await helpers.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageIdVal);
 };
 
 const aMessageIsReceived = (step) => {

@@ -59,10 +59,10 @@ jobs:
             make run-beanconnect
           name: Run BeanConnect and PNC Emulator docker services
       - run:
-          name: Wait for Websphere
+          name: Wait for Bichard
           command: |
             cd ~/bichard7-next
-            ./scripts/was/wait_for_websphere.sh
+            bash ./scripts/wait_for_bichard.sh
       - checkout
       - run:
           name: Build E2E tests
@@ -105,10 +105,10 @@ jobs:
             make run-beanconnect
           name: Run BeanConnect and PNC Emulator docker services
       - run:
-          name: Wait for Websphere
+          name: Wait for Bichard
           command: |
             cd ~/bichard7-next
-            ./scripts/was/wait_for_websphere.sh
+            bash ./scripts/wait_for_bichard.sh
       - run:
           name: Wait for DB2
           command: |
