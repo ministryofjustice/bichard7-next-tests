@@ -105,6 +105,16 @@ const reallocateCase = async () => {
   expect(latestNote).toContain("Case reallocated to new force owner");
 };
 
+const canSeeTrigger = async (value) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
+  expect(isVisible).toBe(true);
+};
+
+const cannotSeeTrigger = async (value) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", value);
+  expect(isVisible).toBe(false);
+};
+
 const canSeeException = async (exception) => {
   const isVisible = await containsValue(page, ".resultsTable > tbody td", exception);
   expect(isVisible).toBe(true);
@@ -120,6 +130,33 @@ const menuIsNotVisible = async (sectionName) => {
   expect(visible).toBe(false);
 };
 
+const menuIsVisible = async (sectionName) => {
+  const visible = await isMenuItemVisible(sectionName);
+  expect(visible).toBe(true);
+};
+
+const triggersAreVisible = async () => {
+  await loadTriggersTab();
+
+  await expect(page).toMatch("TRPR0010 - Bail conditions imposed/varied/cancelled - update remand screen");
+};
+
+const exceptionsAreVisible = async () => {
+  await loadDefendantTab();
+
+  await expect(page).toMatch("HO100300 - Organisation not recognised");
+};
+
+const exceptionIsReadOnly = async () => {
+  const editable = await isExceptionEditable();
+  expect(editable).toBe(false);
+
+  // auditors can only select "Return To List" so there should only be one "edit" button
+  const editBtnsWrapper = await page.waitForSelector("#br7_exception_details_view_edit_buttons");
+  const editBtns = await editBtnsWrapper.$$eval("input", (inputs) => inputs.length);
+  expect(editBtns).toEqual(1);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -131,8 +168,14 @@ module.exports = {
   loadTriggersTab,
   openRecordFor,
   reallocateCase,
+  canSeeTrigger,
+  cannotSeeTrigger,
   canSeeException,
   cannotSeeException,
   exceptionIsEditable,
-  menuIsNotVisible
+  menuIsNotVisible,
+  menuIsVisible,
+  triggersAreVisible,
+  exceptionsAreVisible,
+  exceptionIsReadOnly
 };

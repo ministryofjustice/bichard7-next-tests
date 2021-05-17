@@ -18,7 +18,7 @@ const feature = loadRelativeFeature("./exception-handler.feature");
 
 defineFeature(feature, (test) => {
   test("Exception handler can see exceptions", async ({ given, and, when, then }) => {
-    given("a message is received", sendMessage);
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
@@ -27,29 +27,29 @@ defineFeature(feature, (test) => {
   });
 
   test("Exception handlers can handle exceptions", ({ given, and, when, then }) => {
-    given("a message is received", sendMessage);
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
-    and(/I open the record for "(.*)"/, openRecordFor);
-    then("I can correct the exception", exceptionIsEditable);
+    and(/^I open the record for "(.*)"/, openRecordFor);
+    then(/^I can correct the exception/, exceptionIsEditable);
   });
 
   test("Exception handlers cannot see triggers", ({ given, and, when, then }) => {
-    given("a message is received", sendMessage);
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
     and(/^I am logged in as an "(.*)"$/, logInAs);
-    when("I view the list of exceptions", goToExceptionList);
+    when(/^I view the list of exceptions/, goToExceptionList);
     and(/I open the record for "(.*)"/, openRecordFor);
     then(/the "(.*)" menu item is not visible/, menuIsNotVisible);
   });
 
   test("Exception handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
-    given("a message is received", sendMessage);
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
     and(/^I am logged in as an "(.*)"$/, logInAs);
-    when("I view the list of exceptions", goToExceptionList);
-    and(/I open the record for "(.*)"/, openRecordFor);
-    then(/I can reallocate the case to another force area$/, reallocateCase);
+    when(/^I view the list of exceptions/, goToExceptionList);
+    and(/^I open the record for "(.*)"/, openRecordFor);
+    then(/^I can reallocate the case to another force area$/, reallocateCase);
   });
 });

@@ -1,6 +1,6 @@
 Feature: Audit role
 
-    Auditors can view resolved and unresolved exceptions/triggers, but they cannot update them. (i.e. read-only access)
+  Auditors can view resolved and unresolved exceptions/triggers, but they cannot update them. (i.e. read-only access)
 
   Scenario: Auditors have read only access
     Given a message is received
