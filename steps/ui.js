@@ -33,9 +33,10 @@ const containsValue = async (page, selector, value) => {
 
 const openRecordFor = async (name) => {
   await waitForRecord(page);
-  await page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
-
-  await page.waitForSelector("#br7_exception_details_pnc_data_table");
+  await Promise.all([
+    page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`),
+    page.waitForSelector("#br7_exception_details_pnc_data_table")
+  ]);
 };
 
 const loadRecordTab = async (selectorToClick, selectorToWaitFor) => {
@@ -60,6 +61,11 @@ const isExceptionEditable = async () => {
   return Boolean(editException);
 };
 
+const exceptionIsEditable = async () => {
+  const editable = await isExceptionEditable();
+  expect(editable).toBe(true);
+};
+
 const isMenuItemVisible = async (sectionName) => {
   const triggersBtn = await page.$(
     `.br7_exception_details_court_data_tabs_table input[type='submit'][value='${sectionName}']`
@@ -69,18 +75,23 @@ const isMenuItemVisible = async (sectionName) => {
 };
 
 const reallocateCase = async () => {
-  await page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
-  await page.waitForSelector("#reallocateAction");
+  await Promise.all([
+    page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']"),
+    page.waitForNavigation()
+  ]);
 
   // Bedfordshire Police has value 28...
   await page.select("#reallocateAction", "28");
 
-  await page.click("input[value='OK']");
+  await Promise.all([
+    page.click("input[value='OK']"),
+    page.waitForSelector(".resultsTable a.br7_exception_list_record_table_link")
+  ]);
 
-  await page.waitForSelector(".resultsTable a.br7_exception_list_record_table_link");
-  await page.click(".resultsTable a.br7_exception_list_record_table_link");
-
-  await page.waitForSelector(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
+  await Promise.all([
+    page.click(".resultsTable a.br7_exception_list_record_table_link"),
+    page.waitForSelector(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']")
+  ]);
 
   await page.click(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
 
@@ -94,6 +105,21 @@ const reallocateCase = async () => {
   expect(latestNote).toContain("Case reallocated to new force owner");
 };
 
+const canSeeException = async (exception) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", exception);
+  expect(isVisible).toBe(true);
+};
+
+const cannotSeeException = async (exception) => {
+  const isVisible = await containsValue(page, ".resultsTable > tbody td", exception);
+  expect(isVisible).toBe(false);
+};
+
+const menuIsNotVisible = async (sectionName) => {
+  const visible = await isMenuItemVisible(sectionName);
+  expect(visible).toBe(false);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -104,5 +130,9 @@ module.exports = {
   loadDefendantTab,
   loadTriggersTab,
   openRecordFor,
-  reallocateCase
+  reallocateCase,
+  canSeeException,
+  cannotSeeException,
+  exceptionIsEditable,
+  menuIsNotVisible
 };
