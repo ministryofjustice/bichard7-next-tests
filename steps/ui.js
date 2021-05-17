@@ -66,6 +66,11 @@ const exceptionIsEditable = async () => {
   expect(editable).toBe(true);
 };
 
+const exceptionIsNotEditable = async () => {
+  const editable = await isExceptionEditable();
+  expect(editable).toBe(false);
+};
+
 const isButtonVisible = async (sectionName) => {
   const triggersBtn = await page.$(
     `.br7_exception_details_court_data_tabs_table input[type='submit'][value='${sectionName}']`
@@ -209,6 +214,11 @@ const editTeam = async () => {
   await page.waitForFunction(() => !document.querySelector("input[type='checkbox'][name='usersToRemove']"));
 };
 
+const cannotReallocateCase = async () => {
+  const reallocateBtn = await page.$("#reallocateAction");
+  expect(reallocateBtn).toBeFalsy();
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -219,11 +229,13 @@ module.exports = {
   loadTriggersTab,
   openRecordFor,
   reallocateCase,
+  cannotReallocateCase,
   canSeeTrigger,
   cannotSeeTrigger,
   canSeeException,
   cannotSeeException,
   exceptionIsEditable,
+  exceptionIsNotEditable,
   buttonIsVisible,
   buttonIsNotVisible,
   clickMainTab,
