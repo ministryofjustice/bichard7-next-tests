@@ -1,4 +1,7 @@
-FROM buildkite/puppeteer:latest
+ARG BUILD_IMAGE="buildkite/puppeteer:latest"
+FROM ${BUILD_IMAGE}
+
+LABEL maintainer="CJSE"
 
 WORKDIR /src
 
