@@ -35,7 +35,8 @@
     "jest-puppeteer": "^5.0.1",
     "pg-promise": "^10.10.1",
     "puppeteer": "^8.0.0",
-    "stompit": "^1.0.0"
+    "stompit": "^1.0.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.24.0",
