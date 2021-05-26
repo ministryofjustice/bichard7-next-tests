@@ -1,7 +1,6 @@
 const { StepFunctions } = require("aws-sdk");
-const uuid = require("uuid").v4;
 
-class StepFunctionsHelper {
+class IncomingMessageHandlerStateMachine {
   constructor(config) {
     this.stateMachine = new StepFunctions({
       endpoint: config.url,
@@ -15,7 +14,7 @@ class StepFunctionsHelper {
     this.incomingMessageBucketName = config.incomingMessageBucketName;
   }
 
-  async runIncomingMessagesStateMachine(s3FileName) {
+  async execute(s3FileName) {
     const executionName = s3FileName.replace(/\//g, "_");
     this.stateMachine
       .startExecution({
@@ -36,4 +35,4 @@ class StepFunctionsHelper {
   }
 }
 
-module.exports = StepFunctionsHelper;
+module.exports = IncomingMessageHandlerStateMachine;

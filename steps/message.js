@@ -1,5 +1,4 @@
 const uuid = require("uuid").v4;
-const Bichard = require("../utils/helpers");
 
 const uploadToS3 = (context) => async (messageId, externalCorrelationId, messageReceivedDate) => {
   const fileName = await context.incomingMessageBucket.upload(messageId, externalCorrelationId, messageReceivedDate);
@@ -9,7 +8,7 @@ const uploadToS3 = (context) => async (messageId, externalCorrelationId, message
   }
 
   if (context.isLocalWorkspace) {
-    const stateMachineResult = await context.stepFunctions.runIncomingMessagesStateMachine(fileName);
+    const stateMachineResult = await context.incomingMessageHandlerStateMachine.execute(fileName);
 
     if (stateMachineResult) {
       return false;

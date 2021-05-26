@@ -4,7 +4,7 @@ const ActiveMqHelper = require("../helpers/ActiveMqHelper");
 const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
-const StepFunctionsHelper = require("../helpers/StepFunctionsHelper");
+const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
 const AuditLoggingApi = require("../helpers/AuditLoggingApi");
 
 class Bichard {
@@ -34,15 +34,15 @@ class Bichard {
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET_NAME || "incoming-messages"
       });
 
-      this.stepFunctions = new StepFunctionsHelper({
+      this.incomingMessageHandlerStateMachine = new IncomingMessageHandlerStateMachine({
         url: process.env.AWS_URL || "http://localhost:4566",
-        region: process.env.LAMBDA_REGION || "us-east-1",
+        region: process.env.INCOMING_MESSAGE_HANDLER_REGION || "us-east-1",
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET_NAME || "incoming-messages"
       });
 
       this.auditLoggingApi = new AuditLoggingApi({
         url: process.env.AWS_URL || "http://localhost:4566",
-        region: process.env.STEP_FUNCTIONS_REGION || "us-east-1",
+        region: process.env.AUDIT_LOGGING_API_REGION || "us-east-1",
       });
     } else if (stackType === "baseline") {
       this.db = new Db2Helper({
