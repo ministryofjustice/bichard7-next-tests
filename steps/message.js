@@ -2,14 +2,14 @@ const uuid = require("uuid").v4;
 const Bichard = require("../utils/helpers");
 
 const uploadToS3 = (context) => async (messageId, externalCorrelationId, messageReceivedDate) => {
-  const s3FileName = await context.s3.uploadIncomingMessage(messageId, externalCorrelationId, messageReceivedDate);
+  const fileName = await context.incomingMessageBucket.upload(messageId, externalCorrelationId, messageReceivedDate);
 
-  if (typeof s3FileName !== "string") {
+  if (typeof fileName !== "string") {
     return false;
   }
 
   if (context.isLocalWorkspace) {
-    const stateMachineResult = await context.stepFunctions.runIncomingMessagesStateMachine(s3FileName);
+    const stateMachineResult = await context.stepFunctions.runIncomingMessagesStateMachine(fileName);
 
     if (stateMachineResult) {
       return false;

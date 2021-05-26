@@ -3,7 +3,7 @@ const Db2Helper = require("../helpers/Db2Helper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
 const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
-const S3Helper = require("../helpers/S3Helper");
+const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
 const StepFunctionsHelper = require("../helpers/StepFunctionsHelper");
 const AuditLoggingApi = require("../helpers/AuditLoggingApi");
 
@@ -28,7 +28,7 @@ class Bichard {
         password: process.env.MQ_PASSWORD || "admin"
       });
 
-      this.s3 = new S3Helper({
+      this.incomingMessageBucket = new IncomingMessageBucket({
         url: process.env.AWS_URL || "http://localhost:4566",
         region: process.env.S3_REGION || "us-east-1",
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET_NAME || "incoming-messages"

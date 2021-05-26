@@ -2,7 +2,7 @@ const { S3 } = require("aws-sdk");
 const { format } = require("date-fns");
 const fs = require("fs");
 
-class S3Helper {
+class IncomingMessageBucket {
   constructor(config) {
     this.s3Client = new S3({
       endpoint: config.url,
@@ -12,7 +12,7 @@ class S3Helper {
     this.incomingMessageBucketName = config.incomingMessageBucketName;
   }
 
-  async uploadIncomingMessage(messageId, externalCorrelationId, receivedDate) {
+  async upload(messageId, externalCorrelationId, receivedDate) {
     const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${messageId}.xml`;
     const content = (await fs.promises.readFile(`./fixtures/messages/${messageId}.xml`))
       .toString()
@@ -32,4 +32,4 @@ class S3Helper {
   }
 }
 
-module.exports = S3Helper;
+module.exports = IncomingMessageBucket;
