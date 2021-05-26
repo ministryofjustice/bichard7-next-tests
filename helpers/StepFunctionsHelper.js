@@ -16,7 +16,7 @@ class StepFunctionsHelper {
   }
 
   async runIncomingMessagesStateMachine(s3FileName) {
-    const executionName = s3FileName.replace(/\//g, "_") + uuid();
+    const executionName = s3FileName.replace(/\//g, "_");
     this.stateMachine
       .startExecution({
         stateMachineArn: `arn:aws:states:${this.region}:000000000000:stateMachine:IncomingMessageHandler`,
