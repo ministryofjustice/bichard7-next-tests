@@ -11,6 +11,7 @@ class Bichard {
   constructor() {
     const stackType = process.env.STACK_TYPE || "next";
     this.isLocalWorkspace = process.env.WORKSPACE === "local";
+    this.shouldUploadMessagesToS3 = (process.env.MESSAGE_ENTRY_POINT || "mq") === "s3";
 
     if (stackType === "next") {
       this.db = new PostgresHelper({
