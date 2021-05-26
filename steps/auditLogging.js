@@ -27,7 +27,6 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
 
 const pollMessagesForEvent = (context) => (externalCorrelationId, eventType) => {
   const axiosInstance = axios.create();
-  let result = false;
 
   const getMessages = async () =>
     axiosInstance
@@ -44,16 +43,11 @@ const pollMessagesForEvent = (context) => (externalCorrelationId, eventType) => 
         checkIfMessageHasEvent(message, externalCorrelationId, eventType)
       );
 
-      if (messages.length === 1) {
-        result = true;
-        return true;
-      }
-
-      return false;
+      return messages.length === 1;
     }
   };
 
-  return new Poller(getMessages).poll(options).then(result);
+  return new Poller(getMessages).poll(options);
 };
 
 module.exports = {
