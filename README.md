@@ -2,19 +2,20 @@
 
 This repository contains the end-to-end tests to run against Bichard in order to validate functionality.
 
-# Running tests
+## Running tests
 
-## In Docker
+### Locally
 
-Follow the [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next#quickstart-next-stack) in the [ministryofjustice/bichard7-next](https://github.com/ministryofjustice/bichard7-next) repo.
+Before running the tests locally, you need to make sure that the environment is up and running. Follow the instructions below to prepare the environment for testing:
 
-## Locally
+- Bichard7 vNext - [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next#quickstart-next-stack)
+- Bichard7 vNext Audit Logging - [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next-audit-logging#quickstart)
 
-With the Bichard7 next stack running:
+Once the stack is up and running, you can run the following commands to run the tests:
 
 ```
 npm install
-npm test
+npm run test:local
 ```
 
 ## Debugging
@@ -22,7 +23,7 @@ npm test
 To watch the tests running in a browser, run:
 
 ```
-HEADLESS=false npm test
+HEADLESS=false npm run test:local
 ```
 
 This is useful when combined with
