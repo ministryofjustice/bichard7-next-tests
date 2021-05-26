@@ -1,6 +1,6 @@
 const { defineFeature } = require("jest-cucumber");
 const { logInAs } = require("../../steps/auth");
-const { sendMessage } = require("../../steps/mq");
+const { sendMessage } = require("../../steps/message");
 const { createValidRecordInPNC } = require("../../steps/pnc");
 const {
   goToExceptionList,

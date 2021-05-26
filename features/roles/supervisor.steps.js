@@ -2,7 +2,7 @@ const { defineFeature } = require("jest-cucumber");
 const { logInAs } = require("../../steps/auth");
 const Bichard = require("../../utils/helpers");
 const loadRelativeFeature = require("../../utils/load-relative-feature");
-const { sendMessage } = require("../../steps/mq");
+const { sendMessage } = require("../../steps/message");
 const { createValidRecordInPNC } = require("../../steps/pnc");
 const { clickMainTab, canSeeReports, canSeeQAStatus, visitTeamPage, editTeam } = require("../../steps/ui");
 
