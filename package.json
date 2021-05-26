@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --fix .",
     "test": "jest --runInBand",
-    "test:local": "TEST_ENVIRONMENT=local jest --runInBand",
+    "test:local": "WORKSPACE=local jest --runInBand",
     "test:baseline": "STACK_TYPE=baseline jest --runInBand",
     "test:browser": "HEADLESS=false npm run test",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",

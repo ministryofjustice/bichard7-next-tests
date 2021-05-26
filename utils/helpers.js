@@ -5,11 +5,12 @@ const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const S3Helper = require("../helpers/S3Helper");
 const StepFunctionsHelper = require("../helpers/StepFunctionsHelper");
+const LambdaHelper = require("../helpers/LambdaHelper");
 
 class Bichard {
   constructor() {
     const stackType = process.env.STACK_TYPE || "next";
-    this.isLocalEnvironment = process.env.TEST_ENVIRONMENT === "local";
+    this.isLocalWorkspace = process.env.WORKSPACE === "local";
 
     if (stackType === "next") {
       this.db = new PostgresHelper({
@@ -34,8 +35,13 @@ class Bichard {
 
       this.stepFunctions = new StepFunctionsHelper({
         url: process.env.AWS_URL || "http://localhost:4566",
-        region: process.env.STEP_FUNCTIONS_REGION || "us-east-1",
+        region: process.env.LAMBDA_REGION || "us-east-1",
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET_NAME || "incoming-messages"
+      });
+
+      this.lambda = new LambdaHelper({
+        url: process.env.AWS_URL || "http://localhost:4566",
+        region: process.env.STEP_FUNCTIONS_REGION || "us-east-1",
       });
     } else if (stackType === "baseline") {
       this.db = new Db2Helper({
