@@ -17,9 +17,9 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
   }
 
   const events = message.events.filter((event) => event.eventType === eventType);
-  
+
   if (events.length === 0) {
-  return false;
+    return false;
   }
 
   return true;
