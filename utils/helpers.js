@@ -5,7 +5,7 @@ const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const S3Helper = require("../helpers/S3Helper");
 const StepFunctionsHelper = require("../helpers/StepFunctionsHelper");
-const LambdaHelper = require("../helpers/LambdaHelper");
+const AuditLoggingApi = require("../helpers/AuditLoggingApi");
 
 class Bichard {
   constructor() {
@@ -39,7 +39,7 @@ class Bichard {
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET_NAME || "incoming-messages"
       });
 
-      this.lambda = new LambdaHelper({
+      this.auditLoggingApi = new AuditLoggingApi({
         url: process.env.AWS_URL || "http://localhost:4566",
         region: process.env.STEP_FUNCTIONS_REGION || "us-east-1",
       });

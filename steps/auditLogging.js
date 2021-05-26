@@ -2,7 +2,7 @@ const axios = require("axios");
 const Poller = require("../utils/Poller");
 
 const getApiUrl = async (context) => {
-  let apiUrl = await context.lambda.getAuditLoggingApiUrl();
+  let apiUrl = await context.auditLoggingApi.getUrl();
 
   if (context.isLocalWorkspace) {
     apiUrl = apiUrl.replace("localstack_main", "localhost");

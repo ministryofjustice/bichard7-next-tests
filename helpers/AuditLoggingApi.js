@@ -1,6 +1,6 @@
 const { Lambda } = require("aws-sdk");
 
-class LambdaHelper {
+class AuditLoggingApi {
   constructor(config) {
     this.lambda = new Lambda({
       endpoint: config.url,
@@ -12,9 +12,9 @@ class LambdaHelper {
     });
   }
 
-  async getAuditLoggingApiUrl() {
-    if (this.auditLoggingApiUrl) {
-      return this.auditLoggingApiUrl;
+  async getUrl() {
+    if (this.url) {
+      return this.url;
     }
 
     const params = {
@@ -28,4 +28,4 @@ class LambdaHelper {
   }
 }
 
-module.exports = LambdaHelper;
+module.exports = AuditLoggingApi;
