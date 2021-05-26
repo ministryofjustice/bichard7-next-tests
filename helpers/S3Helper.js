@@ -12,9 +12,11 @@ class S3Helper {
     this.incomingMessageBucketName = config.incomingMessageBucketName;
   }
 
-  async uploadIncomingMessage(messageId, uploadDate) {
-    const s3FileName = `${format(uploadDate, "yyyy/MM/dd/HH/mm")}/${messageId}.xml`;
-    const content = await fs.promises.readFile(`./fixtures/messages/${messageId}.xml`);
+  async uploadIncomingMessage(messageFileName, externalCorrelationId, receivedDate) {
+    const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${messageFileName}.xml`;
+    const content = (await fs.promises.readFile(`./fixtures/messages/${messageFileName}.xml`))
+      .toString()
+      .replace("EXTERNAL_CORRELATION_ID", externalCorrelationId);
 
     const params = {
       Bucket: this.incomingMessageBucketName,
