@@ -51,6 +51,7 @@ jobs:
   test-next:
     machine:
       image: ubuntu-2004:202104-01
+      docker_layer_caching: true
     environment:
       STACK_TYPE: next
       MESSAGE_ENTRY_POINT: s3
@@ -111,6 +112,7 @@ jobs:
   test-baseline:
     machine:
       image: ubuntu-2004:202104-01
+      docker_layer_caching: true
     environment:
       STACK_TYPE: baseline
     steps:
