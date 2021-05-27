@@ -12,10 +12,14 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 3d:e6:7f:cd:d1:2b:35:a5:71:da:87:12:c2:0b:0b:44
+            - ef:ec:5d:99:f7:ec:d8:35:ff:f6:2b:8b:23:a1:fa:f4
       - run:
           command: ssh-add -D
       - run:
           command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
+      - run:
+          command: ssh-add ~/.ssh/id_rsa_efec5d99f7ecd835fff62b8b23a1faf4
+
       - run:
           name: Clone Bichard7 Next
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
