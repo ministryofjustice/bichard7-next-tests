@@ -18,14 +18,17 @@ jobs:
       - run:
           command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
       - run:
-          command: ssh-add ~/.ssh/id_rsa_efec5d99f7ecd835fff62b8b23a1faf4
-
-      - run:
           name: Clone Bichard7 Next
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
+
+      - run:
+          command: ssh-add -D
+      - run:
+          command: ssh-add ~/.ssh/id_rsa_efec5d99f7ecd835fff62b8b23a1faf4
       - run:
           name: Clone Bichard7 Next Services
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-services.git ~/bichard7-next-services
+
       - run:
           name: Build Bichard7 Next
           command: |
