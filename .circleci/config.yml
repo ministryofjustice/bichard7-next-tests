@@ -41,6 +41,7 @@ jobs:
           name: Build Bichard7 Next Services
           command: |
             cd ~/bichard7-next-services
+            nvm install
             bash ./scripts/install-all.sh
             bash ./scripts/build-all.sh
       - persist_to_workspace:
