@@ -17,13 +17,15 @@ const uploadToS3 = async (context, messageId, externalCorrelationId, messageRece
   }
 };
 
-const sendMessage = async (context, messageId, externalCorrelationId = uuid(), date = new Date()) => {
-  const messageIdVal = messageId || "court_result_input_1";
+const sendMessage = async (context, messageId, externalCorrelationId, date) => {
+  const messageIdValue = messageId || "court_result_input_1_custom";
+  const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
+  const dateValue = date || new Date();
 
   if (context.shouldUploadMessagesToS3) {
-    await uploadToS3(context)(messageId, externalCorrelationId, date);
+    await uploadToS3(context, messageIdValue, externalCorrelationIdValue, dateValue);
   } else {
-    await context.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageIdVal);
+    await context.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageIdValue);
   }
 };
 
