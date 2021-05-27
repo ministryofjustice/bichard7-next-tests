@@ -19,7 +19,7 @@ jobs:
           command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
       - run:
           name: Clone Bichard7 Next
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
+          command: git clone --depth 1 -b feature/BICAWS-739-add-audit-logging-to-e2e-testing git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
 
       - run:
           command: ssh-add -D
