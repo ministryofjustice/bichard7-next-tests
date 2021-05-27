@@ -7,7 +7,7 @@ orbs:
 jobs:
   build-ci:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202104-01
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -49,7 +49,7 @@ jobs:
 
   test-next:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202104-01
     environment:
       STACK_TYPE: next
       MESSAGE_ENTRY_POINT: s3
@@ -109,7 +109,7 @@ jobs:
 
   test-baseline:
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2004:202104-01
     environment:
       STACK_TYPE: baseline
     steps:
