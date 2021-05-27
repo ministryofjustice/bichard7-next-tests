@@ -15,7 +15,7 @@ Once the stack is up and running, you can run the following commands to run the 
 
 ```
 npm install
-npm run test:local
+npm run test:local-next
 ```
 
 ## Debugging
@@ -36,6 +36,6 @@ which haults test execution and gives you access to Chrome DevTools.
 
 ##Environment Variables
 
-- `WORKSPACE`: If set to `local`, it is assumed that tests are running on local environment. This will simulate processes that are not supported on local infrastructure. Running `npm run test:local` will set this variable to `local`.
+- `WORKSPACE`: If set to `local-next`, it is assumed that tests are running on local environment. This will simulate processes that are not supported on local infrastructure. Running `npm run test:local` will set this variable to `local-next`.
 - `STACK_TYPE`: It defines the stack type used for testing. Values can be `next` or `baseline`. The default value is `next`.
 - `MESSAGE_ENTRY_POINT`: Determines whether messages should be uploaded to S3 or pushed to MQ. Values can be `s3` or `mq`. The default value is `mq`.

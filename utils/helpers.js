@@ -31,7 +31,7 @@ class Bichard {
     const defaultPncPort = "3000";
 
     const stackType = process.env.STACK_TYPE || "next";
-    this.isLocalWorkspace = process.env.WORKSPACE === "local";
+    this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = (process.env.MESSAGE_ENTRY_POINT || "mq") === "s3";
 
     if (stackType === "next") {
