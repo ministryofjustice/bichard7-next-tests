@@ -17,32 +17,49 @@ jobs:
       - run:
           command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
       - run:
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
           name: Clone Bichard7 Next
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
       - run:
+          name: Clone Bichard7 Next Services
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-services.git ~/bichard7-next-services
+      - run:
+          name: Build Bichard7 Next
           command: |
             cd ~/bichard7-next
             make build-ci
-          name: Build project
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next
+      - run:
+          name: Build Bichard7 Next Services
+          command: |
+            cd ~/bichard7-next-services
+            bash ./scripts/install-all.sh
+            bash ./scripts/build-all.sh
+      - persist_to_workspace:
+          root: ~/
+          paths: bichard7-next-services
+
   test-next:
     machine:
       image: ubuntu-1604:201903-01
     environment:
       STACK_TYPE: next
+      MESSAGE_ENTRY_POINT: s3
     steps:
       - attach_workspace:
           at: ~/
       - run:
-          command: docker network prune -f
-          name: Clear out the networks before we start our Docker services
+          name: Disable Bichard subscription to GENERAL_EVENT_QUEUE
+          command: bash ./.circleci/scripts/update-liberty-server-config.sh
       - run:
+          name: Clear out the networks before we start our Docker services
+          command: docker network prune -f
+      - run:
+          name: Run docker services (except BeanConnect)
           command: |
             cd ~/bichard7-next
             make run-all-no-bc -j 4
-          name: Run docker services (except BeanConnect)
       - run:
           name: Fetch the PNC Emulator image
           command: |
@@ -54,15 +71,25 @@ jobs:
             cd ~/bichard7-next
             bash scripts/fetch_beanconnect_docker.sh
       - run:
+          name: Run BeanConnect and PNC Emulator docker services
           command: |
             cd ~/bichard7-next
             make run-beanconnect
-          name: Run BeanConnect and PNC Emulator docker services
       - run:
           name: Wait for Bichard
           command: |
             cd ~/bichard7-next
             bash ./scripts/wait_for_bichard.sh
+
+      - run:
+          name: Install Audit Logging dependencies
+          command: bash ./.circleci/scripts/install-audit-logging-dependencies.sh
+      - run:
+          name: Run Audit Logging
+          command: |
+            cd ~/bichard7-next-services
+            make run-all-e2e
+
       - checkout
       - run:
           name: Build E2E tests
@@ -85,10 +112,10 @@ jobs:
           command: docker network prune -f
           name: Clear out the networks before we start our Docker services
       - run:
+          name: Run docker services (except BeanConnect)
           command: |
             cd ~/bichard7-next
             make run-all-baseline-no-bc -j 4
-          name: Run docker services (except BeanConnect)
       - run:
           name: Fetch the PNC Emulator image
           command: |
@@ -100,10 +127,10 @@ jobs:
             cd ~/bichard7-next
             bash scripts/fetch_beanconnect_docker.sh
       - run:
+          name: Run BeanConnect and PNC Emulator docker services
           command: |
             cd ~/bichard7-next
             make run-beanconnect
-          name: Run BeanConnect and PNC Emulator docker services
       - run:
           name: Wait for Bichard
           command: |
