@@ -1,6 +1,6 @@
 const Bichard = require("../utils/helpers");
 
-const createValidRecordInPNC = (context) => async (record) => {
+const createValidRecordInPNC = async (context, record) => {
   // mock a response in the PNC
   context.recordId = record;
   try {
@@ -16,7 +16,7 @@ const createValidRecordInPNC = (context) => async (record) => {
   }
 };
 
-const checkMocks = (context) => async () => {
+const checkMocks = async (context) => {
   const mockResponsePromises = context.mocks.map(({ id }) => context.pnc.awaitMockRequest(id));
   const mockResponses = await Promise.all(mockResponsePromises);
   for (let i = 0; i < context.mocks.length; i += 1) {

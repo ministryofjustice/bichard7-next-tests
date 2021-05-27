@@ -25,7 +25,7 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
   return true;
 };
 
-const pollMessagesForEvent = (context) => (externalCorrelationId, eventType) => {
+const pollMessagesForEvent = (context, externalCorrelationId, eventType) => {
   const axiosInstance = axios.create();
 
   const getMessages = async () =>

@@ -16,8 +16,10 @@ defineFeature(feature, (test) => {
   });
 
   test("Supervisors can see QA status of records", ({ given, when, then, and }) => {
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
+    const context = new Bichard();
+
+    given(/^a message is received/, () => sendMessage(context));
+    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     when(/^I log in as a "(.*)"/, logInAs);
     then(/^I can see the QA status of a record/, canSeeQAStatus);
   });

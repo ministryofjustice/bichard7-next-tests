@@ -1,7 +1,7 @@
 const uuid = require("uuid").v4;
 const isError = require("../utils/isError");
 
-const uploadToS3 = (context) => async (messageId, externalCorrelationId, messageReceivedDate) => {
+const uploadToS3 = async (context, messageId, externalCorrelationId, messageReceivedDate) => {
   const fileName = await context.incomingMessageBucket.upload(messageId, externalCorrelationId, messageReceivedDate);
 
   if (isError(fileName)) {
@@ -17,7 +17,7 @@ const uploadToS3 = (context) => async (messageId, externalCorrelationId, message
   }
 };
 
-const sendMessage = (context) => async (messageId, externalCorrelationId = uuid(), date = new Date()) => {
+const sendMessage = async (context, messageId, externalCorrelationId = uuid(), date = new Date()) => {
   const messageIdVal = messageId || "court_result_input_1";
 
   if (context.shouldUploadMessagesToS3) {

@@ -10,8 +10,10 @@ const feature = loadRelativeFeature("./basic-login.feature");
 
 defineFeature(feature, (test) => {
   test("Raising an exception message", async ({ given, and, when, then }) => {
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
+    const context = new Bichard();
+
+    given(/^a message is received/, () => sendMessage(context));
+    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     then(/^the exception list should contain a record for "(.*)"$/, findRecordFor);
