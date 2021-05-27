@@ -60,7 +60,7 @@ jobs:
           at: ~/
       - run:
           name: Disable Bichard subscription to GENERAL_EVENT_QUEUE
-          command: bash ~/.circleci/scripts/update-liberty-server-config.sh
+          command: bash ./.circleci/scripts/update-liberty-server-config.sh
       - run:
           name: Clear out the networks before we start our Docker services
           command: docker network prune -f
@@ -92,7 +92,7 @@ jobs:
 
       - run:
           name: Install Audit Logging dependencies
-          command: bash ~/.circleci/scripts/install-audit-logging-dependencies.sh
+          command: bash ./.circleci/scripts/install-audit-logging-dependencies.sh
       - run:
           name: Run Audit Logging
           command: |
