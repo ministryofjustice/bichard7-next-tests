@@ -1,5 +1,6 @@
 const uuid = require("uuid").v4;
 const isError = require("../utils/isError");
+const { pollMessagesForEvent } = require("./auditLogging");
 
 const uploadToS3 = async (context, messageId, externalCorrelationId, messageReceivedDate) => {
   const fileName = await context.incomingMessageBucket.upload(messageId, externalCorrelationId, messageReceivedDate);
@@ -24,13 +25,11 @@ const sendMessage = async (context, messageId, externalCorrelationId, date) => {
 
   if (context.shouldUploadMessagesToS3) {
     await uploadToS3(context, messageIdValue, externalCorrelationIdValue, dateValue);
+    const pollingResult = await pollMessagesForEvent(context, externalCorrelationIdValue, "Message Sent to Bichard");
+    expect(isError(pollingResult)).toBeFalsy();
   } else {
     await context.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageIdValue);
   }
 };
 
-const aMessageIsReceived = (step) => {
-  step("a message is received", () => sendMessage("court_result_input_1"));
-};
-
-module.exports = { sendMessage, uploadToS3, aMessageIsReceived };
+module.exports = { sendMessage };
