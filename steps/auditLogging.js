@@ -35,7 +35,7 @@ const pollMessagesForEvent = (context, externalCorrelationId, eventType) => {
       .catch((error) => error);
 
   const options = {
-    timeout: 15000,
+    timeout: 40000,
     delay: 1000,
     name: eventType,
     condition: (allMessages) => {
