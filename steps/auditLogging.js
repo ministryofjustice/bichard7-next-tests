@@ -1,11 +1,13 @@
 const axios = require("axios");
+const { getConfig } = require("../utils/config");
 const Poller = require("../utils/Poller");
 
 const getApiUrl = async (context) => {
+  const config =  getConfig();
   let apiUrl = await context.auditLoggingApi.getUrl();
 
   if (context.isLocalWorkspace) {
-    apiUrl = apiUrl.replace("localstack_main", "localhost");
+    apiUrl = apiUrl.replace("localstack_main", config.hostMachine);
   }
 
   return apiUrl;
@@ -25,12 +27,14 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
   return true;
 };
 
-const pollMessagesForEvent = (context, externalCorrelationId, eventType) => {
+const pollMessagesForEvent = async (context, externalCorrelationId, eventType) => {
   const axiosInstance = axios.create();
+  const apiUrl = await getApiUrl(context);
+  console.log(`Api url is: ${apiUrl}`);
 
   const getMessages = async () =>
     axiosInstance
-      .get(`${await getApiUrl(context)}/messages`)
+      .get(`${apiUrl}/messages`)
       .then((response) => response.data)
       .catch((error) => error);
 
@@ -47,7 +51,7 @@ const pollMessagesForEvent = (context, externalCorrelationId, eventType) => {
     }
   };
 
-  return new Poller(getMessages)
+  await new Poller(getMessages)
     .poll(options)
     .then((messages) => messages)
     .catch((error) => error);
