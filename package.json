@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "jest --runInBand",
+    "test": "./scripts/setup-environment.sh && jest --runInBand",
     "test:local-next": "WORKSPACE=local-next STACK_TYPE=next jest --runInBand",
     "test:baseline": "STACK_TYPE=baseline jest --runInBand",
     "test:browser": "HEADLESS=false npm run test",
