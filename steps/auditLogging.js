@@ -47,7 +47,10 @@ const pollMessagesForEvent = (context, externalCorrelationId, eventType) => {
     }
   };
 
-  return new Poller(getMessages).poll(options);
+  return new Poller(getMessages)
+    .poll(options)
+    .then((messages) => messages)
+    .catch((error) => error);
 };
 
 module.exports = {
