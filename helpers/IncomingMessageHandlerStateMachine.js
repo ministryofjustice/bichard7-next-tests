@@ -1,3 +1,4 @@
+const uuid = require("uuid").v4;
 const { StepFunctions } = require("aws-sdk");
 
 class IncomingMessageHandlerStateMachine {
@@ -15,7 +16,7 @@ class IncomingMessageHandlerStateMachine {
   }
 
   async execute(s3FileName) {
-    const executionName = s3FileName.replace(/\//g, "_");
+    const executionName = uuid();
     this.stateMachine
       .startExecution({
         stateMachineArn: `arn:aws:states:${this.region}:000000000000:stateMachine:IncomingMessageHandler`,
