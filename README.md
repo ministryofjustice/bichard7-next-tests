@@ -18,6 +18,11 @@ npm install
 npm run test:local-next
 ```
 
+If you get an error which looks like:
+Error: Could not find expected browser (chrome) locally. Run `npm install` to download the correct Chromium revision (856583)
+
+then run node node_modules/puppeteer/install.js
+
 ## Debugging
 
 To watch the tests running in a browser, run:
@@ -32,7 +37,7 @@ This is useful when combined with
 await jestPuppeteer.debug();
 ```
 
-which haults test execution and gives you access to Chrome DevTools.
+which halts test execution and gives you access to Chrome DevTools.
 
 ##Environment Variables
 
