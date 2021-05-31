@@ -19,7 +19,7 @@ jobs:
           command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
       - run:
           name: Clone Bichard7 Next
-          command: git clone --depth 1 -b feature/BICAWS-739-add-audit-logging-to-e2e-testing git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
 
       - run:
           command: ssh-add -D
@@ -92,13 +92,8 @@ jobs:
             bash ./scripts/wait_for_bichard.sh
 
       - run:
-          name: Install Audit Logging dependencies
-          command: bash ./.circleci/scripts/install-audit-logging-dependencies.sh
-      - run:
           name: Run Audit Logging
-          command: |
-            cd ~/bichard7-next-services
-            make run-all-e2e
+          command: bash ./.circleci/scripts/run-audit-logging.sh
 
       - run:
           name: Build E2E tests
