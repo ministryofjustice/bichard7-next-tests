@@ -30,7 +30,6 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
 const pollMessagesForEvent = async (context, externalCorrelationId, eventType) => {
   const axiosInstance = axios.create();
   const apiUrl = await getApiUrl(context);
-  console.log(`Api url is: ${apiUrl}`);
 
   const getMessages = async () =>
     axiosInstance
