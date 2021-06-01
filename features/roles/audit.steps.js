@@ -1,6 +1,6 @@
 const { defineFeature } = require("jest-cucumber");
 const { logInAs } = require("../../steps/auth");
-const { sendMessage } = require("../../steps/mq");
+const { sendMessage } = require("../../steps/message");
 const { createValidRecordInPNC } = require("../../steps/pnc");
 const {
   goToExceptionList,
@@ -16,8 +16,10 @@ const feature = loadRelativeFeature("./audit.feature");
 
 defineFeature(feature, (test) => {
   test("Auditors have read only access", async ({ given, and, when, then }) => {
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, createValidRecordInPNC(new Bichard()));
+    const context = new Bichard();
+
+    given(/^a message is received/, () => sendMessage(context));
+    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     and(/^I am logged in as a user with "(.*)" permissions$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/I open the record for "(.*)"/, openRecordFor);

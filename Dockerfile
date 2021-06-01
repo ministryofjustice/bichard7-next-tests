@@ -16,6 +16,7 @@ COPY ./fixtures/ /src/fixtures
 COPY ./helpers/ /src/helpers
 COPY ./steps/ /src/steps
 COPY ./utils/ /src/utils
+COPY ./scripts/prepare-environment.sh /src/scripts/prepare-environment.sh
 
 COPY ./jest.config.js ./jest-puppeteer.config.js ./jest.setup.js /src/
 

@@ -13,7 +13,7 @@ if (typeof page !== "undefined") {
 if (process.env.CI) {
   jest.setTimeout(60000);
 } else {
-  jest.setTimeout(20000);
+  jest.setTimeout(50000);
 }
 
 const world = new Bichard();
