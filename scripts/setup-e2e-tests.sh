@@ -61,7 +61,6 @@ then
   BROKER_URL="failover:(${BROKER_ENDPOINTS})"
   DB_HOST=$($AWS_CLI_PATH rds describe-db-clusters --region eu-west-2 --filters Name=db-cluster-id,Values=cjse-${WORKSPACE}-bichard-7-aurora-cluster --query "DBClusters[0].Endpoint" --output text)
   S3_INCOMING_MESSAGE_BUCKET=$(aws lambda list-functions --query "Functions[?contains(FunctionName, 'retrieve-from-s3')].Environment.Variables.INCOMING_MESSAGE_BUCKET_NAME" --output text)
-  AWS_URL=$(aws iot describe-endpoint --query "endpointAddress" --output text)
   S3_REGION="$AWS_REGION"
   INCOMING_MESSAGE_HANDLER_REGION="$AWS_REGION"
   AUDIT_LOGGING_API_REGION="$AWS_REGION"
@@ -106,7 +105,6 @@ then
   fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/mq/password"
   echo "export MQ_USER=\"bichard\""  >> $TEST_ENV_FILE
   echo "export S3_INCOMING_MESSAGE_BUCKET=\"${S3_INCOMING_MESSAGE_BUCKET}\"" >> $TEST_ENV_FILE
-  echo "export AWS_URL=\"${AWS_URL}\"" >> $TEST_ENV_FILE
   echo "export S3_REGION=\"${S3_REGION}\"" >> $TEST_ENV_FILE
   echo "export INCOMING_MESSAGE_HANDLER_REGION=\"${INCOMING_MESSAGE_HANDLER_REGION}\"" >> $TEST_ENV_FILE
   echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_ENV_FILE
