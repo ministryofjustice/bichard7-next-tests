@@ -1,5 +1,4 @@
 const defaults = {
-  awsUrl: "http://localhost:4566",
   awsRegion: "us-east-1",
   incomingMessageBucket: "incoming-messages",
   postgresHost: "localhost",

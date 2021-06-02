@@ -2,14 +2,19 @@ const { Lambda } = require("aws-sdk");
 
 class AuditLoggingApi {
   constructor(config) {
-    this.lambda = new Lambda({
-      endpoint: config.url,
-      region: config.region,
-      credentials: {
+    const options = {
+      region: config.region
+    };
+
+    if (config.url) {
+      options.endpoint = config.url;
+      options.credentials = {
         accessKeyId: "test",
         secretAccessKey: "test"
-      }
-    });
+      };
+    }
+
+    this.lambda = new Lambda(options);
   }
 
   async getUrl() {

@@ -30,19 +30,19 @@ class Bichard {
       });
 
       this.incomingMessageBucket = new IncomingMessageBucket({
-        url: process.env.AWS_URL || defaults.awsUrl,
+        url: process.env.AWS_URL,
         region: process.env.S3_REGION || defaults.awsRegion,
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
       });
 
       this.incomingMessageHandlerStateMachine = new IncomingMessageHandlerStateMachine({
-        url: process.env.AWS_URL || defaults.awsUrl,
+        url: process.env.AWS_URL,
         region: process.env.INCOMING_MESSAGE_HANDLER_REGION || defaults.awsRegion,
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
       });
 
       this.auditLoggingApi = new AuditLoggingApi({
-        url: process.env.AWS_URL || defaults.awsUrl,
+        url: process.env.AWS_URL,
         region: process.env.AUDIT_LOGGING_API_REGION || defaults.awsRegion
       });
     } else if (stackType === "baseline") {
