@@ -24,7 +24,8 @@ const sendMessage = async (context, messageId, externalCorrelationId, date) => {
   const dateValue = date || new Date();
 
   if (context.shouldUploadMessagesToS3) {
-    await uploadToS3(context, messageIdValue, externalCorrelationIdValue, dateValue);
+    const uploadResult = await uploadToS3(context, messageIdValue, externalCorrelationIdValue, dateValue);
+    expect(isError(uploadResult)).toBeFalsy();
     const pollingResult = await pollMessagesForEvent(context, externalCorrelationIdValue, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
