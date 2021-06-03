@@ -4,11 +4,20 @@ const fs = require("fs");
 
 class IncomingMessageBucket {
   constructor(config) {
-    this.s3Client = new S3({
-      endpoint: config.url,
+    const options = {
       region: config.region,
       s3ForcePathStyle: true
-    });
+    };
+
+    if (config.url) {
+      options.endpoint = config.url;
+      options.credentials = {
+        accessKeyId: "test",
+        secretAccessKey: "test"
+      };
+    }
+
+    this.s3Client = new S3(options);
     this.incomingMessageBucketName = config.incomingMessageBucketName;
   }
 

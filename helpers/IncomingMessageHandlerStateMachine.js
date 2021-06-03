@@ -3,14 +3,19 @@ const { StepFunctions } = require("aws-sdk");
 
 class IncomingMessageHandlerStateMachine {
   constructor(config) {
-    this.stateMachine = new StepFunctions({
-      endpoint: config.url,
-      region: config.region,
-      credentials: {
+    const options = {
+      region: config.region
+    };
+
+    if (config.url) {
+      options.endpoint = config.url;
+      options.credentials = {
         accessKeyId: "test",
         secretAccessKey: "test"
-      }
-    });
+      };
+    }
+
+    this.stateMachine = new StepFunctions(options);
     this.region = config.region;
     this.incomingMessageBucketName = config.incomingMessageBucketName;
   }
