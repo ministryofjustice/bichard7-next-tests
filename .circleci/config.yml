@@ -67,6 +67,11 @@ jobs:
           name: Clear out the networks before we start our Docker services
           command: docker network prune -f
       - run:
+          name: Fetch the user-service image
+          command: |
+            cd ~/bichard7-next
+            bash scripts/fetch_user_service_docker.sh
+      - run:
           name: Run docker services (except BeanConnect)
           command: |
             cd ~/bichard7-next
