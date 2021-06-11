@@ -20,8 +20,8 @@ defineFeature(feature, (test) => {
   test("Exception handler can see exceptions", async ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    given(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    and(/^a message is received/, sendMessage);
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     then(/^I see exception "(.*)" in the exception list table$/, canSeeException);
@@ -31,8 +31,8 @@ defineFeature(feature, (test) => {
   test("Exception handlers can handle exceptions", ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    given(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    and(/^a message is received/, sendMessage);
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/^I open the record for "(.*)"/, openRecordFor);
@@ -42,8 +42,8 @@ defineFeature(feature, (test) => {
   test("Exception handlers cannot see triggers", ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    given(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    and(/^a message is received/, sendMessage);
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/I open the record for "(.*)"/, openRecordFor);
@@ -53,8 +53,8 @@ defineFeature(feature, (test) => {
   test("Exception handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    given(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    and(/^a message is received/, sendMessage);
     and(/^I am logged in as an "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/^I open the record for "(.*)"/, openRecordFor);

@@ -5,8 +5,8 @@ Feature: Exception handler permissions
   - reallocate exceptions to another force area
 
   Background: Logging in
-    Given a message is received
-    And there is a valid record for "Rigout Dean" in the PNC
+    Given there is a valid record for "Rigout Dean" in the PNC
+    And a message is received
     And I am logged in as an "exception handler"
     When I view the list of exceptions
 

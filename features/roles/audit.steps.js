@@ -18,8 +18,8 @@ defineFeature(feature, (test) => {
   test("Auditors have read only access", async ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    given(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    and(/^a message is received/, sendMessage);
     and(/^I am logged in as a user with "(.*)" permissions$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
     and(/I open the record for "(.*)"/, openRecordFor);

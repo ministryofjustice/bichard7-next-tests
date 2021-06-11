@@ -18,8 +18,8 @@ defineFeature(feature, (test) => {
   test("Supervisors can see QA status of records", ({ given, when, then, and }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, sendMessage);
-    and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    given(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
+    and(/^a message is received/, sendMessage);
     when(/^I log in as a "(.*)"/, logInAs);
     then(/^I can see the QA status of a record/, canSeeQAStatus);
   });
