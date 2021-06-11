@@ -17,17 +17,16 @@ class AuditLoggingApi {
     this.lambda = new Lambda(options);
   }
 
-  async getUrl() {
+  async getUrl(isLocalWorkspace) {
     if (this.url) {
       return this.url;
     }
 
-    const params = {
-      FunctionName: "RecordSentToBichardEvent"
-    };
+    const functionName = isLocalWorkspace ? "RecordSentToBichardEvent" : "record-sent-to-bichard-event";
 
-    const recordSentToBichardEventFunction = await this.lambda.getFunction(params).promise();
-    this.auditLoggingApiUrl = recordSentToBichardEventFunction.Configuration?.Environment?.Variables?.API_URL;
+    const listFunctionsResult = await this.lambda.listFunctions().promise();
+    const lambdaFunction = listFunctionsResult.Functions.filter((f) => f.FunctionName.includes(functionName))[0];
+    this.auditLoggingApiUrl = lambdaFunction.Environment?.Variables?.API_URL;
 
     return this.auditLoggingApiUrl;
   }

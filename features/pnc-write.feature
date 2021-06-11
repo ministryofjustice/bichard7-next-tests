@@ -8,5 +8,5 @@ Feature: Writing to the PNC
     Then the PNC updates the record
 
     Examples:
-      | recordId     | messageId |
-      | 19860421364M | qsol      |
+      | recordId     | messageId    |
+      | 19860421364M | qsol_custom  |

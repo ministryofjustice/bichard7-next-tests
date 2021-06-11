@@ -64,7 +64,7 @@ then
   S3_REGION="$AWS_REGION"
   INCOMING_MESSAGE_HANDLER_REGION="$AWS_REGION"
   AUDIT_LOGGING_API_REGION="$AWS_REGION"
-  MESSAGE_ENTRY_POINT=s3
+  MESSAGE_ENTRY_POINT=mq
 else
   MQ_IP=$($AWS_CLI_PATH ec2 describe-instances --region eu-west-2 --filters Name=tag:Name,Values=cjse-${WORKSPACE}-bichard-7-mq  Name=instance-state-name,Values=running --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
   DB_HOST=$($AWS_CLI_PATH ec2 describe-instances --region eu-west-2 --filters Name=tag:Name,Values=cjse-${WORKSPACE}-bichard-7-db2  Name=instance-state-name,Values=running --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)

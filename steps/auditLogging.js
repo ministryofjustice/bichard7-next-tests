@@ -3,10 +3,12 @@ const { getConfig } = require("../utils/config");
 const Poller = require("../utils/Poller");
 
 const getApiUrl = async (context) => {
-  const config =  getConfig();
-  let apiUrl = await context.auditLoggingApi.getUrl();
+  const config = getConfig();
+  const { isLocalWorkspace } = context;
 
-  if (context.isLocalWorkspace) {
+  let apiUrl = await context.auditLoggingApi.getUrl(isLocalWorkspace);
+
+  if (isLocalWorkspace) {
     apiUrl = apiUrl.replace("localstack_main", config.hostMachine);
   }
 
