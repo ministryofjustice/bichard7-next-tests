@@ -11,8 +11,8 @@ Feature: Supervisor role
     Then I am taken to a list of reports
 
   Scenario: Supervisors can see QA status of records
-    Given a message is received
-    And there is a valid record for "Rigout Dean" in the PNC
+    Given there is a valid record for "Rigout Dean" in the PNC
+    And a message is received
     When I log in as a "supervisor"
     Then I can see the QA status of a record
 
