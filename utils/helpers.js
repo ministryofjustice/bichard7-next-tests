@@ -20,7 +20,8 @@ class Bichard {
         port: process.env.DB_PORT || defaults.postgresPort,
         database: "bichard",
         user: process.env.DB_USER || defaults.postgresUser,
-        password: process.env.DB_PASSWORD || defaults.postgresPassword
+        password: process.env.DB_PASSWORD || defaults.postgresPassword,
+        ssl: process.env.DB_SSL === "true"
       });
 
       this.mq = new ActiveMqHelper({
