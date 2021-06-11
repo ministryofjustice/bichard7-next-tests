@@ -1,5 +1,6 @@
 const uuid = require("uuid").v4;
 const isError = require("../utils/isError");
+const Bichard = require("../utils/helpers");
 const { pollMessagesForEvent } = require("./auditLogging");
 
 const uploadToS3 = async (context, messageId, externalCorrelationId, messageReceivedDate) => {
@@ -18,7 +19,8 @@ const uploadToS3 = async (context, messageId, externalCorrelationId, messageRece
   }
 };
 
-const sendMessage = async (context, messageId, externalCorrelationId, date) => {
+const sendMessage = async (messageId, externalCorrelationId, date) => {
+  const context = new Bichard()
   const messageIdValue = messageId || "court_result_input_1_custom";
   const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
   const dateValue = date || new Date();

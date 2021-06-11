@@ -20,7 +20,7 @@ defineFeature(feature, (test) => {
   test("General handler can see triggers", async ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, () => sendMessage(context));
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     and(/^I am logged in as a "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
@@ -31,7 +31,7 @@ defineFeature(feature, (test) => {
   test("General handlers can handle exceptions", ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, () => sendMessage(context));
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     and(/^I am logged in as a "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
@@ -42,7 +42,7 @@ defineFeature(feature, (test) => {
   test("General handlers can handle triggers", ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, () => sendMessage(context));
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     and(/^I am logged in as a "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
@@ -53,7 +53,7 @@ defineFeature(feature, (test) => {
   test("General handlers can reallocate cases to another force area", ({ given, and, when, then }) => {
     const context = new Bichard();
 
-    given(/^a message is received/, () => sendMessage(context));
+    given(/^a message is received/, sendMessage);
     and(/^there is a valid record for "(.*)" in the PNC$/, (recordId) => createValidRecordInPNC(context, recordId));
     and(/^I am logged in as a "(.*)"$/, logInAs);
     when(/^I view the list of exceptions/, goToExceptionList);
