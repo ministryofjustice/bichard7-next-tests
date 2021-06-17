@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/bichard7-next-services
+cd ~/bichard7-next-audit-logging
 
 # Install Nodejs version in .nvmrc
 nvm install

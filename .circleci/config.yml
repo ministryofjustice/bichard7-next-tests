@@ -26,8 +26,8 @@ jobs:
       - run:
           command: ssh-add ~/.ssh/id_rsa_efec5d99f7ecd835fff62b8b23a1faf4
       - run:
-          name: Clone Bichard7 Next Services
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-services.git ~/bichard7-next-services
+          name: Clone Bichard7 Next Audit Logging
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
 
       - run:
           name: Build Bichard7 Next
@@ -38,15 +38,15 @@ jobs:
           root: ~/
           paths: bichard7-next
       - run:
-          name: Build Bichard7 Next Services
+          name: Build Bichard7 Next Audit Logging
           command: |
-            cd ~/bichard7-next-services
+            cd ~/bichard7-next-audit-logging
             nvm install
             bash ./scripts/install-all.sh
             bash ./scripts/build-all.sh
       - persist_to_workspace:
           root: ~/
-          paths: bichard7-next-services
+          paths: bichard7-next-audit-logging
 
   test-next:
     machine:
