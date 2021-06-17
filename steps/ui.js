@@ -83,6 +83,21 @@ const clickMainTab = async (label) => {
   expect(links).toContain(label);
 };
 
+const fsHelp = require("../helpers/fsHelper");
+
+const checkFileDownloaded = async (fileName) => {
+  const prom = fsHelp.checkForFile("tmp", fileName);
+  console.log(prom);
+  const result = await prom;
+  console.log("Promise resolved", result);
+  expect(result).toBe(true);
+};
+
+const downloadCSV = async () => {
+  await page.waitForSelector("table#portletTop input[value='Download CSV File");
+  await page.click("table#portletTop input[value='Download CSV File']");
+};
+
 const reallocateCase = async () => {
   await Promise.all([
     page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']"),
@@ -175,6 +190,15 @@ const canSeeReports = async () => {
   await expect(page).toMatch("Live Status Summary");
 };
 
+const accessReport = async () => {
+  const [, reportsBtn] = await page.$$("span.wpsNavLevel1");
+  await reportsBtn.click();
+
+  await page.waitForSelector("#report-index-list .wpsNavLevel2");
+  page.click("#report-index-list .wpsNavLevel2");
+  await expect(page).toMatch("Live Status Summary");
+};
+
 const canSeeQAStatus = async () => {
   await page.waitForSelector(".resultsTable");
 
@@ -242,5 +266,8 @@ module.exports = {
   canSeeReports,
   canSeeQAStatus,
   visitTeamPage,
-  editTeam
+  editTeam,
+  accessReport,
+  downloadCSV,
+  checkFileDownloaded
 };
