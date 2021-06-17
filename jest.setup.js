@@ -20,6 +20,9 @@ const world = new Bichard();
 
 // clear db
 beforeEach(async () => {
+  // eslint-disable-next-line no-underscore-dangle
+  await page._client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: "./tmp" });
+
   await world.pnc.clearMocks();
 
   await world.db.clearExceptions();
