@@ -13,7 +13,7 @@ Feature: Supervisor role
   Scenario: Supervisors can see QA status of records
     Given there is a valid record for "Rigout Dean" in the PNC
     And a message is received
-    When I log in as a "supervisor"
+    When I am logged in as a "supervisor"
     Then I can see the QA status of a record
 
   Scenario: Supervisors can manage their team
