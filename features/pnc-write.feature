@@ -3,10 +3,10 @@ Feature: Writing to the PNC
   I want to make sure court results can be writen to the PNC
 
   Scenario Outline: Writing a court result for record <recordId> to the PNC
-    Given there is a valid record for <recordId> in the PNC
-    When message id <messageId> is received
+    Given there is a valid record for "<recordId>" in the PNC
+    When message id "<messageId>" is received
     Then the PNC updates the record
 
     Examples:
-      | recordId     | messageId    |
-      | 19860421364M | qsol_custom  |
+      | recordId     | messageId   |
+      | 19860421364M | qsol_custom |

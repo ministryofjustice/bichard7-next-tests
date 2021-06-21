@@ -26,7 +26,12 @@ class AuditLoggingApi {
 
     const listFunctionsResult = await this.lambda.listFunctions().promise();
     const lambdaFunction = listFunctionsResult.Functions.filter((f) => f.FunctionName.includes(functionName))[0];
-    this.auditLoggingApiUrl = lambdaFunction.Environment?.Variables?.API_URL;
+    this.auditLoggingApiUrl = undefined;
+    try {
+      this.auditLoggingApiUrl = lambdaFunction.Environment.Variables.API_URL;
+    } catch (e) {
+      console.log("API_URL is missing");
+    }
 
     return this.auditLoggingApiUrl;
   }

@@ -1,3 +1,4 @@
+const { setWorldConstructor, World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
 const Db2Helper = require("../helpers/Db2Helper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
@@ -6,10 +7,12 @@ const MockPNCHelper = require("../helpers/MockPNCHelper");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
 const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
 const AuditLoggingApi = require("../helpers/AuditLoggingApi");
-const defaults = require("./defaults");
+const BrowserHelper = require("../helpers/BrowserHelper");
+const defaults = require("../utils/defaults");
 
-class Bichard {
-  constructor() {
+class Bichard extends World {
+  constructor(options) {
+    super(options);
     const stackType = process.env.STACK_TYPE || "next";
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = (process.env.MESSAGE_ENTRY_POINT || "mq") === "s3";
@@ -67,7 +70,16 @@ class Bichard {
       host: process.env.PNC_HOST || defaults.pncHost,
       port: process.env.PNC_PORT || defaults.pncPort
     });
+
+    const uiScheme = process.env.UI_SCHEME || "https";
+    const uiHost = process.env.UI_HOST || "localhost";
+    const uiPort = process.env.UI_PORT || "9443";
+
+    this.browser = new BrowserHelper({
+      baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
+      headless: process.env.HEADLESS !== "false"
+    });
   }
 }
 
-module.exports = Bichard;
+setWorldConstructor(Bichard);
