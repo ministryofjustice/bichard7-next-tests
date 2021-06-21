@@ -137,6 +137,7 @@ const cannotSeeTrigger = async function (value) {
 };
 
 const canSeeException = async function (exception) {
+  await waitForRecord(this.browser.page);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", exception);
   expect(isVisible).toBe(true);
 };
