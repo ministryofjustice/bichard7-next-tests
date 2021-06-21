@@ -106,3 +106,7 @@ dist
 test_output
 
 workspaces
+
+#IntelliJ
+.idea/
+tmp/

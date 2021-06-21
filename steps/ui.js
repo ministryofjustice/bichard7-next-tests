@@ -1,6 +1,7 @@
 const expect = require("expect");
 const { initialRefreshUrl } = require("../utils/urls");
 const { reloadUntilSelector, waitForRecord } = require("../utils/puppeteer-utils");
+const fsHelp = require("../helpers/fsHelper");
 
 const containsValue = async function (page, selector, value) {
   await page.waitForSelector(selector);
@@ -83,6 +84,17 @@ const clickMainTab = async function (label) {
 
   const links = await this.browser.page.$$eval("span.wpsNavLevel1", (sections) => sections.map((s) => s.textContent));
   expect(links).toContain(label);
+};
+
+const checkFileDownloaded = async function (fileName) {
+  const result = await fsHelp.checkForFile("tmp", fileName);
+  expect(result).toBe(true);
+};
+
+const downloadCSV = async function () {
+  await this.browser.setupDownloadFolder("./tmp");
+  await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File");
+  await this.browser.page.click("table#portletTop input[value='Download CSV File']");
 };
 
 const reallocateCase = async function () {
@@ -170,11 +182,21 @@ const exceptionIsReadOnly = async function () {
 
 const canSeeReports = async function () {
   const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
-  await reportsBtn.click();
+
+  await Promise.all([reportsBtn.click(), this.browser.page.waitForNavigation()]);
 
   await this.browser.page.waitForSelector("#report-index-list .wpsNavLevel2");
 
   await expect(await this.browser.pageText()).toMatch("Live Status Summary");
+};
+
+const accessReport = async function (report) {
+  const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
+  await reportsBtn.click();
+
+  await this.browser.page.waitForSelector("#report-index-list .wpsNavLevel2");
+  this.browser.page.click("#report-index-list .wpsNavLevel2");
+  await expect(await this.browser.pageText()).toMatch(report);
 };
 
 const canSeeQAStatus = async function () {
@@ -246,5 +268,8 @@ module.exports = {
   canSeeReports,
   canSeeQAStatus,
   visitTeamPage,
-  editTeam
+  editTeam,
+  accessReport,
+  downloadCSV,
+  checkFileDownloaded
 };

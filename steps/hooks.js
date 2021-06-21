@@ -1,6 +1,7 @@
 const { After, Before } = require("@cucumber/cucumber");
 
 Before(async function () {
+  await this.browser.setupDownloadFolder("./tmp");
   await this.db.clearExceptions();
   await this.pnc.clearMocks();
 });
