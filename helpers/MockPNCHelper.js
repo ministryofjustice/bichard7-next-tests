@@ -1,4 +1,5 @@
 const axios = require("axios").default;
+const Poller = require("../utils/Poller");
 
 class MockPNCHelper {
   constructor(options) {
@@ -24,25 +25,21 @@ class MockPNCHelper {
     return resp.data;
   }
 
-  async awaitMockRequest(id, delay = 500, attempts = 20) {
-    let conditionMet = false;
-    let attemptsRemaining = attempts;
-    let mock;
+  async awaitMockRequest(id) {
+    const action = () => this.getMock(id);
 
-    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const condition = (mock) => mock && mock.requests && mock.requests.length > 0;
 
-    /* eslint-disable no-await-in-loop */
-    while (!conditionMet && attemptsRemaining > 0) {
-      mock = await this.getMock(id);
-      conditionMet = mock && mock.requests && mock.requests.length > 0;
-      if (!conditionMet) {
-        attemptsRemaining -= 1;
-        await wait(delay);
-      }
-    }
-    /* eslint-enable no-await-in-loop */
-
-    return mock;
+    const options = {
+      condition,
+      timeout: 40000,
+      delay: 250,
+      name: "Mock PNC request poller"
+    };
+    return new Poller(action)
+      .poll(options)
+      .then((mock) => mock)
+      .catch((error) => error);
   }
 
   async clearMocks() {

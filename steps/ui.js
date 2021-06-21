@@ -127,6 +127,7 @@ const reallocateCase = async function () {
 };
 
 const canSeeTrigger = async function (value) {
+  await waitForRecord(this.browser.page);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
   expect(isVisible).toBe(true);
 };
@@ -137,6 +138,7 @@ const cannotSeeTrigger = async function (value) {
 };
 
 const canSeeException = async function (exception) {
+  await waitForRecord(this.browser.page);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", exception);
   expect(isVisible).toBe(true);
 };
