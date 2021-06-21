@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const fs = require("fs");
 const { logout } = require("../utils/urls");
 
 class BrowserHelper {
@@ -61,7 +62,10 @@ class BrowserHelper {
     return Promise.all([this.page.click(selector), this.page.waitForNavigation()]);
   }
 
-  async setDownloadFolder(folder) {
+  async setupDownloadFolder(folder) {
+    if (fs.existsSync("./tmp")) {
+      fs.rmdirSync("./tmp", { recursive: true });
+    }
     if (this.page) {
       // eslint-disable-next-line no-underscore-dangle
       await this.page._client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder });

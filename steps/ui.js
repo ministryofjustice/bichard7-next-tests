@@ -92,7 +92,7 @@ const checkFileDownloaded = async function (fileName) {
 };
 
 const downloadCSV = async function () {
-  await this.browser.setDownloadFolder("./tmp");
+  await this.browser.setupDownloadFolder("./tmp");
   await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File");
   await this.browser.page.click("table#portletTop input[value='Download CSV File']");
 };
