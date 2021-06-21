@@ -86,24 +86,20 @@ const clickMainTab = async function (label) {
   expect(links).toContain(label);
 };
 
-const checkFileDownloaded = async (fileName) => {
-  const prom = fsHelp.checkForFile("tmp", fileName);
-  console.log(prom);
-  const result = await prom;
-  console.log("Promise resolved", result);
+const checkFileDownloaded = async function (fileName) {
+  const result = await fsHelp.checkForFile("tmp", fileName);
   expect(result).toBe(true);
 };
 
-const downloadCSV = async () => {
-  await page.waitForSelector("table#portletTop input[value='Download CSV File");
-  await page.click("table#portletTop input[value='Download CSV File']");
+const downloadCSV = async function () {
+  await this.browser.setDownloadFolder("./tmp");
+  await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File");
+  await this.browser.page.click("table#portletTop input[value='Download CSV File']");
 };
 
-const reallocateCase = async () => {
-  await Promise.all([
-    page.click("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']"),
-    page.waitForNavigation()
-  ]);
+const reallocateCase = async function () {
+  const { page } = this.browser;
+  await this.browser.clickAndWait("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
 
   // Bedfordshire Police has value 28...
   await page.select("#reallocateAction", "28");
@@ -186,20 +182,21 @@ const exceptionIsReadOnly = async function () {
 
 const canSeeReports = async function () {
   const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
-  await reportsBtn.click();
+
+  await Promise.all([reportsBtn.click(), this.browser.page.waitForNavigation()]);
 
   await this.browser.page.waitForSelector("#report-index-list .wpsNavLevel2");
 
   await expect(await this.browser.pageText()).toMatch("Live Status Summary");
 };
 
-const accessReport = async () => {
-  const [, reportsBtn] = await page.$$("span.wpsNavLevel1");
+const accessReport = async function (report) {
+  const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
   await reportsBtn.click();
 
-  await page.waitForSelector("#report-index-list .wpsNavLevel2");
-  page.click("#report-index-list .wpsNavLevel2");
-  await expect(page).toMatch("Live Status Summary");
+  await this.browser.page.waitForSelector("#report-index-list .wpsNavLevel2");
+  this.browser.page.click("#report-index-list .wpsNavLevel2");
+  await expect(await this.browser.pageText()).toMatch(report);
 };
 
 const canSeeQAStatus = async function () {

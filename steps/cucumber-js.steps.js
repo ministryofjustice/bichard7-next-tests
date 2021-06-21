@@ -23,7 +23,10 @@ const {
   editTeam,
   clickMainTab,
   exceptionIsNotEditable,
-  cannotReallocateCase
+  cannotReallocateCase,
+  accessReport,
+  downloadCSV,
+  checkFileDownloaded
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -38,6 +41,8 @@ Given("I am logged in as a(n) {string}", logInAs);
 
 Given("I am logged in as a user with {string} permissions", logInAs);
 
+Given("I navigate to the list of reports", canSeeReports);
+
 When("message id {string} is received", function (id) {
   sendMessage.apply(this, [id]);
 });
@@ -49,6 +54,10 @@ When("I visit the Team Management screen", visitTeamPage);
 When("I open the record for {string}", openRecordFor);
 
 When("I click the {string} menu button", clickMainTab);
+
+When("I access the {string} report", accessReport);
+
+When("I download the report", downloadCSV);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
@@ -85,3 +94,5 @@ Then("I can see the QA status of a record", canSeeQAStatus);
 Then("I am taken to a list of reports", canSeeReports);
 
 Then("I can add and remove members from my team", editTeam);
+
+Then("the {string} report will be downloaded as a CSV file", checkFileDownloaded);

@@ -2,9 +2,9 @@ const fs = require("fs");
 const Poller = require("../utils/Poller");
 
 const checkForFile = async (directory, fileName) => {
-  const getDirContents = () => fs.readdirSync("./tmp");
+  const getDirContents = () => fs.existsSync("./tmp") && fs.readdirSync("./tmp");
 
-  const checkFileExists = (dirContents) => dirContents.includes(fileName);
+  const checkFileExists = (dirContents) => dirContents && dirContents.includes(fileName);
 
   const options = {
     timeout: 5000,

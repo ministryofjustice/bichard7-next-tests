@@ -60,6 +60,13 @@ class BrowserHelper {
   async clickAndWait(selector) {
     return Promise.all([this.page.click(selector), this.page.waitForNavigation()]);
   }
+
+  async setDownloadFolder(folder) {
+    if (this.page) {
+      // eslint-disable-next-line no-underscore-dangle
+      await this.page._client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder });
+    }
+  }
 }
 
 module.exports = BrowserHelper;
