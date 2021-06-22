@@ -61,9 +61,6 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Disable Bichard subscription to GENERAL_EVENT_QUEUE
-          command: bash ./.circleci/scripts/update-liberty-server-config.sh
-      - run:
           name: Clear out the networks before we start our Docker services
           command: docker network prune -f
       - run:
