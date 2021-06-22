@@ -22,7 +22,7 @@ class IncomingMessageBucket {
   }
 
   async upload(messageId, externalCorrelationId, receivedDate) {
-    const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${messageId}.xml`;
+    const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${messageId.replace("/", "_")}.xml`;
     const content = (await fs.promises.readFile(`./fixtures/messages/${messageId}.xml`))
       .toString()
       .replace("EXTERNAL_CORRELATION_ID", externalCorrelationId);

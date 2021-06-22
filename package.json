@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint --fix .",
     "test": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --publish-quiet features",
+    "test:file": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --publish-quiet",
     "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next STACK_TYPE=next npm run test",
     "test:baseline": "STACK_TYPE=baseline npm run test",
     "test:browser": "HEADLESS=false npm run test",
