@@ -32,7 +32,22 @@ const checkMocks = async function () {
   expect(mockCount).toEqual(this.mocks.length);
 };
 
+const pncNotUpdated = async function () {
+  let mockCount = 0;
+  const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
+  // Wait a second to give the backend time to process
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const mockResponsePromises = updateMocks.map(({ id }) => this.pnc.getMock(id));
+  const mockResponses = await Promise.all(mockResponsePromises);
+  mockResponses.forEach((mock) => {
+    expect(mock.requests.length).toBe(0);
+    mockCount += 1;
+  });
+  expect(mockCount).toEqual(updateMocks.length);
+};
+
 module.exports = {
   createValidRecordInPNC,
-  checkMocks
+  checkMocks,
+  pncNotUpdated
 };

@@ -1,7 +1,7 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { logInAs } = require("./auth");
 const { sendMessage } = require("./message");
-const { createValidRecordInPNC, checkMocks } = require("./pnc");
+const { createValidRecordInPNC, checkMocks, pncNotUpdated } = require("./pnc");
 const {
   findRecordFor,
   goToExceptionList,
@@ -96,3 +96,5 @@ Then("I am taken to a list of reports", canSeeReports);
 Then("I can add and remove members from my team", editTeam);
 
 Then("the {string} report will be downloaded as a CSV file", checkFileDownloaded);
+
+Then("the PNC record has not been updated", pncNotUpdated);

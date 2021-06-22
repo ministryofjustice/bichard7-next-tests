@@ -25,14 +25,14 @@ class MockPNCHelper {
     return resp.data;
   }
 
-  async awaitMockRequest(id) {
+  async awaitMockRequest(id, timeout = 40000) {
     const action = () => this.getMock(id);
 
     const condition = (mock) => mock && mock.requests && mock.requests.length > 0;
 
     const options = {
       condition,
-      timeout: 40000,
+      timeout,
       delay: 250,
       name: "Mock PNC request poller"
     };
