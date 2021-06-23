@@ -6,7 +6,7 @@ module.exports = [
       <GMH>073ENQR000020SENQASIPNCA05A73000017300000120210316152773000001                                             050001772</GMH>
       <ASI>
         <FSC>K04CA</FSC>
-        <IDS>K00/459646G MIDDLETONN              </IDS>
+        <IDS>K00/459646G TRPRTWELVE              </IDS>
         <CCR>K97/1626/8395Q                 </CCR>
         <COF>K001    12:15:24:1   TH68006 281120102220            </COF>
         <COF>K002    12:15:24:1   TH68151 281120102220            </COF>

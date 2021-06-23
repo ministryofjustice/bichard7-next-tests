@@ -14,6 +14,7 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
       This tests that exceptions and triggers are created for a message when the result code is present in the stop list
       """
 
+  @Must
   @NeedsValidating
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as a "general handler"
@@ -23,6 +24,6 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
     Then I see trigger "PR01 - Disqualified driver" in the exception list table
     And I see trigger "PR06 - Imprisoned" in the exception list table
     And I see trigger "PR12 - Warrant withdrawn" in the exception list table
-    And I see exception "HO100108" in the exception list table
+    And I see exception "HO200212" in the exception list table
     And the PNC record has not been updated
 
