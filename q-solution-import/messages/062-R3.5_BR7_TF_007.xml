@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DeliverRequest xmlns="http://schemas.cjse.gov.uk/messages/deliver/2006-05" xmlns:ex="http://schemas.cjse.gov.uk/messages/exception/2006-06" xmlns:mf="http://schemas.cjse.gov.uk/messages/format/2006-05" xmlns:mm="http://schemas.cjse.gov.uk/messages/metadata/2006-05" xmlns:msg="http://schemas.cjse.gov.uk/messages/messaging/2006-05" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.cjse.gov.uk/messages/deliver/2006-05 C:ClearCasekel-masri_BR7_0_1_intgBR7XML_ConverterSourceClassGenerationschemasReceiveDeliverServiceDeliverService-v1-0.xsd">
+	<msg:MessageIdentifier>EXTERNAL_CORRELATION_ID</msg:MessageIdentifier>
+	<msg:RequestingSystem>
+		<msg:Name>CJSE</msg:Name>
+		<msg:OrgUnitCode>Z000000</msg:OrgUnitCode>
+		<msg:Environment>Production</msg:Environment>
+	</msg:RequestingSystem>
+	<msg:AckRequested>1</msg:AckRequested>
+	<mm:MessageMetadata SchemaVersion="1.0">
+		<mm:OriginatingSystem>
+			<msg:Name>BICHARD7</msg:Name>
+			<msg:OrgUnitCode>C234567</msg:OrgUnitCode>
+			<msg:Environment>Production</msg:Environment>
+		</mm:OriginatingSystem>
+		<mm:DataController>
+			<msg:Organisation>C765432</msg:Organisation>
+			<msg:ReferencedElementURI>http://www.altova.com</msg:ReferencedElementURI>
+		</mm:DataController>
+		<mm:CreationDateTime>2001-12-17T09:30:47-05:00</mm:CreationDateTime>
+		<mm:ExpiryDateTime>2031-12-17T09:30:47-05:00</mm:ExpiryDateTime>
+		<mm:SenderRequestedDestination>String</mm:SenderRequestedDestination>
+	</mm:MessageMetadata>
+	<mf:MessageFormat SchemaVersion="1.0">
+		<mf:MessageType>
+			<msg:Type>SPIResults</msg:Type>
+			<msg:Version>1.200</msg:Version>
+		</mf:MessageType>
+		<mf:MessageSchema>
+			<msg:Namespace>http://www.dca.gov.uk/xmlschemas/libra</msg:Namespace>
+			<msg:Version>TBC</msg:Version>
+		</mf:MessageSchema>
+	</mf:MessageFormat>
+	<Message>
+	<NS1:ResultedCaseMessage xmlns:NS1="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+	<NS1:Session>
+		<NS1:CourtHearing>
+			<NS1:Hearing>
+				<NS1:CourtHearingLocation>B01EF01</NS1:CourtHearingLocation>
+				<NS1:DateOfHearing>2011-09-26</NS1:DateOfHearing>
+				<NS1:TimeOfHearing>20:01:02</NS1:TimeOfHearing>
+			</NS1:Hearing>
+			<NS1:PSAcode>2576</NS1:PSAcode>
+		</NS1:CourtHearing>
+		<NS1:Case>
+			<NS1:PTIURN>01ZD0306608</NS1:PTIURN>
+			<NS1:Defendant>
+				<NS1:ProsecutorReference>1101ZD0100000410823F</NS1:ProsecutorReference>
+				<NS1:CourtIndividualDefendant>
+					<NS1:PersonDefendant>
+						<NS1:BasePersonDetails>
+							<NS1:PersonName>
+								<NS1:PersonTitle>Mr</NS1:PersonTitle>
+								<NS1:PersonGivenName1>JOHN</NS1:PersonGivenName1>
+								<NS1:PersonFamilyName>TRULESEVEN</NS1:PersonFamilyName>
+							</NS1:PersonName>
+							<NS1:Birthdate>1928-11-11</NS1:Birthdate>
+							<NS1:Gender>1</NS1:Gender>
+						</NS1:BasePersonDetails>
+					</NS1:PersonDefendant>
+					<NS1:BailStatus>U</NS1:BailStatus>
+					<NS1:Address>
+						<NS1:SimpleAddress>
+							<NS1:AddressLine1>person addline1</NS1:AddressLine1>
+							<NS1:AddressLine2>person addline2</NS1:AddressLine2>
+							<NS1:AddressLine3>person addline3</NS1:AddressLine3>
+						</NS1:SimpleAddress>
+					</NS1:Address>
+					<NS1:PresentAtHearing>Y</NS1:PresentAtHearing>
+				</NS1:CourtIndividualDefendant>
+				<NS1:Offence>
+					<NS1:BaseOffenceDetails>
+						<NS1:OffenceSequenceNumber>001</NS1:OffenceSequenceNumber>
+						<NS1:OffenceCode>TH68072</NS1:OffenceCode>
+						<NS1:OffenceWording>long text talking about offence 1</NS1:OffenceWording>
+						<NS1:OffenceTiming>
+							<NS1:OffenceDateCode>2</NS1:OffenceDateCode>
+							<NS1:OffenceStart>
+								<NS1:OffenceDateStartDate>2010-01-01</NS1:OffenceDateStartDate>
+							</NS1:OffenceStart>
+						</NS1:OffenceTiming>
+						<NS1:ChargeDate>2010-04-14</NS1:ChargeDate>
+						<NS1:ArrestDate>2010-04-11</NS1:ArrestDate>
+						<NS1:LocationOfOffence>offence 1 location</NS1:LocationOfOffence>
+					</NS1:BaseOffenceDetails>
+					<NS1:InitiatedDate>2008-04-12</NS1:InitiatedDate>
+					<NS1:Plea>1</NS1:Plea>
+					<NS1:ModeOfTrial>07</NS1:ModeOfTrial>
+					<NS1:FinalDisposalIndicator>Y</NS1:FinalDisposalIndicator>
+					<NS1:ConvictionDate>2011-05-07</NS1:ConvictionDate>
+					<NS1:ConvictingCourt>2576</NS1:ConvictingCourt>
+					<NS1:Result>
+						<NS1:ResultCode>1002</NS1:ResultCode>
+						<NS1:ResultText>Imprisonment for 6 Months</NS1:ResultText>
+						<NS1:Outcome>
+							<NS1:Duration>
+								<NS1:DurationValue>6</NS1:DurationValue>
+								<NS1:DurationUnit>M</NS1:DurationUnit>
+							</NS1:Duration>
+						</NS1:Outcome>
+					</NS1:Result>
+				</NS1:Offence>
+				<NS1:Offence>
+					<NS1:BaseOffenceDetails>
+						<NS1:OffenceSequenceNumber>002</NS1:OffenceSequenceNumber>
+						<NS1:OffenceCode>TH68010</NS1:OffenceCode>
+						<NS1:OffenceWording>long text talking about offence 2</NS1:OffenceWording>
+						<NS1:OffenceTiming>
+							<NS1:OffenceDateCode>2</NS1:OffenceDateCode>
+							<NS1:OffenceStart>
+								<NS1:OffenceDateStartDate>2010-01-01</NS1:OffenceDateStartDate>
+							</NS1:OffenceStart>
+						</NS1:OffenceTiming>
+						<NS1:ChargeDate>2010-04-14</NS1:ChargeDate>
+						<NS1:ArrestDate>2010-04-11</NS1:ArrestDate>
+						<NS1:LocationOfOffence>offence 2 location</NS1:LocationOfOffence>
+					</NS1:BaseOffenceDetails>
+					<NS1:InitiatedDate>2008-04-12</NS1:InitiatedDate>
+					<NS1:Plea>1</NS1:Plea>
+					<NS1:ModeOfTrial>07</NS1:ModeOfTrial>
+					<NS1:FinalDisposalIndicator>Y</NS1:FinalDisposalIndicator>
+					<NS1:ConvictionDate>2011-05-07</NS1:ConvictionDate>
+					<NS1:ConvictingCourt>2576</NS1:ConvictingCourt>
+					<NS1:Result>
+						<NS1:ResultCode>4577</NS1:ResultCode>
+						<NS1:ResultText>Result text for 4577</NS1:ResultText>
+						<NS1:ResultCodeQualifier>CD</NS1:ResultCodeQualifier>
+					</NS1:Result>
+				</NS1:Offence>
+			</NS1:Defendant>
+		</NS1:Case>
+	</NS1:Session>
+</NS1:ResultedCaseMessage>
+	</Message>
+</DeliverRequest>
