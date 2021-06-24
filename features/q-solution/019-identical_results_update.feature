@@ -16,6 +16,7 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
 
   @Must
   @NeedsValidating
+  @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
     Given there is a valid record for "q-solution test 019" in the PNC
     When message id "q-solution/019" is received

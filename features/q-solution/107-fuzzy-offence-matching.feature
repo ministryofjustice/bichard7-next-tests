@@ -17,6 +17,7 @@ Feature: {107} BR7 R5.0-RCD352-Fuzzy Offence Matching
 
   @Must
   @NeedsValidating
+  @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
     Given there is a valid record for "q-solution test 107" in the PNC
     When message id "q-solution/107" is received

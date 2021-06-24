@@ -18,6 +18,7 @@ Feature: {204} UAT_Removal of Qualifiers 4004
 
   @Must
   @NeedsValidating
+  @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as a "general handler"
     And there is a valid record for "q-solution test 204" in the PNC

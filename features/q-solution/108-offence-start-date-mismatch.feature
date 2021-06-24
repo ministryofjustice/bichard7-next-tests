@@ -20,6 +20,7 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
 
   @Must
   @NeedsValidating
+  @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as a "general handler"
     And there is a valid record for "q-solution test 108" in the PNC
