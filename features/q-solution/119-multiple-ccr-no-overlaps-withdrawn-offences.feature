@@ -16,6 +16,7 @@ Feature: {119} BR7 R5.1-238-414-Multiple CCR-No overlaps-Withdrawn Offences
 
   @Must
   @NeedsValidating
+  @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR, no overlaps and withdrawn offences
     Given there is a valid record for "<recordId>" in the PNC
     When message id "<messageId>" is received

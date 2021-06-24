@@ -16,6 +16,7 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
 
   @Must
   @NeedsValidating
+  @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "general handler"
     And there is a valid record for "q-solution/013" in the PNC
