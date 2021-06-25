@@ -23,10 +23,15 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution test 029" in the PNC
 		When message id "q-solution/029" is received
+		# What about Step 3? "Court Resulting Simulation - Message 1 (Interim Driving Disqualification) <- is this the file in the ncm/ folder?"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+# TODO: Step 6 - Check for PNC update
+# TODO: Step 7 - Message 2
+# TODO: Step 8 - No exceptions
+# TODO: Step 9 - Check for same trigger
+# TODO: Step 10 - Check for PNC update
 
