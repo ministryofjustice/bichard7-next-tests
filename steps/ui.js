@@ -187,6 +187,12 @@ const exceptionsAreVisible = async function () {
   await expect(await this.browser.pageText()).toMatch("HO100300 - Organisation not recognised");
 };
 
+const thereAreNoExceptions = async function () {
+  await loadDefendantTab(this.browser.page);
+
+  await expect(await this.browser.pageText()).toMatch("");
+};
+
 const exceptionIsReadOnly = async function () {
   const editable = await isExceptionEditable(this.browser.page);
   expect(editable).toBe(false);
@@ -341,6 +347,7 @@ module.exports = {
   clickMainTab,
   triggersAreVisible,
   exceptionsAreVisible,
+  thereAreNoExceptions,
   exceptionIsReadOnly,
   canSeeReports,
   canSeeQAStatus,
