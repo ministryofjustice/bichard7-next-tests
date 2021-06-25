@@ -9,17 +9,17 @@ Feature: {035} R3.3_BR7_Remove HO Exception for No Results
 			The solution ignores the results (since PNC has no interest) and logs the message to the General Event Log.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			This tests that Bichard does not send request to PNC when Offence Category is 'B7' and ASN is dummy
 			"""
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 035" in the PNC
-		When message id "q-solution/035" is received
+	Scenario: No exceptions and triggers are created, nor is PNC called
+	    Given there is a valid record for "q-solution test 035" in the PNC
+	    When message id "q-solution/027A" is received
+		And I am logged in as a "general handler"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
-
+	    Then there are no exceptions raised for "PETARD HOIST"
+	    And there are no triggers raised for "PETARD HOIST"
+	    And the PNC record has not been updated
