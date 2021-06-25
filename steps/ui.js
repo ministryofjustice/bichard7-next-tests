@@ -106,7 +106,7 @@ const checkFileDownloaded = async function (fileName) {
 
 const downloadCSV = async function () {
   await this.browser.setupDownloadFolder("./tmp");
-  await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File");
+  await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File']");
   await this.browser.page.click("table#portletTop input[value='Download CSV File']");
 };
 
@@ -160,6 +160,14 @@ const canSeeException = async function (exception) {
 const cannotSeeException = async function (exception) {
   await waitForRecord(this.browser.page);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", exception);
+  expect(isVisible).toBe(false);
+};
+
+const noExceptionPresentForOffender = async function (name) {
+  await waitForRecord(this.browser.page);
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions")
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]")
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
 };
 
@@ -334,6 +342,7 @@ module.exports = {
   cannotSeeTrigger,
   canSeeException,
   cannotSeeException,
+  noExceptionPresentForOffender,
   exceptionIsEditable,
   exceptionIsNotEditable,
   buttonIsVisible,

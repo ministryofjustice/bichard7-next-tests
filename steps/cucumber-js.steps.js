@@ -12,6 +12,7 @@ const {
   exceptionIsReadOnly,
   canSeeException,
   cannotSeeException,
+  noExceptionPresentForOffender,
   exceptionIsEditable,
   buttonIsNotVisible,
   reallocateCase,
@@ -83,6 +84,8 @@ Then("I cannot make any changes", exceptionIsReadOnly);
 Then("I see exception {string} in the exception list table", canSeeException);
 
 Then("I cannot see {string} in the exception list table", cannotSeeException);
+
+Then("there are no exceptions raised for {string}", noExceptionPresentForOffender);
 
 Then("I can correct the exception", exceptionIsEditable);
 
