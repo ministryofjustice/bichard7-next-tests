@@ -171,6 +171,14 @@ const noExceptionPresentForOffender = async function (name) {
   expect(isVisible).toBe(false);
 };
 
+const noTriggersPresentForOffender = async function (name) {
+  await waitForRecord(this.browser.page);
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers")
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]")
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
+  expect(isVisible).toBe(false);
+};
+
 const buttonIsNotVisible = async function (sectionName) {
   const visible = await isButtonVisible(this.browser.page, sectionName);
   expect(visible).toBe(false);
@@ -343,6 +351,7 @@ module.exports = {
   canSeeException,
   cannotSeeException,
   noExceptionPresentForOffender,
+  noTriggersPresentForOffender,
   exceptionIsEditable,
   exceptionIsNotEditable,
   buttonIsVisible,
