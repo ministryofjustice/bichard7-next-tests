@@ -183,10 +183,18 @@ const cannotSeeException = async function (exception) {
 
 const noExceptionPresentForOffender = async function (name) {
   await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+
+  // Grab the current value of the exception type filter so that it can be restored after the test
+  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
+
   await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
   await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
+
+  // Restore the previous exception type filter setting
+  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
 };
 
 const noTriggersPresentForOffender = async function (name) {
