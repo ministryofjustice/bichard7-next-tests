@@ -23,10 +23,10 @@ Feature: {027} R3.2_Orphaned Non-Recordable Offence
 		Given there is a valid record for "q-solution/027" in the PNC
 		When message id "q-solution/027A" is received
 		And I am logged in as a "general handler"
+		And pending
 		And I view the list of exceptions
 		Then there are no exceptions raised for "Wells Homer"
 		When message id "q-solution/027B" is received
 		And I view the list of exceptions
 		Then there are no exceptions raised for "Wells Homer"
-		And pending
 		And the PNC updates the record
