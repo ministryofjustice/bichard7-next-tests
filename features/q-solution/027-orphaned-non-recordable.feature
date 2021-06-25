@@ -28,5 +28,5 @@ Feature: {027} R3.2_Orphaned Non-Recordable Offence
 	    When message id "q-solution/027B" is received
 		And I view the list of exceptions
 	    Then there are no exceptions raised for "Wells Homer"
-		And pending
-	    And the PNC updates the record
+		# And pending
+	    # And the PNC updates the record
