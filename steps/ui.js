@@ -305,7 +305,7 @@ const manuallyResolveTriggers = async function () {
     this.browser.page.click("input[value='Mark As Manually Resolved']"),
     this.browser.page.waitForNavigation()
   ]);
-  await this.browser.page.select("select#reasonCode", "10");
+  await this.browser.page.select("select#reasonCode", "2");
   await Promise.all([this.browser.page.click("input[value='OK']"), this.browser.page.waitForNavigation()]);
 };
 
@@ -316,8 +316,7 @@ const checkRecordResolution = async function (recordName, resolvedType) {
   }
   await this.browser.page.select("select#resolvedFilter", selectId);
   await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
-  await this.browser.page.waitForSelector(".foo");
-  expect(this.browser.pageText()).toMatch(recordName);
+  expect(await this.browser.pageText()).toMatch(recordName);
 };
 
 module.exports = {

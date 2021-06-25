@@ -11,7 +11,8 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 			An Exception is also successfully created and manually resolved via the Portal.
 
 			MadeTech Definition:
-			Test that PNC detects a mismatch on offences and they can be manually resolved.
+			Add a record to Bichard that does not match the PNC record. Manually resolve
+			the trigger so that the record is flagged as resolved, but do not update the PNC.
 			"""
 
 	@Should
@@ -23,9 +24,11 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 		When message id "q-solution/014" is received
 		And I view the list of exceptions
 		Then I see trigger "HO100304" in the exception list table
-		And I open the record for "EXONEA EXCEPTION"
+		When I open the record for "EXONEA EXCEPTION"
 		And I click the "Triggers" tab
+		Then I see trigger "TRPR0003" for offence "1"
 		And I manually resolve all the triggers
 		And I view the list of exceptions
+		Then the record for "EXONEA EXCEPTION" is "Resolved"
    		And the PNC record has not been updated
 
