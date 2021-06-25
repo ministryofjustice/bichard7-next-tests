@@ -28,5 +28,8 @@ Feature: {043} #151 - FTA Dated Warrant
 		When message id "q-solution/043" is received
 		And I view the list of exceptions
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
-		And pending
+		Then I open the record for "NEWTRPRTWO Trigger"
+		And I click the "Triggers" tab
+		And I resolve all of the triggers
+		Then the PNC updates the record
 
