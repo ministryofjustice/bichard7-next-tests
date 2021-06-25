@@ -14,8 +14,7 @@ const containsValue = async function (page, selector, value) {
 };
 
 const goToExceptionList = async function () {
-  await this.browser.page.goto(initialRefreshUrl());
-  await this.browser.page.waitForSelector(".resultsTable");
+  await Promise.all([this.browser.page.goto(initialRefreshUrl()), this.browser.page.waitForNavigation()]);
 };
 
 const findRecordFor = async function (name) {
@@ -51,6 +50,20 @@ const loadDefendantTab = async function (page) {
 
 const loadTriggersTab = async function (page) {
   await loadRecordTab(page, "#br7_button_Trigger", ".br7_exception_details_trigger_description_column");
+};
+
+const loadTab = async function (tabName) {
+  const tabIds = {
+    hearing: "#br7_button_Hearing",
+    case: "#br7_button_Case",
+    defendant: "#br7_button_Defendant",
+    offences: "#br7_button_OffenceList",
+    notes: "#br7_button_Note",
+    triggers: "#br7_button_Trigger"
+  };
+  const tabId = tabIds[tabName.toLowerCase()];
+  if (!tabId) throw new Error("Unsupported tab name");
+  await loadRecordTab(this.browser.page, tabId, ".br7_exception_details_court_data_tabs_table");
 };
 
 const isExceptionEditable = async function (page) {
@@ -246,6 +259,50 @@ const cannotReallocateCase = async function () {
   expect(reallocateBtn).toBeFalsy();
 };
 
+function chunk(arr, len) {
+  const chunks = [];
+  let i = 0;
+  const n = arr.length;
+
+  while (i < n) {
+    chunks.push(arr.slice(i, (i += len)));
+  }
+
+  return chunks;
+}
+
+const checkTrigger = async function (triggerId, offenceId) {
+  const selector =
+    '#br7_exception_details_court_data_table tr[class="light"] td, #br7_exception_details_court_data_table tr[class="dark"] td';
+  const tdPromises = await this.browser.page
+    .$$(selector)
+    .then((els) => els.map((elHandle) => elHandle.evaluate((el) => el.textContent)));
+  const rawValues = await Promise.all(tdPromises);
+  const trimmedValues = rawValues.map((v) => v.trim());
+  const values = chunk(trimmedValues, 4);
+  const match = values.filter((row) => row[1] === offenceId && row[0].includes(triggerId));
+  expect(match.length).toEqual(1);
+};
+
+const resolveAllTriggers = async function () {
+  await this.browser.page.$$eval("input[name='triggerMarkedAsCompleteList']", (elHandle) =>
+    elHandle.forEach((el) => el.click())
+  );
+
+  await this.browser.page.click("input[value='Mark Selected Complete']");
+};
+
+const checkRecordResolution = async function (recordName, resolvedType) {
+  const selectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+  if (!selectId) {
+    throw new Error("Resolution type is undefined");
+  }
+  await this.browser.page.select("select#resolvedFilter", selectId);
+  await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
+  await this.browser.page.waitForSelector(".foo");
+  expect(this.browser.pageText()).toMatch(recordName);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -275,5 +332,9 @@ module.exports = {
   editTeam,
   accessReport,
   downloadCSV,
-  checkFileDownloaded
+  checkFileDownloaded,
+  loadTab,
+  checkTrigger,
+  resolveAllTriggers,
+  checkRecordResolution
 };

@@ -26,7 +26,11 @@ const {
   cannotReallocateCase,
   accessReport,
   downloadCSV,
-  checkFileDownloaded
+  checkFileDownloaded,
+  loadTab,
+  checkTrigger,
+  resolveAllTriggers,
+  checkRecordResolution
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -58,6 +62,10 @@ When("I click the {string} menu button", clickMainTab);
 When("I access the {string} report", accessReport);
 
 When("I download the report", downloadCSV);
+
+When("I click the {string} tab", loadTab);
+
+When("I resolve all of the triggers", resolveAllTriggers);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
@@ -98,3 +106,9 @@ Then("I can add and remove members from my team", editTeam);
 Then("the {string} report will be downloaded as a CSV file", checkFileDownloaded);
 
 Then("the PNC record has not been updated", pncNotUpdated);
+
+Then("I see trigger {string} for offence {string}", checkTrigger);
+
+Then("the record for {string} is {string}", checkRecordResolution);
+
+Then("pending", () => "pending");
