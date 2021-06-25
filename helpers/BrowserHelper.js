@@ -71,6 +71,14 @@ class BrowserHelper {
       await this.page._client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder });
     }
   }
+
+  async selectDropdownOption(dropdownId, text) {
+    const option = (await this.page.$x(
+      `//*[@id = "${dropdownId}"]/option[text() = "${text}"]`
+    ))[0];
+    const value = await (await option.getProperty('value')).jsonValue();
+    await this.page.select(`#${dropdownId}`, value);  
+  }
 }
 
 module.exports = BrowserHelper;
