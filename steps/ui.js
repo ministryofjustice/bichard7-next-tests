@@ -292,6 +292,23 @@ const resolveAllTriggers = async function () {
   await this.browser.page.click("input[value='Mark Selected Complete']");
 };
 
+const manuallyResolveTriggers = async function () {
+  await Promise.all([
+    this.browser.page.click("input[value='Select All Triggers']"),
+    this.browser.page.waitForNavigation()
+  ]);
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
+  await Promise.all([
+    this.browser.page.click("input[value='Mark As Manually Resolved']"),
+    this.browser.page.waitForNavigation()
+  ]);
+  await this.browser.page.select("select#reasonCode", "10");
+  await Promise.all([this.browser.page.click("input[value='OK']"), this.browser.page.waitForNavigation()]);
+};
+
 const checkRecordResolution = async function (recordName, resolvedType) {
   const selectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
   if (!selectId) {
@@ -336,5 +353,6 @@ module.exports = {
   loadTab,
   checkTrigger,
   resolveAllTriggers,
-  checkRecordResolution
+  checkRecordResolution,
+  manuallyResolveTriggers
 };

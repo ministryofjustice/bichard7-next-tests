@@ -30,7 +30,8 @@ const {
   loadTab,
   checkTrigger,
   resolveAllTriggers,
-  checkRecordResolution
+  checkRecordResolution,
+  manuallyResolveTriggers
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -110,5 +111,7 @@ Then("the PNC record has not been updated", pncNotUpdated);
 Then("I see trigger {string} for offence {string}", checkTrigger);
 
 Then("the record for {string} is {string}", checkRecordResolution);
+
+Then("I manually resolve all the triggers", manuallyResolveTriggers);
 
 Then("pending", () => "pending");

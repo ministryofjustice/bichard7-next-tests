@@ -25,7 +25,7 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 		Then I see trigger "HO100304" in the exception list table
 		And I open the record for "EXONEA EXCEPTION"
 		And I click the "Triggers" tab
-		And I resolve all of the triggers
-		# Missing mark as manually resolved step
-		And the PNC record has not been updated
+		And I manually resolve all the triggers
+		And I view the list of exceptions
+   		And the PNC record has not been updated
 
