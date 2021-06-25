@@ -21,7 +21,8 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution test 006" in the PNC
 		When message id "q-solution/006" is received
-#		And I view the list of exceptions
+		And I view the list of exceptions
+#		We seem to be getting the wrong trigger. Need to investigate. Expected: TRPS0002, Got: TRPR0027
 #		Then I see trigger "PR10 - Conditional bail" in the exception list table
-#		And pending
+		Then the PNC updates the record
 
