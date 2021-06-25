@@ -165,16 +165,16 @@ const cannotSeeException = async function (exception) {
 
 const noExceptionPresentForOffender = async function (name) {
   await waitForRecord(this.browser.page);
-  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions")
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]")
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
 };
 
 const noTriggersPresentForOffender = async function (name) {
   await waitForRecord(this.browser.page);
-  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers")
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]")
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
 };
@@ -201,12 +201,6 @@ const exceptionsAreVisible = async function () {
   await loadDefendantTab(this.browser.page);
 
   await expect(await this.browser.pageText()).toMatch("HO100300 - Organisation not recognised");
-};
-
-const thereAreNoExceptions = async function () {
-  await loadDefendantTab(this.browser.page);
-
-  await expect(await this.browser.pageText()).toMatch("");
 };
 
 const exceptionIsReadOnly = async function () {
@@ -365,7 +359,6 @@ module.exports = {
   clickMainTab,
   triggersAreVisible,
   exceptionsAreVisible,
-  thereAreNoExceptions,
   exceptionIsReadOnly,
   canSeeReports,
   canSeeQAStatus,

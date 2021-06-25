@@ -27,7 +27,7 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 		And there is a valid record for "q-solution test 029" in the PNC
 		When message id "q-solution/029A" is received
 		And I view the list of exceptions
-		Then there are no exceptions
+		Then there are no exceptions raised for "Patrick Duffy"
 		And I see trigger "PR01 - Disqualified driver" in the exception list table
 		When I open the record for "Duffy Patrick"
 		And I click the "Triggers" tab
@@ -36,7 +36,7 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 		When message id "q-solution/029B" is received
 		# TODO: Unlock
 		And I view the list of exceptions
-		Then there are no exceptions
+		Then there are no exceptions raised for "Patrick Duffy"
 		And I see trigger "PR01 - Disqualified driver" in the exception list table
 		When I open the record for "Duffy Patrick"
 		And I click the "Triggers" tab

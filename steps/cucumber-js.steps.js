@@ -33,8 +33,7 @@ const {
   checkTrigger,
   resolveAllTriggers,
   checkRecordResolution,
-  manuallyResolveTriggers,
-  thereAreNoExceptions
+  manuallyResolveTriggers
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -78,8 +77,6 @@ Then("the record for {string} should not have any PNC errors", checkNoPncErrors)
 Then("the PNC updates the record", checkMocks);
 
 Then("I can see exceptions", exceptionsAreVisible);
-
-Then("there are no exceptions", thereAreNoExceptions);
 
 Then("I can see triggers", triggersAreVisible);
 
