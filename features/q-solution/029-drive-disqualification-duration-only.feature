@@ -29,6 +29,9 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 		# What about Step 3? "Court Resulting Simulation - Message 1 (Interim Driving Disqualification) <- is this the file in the ncm/ folder?"
 		And I view the list of exceptions
 		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+		When I open the record for "Duffy Patrick"
+		And I click the "Triggers" tab
+		Then I see trigger "TRPR0001 - Driver Disqualification - Update DD screen" in the exception list table
 		Then the PNC updates the record
 # TODO: Step 7 - Message 2
 # TODO: Step 8 - No exceptions
