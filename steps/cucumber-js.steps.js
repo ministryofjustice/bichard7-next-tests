@@ -21,6 +21,7 @@ const {
   visitTeamPage,
   canSeeReports,
   editTeam,
+  clickButton,
   clickMainTab,
   exceptionIsNotEditable,
   cannotReallocateCase,
@@ -59,6 +60,8 @@ When("I open the record for {string}", openRecordFor);
 
 When("I click the {string} menu button", clickMainTab);
 
+When("I click the {string} button", clickButton);
+
 When("I access the {string} report", accessReport);
 
 When("I download the report", downloadCSV);
@@ -87,6 +90,7 @@ Then("I can correct the exception", exceptionIsEditable);
 
 Then("I cannot correct the exception", exceptionIsNotEditable);
 
+Then("the {string} menu item is not visible", buttonIsNotVisible);
 Then("the {string} menu item is not visible", buttonIsNotVisible);
 
 Then("I can reallocate the case to another force area", reallocateCase);
