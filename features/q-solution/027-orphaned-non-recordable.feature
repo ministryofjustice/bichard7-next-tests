@@ -20,13 +20,13 @@ Feature: {027} R3.2_Orphaned Non-Recordable Offence
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: No exceptions are created for orphaned non-recordable offence
-	    Given there is a valid record for "q-solution test 027" in the PNC
-	    When message id "q-solution/027A" is received
+		Given there is a valid record for "q-solution/027" in the PNC
+		When message id "q-solution/027A" is received
 		And I am logged in as a "general handler"
 		And I view the list of exceptions
-	    Then there are no exceptions raised for "Wells Homer"
-	    When message id "q-solution/027B" is received
+		Then there are no exceptions raised for "Wells Homer"
+		When message id "q-solution/027B" is received
 		And I view the list of exceptions
-	    Then there are no exceptions raised for "Wells Homer"
+		Then there are no exceptions raised for "Wells Homer"
 		And pending
-	    And the PNC updates the record
+		And the PNC updates the record

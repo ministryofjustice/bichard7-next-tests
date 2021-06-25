@@ -18,7 +18,7 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
   @NeedsValidating
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution test 003" in the PNC
+    And there is a valid record for "q-solution/003" in the PNC
     When message id "q-solution/003" is received
     And I view the list of exceptions
     Then I see trigger "PR01 - Disqualified driver" in the exception list table
