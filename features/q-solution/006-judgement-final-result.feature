@@ -18,9 +18,10 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/006" in the PNC
+		Given I am logged in as a "supervisor"
+		And there is a valid record for "q-solution test 006" in the PNC
 		When message id "q-solution/006" is received
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+#		And I view the list of exceptions
+#		Then I see trigger "PR10 - Conditional bail" in the exception list table
+#		And pending
+
