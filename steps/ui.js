@@ -305,7 +305,10 @@ const resolveAllTriggers = async function () {
     elHandle.forEach((el) => el.click())
   );
 
-  await this.browser.page.click("input[value='Mark Selected Complete']");
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
 };
 
 const manuallyResolveTriggers = async function () {
