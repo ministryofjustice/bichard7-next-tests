@@ -23,7 +23,7 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution test 108" in the PNC
+    And there is a valid record for "q-solution/108" in the PNC
     When message id "q-solution/108" is received
     And I view the list of exceptions
     Then I see trigger "PR27 - Out of Area case" in the exception list table

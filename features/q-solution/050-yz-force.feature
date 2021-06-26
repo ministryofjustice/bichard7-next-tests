@@ -12,14 +12,15 @@ Feature: {050} R3.4_BR7_YZ Force Code
       Verification is also made of the Bichard7 system logs to ensure that the 'YZ' Force Code is used in the update to the PNC to provide an audit trail of those updates made to PNC by the Bichard7 solution.
 
       MadeTech Definition:
-
+      YZ Force code is used in logs for Bichard (more detail required)
       """
 
   @Must
   @NeedsValidating
-  Scenario: Exception is raised when there is a data mismatch
+  @NeedsRunningAgainstPNC
+  Scenario: YZ Force code is used in logs
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution test 050" in the PNC
+    And there is a valid record for "q-solution/050" in the PNC
     When message id "q-solution/050" is received
     And I view the list of exceptions
     Then I see exception "HO100310 (2)" in the exception list table

@@ -21,7 +21,7 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
   @NeedsValidating
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
-    Given there is a valid record for "q-solution test 080" in the PNC
+    Given there is a valid record for "q-solution/080" in the PNC
     When message id "q-solution/080" is received
     Then the PNC updates the record
 

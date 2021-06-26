@@ -21,7 +21,7 @@ Feature: {204} UAT_Removal of Qualifiers 4004
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution test 204" in the PNC
+    And there is a valid record for "q-solution/204" in the PNC
     When message id "q-solution/204" is received
     And I view the list of exceptions
     Then I see trigger "PR10 - Conditional bail" in the exception list table

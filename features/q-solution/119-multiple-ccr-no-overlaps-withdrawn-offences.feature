@@ -18,12 +18,8 @@ Feature: {119} BR7 R5.1-238-414-Multiple CCR-No overlaps-Withdrawn Offences
   @NeedsValidating
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR, no overlaps and withdrawn offences
-    Given there is a valid record for "<recordId>" in the PNC
-    When message id "<messageId>" is received
+    Given there is a valid record for "q-solution/119" in the PNC
+    When message id "q-solution/119a" is received
+    When message id "q-solution/119b" is received
     Then pending
-
-    Examples:
-      | recordId             | messageId       |
-      | q-solution test 119a | q-solution/119a |
-      | q-solution test 119b | q-solution/119b |
 

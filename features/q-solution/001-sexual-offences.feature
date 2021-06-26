@@ -11,19 +11,20 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 			Pre Update Triggers are also successfully created on the Portal and manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Ensure that sexual offence triggers an updates are correctly creates
 			"""
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Updates and triggers are correctly generated for sexual offences
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution test 001" in the PNC
+		And there is a valid record for "q-solution/001" in the PNC
 		When message id "q-solution/001" is received
 		And I view the list of exceptions
 		And I open the record for "SEXOFFENCE TRPRFOUR"
 		And I click the "Triggers" tab
+		And I wait "10" seconds
 		Then I see trigger "TRPR0003" for offence "1"
 		And I see trigger "TRPR0004" for offence "1"
 		And I see trigger "TRPR0004" for offence "2"
