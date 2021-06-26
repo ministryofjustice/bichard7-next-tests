@@ -43,16 +43,16 @@
 					<DC:PSAcode>2576</DC:PSAcode>
 				</DC:CourtHearing>
 				<DC:Case>
-					<DC:PTIURN>01ZD0302008</DC:PTIURN>
+					<DC:PTIURN>01ZD0302608</DC:PTIURN>
 					<DC:Defendant>
-						<DC:ProsecutorReference>1101ZD0100000410776E</DC:ProsecutorReference>
+						<DC:ProsecutorReference>1101ZD0100000410780J</DC:ProsecutorReference>
 						<DC:CourtIndividualDefendant>
 							<DC:PersonDefendant>
 								<DC:BasePersonDetails>
 									<DC:PersonName>
 										<DC:PersonTitle>Mr</DC:PersonTitle>
-										<DC:PersonGivenName1>EXCEPTION</DC:PersonGivenName1>
-										<DC:PersonFamilyName>EXONE</DC:PersonFamilyName>
+										<DC:PersonGivenName1>UPDATE</DC:PersonGivenName1>
+										<DC:PersonFamilyName>PUFIVE</DC:PersonFamilyName>
 									</DC:PersonName>
 									<DC:Birthdate>1948-11-11</DC:Birthdate>
 									<DC:Gender>1</DC:Gender>
@@ -61,9 +61,9 @@
 							<DC:BailStatus>U</DC:BailStatus>
 							<DC:Address>
 								<DC:SimpleAddress>
-									<DC:AddressLine1>ScenarioD Address Line 1</DC:AddressLine1>
-									<DC:AddressLine2>ScenarioD Address Line 2</DC:AddressLine2>
-									<DC:AddressLine3>ScenarioD Address Line 3</DC:AddressLine3>
+									<DC:AddressLine1>Scenario1 Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>Scenario1 Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>Scenario1 Address Line 3</DC:AddressLine3>
 								</DC:SimpleAddress>
 							</DC:Address>
 							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
@@ -86,25 +86,22 @@
 							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
 							<DC:Plea>2</DC:Plea>
 							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
 							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
 							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>1002</DC:ResultCode>
-								<DC:ResultText>Imprisonment for 12 Months</DC:ResultText>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 100.</DC:ResultText>
 								<DC:Outcome>
-									<DC:Duration>
-										<DC:DurationValue>12</DC:DurationValue>
-										<DC:DurationUnit>M</DC:DurationUnit>
-									</DC:Duration>
+									<DC:ResultAmountSterling>100.00</DC:ResultAmountSterling>
 								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>RT88191</DC:OffenceCode>
-								<DC:OffenceWording>Use a motor vehicle without third party insurance.</DC:OffenceWording>
+								<DC:OffenceCode>TH68006</DC:OffenceCode>
+								<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>
@@ -118,19 +115,44 @@
 							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
 							<DC:Plea>2</DC:Plea>
 							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>2059</DC:ResultCode>
-								<DC:ResultText>Adjourned.</DC:ResultText>
-								<DC:NextHearing>
-									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-										<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
-										<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
-									</DC:NextHearingDetails>
-									<DC:NextHearingReason>Adjourned for Defendant to attend</DC:NextHearingReason>
-									<DC:BailStatusOffence>U</DC:BailStatusOffence>
-								</DC:NextHearing>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 100.</DC:ResultText>
+								<DC:Outcome>
+									<DC:ResultAmountSterling>100.00</DC:ResultAmountSterling>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>003</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68006</DC:OffenceCode>
+								<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 100.</DC:ResultText>
+								<DC:Outcome>
+									<DC:ResultAmountSterling>100.00</DC:ResultAmountSterling>
+								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 					</DC:Defendant>

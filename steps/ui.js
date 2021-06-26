@@ -164,17 +164,17 @@ const cannotSeeException = async function (exception) {
 };
 
 const noExceptionPresentForOffender = async function (name) {
-  await waitForRecord(this.browser.page);
-  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions")
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]")
+  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
 };
 
 const noTriggersPresentForOffender = async function (name) {
-  await waitForRecord(this.browser.page);
-  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers")
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]")
+  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
 };
@@ -305,7 +305,10 @@ const resolveAllTriggers = async function () {
     elHandle.forEach((el) => el.click())
   );
 
-  await this.browser.page.click("input[value='Mark Selected Complete']");
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
 };
 
 const manuallyResolveTriggers = async function () {

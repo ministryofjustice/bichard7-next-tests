@@ -70,6 +70,10 @@ When("I click the {string} tab", loadTab);
 
 When("I resolve all of the triggers", resolveAllTriggers);
 
+When("I wait {string} seconds", async (delay) => {
+  await new Promise((resolve) => setTimeout(resolve, delay * 1000));
+});
+
 Then("the exception list should contain a record for {string}", findRecordFor);
 
 Then("the record for {string} should not have any PNC errors", checkNoPncErrors);

@@ -15,7 +15,8 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
       """
 
   @Must
-  @NeedsValidating
+  @Validated
+  @NeedsRunningAgainstPNC
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as a "general handler"
     And there is a valid record for "q-solution/003" in the PNC
@@ -25,5 +26,7 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
     And I see trigger "PR06 - Imprisoned" in the exception list table
     And I see trigger "PR12 - Warrant withdrawn" in the exception list table
     And I see exception "HO200212" in the exception list table
+    # Check the triggers tab for four triggers
+    # Check CJS Code 2509
     And the PNC record has not been updated
 
