@@ -19,7 +19,7 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution test 021" in the PNC
+    And there is a valid record for "q-solution/021" in the PNC
     When message id "q-solution/021" is received
     And I view the list of exceptions
     Then I see exception "HO100304" in the exception list table

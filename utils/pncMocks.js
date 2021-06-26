@@ -33,7 +33,7 @@ module.exports = {
     const offenceEl = parsed.NewCaseMessage.Case.Defendant.Offence;
     const offenceData = Object.prototype.hasOwnProperty.call(offenceEl, "length") ? offenceEl : [offenceEl];
     const offences = offenceData.map((offence) => ({
-      code: offence.BaseOffenceDetails.OffenceCode,
+      code: offence.BaseOffenceDetails.OffenceCode.padEnd(8, " "),
       sequenceNo: offence.BaseOffenceDetails.OffenceSequenceNumber.toString().padStart(3, "0"),
       ...extractDates(offence)
     }));
@@ -41,7 +41,7 @@ module.exports = {
     const cofString = offences
       .map(
         (offence) =>
-          `<COF>K${offence.sequenceNo}    12:15:24:1   ${offence.code} ${offence.startDate}${offence.endDate}</COF>`
+          `<COF>K${offence.sequenceNo}    12:15:24:1   ${offence.code}${offence.startDate}${offence.endDate}</COF>`
       )
       .join("\n");
 

@@ -18,7 +18,7 @@ Feature: {120} BR7 R5.1-238-414-Multiple CCR-Overlapping Offences
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution test 120" in the PNC
+    And there is a valid record for "q-solution/120" in the PNC
     When message id "q-solution/120" is received
     And I view the list of exceptions
     Then I see exception "HO100304" in the exception list table
