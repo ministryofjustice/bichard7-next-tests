@@ -24,13 +24,11 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 		And I view the list of exceptions
 		And I open the record for "SEXOFFENCE TRPRFOUR"
 		And I click the "Triggers" tab
-		And I wait "10" seconds
 		Then I see trigger "TRPR0003" for offence "1"
 		And I see trigger "TRPR0004" for offence "1"
 		And I see trigger "TRPR0004" for offence "2"
 		# And I see no exceptions
 		And the PNC updates the record
 		When I resolve all of the triggers
-		And I view the list of exceptions
 		Then the record for "SEXOFFENCE TRPRFOUR" is "resolved"
 
