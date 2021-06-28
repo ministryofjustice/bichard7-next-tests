@@ -33,7 +33,10 @@ const {
   checkTrigger,
   resolveAllTriggers,
   checkRecordResolution,
-  manuallyResolveTriggers
+  manuallyResolveTriggers,
+  viewOffence,
+  checkOffenceData,
+  checkTriggerforOffence
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -73,6 +76,8 @@ When("I resolve all of the triggers", resolveAllTriggers);
 When("I wait {string} seconds", async (delay) => {
   await new Promise((resolve) => setTimeout(resolve, delay * 1000));
 });
+
+When("I view offence {string}", viewOffence);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
@@ -118,10 +123,14 @@ Then("the {string} report will be downloaded as a CSV file", checkFileDownloaded
 
 Then("the PNC record has not been updated", pncNotUpdated);
 
-Then("I see trigger {string} for offence {string}", checkTrigger);
+Then("I see trigger {string} for offence {string}", checkTriggerforOffence);
+
+Then("I see trigger {string}", checkTrigger);
 
 Then("the record for {string} is {string}", checkRecordResolution);
 
 Then("I manually resolve all the triggers", manuallyResolveTriggers);
+
+Then("I see {string} in the {string} row of the results table", checkOffenceData);
 
 Then("pending", () => "pending");

@@ -13,6 +13,24 @@ const containsValue = async function (page, selector, value) {
   return Boolean(jsonValues.find((j) => j.includes(value)));
 };
 
+const checkDataTable = async function (world, values) {
+  const trPromises = await world.browser.page
+    .$$("#br7_exception_details_court_data_table .resultsTable tbody tr")
+    .then((els) =>
+      els.map((elHandle) => elHandle.evaluate((el) => [...el.querySelectorAll("td")].map((e) => e.innerText.trim())))
+    );
+  const tableData = await Promise.all(trPromises);
+  const check = tableData.filter((row) =>
+    values.every((val) => {
+      if (val.exact) {
+        return row[val.column - 1] && row[val.column - 1] === val.value;
+      }
+      return row[val.column - 1] && row[val.column - 1].includes(val.value);
+    })
+  );
+  expect(check.length).toEqual(1);
+};
+
 const goToExceptionList = async function () {
   await Promise.all([this.browser.page.goto(initialRefreshUrl()), this.browser.page.waitForNavigation()]);
 };
@@ -40,7 +58,7 @@ const openRecordFor = async function (name) {
 
 const loadRecordTab = async function (page, selectorToClick, selectorToWaitFor) {
   await page.waitForSelector(selectorToClick);
-  await page.click(selectorToClick);
+  await Promise.all([page.click(selectorToClick), page.waitForNavigation()]);
   await page.waitForSelector(selectorToWaitFor);
 };
 
@@ -275,29 +293,15 @@ const cannotReallocateCase = async function () {
   expect(reallocateBtn).toBeFalsy();
 };
 
-function chunk(arr, len) {
-  const chunks = [];
-  let i = 0;
-  const n = arr.length;
+const checkTriggerforOffence = async function (triggerId, offenceId) {
+  await checkDataTable(this, [
+    { column: 1, value: triggerId, exact: false },
+    { column: 2, value: offenceId, exact: true }
+  ]);
+};
 
-  while (i < n) {
-    chunks.push(arr.slice(i, (i += len)));
-  }
-
-  return chunks;
-}
-
-const checkTrigger = async function (triggerId, offenceId) {
-  const selector =
-    '#br7_exception_details_court_data_table tr[class="light"] td, #br7_exception_details_court_data_table tr[class="dark"] td';
-  const tdPromises = await this.browser.page
-    .$$(selector)
-    .then((els) => els.map((elHandle) => elHandle.evaluate((el) => el.textContent)));
-  const rawValues = await Promise.all(tdPromises);
-  const trimmedValues = rawValues.map((v) => v.trim());
-  const values = chunk(trimmedValues, 4);
-  const match = values.filter((row) => row[1] === offenceId && row[0].includes(triggerId));
-  expect(match.length).toEqual(1);
+const checkTrigger = async function (triggerId) {
+  await checkDataTable(this, [{ column: 1, value: triggerId, exact: false }]);
 };
 
 const resolveAllTriggers = async function () {
@@ -338,6 +342,17 @@ const checkRecordResolution = async function (recordName, resolvedType) {
   expect(await this.browser.pageText()).toMatch(recordName);
 };
 
+const viewOffence = async function (offenceId) {
+  await this.browser.clickLinkAndWait(offenceId);
+};
+
+const checkOffenceData = async function (value, key) {
+  await checkDataTable(this, [
+    { column: 1, value: key, exact: true },
+    { column: 2, value, exact: true }
+  ]);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -372,7 +387,10 @@ module.exports = {
   checkFileDownloaded,
   loadTab,
   checkTrigger,
+  checkTriggerforOffence,
   resolveAllTriggers,
   checkRecordResolution,
-  manuallyResolveTriggers
+  manuallyResolveTriggers,
+  viewOffence,
+  checkOffenceData
 };
