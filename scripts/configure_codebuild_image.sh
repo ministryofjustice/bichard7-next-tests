@@ -3,7 +3,7 @@ set -ev
 #install packages
 yum install -y openvpn python3-pip
 
-pip3 install boto3 click
+pip3 install boto3 click awscli
 
 TEMP_ROLE=$(aws sts assume-role --role-session-name "next" --role-arn "${ASSUME_ROLE_ARN}")
 export AWS_ACCESS_KEY_ID=$(echo $TEMP_ROLE | jq -r .Credentials.AccessKeyId)
