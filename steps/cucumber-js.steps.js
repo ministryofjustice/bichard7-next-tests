@@ -112,7 +112,6 @@ Then("I can correct the exception", exceptionIsEditable);
 Then("I cannot correct the exception", exceptionIsNotEditable);
 
 Then("the {string} menu item is not visible", buttonIsNotVisible);
-Then("the {string} menu item is not visible", buttonIsNotVisible);
 
 Then("I can reallocate the case to another force area", reallocateCase);
 
