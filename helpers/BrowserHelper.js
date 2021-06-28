@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
+const PuppeteerMassScreenshots = require("puppeteer-mass-screenshots");
 const { logout } = require("../utils/urls");
 
 class BrowserHelper {
@@ -24,8 +25,19 @@ class BrowserHelper {
         ]
       });
     this.page = await this.browser.newPage();
+    await this.record();
     await this.visitUrl(path);
     return this.page;
+  }
+
+  async record() {
+    if (this.options.record) {
+      this.recorder = new PuppeteerMassScreenshots();
+      this.outputDir = `./screenshots/${new Date().getTime()}`;
+      fs.mkdirSync(this.outputDir, { recursive: true });
+      await this.recorder.init(this.page, this.outputDir, { afterWritingImageFile: () => {} });
+      await this.recorder.start();
+    }
   }
 
   currentPage() {
@@ -47,6 +59,10 @@ class BrowserHelper {
   }
 
   async close() {
+    if (this.recorder) {
+      await this.recorder.stop();
+      this.options.world.attach(this.outputDir);
+    }
     if (this.browser) this.browser.close();
   }
 
@@ -73,11 +89,9 @@ class BrowserHelper {
   }
 
   async selectDropdownOption(dropdownId, text) {
-    const option = (await this.page.$x(
-      `//*[@id = "${dropdownId}"]/option[text() = "${text}"]`
-    ))[0];
-    const value = await (await option.getProperty('value')).jsonValue();
-    await this.page.select(`#${dropdownId}`, value);  
+    const option = (await this.page.$x(`//*[@id = "${dropdownId}"]/option[text() = "${text}"]`))[0];
+    const value = await (await option.getProperty("value")).jsonValue();
+    await this.page.select(`#${dropdownId}`, value);
   }
 }
 
