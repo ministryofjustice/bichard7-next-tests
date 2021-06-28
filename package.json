@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --publish-quiet features",
-    "test:file": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --publish-quiet",
+    "test": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --tags 'not @Excluded' features",
+    "test:file": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
     "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next STACK_TYPE=next npm run test",
     "test:baseline": "STACK_TYPE=baseline npm run test",
     "test:browser": "HEADLESS=false npm run test",
@@ -31,9 +31,11 @@
     "callsites": "^3.1.0",
     "date-fns": "^2.20.2",
     "expect": "^26.6.2",
+    "fast-xml-parser": "^3.19.0",
     "ibm_db": "^2.7.3",
     "pg-promise": "^10.10.1",
     "puppeteer": "^8.0.0",
+    "puppeteer-mass-screenshots": "^1.0.15",
     "stompit": "^1.0.0",
     "uuid": "^8.3.2"
   },

@@ -77,7 +77,9 @@ class Bichard extends World {
 
     this.browser = new BrowserHelper({
       baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
-      headless: process.env.HEADLESS !== "false"
+      headless: process.env.HEADLESS !== "false",
+      record: process.env.RECORD === "true",
+      world: this
     });
   }
 }

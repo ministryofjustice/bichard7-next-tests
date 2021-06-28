@@ -13,6 +13,24 @@ const containsValue = async function (page, selector, value) {
   return Boolean(jsonValues.find((j) => j.includes(value)));
 };
 
+const checkDataTable = async function (world, values) {
+  const trPromises = await world.browser.page
+    .$$("#br7_exception_details_court_data_table .resultsTable tbody tr")
+    .then((els) =>
+      els.map((elHandle) => elHandle.evaluate((el) => [...el.querySelectorAll("td")].map((e) => e.innerText.trim())))
+    );
+  const tableData = await Promise.all(trPromises);
+  const check = tableData.filter((row) =>
+    values.every((val) => {
+      if (val.exact) {
+        return row[val.column - 1] && row[val.column - 1] === val.value;
+      }
+      return row[val.column - 1] && row[val.column - 1].includes(val.value);
+    })
+  );
+  expect(check.length).toEqual(1);
+};
+
 const goToExceptionList = async function () {
   await Promise.all([this.browser.page.goto(initialRefreshUrl()), this.browser.page.waitForNavigation()]);
 };
@@ -40,7 +58,7 @@ const openRecordFor = async function (name) {
 
 const loadRecordTab = async function (page, selectorToClick, selectorToWaitFor) {
   await page.waitForSelector(selectorToClick);
-  await page.click(selectorToClick);
+  await Promise.all([page.click(selectorToClick), page.waitForNavigation()]);
   await page.waitForSelector(selectorToWaitFor);
 };
 
@@ -111,7 +129,7 @@ const checkFileDownloaded = async function (fileName) {
 
 const downloadCSV = async function () {
   await this.browser.setupDownloadFolder("./tmp");
-  await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File");
+  await this.browser.page.waitForSelector("table#portletTop input[value='Download CSV File']");
   await this.browser.page.click("table#portletTop input[value='Download CSV File']");
 };
 
@@ -165,6 +183,30 @@ const canSeeException = async function (exception) {
 const cannotSeeException = async function (exception) {
   await waitForRecord(this.browser.page);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", exception);
+  expect(isVisible).toBe(false);
+};
+
+const noExceptionPresentForOffender = async function (name) {
+  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+
+  // Grab the current value of the exception type filter so that it can be restored after the test
+  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
+
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
+  expect(isVisible).toBe(false);
+
+  // Restore the previous exception type filter setting
+  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+};
+
+const noTriggersPresentForOffender = async function (name) {
+  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
   expect(isVisible).toBe(false);
 };
 
@@ -264,29 +306,15 @@ const cannotReallocateCase = async function () {
   expect(reallocateBtn).toBeFalsy();
 };
 
-function chunk(arr, len) {
-  const chunks = [];
-  let i = 0;
-  const n = arr.length;
+const checkTriggerforOffence = async function (triggerId, offenceId) {
+  await checkDataTable(this, [
+    { column: 1, value: triggerId, exact: false },
+    { column: 2, value: offenceId, exact: true }
+  ]);
+};
 
-  while (i < n) {
-    chunks.push(arr.slice(i, (i += len)));
-  }
-
-  return chunks;
-}
-
-const checkTrigger = async function (triggerId, offenceId) {
-  const selector =
-    '#br7_exception_details_court_data_table tr[class="light"] td, #br7_exception_details_court_data_table tr[class="dark"] td';
-  const tdPromises = await this.browser.page
-    .$$(selector)
-    .then((els) => els.map((elHandle) => elHandle.evaluate((el) => el.textContent)));
-  const rawValues = await Promise.all(tdPromises);
-  const trimmedValues = rawValues.map((v) => v.trim());
-  const values = chunk(trimmedValues, 4);
-  const match = values.filter((row) => row[1] === offenceId && row[0].includes(triggerId));
-  expect(match.length).toEqual(1);
+const checkTrigger = async function (triggerId) {
+  await checkDataTable(this, [{ column: 1, value: triggerId, exact: false }]);
 };
 
 const resolveAllTriggers = async function () {
@@ -294,18 +322,63 @@ const resolveAllTriggers = async function () {
     elHandle.forEach((el) => el.click())
   );
 
-  await this.browser.page.click("input[value='Mark Selected Complete']");
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
 };
 
-const checkRecordResolution = async function (recordName, resolvedType) {
-  const selectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
-  if (!selectId) {
-    throw new Error("Resolution type is undefined");
+const manuallyResolveRecord = async function () {
+  await Promise.all([
+    this.browser.page.click("input[value='Select All Triggers']"),
+    this.browser.page.waitForNavigation()
+  ]);
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
+  await Promise.all([
+    this.browser.page.click("input[value='Mark As Manually Resolved']"),
+    this.browser.page.waitForNavigation()
+  ]);
+  await this.browser.page.select("select#reasonCode", "2");
+  await Promise.all([this.browser.page.click("input[value='OK']"), this.browser.page.waitForNavigation()]);
+};
+
+const checkRecordResolved = async function (recordName, resolvedType) {
+  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+  if (!resolutionSelectId) {
+    throw new Error(`Resolution type '${resolvedType}' is unknown`);
   }
-  await this.browser.page.select("select#resolvedFilter", selectId);
+  await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
   await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
-  await this.browser.page.waitForSelector(".foo");
-  expect(this.browser.pageText()).toMatch(recordName);
+  expect(await this.browser.pageText()).toMatch(recordName);
+};
+
+const checkRecordNotResolved = async function (recordName, resolvedType) {
+  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+  if (!resolutionSelectId) {
+    throw new Error(`Resolution type '${resolvedType}' is unknown`);
+  }
+  await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
+  await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
+  expect(await this.browser.pageText()).not.toMatch(recordName);
+};
+
+const viewOffence = async function (offenceId) {
+  await this.browser.clickLinkAndWait(offenceId);
+};
+
+const checkOffenceData = async function (value, key) {
+  await checkDataTable(this, [
+    { column: 1, value: key, exact: true },
+    { column: 2, value, exact: true }
+  ]);
+};
+
+const returnToList = async function () {
+  await this.browser.clickAndWait("input[type='submit'][value='Return To List (Unlock)'");
+  await this.browser.clickAndWait("input[type='submit'][value='Yes'");
 };
 
 module.exports = {
@@ -323,6 +396,8 @@ module.exports = {
   cannotSeeTrigger,
   canSeeException,
   cannotSeeException,
+  noExceptionPresentForOffender,
+  noTriggersPresentForOffender,
   exceptionIsEditable,
   exceptionIsNotEditable,
   buttonIsVisible,
@@ -341,6 +416,12 @@ module.exports = {
   checkFileDownloaded,
   loadTab,
   checkTrigger,
+  checkTriggerforOffence,
   resolveAllTriggers,
-  checkRecordResolution
+  checkRecordResolved,
+  checkRecordNotResolved,
+  manuallyResolveRecord,
+  viewOffence,
+  checkOffenceData,
+  returnToList
 };

@@ -13,17 +13,20 @@ Feature: {027} R3.2_Orphaned Non-Recordable Offence
 			The solution recognises the Non-Recordable Offence as present on the PNC and successfully adds the results automatically onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			This tests that no exceptions are created for Orphaned Non-Recordable offence
 			"""
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 027" in the PNC
-		When message id "q-solution/027" is received
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
+	Scenario: No exceptions are created for orphaned non-recordable offence
+		Given there is a valid record for "q-solution/027" in the PNC
+		When message id "q-solution/027A" is received
+		And I am logged in as a "general handler"
 		And pending
-
+		And I view the list of exceptions
+		Then there are no exceptions raised for "Wells Homer"
+		When message id "q-solution/027B" is received
+		And I view the list of exceptions
+		Then there are no exceptions raised for "Wells Homer"
+		And the PNC updates the record

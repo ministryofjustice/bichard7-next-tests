@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
+const PuppeteerMassScreenshots = require("puppeteer-mass-screenshots");
 const { logout } = require("../utils/urls");
 
 class BrowserHelper {
@@ -20,12 +21,28 @@ class BrowserHelper {
           "--disable-setuid-sandbox",
           // This will write shared memory files into /tmp instead of /dev/shm,
           // because Docker’s default for /dev/shm is 64MB
-          "--disable-dev-shm-usage"
+          "--disable-dev-shm-usage",
+          "--window-size=1024x768"
         ]
       });
     this.page = await this.browser.newPage();
+    await this.page.setViewport({
+      width: 1024,
+      height: 768
+    });
+    await this.record();
     await this.visitUrl(path);
     return this.page;
+  }
+
+  async record() {
+    if (this.options.record) {
+      this.recorder = new PuppeteerMassScreenshots();
+      this.outputDir = `./screenshots/${new Date().getTime()}`;
+      fs.mkdirSync(this.outputDir, { recursive: true });
+      await this.recorder.init(this.page, this.outputDir, { afterWritingImageFile: () => {} });
+      await this.recorder.start();
+    }
   }
 
   currentPage() {
@@ -47,6 +64,10 @@ class BrowserHelper {
   }
 
   async close() {
+    if (this.recorder) {
+      await this.recorder.stop();
+      this.options.world.attach(this.outputDir);
+    }
     if (this.browser) this.browser.close();
   }
 
@@ -56,6 +77,14 @@ class BrowserHelper {
 
   async pageText() {
     return this.page.evaluate(() => document.body.innerText);
+  }
+
+  async clickLinkAndWait(text) {
+    const linkHandlers = await this.page.$x(
+      `//a[@class='br7_exception_details_offence_link'][normalize-space()='${text}']`
+    );
+    if (linkHandlers.length !== 1) throw new Error(`${linkHandlers.length} links found for ${text} - should be 1`);
+    await Promise.all([linkHandlers[0].click(), this.page.waitForNavigation()]);
   }
 
   async clickAndWait(selector) {
@@ -70,6 +99,12 @@ class BrowserHelper {
       // eslint-disable-next-line no-underscore-dangle
       await this.page._client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder });
     }
+  }
+
+  async selectDropdownOption(dropdownId, text) {
+    const option = (await this.page.$x(`//*[@id = "${dropdownId}"]/option[text() = "${text}"]`))[0];
+    const value = await (await option.getProperty("value")).jsonValue();
+    await this.page.select(`#${dropdownId}`, value);
   }
 }
 
