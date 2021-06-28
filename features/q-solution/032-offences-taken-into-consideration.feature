@@ -19,7 +19,7 @@ Feature: {032} 3.2 UAT - TIC Change
 	@NeedsRunningAgainstPNC
 	Scenario: Offences Taken Into Consideration update PNC and raise a trigger
 		Given I am logged in as a "supervisor"
-			And there is a valid record for "q-solution test 032" in the PNC
+			And there is a valid record for "q-solution/032" in the PNC
 		When message id "q-solution/032" is received
 			And I view the list of exceptions
 		Then there are no exceptions raised for "Bethel Barry"
