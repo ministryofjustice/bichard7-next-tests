@@ -26,6 +26,5 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
     And there is a valid record for "q-solution/108" in the PNC
     When message id "q-solution/108" is received
     And I view the list of exceptions
-    Then I see trigger "PR27 - Out of Area case" in the exception list table
     And pending
 
