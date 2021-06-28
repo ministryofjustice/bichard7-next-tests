@@ -22,11 +22,15 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
     And there is a valid record for "q-solution/003" in the PNC
     When message id "q-solution/003" is received
     And I view the list of exceptions
-    Then I see trigger "PR01 - Disqualified driver" in the exception list table
-    And I see trigger "PR06 - Imprisoned" in the exception list table
-    And I see trigger "PR12 - Warrant withdrawn" in the exception list table
-    And I see exception "HO200212" in the exception list table
-    # Check the triggers tab for four triggers
-    # Check CJS Code 2509
+    Then I see exception "HO200212" in the exception list table
+    When I open the record for "TRTHREE TRPRTWELVE"
+    And I click the "Triggers" tab
+    Then I see trigger "TRPR0001" for offence "1"
+    And I see trigger "TRPR0001" for offence "3"
+    And I see trigger "TRPR0006"
+    And I see trigger "TRPR0012"
+    When I click the "Offences" tab
+    And I view offence "2"
+    Then I see "2509" in the "CJS Code" row of the results table
     And the PNC record has not been updated
 
