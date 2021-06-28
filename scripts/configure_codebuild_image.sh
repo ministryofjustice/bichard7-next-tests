@@ -4,7 +4,7 @@ set -ev
 amazon-linux-extras install epel -y
 yum install -y deltarpm
 yum groupinstall -y "Development tools"
-yum install -y openvpn python3-pip jq which
+yum install -y openvpn python3-pip jq which chromium
 
 pip3 install boto3 click awscli
 
