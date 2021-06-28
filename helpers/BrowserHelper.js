@@ -74,6 +74,14 @@ class BrowserHelper {
     return this.page.evaluate(() => document.body.innerText);
   }
 
+  async clickLinkAndWait(text) {
+    const linkHandlers = await this.page.$x(
+      `//a[@class='br7_exception_details_offence_link'][normalize-space()='${text}']`
+    );
+    if (linkHandlers.length !== 1) throw new Error(`${linkHandlers.length} links found for ${text} - should be 1`);
+    await Promise.all([linkHandlers[0].click(), this.page.waitForNavigation()]);
+  }
+
   async clickAndWait(selector) {
     return Promise.all([this.page.click(selector), this.page.waitForNavigation()]);
   }
