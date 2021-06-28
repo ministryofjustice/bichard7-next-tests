@@ -21,10 +21,15 @@ class BrowserHelper {
           "--disable-setuid-sandbox",
           // This will write shared memory files into /tmp instead of /dev/shm,
           // because Docker’s default for /dev/shm is 64MB
-          "--disable-dev-shm-usage"
+          "--disable-dev-shm-usage",
+          "--window-size=1024x768"
         ]
       });
     this.page = await this.browser.newPage();
+    await this.page.setViewport({
+      width: 1024,
+      height: 768
+    });
     await this.record();
     await this.visitUrl(path);
     return this.page;
