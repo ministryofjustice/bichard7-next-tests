@@ -24,6 +24,6 @@ Feature: {050} R3.4_BR7_YZ Force Code
     When message id "q-solution/050" is received
     And I view the list of exceptions
     Then I see exception "HO100310 (2)" in the exception list table
-    # Audit logs should show a YZ code
+    # TODO: Audit logs should show a YZ code
     And pending
 

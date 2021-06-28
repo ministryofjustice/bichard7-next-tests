@@ -38,7 +38,8 @@ const {
   checkTriggerforOffence,
   returnToList,
   checkRecordResolved,
-  checkRecordNotResolved
+  checkRecordNotResolved,
+  checkRecordNotExists
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -138,5 +139,7 @@ Then("the record for {string} is not {string}", checkRecordNotResolved);
 Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
+
+Then("the record for {string} does not exist", checkRecordNotExists);
 
 Then("pending", () => "pending");
