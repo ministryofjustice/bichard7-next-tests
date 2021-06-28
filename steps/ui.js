@@ -357,6 +357,10 @@ const checkRecordNotResolved = async function (recordName, resolvedType) {
   }
   await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
   await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
+};
+
+const checkRecordNotExists = async function (recordName) {
+  await this.browser.clickAndWait("input[value='Refresh']");
   expect(await this.browser.pageText()).not.toMatch(recordName);
 };
 
@@ -417,5 +421,6 @@ module.exports = {
   manuallyResolveRecord,
   viewOffence,
   checkOffenceData,
-  returnToList
+  returnToList,
+  checkRecordNotExists
 };

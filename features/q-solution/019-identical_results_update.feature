@@ -18,7 +18,9 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
   @NeedsValidating
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
+    Given I am logged in as a "supervisor"
     Given there is a valid record for "q-solution/019" in the PNC
     When message id "q-solution/019" is received
     Then the PNC updates the record
+    And the record for "PUFIVE UPDATE" does not exist
 
