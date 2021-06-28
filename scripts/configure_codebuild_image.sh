@@ -1,7 +1,7 @@
 set -ev
 
 #install packages
-yum install -y openvpn python3-pip jq
+yum install -y openvpn python3-pip jq openvpn
 
 pip3 install boto3 click awscli
 
