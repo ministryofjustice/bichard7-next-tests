@@ -315,7 +315,7 @@ const resolveAllTriggers = async function () {
   ]);
 };
 
-const manuallyResolveTriggers = async function () {
+const manuallyResolveRecord = async function () {
   await Promise.all([
     this.browser.page.click("input[value='Select All Triggers']"),
     this.browser.page.waitForNavigation()
@@ -332,14 +332,24 @@ const manuallyResolveTriggers = async function () {
   await Promise.all([this.browser.page.click("input[value='OK']"), this.browser.page.waitForNavigation()]);
 };
 
-const checkRecordResolution = async function (recordName, resolvedType) {
-  const selectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
-  if (!selectId) {
-    throw new Error("Resolution type is undefined");
+const checkRecordResolved = async function (recordName, resolvedType) {
+  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+  if (!resolutionSelectId) {
+    throw new Error(`Resolution type '${resolvedType}' is unknown`);
   }
-  await this.browser.page.select("select#resolvedFilter", selectId);
+  await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
   await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
   expect(await this.browser.pageText()).toMatch(recordName);
+};
+
+const checkRecordNotResolved = async function (recordName, resolvedType) {
+  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+  if (!resolutionSelectId) {
+    throw new Error(`Resolution type '${resolvedType}' is unknown`);
+  }
+  await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
+  await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
+  expect(await this.browser.pageText()).not.toMatch(recordName);
 };
 
 const viewOffence = async function (offenceId) {
@@ -351,6 +361,11 @@ const checkOffenceData = async function (value, key) {
     { column: 1, value: key, exact: true },
     { column: 2, value, exact: true }
   ]);
+};
+
+const returnToList = async function () {
+  await this.browser.clickAndWait("input[type='submit'][value='Return To List (Unlock)'");
+  await this.browser.clickAndWait("input[type='submit'][value='Yes'");
 };
 
 module.exports = {
@@ -389,8 +404,10 @@ module.exports = {
   checkTrigger,
   checkTriggerforOffence,
   resolveAllTriggers,
-  checkRecordResolution,
-  manuallyResolveTriggers,
+  checkRecordResolved,
+  checkRecordNotResolved,
+  manuallyResolveRecord,
   viewOffence,
-  checkOffenceData
+  checkOffenceData,
+  returnToList
 };

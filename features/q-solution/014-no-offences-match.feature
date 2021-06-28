@@ -26,9 +26,8 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 		Then I see trigger "HO100304" in the exception list table
 		When I open the record for "EXONEA EXCEPTION"
 		And I click the "Triggers" tab
-		And I wait "5" seconds
 		Then I see trigger "TRPR0003" for offence "1"
-		And I manually resolve all the triggers
+		And I manually resolve the record
 		And I view the list of exceptions
 		Then the record for "EXONEA EXCEPTION" is "Resolved"
 		And the PNC record has not been updated
