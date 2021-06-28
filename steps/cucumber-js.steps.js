@@ -32,11 +32,13 @@ const {
   loadTab,
   checkTrigger,
   resolveAllTriggers,
-  checkRecordResolution,
-  manuallyResolveTriggers,
+  manuallyResolveRecord,
   viewOffence,
   checkOffenceData,
-  checkTriggerforOffence
+  checkTriggerforOffence,
+  returnToList,
+  checkRecordResolved,
+  checkRecordNotResolved
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -78,6 +80,8 @@ When("I wait {string} seconds", async (delay) => {
 });
 
 When("I view offence {string}", viewOffence);
+
+When("I return to the list", returnToList);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
@@ -127,9 +131,11 @@ Then("I see trigger {string} for offence {string}", checkTriggerforOffence);
 
 Then("I see trigger {string}", checkTrigger);
 
-Then("the record for {string} is {string}", checkRecordResolution);
+Then("the record for {string} is {string}", checkRecordResolved);
 
-Then("I manually resolve all the triggers", manuallyResolveTriggers);
+Then("the record for {string} is not {string}", checkRecordNotResolved);
+
+Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
 
