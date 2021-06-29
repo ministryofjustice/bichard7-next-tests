@@ -24,7 +24,7 @@ class Bichard extends World {
         database: "bichard",
         user: process.env.DB_USER || defaults.postgresUser,
         password: process.env.DB_PASSWORD || defaults.postgresPassword,
-        ssl: process.env.DB_SSL === "true"
+        ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false
       });
 
       this.mq = new ActiveMqHelper({
