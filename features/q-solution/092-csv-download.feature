@@ -13,6 +13,8 @@ Feature: {092} R4.1.1_BR7_CSV Report via Portal
       This tests is to ensure that the LiveStatusSummary csv file can be downloaded from the reports section
       """
 
+  @Must
+  @NeedsValidating
   Scenario: Supervisors can download reports
     Given I am logged in as a "supervisor"
     And I navigate to the list of reports

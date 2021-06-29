@@ -31,13 +31,7 @@ To watch the tests running in a browser, run:
 HEADLESS=false npm run test:local
 ```
 
-This is useful when combined with
-
-```javascript
-await jestPuppeteer.debug();
-```
-
-which halts test execution and gives you access to Chrome DevTools.
+If you want to take screenshots of the browser as the tests run, you can add `RECORD=true` as an environment variable. The screenshots go in a unique folder within the `screenshots` directory. If your tests fail it will print out which folder the screenshots for that specific test are in.
 
 ##Environment Variables
 

@@ -3,11 +3,7 @@ const expect = require("expect");
 const createValidRecordInPNC = async function (record) {
   // mock a response in the PNC
   this.recordId = record;
-  try {
-    this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
-  } catch (e) {
-    throw new Error("PNC response not found");
-  }
+  this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
 
   const mockPromises = this.mocks.map((mock) => this.pnc.addMock(mock.matchRegex, mock.response));
   const mockIds = await Promise.all(mockPromises);
