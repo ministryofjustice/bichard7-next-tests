@@ -15,20 +15,21 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updates and triggers are correctly generated for sexual offences
 		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/001" in the PNC
 		When message id "q-solution/001" is received
 		And I view the list of exceptions
-		And I open the record for "SEXOFFENCE TRPRFOUR"
+		When I open the record for "SEXOFFENCE TRPRFOUR"
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0003" for offence "1"
 		And I see trigger "TRPR0004" for offence "1"
 		And I see trigger "TRPR0004" for offence "2"
-		# And I see no exceptions
 		And the PNC updates the record
 		When I resolve all of the triggers
 		Then the "record" for "SEXOFFENCE TRPRFOUR" is "resolved"
+		Then the "record" for "SEXOFFENCE TRPRFOUR" is not "unresolved"
+		And there are no exceptions
 

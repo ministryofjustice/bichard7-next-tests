@@ -15,7 +15,7 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
       """
 
   @Must
-  @NeedsValidating
+  @Problem
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "general handler"
