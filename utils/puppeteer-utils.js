@@ -13,7 +13,6 @@ const retryDelay = async (condition, retryFunction, delay, attempts = 20) => {
         await retryFunction();
         await wait(delay);
       } catch (e) {
-        console.log(`Error in retry:`, e);
         throw new Error(e);
       }
     }
@@ -31,6 +30,16 @@ const reloadUntilSelector = async (page, selector) => {
   return retryDelay(checkForSelector, reloadPage, 1000);
 };
 
+const reloadUntilContent = async (page, content) => {
+  const checkForContent = async () => !!(await page.evaluate(() => document.body.innerText)).includes(content);
+
+  const reloadPage = async () => {
+    await page.reload();
+  };
+
+  return retryDelay(checkForContent, reloadPage, 1000);
+};
+
 const waitForRecord = async (page) => {
   await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link");
 };
@@ -40,4 +49,4 @@ const delay = (seconds) =>
     setTimeout(resolve, seconds * 1000);
   });
 
-module.exports = { delay, retryDelay, reloadUntilSelector, waitForRecord };
+module.exports = { delay, retryDelay, reloadUntilSelector, waitForRecord, reloadUntilContent };
