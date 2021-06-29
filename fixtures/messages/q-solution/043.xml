@@ -32,82 +32,82 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD0307708</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1101ZD0100000410795A</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>Trigger</DC:PersonGivenName1>
-								<DC:PersonFamilyName>NEWTRPRTWO</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>U</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>Scenario1 Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>Scenario1 Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>Scenario1 Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>A</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68006</DC:OffenceCode>
-						<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>3</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-					<DC:Result>
-						<DC:ResultCode>4575</DC:ResultCode>
-						<DC:ResultText>Warrant of arrest issued for hearing on 26/09/2011 at 10:00 in Courtroom 01, Kingston Magistrates' Court. Basis: no appearance in answer to bail.</DC:ResultText>
-						<DC:ResultCodeQualifier>CG</DC:ResultCodeQualifier>
-						<DC:NextHearing>
-							<DC:NextHearingDetails>
-								<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-								<DC:DateOfHearing>2011-10-01</DC:DateOfHearing>
-								<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
-							</DC:NextHearingDetails>
-							<DC:NextHearingReason>To continue hearing</DC:NextHearingReason>
-							<DC:BailStatusOffence>B</DC:BailStatusOffence>
-						</DC:NextHearing>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultText>Free Result text</DC:ResultText>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0307708</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1101ZD0100000410795A</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>Trigger</DC:PersonGivenName1>
+										<DC:PersonFamilyName>NEWTRPRTWO</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>U</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>Scenario1 Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>Scenario1 Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>Scenario1 Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>A</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68006</DC:OffenceCode>
+								<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>3</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultCode>4575</DC:ResultCode>
+								<DC:ResultText>Warrant of arrest issued for hearing on 26/09/2011 at 10:00 in Courtroom 01, Kingston Magistrates' Court. Basis: no appearance in answer to bail.</DC:ResultText>
+								<DC:ResultCodeQualifier>CG</DC:ResultCodeQualifier>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2011-10-01</DC:DateOfHearing>
+										<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>To continue hearing</DC:NextHearingReason>
+									<DC:BailStatusOffence>B</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultText>Free Result text</DC:ResultText>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

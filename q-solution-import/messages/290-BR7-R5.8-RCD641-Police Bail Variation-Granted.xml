@@ -32,74 +32,74 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2013-06-25</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>00PP0000008</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>0800PP0100000000001H</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonGivenName1>PoliceBail</DC:PersonGivenName1>
-								<DC:PersonFamilyName>VARIATIONGRANTED</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Gender>2</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>A</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>Y</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>BA76509</DC:OffenceCode>
-						<DC:OffenceWording>Application to vary bail conditions imposed by the police.;In accordance with section 43B of the Magistrates&apos; Courts Act 1980.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2013-06-25</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:LocationOfOffence>not applicable</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2013-06-21</DC:InitiatedDate>
-					<DC:Plea>3</DC:Plea>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:Result>
-						<DC:ResultCode>4597</DC:ResultCode>
-						<DC:ResultText>Something new goes here.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultCode>4592</DC:ResultCode>
-						<DC:ResultText>Defendant&apos;s personal details changed.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultText>Bail varied see associated offence for full details, case number 1234567899.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultText>Granted.</DC:ResultText>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2013-06-25</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>00PP0000008</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>0800PP0100000000001H</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonGivenName1>PoliceBail</DC:PersonGivenName1>
+										<DC:PersonFamilyName>VARIATIONGRANTED</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Gender>2</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>A</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>BA76509</DC:OffenceCode>
+								<DC:OffenceWording>Application to vary bail conditions imposed by the police.;In accordance with section 43B of the Magistrates&apos; Courts Act 1980.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2013-06-25</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:LocationOfOffence>not applicable</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2013-06-21</DC:InitiatedDate>
+							<DC:Plea>3</DC:Plea>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultCode>4597</DC:ResultCode>
+								<DC:ResultText>Something new goes here.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>4592</DC:ResultCode>
+								<DC:ResultText>Defendant&apos;s personal details changed.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultText>Bail varied see associated offence for full details, case number 1234567899.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultText>Granted.</DC:ResultText>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>
