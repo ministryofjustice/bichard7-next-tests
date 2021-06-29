@@ -32,104 +32,104 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<NS1:ResultedCaseMessage xmlns:NS1="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<NS1:Session>
-		<NS1:CourtHearing>
-			<NS1:Hearing>
-				<NS1:CourtHearingLocation>B54MW01</NS1:CourtHearingLocation>
-				<NS1:DateOfHearing>2008-09-26</NS1:DateOfHearing>
-				<NS1:TimeOfHearing>20:01:02</NS1:TimeOfHearing>
-			</NS1:Hearing>
-			<NS1:PSAcode>3021</NS1:PSAcode>
-		</NS1:CourtHearing>
-		<NS1:Case>
-			<NS1:PTIURN>54MW0306608</NS1:PTIURN>
-			<NS1:Defendant>
-				<NS1:ProsecutorReference>0854MW0100000284818K</NS1:ProsecutorReference>
-				<NS1:CourtIndividualDefendant>
-					<NS1:PersonDefendant>
-						<NS1:BasePersonDetails>
-							<NS1:PersonName>
-								<NS1:PersonTitle>Mr</NS1:PersonTitle>
-								<NS1:PersonGivenName1>JOHN</NS1:PersonGivenName1>
-								<NS1:PersonFamilyName>TRULETWO</NS1:PersonFamilyName>
-							</NS1:PersonName>
-							<NS1:Birthdate>1928-11-11</NS1:Birthdate>
-							<NS1:Gender>1</NS1:Gender>
-						</NS1:BasePersonDetails>
-					</NS1:PersonDefendant>
-					<NS1:BailStatus>U</NS1:BailStatus>
-					<NS1:Address>
-						<NS1:SimpleAddress>
-							<NS1:AddressLine1>person addline1</NS1:AddressLine1>
-							<NS1:AddressLine2>person addline2</NS1:AddressLine2>
-							<NS1:AddressLine3>person addline3</NS1:AddressLine3>
-						</NS1:SimpleAddress>
-					</NS1:Address>
-					<NS1:PresentAtHearing>Y</NS1:PresentAtHearing>
-				</NS1:CourtIndividualDefendant>
-				<NS1:Offence>
-					<NS1:BaseOffenceDetails>
-						<NS1:OffenceSequenceNumber>001</NS1:OffenceSequenceNumber>
-						<NS1:OffenceCode>TH68072</NS1:OffenceCode>
-						<NS1:OffenceWording>long text talking about offence 1</NS1:OffenceWording>
-						<NS1:OffenceTiming>
-							<NS1:OffenceDateCode>2</NS1:OffenceDateCode>
-							<NS1:OffenceStart>
-								<NS1:OffenceDateStartDate>2006-01-01</NS1:OffenceDateStartDate>
-							</NS1:OffenceStart>
-						</NS1:OffenceTiming>
-						<NS1:ChargeDate>2008-04-14</NS1:ChargeDate>
-						<NS1:ArrestDate>2008-04-11</NS1:ArrestDate>
-						<NS1:LocationOfOffence>offence 1 location</NS1:LocationOfOffence>
-					</NS1:BaseOffenceDetails>
-					<NS1:InitiatedDate>2008-04-12</NS1:InitiatedDate>
-					<NS1:Plea>1</NS1:Plea>
-					<NS1:ModeOfTrial>07</NS1:ModeOfTrial>
-					<NS1:FinalDisposalIndicator>Y</NS1:FinalDisposalIndicator>
-					<NS1:ConvictionDate>2008-05-07</NS1:ConvictionDate>
-					<NS1:ConvictingCourt>3021</NS1:ConvictingCourt>
-					<NS1:Result>
-						<NS1:ResultCode>1002</NS1:ResultCode>
-						<NS1:ResultText>Imprisonment for 6 Months</NS1:ResultText>
-						<NS1:Outcome>
-							<NS1:Duration>
-								<NS1:DurationValue>6</NS1:DurationValue>
-								<NS1:DurationUnit>M</NS1:DurationUnit>
-							</NS1:Duration>
-						</NS1:Outcome>
-					</NS1:Result>
-				</NS1:Offence>
-				<NS1:Offence>
-					<NS1:BaseOffenceDetails>
-						<NS1:OffenceSequenceNumber>002</NS1:OffenceSequenceNumber>
-						<NS1:OffenceCode>TH68010</NS1:OffenceCode>
-						<NS1:OffenceWording>long text talking about offence 2</NS1:OffenceWording>
-						<NS1:OffenceTiming>
-							<NS1:OffenceDateCode>2</NS1:OffenceDateCode>
-							<NS1:OffenceStart>
-								<NS1:OffenceDateStartDate>2006-01-01</NS1:OffenceDateStartDate>
-							</NS1:OffenceStart>
-						</NS1:OffenceTiming>
-						<NS1:ChargeDate>2008-04-14</NS1:ChargeDate>
-						<NS1:ArrestDate>2008-04-11</NS1:ArrestDate>
-						<NS1:LocationOfOffence>offence 2 location</NS1:LocationOfOffence>
-					</NS1:BaseOffenceDetails>
-					<NS1:InitiatedDate>2008-04-12</NS1:InitiatedDate>
-					<NS1:Plea>1</NS1:Plea>
-					<NS1:ModeOfTrial>07</NS1:ModeOfTrial>
-					<NS1:FinalDisposalIndicator>Y</NS1:FinalDisposalIndicator>
-					<NS1:ConvictionDate>2008-05-07</NS1:ConvictionDate>
-					<NS1:ConvictingCourt>3021</NS1:ConvictingCourt>
-					<NS1:Result>
-						<NS1:ResultCode>4577</NS1:ResultCode>
-						<NS1:ResultText>Result text for 4577</NS1:ResultText>
-						<NS1:ResultCodeQualifier>CD</NS1:ResultCodeQualifier>
-					</NS1:Result>
-				</NS1:Offence>
-			</NS1:Defendant>
-		</NS1:Case>
-	</NS1:Session>
-</NS1:ResultedCaseMessage>
+		<NS1:ResultedCaseMessage xmlns:NS1="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<NS1:Session>
+				<NS1:CourtHearing>
+					<NS1:Hearing>
+						<NS1:CourtHearingLocation>B54MW01</NS1:CourtHearingLocation>
+						<NS1:DateOfHearing>2008-09-26</NS1:DateOfHearing>
+						<NS1:TimeOfHearing>20:01:02</NS1:TimeOfHearing>
+					</NS1:Hearing>
+					<NS1:PSAcode>3021</NS1:PSAcode>
+				</NS1:CourtHearing>
+				<NS1:Case>
+					<NS1:PTIURN>54MW0306608</NS1:PTIURN>
+					<NS1:Defendant>
+						<NS1:ProsecutorReference>0854MW0100000284818K</NS1:ProsecutorReference>
+						<NS1:CourtIndividualDefendant>
+							<NS1:PersonDefendant>
+								<NS1:BasePersonDetails>
+									<NS1:PersonName>
+										<NS1:PersonTitle>Mr</NS1:PersonTitle>
+										<NS1:PersonGivenName1>JOHN</NS1:PersonGivenName1>
+										<NS1:PersonFamilyName>TRULETWO</NS1:PersonFamilyName>
+									</NS1:PersonName>
+									<NS1:Birthdate>1928-11-11</NS1:Birthdate>
+									<NS1:Gender>1</NS1:Gender>
+								</NS1:BasePersonDetails>
+							</NS1:PersonDefendant>
+							<NS1:BailStatus>U</NS1:BailStatus>
+							<NS1:Address>
+								<NS1:SimpleAddress>
+									<NS1:AddressLine1>person addline1</NS1:AddressLine1>
+									<NS1:AddressLine2>person addline2</NS1:AddressLine2>
+									<NS1:AddressLine3>person addline3</NS1:AddressLine3>
+								</NS1:SimpleAddress>
+							</NS1:Address>
+							<NS1:PresentAtHearing>Y</NS1:PresentAtHearing>
+						</NS1:CourtIndividualDefendant>
+						<NS1:Offence>
+							<NS1:BaseOffenceDetails>
+								<NS1:OffenceSequenceNumber>001</NS1:OffenceSequenceNumber>
+								<NS1:OffenceCode>TH68072</NS1:OffenceCode>
+								<NS1:OffenceWording>long text talking about offence 1</NS1:OffenceWording>
+								<NS1:OffenceTiming>
+									<NS1:OffenceDateCode>2</NS1:OffenceDateCode>
+									<NS1:OffenceStart>
+										<NS1:OffenceDateStartDate>2006-01-01</NS1:OffenceDateStartDate>
+									</NS1:OffenceStart>
+								</NS1:OffenceTiming>
+								<NS1:ChargeDate>2008-04-14</NS1:ChargeDate>
+								<NS1:ArrestDate>2008-04-11</NS1:ArrestDate>
+								<NS1:LocationOfOffence>offence 1 location</NS1:LocationOfOffence>
+							</NS1:BaseOffenceDetails>
+							<NS1:InitiatedDate>2008-04-12</NS1:InitiatedDate>
+							<NS1:Plea>1</NS1:Plea>
+							<NS1:ModeOfTrial>07</NS1:ModeOfTrial>
+							<NS1:FinalDisposalIndicator>Y</NS1:FinalDisposalIndicator>
+							<NS1:ConvictionDate>2008-05-07</NS1:ConvictionDate>
+							<NS1:ConvictingCourt>3021</NS1:ConvictingCourt>
+							<NS1:Result>
+								<NS1:ResultCode>1002</NS1:ResultCode>
+								<NS1:ResultText>Imprisonment for 6 Months</NS1:ResultText>
+								<NS1:Outcome>
+									<NS1:Duration>
+										<NS1:DurationValue>6</NS1:DurationValue>
+										<NS1:DurationUnit>M</NS1:DurationUnit>
+									</NS1:Duration>
+								</NS1:Outcome>
+							</NS1:Result>
+						</NS1:Offence>
+						<NS1:Offence>
+							<NS1:BaseOffenceDetails>
+								<NS1:OffenceSequenceNumber>002</NS1:OffenceSequenceNumber>
+								<NS1:OffenceCode>TH68010</NS1:OffenceCode>
+								<NS1:OffenceWording>long text talking about offence 2</NS1:OffenceWording>
+								<NS1:OffenceTiming>
+									<NS1:OffenceDateCode>2</NS1:OffenceDateCode>
+									<NS1:OffenceStart>
+										<NS1:OffenceDateStartDate>2006-01-01</NS1:OffenceDateStartDate>
+									</NS1:OffenceStart>
+								</NS1:OffenceTiming>
+								<NS1:ChargeDate>2008-04-14</NS1:ChargeDate>
+								<NS1:ArrestDate>2008-04-11</NS1:ArrestDate>
+								<NS1:LocationOfOffence>offence 2 location</NS1:LocationOfOffence>
+							</NS1:BaseOffenceDetails>
+							<NS1:InitiatedDate>2008-04-12</NS1:InitiatedDate>
+							<NS1:Plea>1</NS1:Plea>
+							<NS1:ModeOfTrial>07</NS1:ModeOfTrial>
+							<NS1:FinalDisposalIndicator>Y</NS1:FinalDisposalIndicator>
+							<NS1:ConvictionDate>2008-05-07</NS1:ConvictionDate>
+							<NS1:ConvictingCourt>3021</NS1:ConvictingCourt>
+							<NS1:Result>
+								<NS1:ResultCode>4577</NS1:ResultCode>
+								<NS1:ResultText>Result text for 4577</NS1:ResultText>
+								<NS1:ResultCodeQualifier>CD</NS1:ResultCodeQualifier>
+							</NS1:Result>
+						</NS1:Offence>
+					</NS1:Defendant>
+				</NS1:Case>
+			</NS1:Session>
+		</NS1:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

@@ -32,105 +32,105 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-11-26</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD0303908</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1401ZD0100000459677E</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>BUSISCEN</DC:PersonGivenName1>
-								<DC:PersonFamilyName>STATDECFOUR</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>U</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioD Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioD Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioD Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>A</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>MC80524</DC:OffenceCode>
-						<DC:OffenceWording>Application to reopen a case following conviction for an offence of Aggravated vehicle taking.;In accordance with section 142 of the Magistrates' Courts Act 1980.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2011-11-26</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2011-11-26</DC:ChargeDate>
-						<DC:ArrestDate>2011-11-26</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2011-11-26</DC:InitiatedDate>
-					<DC:Plea>3</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-					<DC:Result>
-						<DC:ResultCode>4584</DC:ResultCode>
-						<DC:ResultText>It is ordered that ON 26.11.11 CASE REOPENED UNDER S142 MCA 1980. CONVICTION AND SENTENCE OF 26.09.11 SET ASIDE. PLEASE WRITE OFF CASE NUMBER 1234567890.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-					<DC:ResultText>Granted.</DC:ResultText>
-					</DC:Result>
-				</DC:Offence>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>RT88333</DC:OffenceCode>
-						<DC:OffenceWording>Drive whilst disqualified.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2011-11-26</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2011-11-26</DC:ChargeDate>
-						<DC:ArrestDate>2011-11-26</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2011-11-26</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-					<DC:Result>
-						<DC:ResultCode>4506</DC:ResultCode>
-						<DC:ResultText>Remanded on bail until 12/12/2011 at 13:30 in courtroom 01, SEND</DC:ResultText>
-						<DC:NextHearing>
-							<DC:NextHearingDetails>
-								<DC:CourtHearingLocation>B_1EF01</DC:CourtHearingLocation>
-								<DC:DateOfHearing>2011-12-12</DC:DateOfHearing>
-								<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
-							</DC:NextHearingDetails>
-							<DC:NextHearingReason>for trial;</DC:NextHearingReason>
-							<DC:BailStatusOffence>B</DC:BailStatusOffence>
-						</DC:NextHearing>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-11-26</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0303908</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1401ZD0100000459677E</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>BUSISCEN</DC:PersonGivenName1>
+										<DC:PersonFamilyName>STATDECFOUR</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>U</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioD Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioD Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioD Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>A</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>MC80524</DC:OffenceCode>
+								<DC:OffenceWording>Application to reopen a case following conviction for an offence of Aggravated vehicle taking.;In accordance with section 142 of the Magistrates' Courts Act 1980.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2011-11-26</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2011-11-26</DC:ChargeDate>
+								<DC:ArrestDate>2011-11-26</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2011-11-26</DC:InitiatedDate>
+							<DC:Plea>3</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultCode>4584</DC:ResultCode>
+								<DC:ResultText>It is ordered that ON 26.11.11 CASE REOPENED UNDER S142 MCA 1980. CONVICTION AND SENTENCE OF 26.09.11 SET ASIDE. PLEASE WRITE OFF CASE NUMBER 1234567890.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+							<DC:ResultText>Granted.</DC:ResultText>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>RT88333</DC:OffenceCode>
+								<DC:OffenceWording>Drive whilst disqualified.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2011-11-26</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2011-11-26</DC:ChargeDate>
+								<DC:ArrestDate>2011-11-26</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2011-11-26</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultCode>4506</DC:ResultCode>
+								<DC:ResultText>Remanded on bail until 12/12/2011 at 13:30 in courtroom 01, SEND</DC:ResultText>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>B_1EF01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2011-12-12</DC:DateOfHearing>
+										<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>for trial;</DC:NextHearingReason>
+									<DC:BailStatusOffence>B</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

@@ -32,82 +32,82 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-10-26</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01VK1600008</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1101ZD0100000440811B</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>TICS</DC:PersonGivenName1>
-								<DC:PersonFamilyName>SENDEF</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>U</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioU Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioU Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioU Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>N</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68006</DC:OffenceCode>
-						<DC:OffenceWording>Theft of pedal cycle</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2011-10-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2011-10-01</DC:ChargeDate>
-						<DC:ArrestDate>2011-10-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2011-10-01</DC:InitiatedDate>
-					<DC:Plea>7</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2011-10-26</DC:ConvictionDate>
-					<DC:ConvictingCourt>2576</DC:ConvictingCourt>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>4047</DC:ResultCode>
-						<DC:ResultText>Remanded on unconditional bail until 30/10/2011 at 10:10 in Courtroom 01, Croydon Magistrates&apos; Court. Adjournment reason: for a pre-sentence report to be prepared. (all optioDC open and to include Drug Rehabilitation Requirement assessment). Defendant to attend.</DC:ResultText>
-						<DC:ResultCodeQualifier>DA</DC:ResultCodeQualifier>
-						<DC:NextHearing>
-							<DC:NextHearingDetails>
-								<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-								<DC:DateOfHearing>2011-10-30</DC:DateOfHearing>
-								<DC:TimeOfHearing>10:10:00</DC:TimeOfHearing>
-							</DC:NextHearingDetails>
-							<DC:NextHearingReason>for a pre-sentence report to be prepared. (all optioDC open and to include Drug </DC:NextHearingReason>
-							<DC:BailStatusOffence>U</DC:BailStatusOffence>
-						</DC:NextHearing>
-					</DC:Result>			
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-10-26</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01VK1600008</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1101ZD0100000440811B</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>TICS</DC:PersonGivenName1>
+										<DC:PersonFamilyName>SENDEF</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>U</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioU Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioU Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioU Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>N</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68006</DC:OffenceCode>
+								<DC:OffenceWording>Theft of pedal cycle</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2011-10-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2011-10-01</DC:ChargeDate>
+								<DC:ArrestDate>2011-10-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2011-10-01</DC:InitiatedDate>
+							<DC:Plea>7</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-10-26</DC:ConvictionDate>
+							<DC:ConvictingCourt>2576</DC:ConvictingCourt>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>4047</DC:ResultCode>
+								<DC:ResultText>Remanded on unconditional bail until 30/10/2011 at 10:10 in Courtroom 01, Croydon Magistrates&apos; Court. Adjournment reason: for a pre-sentence report to be prepared. (all optioDC open and to include Drug Rehabilitation Requirement assessment). Defendant to attend.</DC:ResultText>
+								<DC:ResultCodeQualifier>DA</DC:ResultCodeQualifier>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2011-10-30</DC:DateOfHearing>
+										<DC:TimeOfHearing>10:10:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>for a pre-sentence report to be prepared. (all optioDC open and to include Drug </DC:NextHearingReason>
+									<DC:BailStatusOffence>U</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>			
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

@@ -32,76 +32,75 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<?xml version="1.0" encoding="UTF-8"?>
-<ResultedCaseMessage xmlns="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<Session>
-		<CourtHearing>
-			<Hearing>
-				<CourtHearingLocation>B01HA01</CourtHearingLocation>
-				<DateOfHearing>2008-09-20</DateOfHearing>
-				<TimeOfHearing>09:00:00</TimeOfHearing>
-			</Hearing>
-			<PSAcode>2570</PSAcode>
-		</CourtHearing>
-		<Case>
-			<PTIURN>00PP0000008</PTIURN>
-			<Defendant>
-				<ProsecutorReference>0800PP0100000000001H</ProsecutorReference>
-				<CourtIndividualDefendant>
-					<PersonDefendant>
-						<BasePersonDetails>
-							<PersonName>
-								<PersonGivenName1>CAO</PersonGivenName1>
-								<PersonFamilyName>DASWON</PersonFamilyName>
-							</PersonName>
-							<Birthdate>1980-04-01</Birthdate>
-							<Gender>9</Gender>
-						</BasePersonDetails>
-					</PersonDefendant>
-					<BailStatus>A</BailStatus>
-					<Address>
-						<SimpleAddress>
-							<AddressLine1>CAO</AddressLine1>
-							<AddressLine2>CAO</AddressLine2>
-						</SimpleAddress>
-					</Address>
-					<PresentAtHearing>N</PresentAtHearing>
-				</CourtIndividualDefendant>
-				<Offence>
-					<BaseOffenceDetails>
-						<OffenceSequenceNumber>001</OffenceSequenceNumber>
-						<OffenceCode>TH68001</OffenceCode>
-						<OffenceWording>On 01/01/2008 at aaa stole bbb of a value unknown belonging to ccc.;Contrary to Section 1(1) of the Theft Act 1968.</OffenceWording>
-						<OffenceTiming>
-							<OffenceDateCode>1</OffenceDateCode>
-							<OffenceStart>
-								<OffenceDateStartDate>2008-01-01</OffenceDateStartDate>
-							</OffenceStart>
-						</OffenceTiming>
-						<LocationOfOffence>aaa</LocationOfOffence>
-					</BaseOffenceDetails>
-					<InitiatedDate>2008-09-25</InitiatedDate>
-					<Plea>2</Plea>
-					<ModeOfTrial>07</ModeOfTrial>
-					<FinalDisposalIndicator>N</FinalDisposalIndicator>
-					<Result>
-						<ResultCode>4506</ResultCode>
-						<ResultText>Adjourned to 24/09/2008 at 10:00 in Courtroom 1, Horseferry Road Courthouse. Reason: for advance disclosure (Either way case). All parties excused attendance.</ResultText>
-						<ResultCodeQualifier>GB</ResultCodeQualifier>
-						<NextHearing>
-							<NextHearingDetails>
-								<CourtHearingLocation>B01HA01</CourtHearingLocation>
-								<DateOfHearing>2008-09-24</DateOfHearing>
-								<TimeOfHearing>10:00:00</TimeOfHearing>
-							</NextHearingDetails>
-							<NextHearingReason>for advance disclosure (Either way case);</NextHearingReason>
-						</NextHearing>
-					</Result>
-				</Offence>
-			</Defendant>
-		</Case>
-	</Session>
-</ResultedCaseMessage>
-
+		<?xml version="1.0" encoding="UTF-8"?>
+		<ResultedCaseMessage xmlns="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<Session>
+				<CourtHearing>
+					<Hearing>
+						<CourtHearingLocation>B01HA01</CourtHearingLocation>
+						<DateOfHearing>2008-09-20</DateOfHearing>
+						<TimeOfHearing>09:00:00</TimeOfHearing>
+					</Hearing>
+					<PSAcode>2570</PSAcode>
+				</CourtHearing>
+				<Case>
+					<PTIURN>00PP0000008</PTIURN>
+					<Defendant>
+						<ProsecutorReference>0800PP0100000000001H</ProsecutorReference>
+						<CourtIndividualDefendant>
+							<PersonDefendant>
+								<BasePersonDetails>
+									<PersonName>
+										<PersonGivenName1>CAO</PersonGivenName1>
+										<PersonFamilyName>DASWON</PersonFamilyName>
+									</PersonName>
+									<Birthdate>1980-04-01</Birthdate>
+									<Gender>9</Gender>
+								</BasePersonDetails>
+							</PersonDefendant>
+							<BailStatus>A</BailStatus>
+							<Address>
+								<SimpleAddress>
+									<AddressLine1>CAO</AddressLine1>
+									<AddressLine2>CAO</AddressLine2>
+								</SimpleAddress>
+							</Address>
+							<PresentAtHearing>N</PresentAtHearing>
+						</CourtIndividualDefendant>
+						<Offence>
+							<BaseOffenceDetails>
+								<OffenceSequenceNumber>001</OffenceSequenceNumber>
+								<OffenceCode>TH68001</OffenceCode>
+								<OffenceWording>On 01/01/2008 at aaa stole bbb of a value unknown belonging to ccc.;Contrary to Section 1(1) of the Theft Act 1968.</OffenceWording>
+								<OffenceTiming>
+									<OffenceDateCode>1</OffenceDateCode>
+									<OffenceStart>
+										<OffenceDateStartDate>2008-01-01</OffenceDateStartDate>
+									</OffenceStart>
+								</OffenceTiming>
+								<LocationOfOffence>aaa</LocationOfOffence>
+							</BaseOffenceDetails>
+							<InitiatedDate>2008-09-25</InitiatedDate>
+							<Plea>2</Plea>
+							<ModeOfTrial>07</ModeOfTrial>
+							<FinalDisposalIndicator>N</FinalDisposalIndicator>
+							<Result>
+								<ResultCode>4506</ResultCode>
+								<ResultText>Adjourned to 24/09/2008 at 10:00 in Courtroom 1, Horseferry Road Courthouse. Reason: for advance disclosure (Either way case). All parties excused attendance.</ResultText>
+								<ResultCodeQualifier>GB</ResultCodeQualifier>
+								<NextHearing>
+									<NextHearingDetails>
+										<CourtHearingLocation>B01HA01</CourtHearingLocation>
+										<DateOfHearing>2008-09-24</DateOfHearing>
+										<TimeOfHearing>10:00:00</TimeOfHearing>
+									</NextHearingDetails>
+									<NextHearingReason>for advance disclosure (Either way case);</NextHearingReason>
+								</NextHearing>
+							</Result>
+						</Offence>
+					</Defendant>
+				</Case>
+			</Session>
+		</ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

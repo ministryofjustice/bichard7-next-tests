@@ -32,80 +32,80 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2009-10-26</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01VK5100008</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1300000000000000003N</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>Peter</DC:PersonGivenName1>
-								<DC:PersonFamilyName>Williams</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>U</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioAO Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioAO Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioAO Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>Y</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>CJ67002</DC:OffenceCode>
-						<DC:OffenceWording>Drunk and disorderly</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2009-06-01</DC:ChargeDate>
-						<DC:ArrestDate>2009-06-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2009-06-01</DC:InitiatedDate>
-					<DC:Plea>3</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2009-09-26</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>4047</DC:ResultCode>
-						<DC:ResultText>Adjourned to 26/11/2009 at 14:00 in Courtroom 01, Croydon Magistrates Court. Reason: non-standard reason: For fixed penalty to be paid - otherwise prosecution against you will proceed and you will have to send to court your plea, driving licence, means form. Defendant excused attendance.</DC:ResultText>
-						<DC:NextHearing>
-							<DC:NextHearingDetails>
-								<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-								<DC:DateOfHearing>2009-11-26</DC:DateOfHearing>
-								<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
-							</DC:NextHearingDetails>
-							<DC:NextHearingReason>non-standard reason: For fixed penalty to be paid - otherwise prosecution agains</DC:NextHearingReason>
-							<DC:BailStatusOffence>U</DC:BailStatusOffence>
-						</DC:NextHearing>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2009-10-26</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01VK5100008</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1300000000000000003N</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>Peter</DC:PersonGivenName1>
+										<DC:PersonFamilyName>Williams</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>U</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioAO Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioAO Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioAO Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>CJ67002</DC:OffenceCode>
+								<DC:OffenceWording>Drunk and disorderly</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2009-06-01</DC:ChargeDate>
+								<DC:ArrestDate>2009-06-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2009-06-01</DC:InitiatedDate>
+							<DC:Plea>3</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-09-26</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>4047</DC:ResultCode>
+								<DC:ResultText>Adjourned to 26/11/2009 at 14:00 in Courtroom 01, Croydon Magistrates Court. Reason: non-standard reason: For fixed penalty to be paid - otherwise prosecution against you will proceed and you will have to send to court your plea, driving licence, means form. Defendant excused attendance.</DC:ResultText>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2009-11-26</DC:DateOfHearing>
+										<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>non-standard reason: For fixed penalty to be paid - otherwise prosecution agains</DC:NextHearingReason>
+									<DC:BailStatusOffence>U</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>
