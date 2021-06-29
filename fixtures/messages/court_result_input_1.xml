@@ -39,7 +39,7 @@
 			<DC:Session>
 				<DC:CourtHearing>
 					<DC:Hearing>
-						<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
 						<DC:DateOfHearing>2008-01-11</DC:DateOfHearing>
 						<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
 					</DC:Hearing>
@@ -110,7 +110,7 @@
 								<DC:ResultText>Remittal for Sentence on Adjournment</DC:ResultText>
 								<DC:NextHearing>
 									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
+										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
 										<DC:DateOfHearing>2008-02-01</DC:DateOfHearing>
 										<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
 									</DC:NextHearingDetails>

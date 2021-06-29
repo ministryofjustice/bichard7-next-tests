@@ -132,9 +132,9 @@ Then("I see trigger {string} for offence {string}", checkTriggerforOffence);
 
 Then("I see trigger {string}", checkTrigger);
 
-Then("the record for {string} is {string}", checkRecordResolved);
+Then("the {string} for {string} is {string}", checkRecordResolved);
 
-Then("the record for {string} is not {string}", checkRecordNotResolved);
+Then("the {string} for {string} is not {string}", checkRecordNotResolved);
 
 Then("I manually resolve the record", manuallyResolveRecord);
 
