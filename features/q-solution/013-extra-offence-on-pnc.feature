@@ -15,7 +15,7 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
       """
 
   @Must
-  @NeedsValidating
+  @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "supervisor"
@@ -27,7 +27,7 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
     And I click the "Triggers" tab
     Then I see trigger "TRPR0006"
     When I manually resolve the record
-    Then the record for "EXONE EXCEPTION" is "Resolved"
-    And the record for "EXONE EXCEPTION" is not "Unresolved"
+    Then the "record" for "EXONE EXCEPTION" is "Resolved"
+    And the "record" for "EXONE EXCEPTION" is not "Unresolved"
     And the PNC record has not been updated
 

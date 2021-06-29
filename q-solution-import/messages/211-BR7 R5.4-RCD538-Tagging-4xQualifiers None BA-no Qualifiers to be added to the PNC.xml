@@ -32,85 +32,85 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD0300108</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1101ZD0100000440807X</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>Tagging</DC:PersonGivenName1>
-								<DC:PersonFamilyName>MissingBAOne</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-							<DC:BailConditions>Curfew: "curfew, between" 21:30 and 07:00 daily;Other: "comply, with" ISSP;Residence: live and sleep each night at Somewhere</DC:BailConditions>
-					</DC:PersonDefendant>
-					<DC:BailStatus>B</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioA Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioA Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioA Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>Y</DC:PresentAtHearing>
-					<DC:ReasonForBailConditionsOrCustody>to prevent offending; </DC:ReasonForBailConditionsOrCustody>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68006</DC:OffenceCode>
-						<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>3</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>4015</DC:ResultCode>
-						<DC:ResultText>Committed for trial under section 6(2) Magistrates&apos; Court Act 1980 to Snaresbrook Crown Court on 25/05/2012 at 09:30 or such other date, time or place as the Crown Court directs, on bail subject to the following conditions: Curfew: curfew between 21:30 and 07:00 daily, Other: comply with ISSP, Residence: live and sleep each night at Somewhere. Condition(s) numbered 1 to be electronically monitored. Reasons: to prevent offending. Section 39 of the Children and Young Persons Act 1933 direction made.</DC:ResultText>
-						<DC:ResultCodeQualifier>RA</DC:ResultCodeQualifier>
-						<DC:ResultCodeQualifier>RB</DC:ResultCodeQualifier>
-						<DC:ResultCodeQualifier>WC</DC:ResultCodeQualifier>
-						<DC:ResultCodeQualifier>JD</DC:ResultCodeQualifier>
-						<DC:NextHearing>
-							<DC:NextHearingDetails>
-								<DC:CourtHearingLocation>C01SN00</DC:CourtHearingLocation>
-								<DC:DateOfHearing>2012-05-25</DC:DateOfHearing>
-								<DC:TimeOfHearing>09:30:00</DC:TimeOfHearing>
-							</DC:NextHearingDetails>
-							<DC:BailStatusOffence>B</DC:BailStatusOffence>
-						</DC:NextHearing>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0300108</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1101ZD0100000440807X</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>Tagging</DC:PersonGivenName1>
+										<DC:PersonFamilyName>MissingBAOne</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+									<DC:BailConditions>Curfew: "curfew, between" 21:30 and 07:00 daily;Other: "comply, with" ISSP;Residence: live and sleep each night at Somewhere</DC:BailConditions>
+							</DC:PersonDefendant>
+							<DC:BailStatus>B</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioA Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioA Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioA Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
+							<DC:ReasonForBailConditionsOrCustody>to prevent offending; </DC:ReasonForBailConditionsOrCustody>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68006</DC:OffenceCode>
+								<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>3</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>4015</DC:ResultCode>
+								<DC:ResultText>Committed for trial under section 6(2) Magistrates&apos; Court Act 1980 to Snaresbrook Crown Court on 25/05/2012 at 09:30 or such other date, time or place as the Crown Court directs, on bail subject to the following conditions: Curfew: curfew between 21:30 and 07:00 daily, Other: comply with ISSP, Residence: live and sleep each night at Somewhere. Condition(s) numbered 1 to be electronically monitored. Reasons: to prevent offending. Section 39 of the Children and Young Persons Act 1933 direction made.</DC:ResultText>
+								<DC:ResultCodeQualifier>RA</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>RB</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>WC</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>JD</DC:ResultCodeQualifier>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>C01SN00</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2012-05-25</DC:DateOfHearing>
+										<DC:TimeOfHearing>09:30:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:BailStatusOffence>B</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

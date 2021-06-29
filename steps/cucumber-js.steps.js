@@ -23,6 +23,7 @@ const {
   visitTeamPage,
   canSeeReports,
   editTeam,
+  clickButton,
   clickMainTab,
   exceptionIsNotEditable,
   cannotReallocateCase,
@@ -38,7 +39,8 @@ const {
   checkTriggerforOffence,
   returnToList,
   checkRecordResolved,
-  checkRecordNotResolved
+  checkRecordNotResolved,
+  checkRecordNotExists
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -66,6 +68,8 @@ When("I visit the Team Management screen", visitTeamPage);
 When("I open the record for {string}", openRecordFor);
 
 When("I click the {string} menu button", clickMainTab);
+
+When("I click the {string} button", clickButton);
 
 When("I access the {string} report", accessReport);
 
@@ -131,12 +135,14 @@ Then("I see trigger {string} for offence {string}", checkTriggerforOffence);
 
 Then("I see trigger {string}", checkTrigger);
 
-Then("the record for {string} is {string}", checkRecordResolved);
+Then("the {string} for {string} is {string}", checkRecordResolved);
 
-Then("the record for {string} is not {string}", checkRecordNotResolved);
+Then("the {string} for {string} is not {string}", checkRecordNotResolved);
 
 Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
+
+Then("the record for {string} does not exist", checkRecordNotExists);
 
 Then("pending", () => "pending");

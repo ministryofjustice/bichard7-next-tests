@@ -71,11 +71,11 @@ class BrowserHelper {
     if (this.browser) this.browser.close();
   }
 
-  async elementText(selector) {
+  elementText(selector) {
     return this.page.evaluate((sel) => document.querySelector(sel).innerText, selector);
   }
 
-  async pageText() {
+  pageText() {
     return this.page.evaluate(() => document.body.innerText);
   }
 

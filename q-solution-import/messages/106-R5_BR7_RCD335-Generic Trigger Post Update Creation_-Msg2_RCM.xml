@@ -32,74 +32,74 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g" xmlns="http://www.dca.gov.uk/xmlschemas/libra" xmlns:apd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:bsa="http://www.govtalk.gov.uk/people/bs7666" xmlns:cor="http://www.govtalk.gov.uk/core" xmlns:fin="http://www.govtalk.gov.uk/financial/GDSCFinancialTypes" xmlns:org="http://www.govtalk.gov.uk/financial/OrganisationIdentifiers" xmlns:pds="http://www.govtalk.gov.uk/people/PersonDescriptives" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-10-01</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD0300208</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1401ZD0100000459673A</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>CREATE</DC:PersonGivenName1>
-								<DC:PersonFamilyName>OFFENCEGENERICTRPS</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>C</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioAE Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioAE Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioAE Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>A</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68010A</DC:OffenceCode>
-						<DC:OffenceWording>Theft from shop - shoplifting.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2010-09-25</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2010-09-25</DC:ChargeDate>
-						<DC:ArrestDate>2010-09-25</DC:ArrestDate>
-						<DC:LocationOfOffence>1 Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-09-25</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2011-10-01</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1015</DC:ResultCode>
-						<DC:ResultText>Fined 300.</DC:ResultText>
-						<DC:Outcome>
-							<DC:ResultAmountSterling>300.00</DC:ResultAmountSterling>
-						</DC:Outcome>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g" xmlns="http://www.dca.gov.uk/xmlschemas/libra" xmlns:apd="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:bsa="http://www.govtalk.gov.uk/people/bs7666" xmlns:cor="http://www.govtalk.gov.uk/core" xmlns:fin="http://www.govtalk.gov.uk/financial/GDSCFinancialTypes" xmlns:org="http://www.govtalk.gov.uk/financial/OrganisationIdentifiers" xmlns:pds="http://www.govtalk.gov.uk/people/PersonDescriptives" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-10-01</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0300208</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1401ZD0100000459673A</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>CREATE</DC:PersonGivenName1>
+										<DC:PersonFamilyName>OFFENCEGENERICTRPS</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>C</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioAE Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioAE Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioAE Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>A</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68010A</DC:OffenceCode>
+								<DC:OffenceWording>Theft from shop - shoplifting.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2010-09-25</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-09-25</DC:ChargeDate>
+								<DC:ArrestDate>2010-09-25</DC:ArrestDate>
+								<DC:LocationOfOffence>1 Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-09-25</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-10-01</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 300.</DC:ResultText>
+								<DC:Outcome>
+									<DC:ResultAmountSterling>300.00</DC:ResultAmountSterling>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

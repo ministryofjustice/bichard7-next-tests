@@ -23,5 +23,9 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
     When message id "q-solution/021" is received
     And I view the list of exceptions
     Then I see exception "HO100304" in the exception list table
+    When I open the record for "SCONEA EXCEPTION"
+    # Inconsistency:
+    # Test script says: 3x HO100300 - Organisation not recognised. Are also present on the portal 1 per offence
+    # This is not the case
     And the PNC record has not been updated
 

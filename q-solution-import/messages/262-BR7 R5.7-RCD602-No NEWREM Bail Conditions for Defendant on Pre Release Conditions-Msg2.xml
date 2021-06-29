@@ -32,82 +32,82 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2012-01-05</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD0300108</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1201ZD0100000448749D</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>DefendantOn</DC:PersonGivenName1>
-								<DC:PersonFamilyName>PRERELEASECONDITIONS</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-						<DC:BailConditions>Exclusion: not to contact directly or indirectly or associate with co-defendants;Other: report to Croydon police station between 10:00 and 14:00 on Monday, Wednesday and Friday;Passports: give to Croydon  police station any passport held;Residence: live and sleep each night at Somewhere, Someplace, Z1 0ZZ;Security: pay a deposit of £4000.00 to the court;Travel: not to apply for international travel documents</DC:BailConditions>
-					</DC:PersonDefendant>
-					<DC:BailStatus>P</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioA Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioA Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioA Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>Y</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>RT88004</DC:OffenceCode>
-						<DC:OffenceWording>Drive without reasonable consideration.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2012-01-05</DC:ConvictionDate>
-					<DC:ConvictingCourt>2576</DC:ConvictingCourt>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>4017</DC:ResultCode>
-						<DC:ResultText>Remitted to Snaresbrook Crown Court for sentence on 10/01/2012 at 13:30. To be released upon satisfying the following conditions: Passports: give to Croydon police station any passport held, Security: pay a deposit of £4000.00 to the court, and subject to the following conditions after release: Exclusion: not to contact directly or indirectly or associate with co-defendants, Other: report to Croydon police station between 10:00 and 14:00 on Monday, Wednesday and Friday, Residence: live and sleep each night at Someplace, Somewhere, Z1 0ZZ, Travel: not to apply for international travel documents. Reasons: to ensure appearance. No Section 39 of the Children and Young Persons Act 1933 direction made. Custody time limit expires on 05/01/2012.</DC:ResultText>
-						<DC:NextHearing>
-							<DC:NextHearingDetails>
-								<DC:CourtHearingLocation>C01SN01</DC:CourtHearingLocation>
-								<DC:DateOfHearing>2012-01-10</DC:DateOfHearing>
-								<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
-							</DC:NextHearingDetails>
-							<DC:NextHearingReason>for pre-sentence report;</DC:NextHearingReason>
-							<DC:BailStatusOffence>C</DC:BailStatusOffence>
-						</DC:NextHearing>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2012-01-05</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0300108</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1201ZD0100000448749D</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>DefendantOn</DC:PersonGivenName1>
+										<DC:PersonFamilyName>PRERELEASECONDITIONS</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+								<DC:BailConditions>Exclusion: not to contact directly or indirectly or associate with co-defendants;Other: report to Croydon police station between 10:00 and 14:00 on Monday, Wednesday and Friday;Passports: give to Croydon  police station any passport held;Residence: live and sleep each night at Somewhere, Someplace, Z1 0ZZ;Security: pay a deposit of £4000.00 to the court;Travel: not to apply for international travel documents</DC:BailConditions>
+							</DC:PersonDefendant>
+							<DC:BailStatus>P</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioA Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioA Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioA Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>RT88004</DC:OffenceCode>
+								<DC:OffenceWording>Drive without reasonable consideration.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2012-01-05</DC:ConvictionDate>
+							<DC:ConvictingCourt>2576</DC:ConvictingCourt>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>4017</DC:ResultCode>
+								<DC:ResultText>Remitted to Snaresbrook Crown Court for sentence on 10/01/2012 at 13:30. To be released upon satisfying the following conditions: Passports: give to Croydon police station any passport held, Security: pay a deposit of £4000.00 to the court, and subject to the following conditions after release: Exclusion: not to contact directly or indirectly or associate with co-defendants, Other: report to Croydon police station between 10:00 and 14:00 on Monday, Wednesday and Friday, Residence: live and sleep each night at Someplace, Somewhere, Z1 0ZZ, Travel: not to apply for international travel documents. Reasons: to ensure appearance. No Section 39 of the Children and Young Persons Act 1933 direction made. Custody time limit expires on 05/01/2012.</DC:ResultText>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>C01SN01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2012-01-10</DC:DateOfHearing>
+										<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>for pre-sentence report;</DC:NextHearingReason>
+									<DC:BailStatusOffence>C</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

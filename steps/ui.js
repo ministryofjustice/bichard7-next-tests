@@ -52,7 +52,7 @@ const openRecordFor = async function (name) {
   await waitForRecord(this.browser.page);
   await Promise.all([
     this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`),
-    this.browser.page.waitForSelector("#br7_exception_details_pnc_data_table")
+    this.browser.page.waitForNavigation()
   ]);
 };
 
@@ -108,6 +108,11 @@ const isButtonVisible = async function (page, sectionName) {
   );
 
   return Boolean(triggersBtn);
+};
+
+const clickButton = async function (value) {
+  const { page } = this.browser;
+  await Promise.all([page.click(`input[type='submit'][value='${value}']`), page.waitForNavigation()]);
 };
 
 const clickMainTab = async function (label) {
@@ -340,23 +345,34 @@ const manuallyResolveRecord = async function () {
   await Promise.all([this.browser.page.click("input[value='OK']"), this.browser.page.waitForNavigation()]);
 };
 
-const checkRecordResolved = async function (recordName, resolvedType) {
+const filterRecords = async function (world, resolvedType, recordType) {
+  const recordSelectId = { record: "0", exception: "1", trigger: "2" }[recordType.toLowerCase()];
+  if (!recordSelectId) {
+    throw new Error(`Record type '${recordType}' is unknown`);
+  }
+  await world.browser.page.select("select#resolvedFilter", recordSelectId);
+
   const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
   if (!resolutionSelectId) {
     throw new Error(`Resolution type '${resolvedType}' is unknown`);
   }
-  await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
-  await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
-  expect(await this.browser.pageText()).toMatch(recordName);
+  await world.browser.page.select("select#resolvedFilter", resolutionSelectId);
+
+  await Promise.all([world.browser.page.click("input[value='Refresh']"), world.browser.page.waitForNavigation()]);
 };
 
-const checkRecordNotResolved = async function (recordName, resolvedType) {
-  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
-  if (!resolutionSelectId) {
-    throw new Error(`Resolution type '${resolvedType}' is unknown`);
-  }
-  await this.browser.page.select("select#resolvedFilter", resolutionSelectId);
-  await Promise.all([this.browser.page.click("input[value='Refresh']"), this.browser.page.waitForNavigation()]);
+const checkRecordResolved = async function (recordType, recordName, resolvedType) {
+  await filterRecords(this, resolvedType, recordType);
+  expect(await this.browser.elementText("table.resultsTable")).toMatch(recordName);
+};
+
+const checkRecordNotResolved = async function (recordType, recordName, resolvedType) {
+  await filterRecords(this, resolvedType, recordType);
+  expect(await this.browser.elementText("table.resultsTable")).not.toMatch(recordName);
+};
+
+const checkRecordNotExists = async function (recordName) {
+  await this.browser.clickAndWait("input[value='Refresh']");
   expect(await this.browser.pageText()).not.toMatch(recordName);
 };
 
@@ -397,6 +413,7 @@ module.exports = {
   exceptionIsNotEditable,
   buttonIsVisible,
   buttonIsNotVisible,
+  clickButton,
   clickMainTab,
   triggersAreVisible,
   exceptionsAreVisible,
@@ -417,5 +434,6 @@ module.exports = {
   manuallyResolveRecord,
   viewOffence,
   checkOffenceData,
-  returnToList
+  returnToList,
+  checkRecordNotExists
 };

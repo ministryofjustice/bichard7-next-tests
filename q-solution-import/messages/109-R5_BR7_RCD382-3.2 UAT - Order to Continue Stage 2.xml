@@ -32,78 +32,78 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-08-01</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD1600008</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1101ZD0100000410849J</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>LORNE</DC:PersonGivenName1>
-								<DC:PersonFamilyName>FOARDS</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>U</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioU Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioU Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioU Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>N</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>PC00525</DC:OffenceCode>
-						<DC:OffenceWording>Fail to comply with Community Rehabilitation order</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2010-07-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-							<DC:OffenceEnd>
-								<DC:OffenceEndDate>2010-07-02</DC:OffenceEndDate>
-							</DC:OffenceEnd>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2010-07-01</DC:ChargeDate>
-						<DC:ArrestDate>2010-07-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2010-07-01</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2011-08-01</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1040</DC:ResultCode>
-						<DC:ResultText>Order to continue.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultCode>1087</DC:ResultCode>
-						<DC:ResultText>No action taken on breach. Imposed by Kingston Magistrates' Court on 26/09/2008.</DC:ResultText>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-08-01</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD1600008</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1101ZD0100000410849J</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>LORNE</DC:PersonGivenName1>
+										<DC:PersonFamilyName>FOARDS</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>U</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioU Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioU Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioU Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>N</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>PC00525</DC:OffenceCode>
+								<DC:OffenceWording>Fail to comply with Community Rehabilitation order</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2010-07-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+									<DC:OffenceEnd>
+										<DC:OffenceEndDate>2010-07-02</DC:OffenceEndDate>
+									</DC:OffenceEnd>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-07-01</DC:ChargeDate>
+								<DC:ArrestDate>2010-07-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2010-07-01</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-08-01</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1040</DC:ResultCode>
+								<DC:ResultText>Order to continue.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>1087</DC:ResultCode>
+								<DC:ResultText>No action taken on breach. Imposed by Kingston Magistrates' Court on 26/09/2008.</DC:ResultText>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

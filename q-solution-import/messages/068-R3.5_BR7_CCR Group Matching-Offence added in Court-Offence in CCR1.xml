@@ -32,167 +32,167 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2009-06-07</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>01ZD0300108</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>0900000000000020004H</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>DAVID</DC:PersonGivenName1>
-								<DC:PersonFamilyName>LOMAX</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>U</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioA Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioA Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioA Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>A</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68037</DC:OffenceCode>
-						<DC:OffenceWording>Burglary other than dwelling - theft</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2006-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2006-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1002</DC:ResultCode>
-						<DC:ResultText>Imprisonment for 14 Months</DC:ResultText>
-						<DC:Outcome>
-							<DC:Duration>
-								<DC:DurationValue>14</DC:DurationValue>
-								<DC:DurationUnit>M</DC:DurationUnit>
-							</DC:Duration>
-						</DC:Outcome>
-					</DC:Result>
-				</DC:Offence>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>PU86003</DC:OffenceCode>
-						<DC:OffenceWording>Affray - unlawful violence - Pubilc Order</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2006-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2006-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1002</DC:ResultCode>
-						<DC:ResultText>Imprisonment for 14 Months</DC:ResultText>
-						<DC:Outcome>
-							<DC:Duration>
-								<DC:DurationValue>14</DC:DurationValue>
-								<DC:DurationUnit>M</DC:DurationUnit>
-							</DC:Duration>
-						</DC:Outcome>
-					</DC:Result>
-				</DC:Offence>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>003</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68010</DC:OffenceCode>
-						<DC:OffenceWording>Theft from shop - shoplifting</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2006-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2006-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1015</DC:ResultCode>
-						<DC:ResultText>Fined 300.</DC:ResultText>
-						<DC:Outcome>
-							<DC:ResultAmountSterling>300.00</DC:ResultAmountSterling>
-						</DC:Outcome>
-					</DC:Result>
-				</DC:Offence>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>004</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>TH68010</DC:OffenceCode>
-						<DC:OffenceWording>Theft from shop - shoplifting</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2006-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2006-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-					<DC:Plea>2</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1015</DC:ResultCode>
-						<DC:ResultText>Fined 400.</DC:ResultText>
-						<DC:Outcome>
-							<DC:ResultAmountSterling>400.00</DC:ResultAmountSterling>
-						</DC:Outcome>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2009-06-07</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0300108</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>0900000000000020004H</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>DAVID</DC:PersonGivenName1>
+										<DC:PersonFamilyName>LOMAX</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>U</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioA Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioA Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioA Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>A</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68037</DC:OffenceCode>
+								<DC:OffenceWording>Burglary other than dwelling - theft</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2006-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2006-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1002</DC:ResultCode>
+								<DC:ResultText>Imprisonment for 14 Months</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>14</DC:DurationValue>
+										<DC:DurationUnit>M</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>PU86003</DC:OffenceCode>
+								<DC:OffenceWording>Affray - unlawful violence - Pubilc Order</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2006-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2006-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1002</DC:ResultCode>
+								<DC:ResultText>Imprisonment for 14 Months</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>14</DC:DurationValue>
+										<DC:DurationUnit>M</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>003</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68010</DC:OffenceCode>
+								<DC:OffenceWording>Theft from shop - shoplifting</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2006-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2006-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 300.</DC:ResultText>
+								<DC:Outcome>
+									<DC:ResultAmountSterling>300.00</DC:ResultAmountSterling>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>004</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>TH68010</DC:OffenceCode>
+								<DC:OffenceWording>Theft from shop - shoplifting</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2006-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2006-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-06-07</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 400.</DC:ResultText>
+								<DC:Outcome>
+									<DC:ResultAmountSterling>400.00</DC:ResultAmountSterling>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

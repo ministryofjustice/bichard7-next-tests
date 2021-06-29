@@ -32,100 +32,100 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-	<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
-	<DC:Session>
-		<DC:CourtHearing>
-			<DC:Hearing>
-				<DC:CourtHearingLocation>B41ME00</DC:CourtHearingLocation>
-				<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
-				<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
-			</DC:Hearing>
-			<DC:PSAcode>2576</DC:PSAcode>
-		</DC:CourtHearing>
-		<DC:Case>
-			<DC:PTIURN>00NP0000008</DC:PTIURN>
-			<DC:Defendant>
-				<DC:ProsecutorReference>1301ZD0100000449619Y</DC:ProsecutorReference>
-				<DC:CourtIndividualDefendant>
-					<DC:PersonDefendant>
-						<DC:BasePersonDetails>
-							<DC:PersonName>
-								<DC:PersonTitle>Mr</DC:PersonTitle>
-								<DC:PersonGivenName1>RECANDNONREC</DC:PersonGivenName1>
-								<DC:PersonFamilyName>CIVILCASE</DC:PersonFamilyName>
-							</DC:PersonName>
-							<DC:Birthdate>1948-11-11</DC:Birthdate>
-							<DC:Gender>1</DC:Gender>
-						</DC:BasePersonDetails>
-					</DC:PersonDefendant>
-					<DC:BailStatus>A</DC:BailStatus>
-					<DC:Address>
-						<DC:SimpleAddress>
-							<DC:AddressLine1>ScenarioAO Address Line 1</DC:AddressLine1>
-							<DC:AddressLine2>ScenarioAO Address Line 2</DC:AddressLine2>
-							<DC:AddressLine3>ScenarioAO Address Line 3</DC:AddressLine3>
-						</DC:SimpleAddress>
-					</DC:Address>
-					<DC:PresentAtHearing>A</DC:PresentAtHearing>
-				</DC:CourtIndividualDefendant>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>CJ08521</DC:OffenceCode>
-						<DC:OffenceWording>Failed without reasonable excuse to comply with the requirements of a youth rehabilitation order with intensive supervision and surveillance made by Croydon Court on DD/MM/YYYY by failing to attend a statutory supervision appointment on Monday, DD/MM/YYYY at the Croydon office.;In accordance with Part 2 of Schedule 2 to the Criminal Justice and Immigration Act 2008.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2011-09-26</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-						<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-						<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2007-07-11</DC:InitiatedDate>
-					<DC:Plea>1</DC:Plea>
-					<DC:ModeOfTrial>01</DC:ModeOfTrial>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
-					<DC:ConvictingCourt>2576</DC:ConvictingCourt>
-					<DC:Finding>G</DC:Finding>
-					<DC:Result>
-						<DC:ResultCode>1029</DC:ResultCode>
-						<DC:ResultText>Youth rehabilitation order made by Croydon Court on DD/MM/YYYY revoked.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultCode>3501</DC:ResultCode>
-						<DC:ResultText>No adjudication - dealt with for original offence.</DC:ResultText>
-					</DC:Result>
-				</DC:Offence>
-				<DC:Offence>
-					<DC:BaseOffenceDetails>
-						<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-						<DC:OffenceCode>CJ08508</DC:OffenceCode>
-						<DC:OffenceWording>Application to revoke a youth rehabilitation order (without re-sentencing) made by Croydon Youth Court on DD/MM/YYYY on the grounds that good progress has been made. CJS code (most serious original offence) TH68023A.;In accordance with Part 3 of Schedule 2 to the Criminal Justice and Immigration Act 2008.</DC:OffenceWording>
-						<DC:OffenceTiming>
-							<DC:OffenceDateCode>1</DC:OffenceDateCode>
-							<DC:OffenceStart>
-								<DC:OffenceDateStartDate>2011-09-26</DC:OffenceDateStartDate>
-							</DC:OffenceStart>
-						</DC:OffenceTiming>
-						<DC:LocationOfOffence>not applicable</DC:LocationOfOffence>
-					</DC:BaseOffenceDetails>
-					<DC:InitiatedDate>2013-06-13</DC:InitiatedDate>
-					<DC:Plea>3</DC:Plea>
-					<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-					<DC:Result>
-						<DC:ResultText>Granted.</DC:ResultText>
-					</DC:Result>
-					<DC:Result>
-						<DC:ResultCode>1029</DC:ResultCode>
-						<DC:ResultText>Youth rehabilitation order made by Croydon Youth Court on DD/MM/YYYY revoked.</DC:ResultText>
-					</DC:Result>
-				</DC:Offence>
-			</DC:Defendant>
-		</DC:Case>
-	</DC:Session>
-</DC:ResultedCaseMessage>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2576</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>00NP0000008</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1301ZD0100000449619Y</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>RECANDNONREC</DC:PersonGivenName1>
+										<DC:PersonFamilyName>CIVILCASE</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+							</DC:PersonDefendant>
+							<DC:BailStatus>A</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ScenarioAO Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioAO Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioAO Address Line 3</DC:AddressLine3>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>A</DC:PresentAtHearing>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>CJ08521</DC:OffenceCode>
+								<DC:OffenceWording>Failed without reasonable excuse to comply with the requirements of a youth rehabilitation order with intensive supervision and surveillance made by Croydon Court on DD/MM/YYYY by failing to attend a statutory supervision appointment on Monday, DD/MM/YYYY at the Croydon office.;In accordance with Part 2 of Schedule 2 to the Criminal Justice and Immigration Act 2008.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2011-09-26</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
+								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2007-07-11</DC:InitiatedDate>
+							<DC:Plea>1</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
+							<DC:ConvictingCourt>2576</DC:ConvictingCourt>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1029</DC:ResultCode>
+								<DC:ResultText>Youth rehabilitation order made by Croydon Court on DD/MM/YYYY revoked.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>3501</DC:ResultCode>
+								<DC:ResultText>No adjudication - dealt with for original offence.</DC:ResultText>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>CJ08508</DC:OffenceCode>
+								<DC:OffenceWording>Application to revoke a youth rehabilitation order (without re-sentencing) made by Croydon Youth Court on DD/MM/YYYY on the grounds that good progress has been made. CJS code (most serious original offence) TH68023A.;In accordance with Part 3 of Schedule 2 to the Criminal Justice and Immigration Act 2008.</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2011-09-26</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:LocationOfOffence>not applicable</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2013-06-13</DC:InitiatedDate>
+							<DC:Plea>3</DC:Plea>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultText>Granted.</DC:ResultText>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>1029</DC:ResultCode>
+								<DC:ResultText>Youth rehabilitation order made by Croydon Youth Court on DD/MM/YYYY revoked.</DC:ResultText>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
 	</Message>
 </DeliverRequest>

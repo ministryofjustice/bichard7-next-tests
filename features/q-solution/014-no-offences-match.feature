@@ -29,6 +29,6 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 		Then I see trigger "TRPR0003" for offence "1"
 		And I manually resolve the record
 		And I view the list of exceptions
-		Then the record for "EXONEA EXCEPTION" is "Resolved"
+		Then the "record" for "EXONEA EXCEPTION" is "Resolved"
 		And the PNC record has not been updated
 
