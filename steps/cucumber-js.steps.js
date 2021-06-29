@@ -43,7 +43,8 @@ const {
   checkRecordNotExists,
   correctOffenceException,
   submitRecord,
-  reloadUntilStringPresent
+  reloadUntilStringPresent,
+  checkNoExceptions
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -153,5 +154,7 @@ Then("I manually resolve the record", manuallyResolveRecord);
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
 
 Then("the record for {string} does not exist", checkRecordNotExists);
+
+Then("there are no exceptions", checkNoExceptions);
 
 Then("pending", () => "pending");
