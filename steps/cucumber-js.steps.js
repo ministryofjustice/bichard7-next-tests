@@ -40,7 +40,10 @@ const {
   returnToList,
   checkRecordResolved,
   checkRecordNotResolved,
-  checkRecordNotExists
+  checkRecordNotExists,
+  correctOffenceException,
+  submitRecord,
+  reloadUntilStringPresent
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -71,6 +74,8 @@ When("I click the {string} menu button", clickMainTab);
 
 When("I click the {string} button", clickButton);
 
+When("I submit the record", submitRecord);
+
 When("I access the {string} report", accessReport);
 
 When("I download the report", downloadCSV);
@@ -86,6 +91,10 @@ When("I wait {string} seconds", async (delay) => {
 When("I view offence {string}", viewOffence);
 
 When("I return to the list", returnToList);
+
+When("I correct {string} to {string}", correctOffenceException);
+
+Then("I reload until I see {string}", reloadUntilStringPresent);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 

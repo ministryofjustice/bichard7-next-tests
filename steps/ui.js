@@ -1,6 +1,6 @@
 const expect = require("expect");
 const { initialRefreshUrl } = require("../utils/urls");
-const { reloadUntilSelector, waitForRecord } = require("../utils/puppeteer-utils");
+const { reloadUntilSelector, waitForRecord, reloadUntilContent } = require("../utils/puppeteer-utils");
 const fsHelp = require("../helpers/fsHelper");
 
 const containsValue = async function (page, selector, value) {
@@ -389,7 +389,34 @@ const checkOffenceData = async function (value, key) {
 
 const returnToList = async function () {
   await this.browser.clickAndWait("input[type='submit'][value='Return To List (Unlock)'");
-  await this.browser.clickAndWait("input[type='submit'][value='Yes'");
+  await this.browser.clickAndWait("input[type='submit'][value='OK'");
+};
+
+const correctOffenceException = async function (field, newValue) {
+  await this.browser.page.$$("#br7_exception_details_court_data_table .resultsTable tbody tr").then((rows) =>
+    rows.map((row) =>
+      row.evaluate(
+        (rowEl, fieldName, value) => {
+          const tds = [...rowEl.querySelectorAll("td")].map((e) => e.innerText.trim());
+          if (tds[0] === fieldName) {
+            const input = rowEl.querySelector("input[type='text']");
+            input.value = value;
+          }
+        },
+        field,
+        newValue
+      )
+    )
+  );
+};
+
+const submitRecord = async function () {
+  await this.browser.clickAndWait(`input[type='submit'][value='Submit']`);
+  await this.browser.clickAndWait(`input[type='submit'][value='OK']`);
+};
+
+const reloadUntilStringPresent = async function (content) {
+  await reloadUntilContent(this.browser.page, content);
 };
 
 module.exports = {
@@ -435,5 +462,8 @@ module.exports = {
   viewOffence,
   checkOffenceData,
   returnToList,
-  checkRecordNotExists
+  checkRecordNotExists,
+  correctOffenceException,
+  submitRecord,
+  reloadUntilStringPresent
 };
