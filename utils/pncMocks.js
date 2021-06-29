@@ -37,6 +37,7 @@ module.exports = {
       sequenceNo: offence.BaseOffenceDetails.OffenceSequenceNumber.toString().padStart(3, "0"),
       ...extractDates(offence)
     }));
+    const forceStationCode = parsed.NewCaseMessage.Case.InitialHearing.CourtHearingLocation.substr(1, 4);
 
     const cofString = offences
       .map(
@@ -49,7 +50,7 @@ module.exports = {
     <CXE01>
       <GMH>073ENQR000020SENQASIPNCA05A73000017300000120210316152773000001                                             050001772</GMH>
       <ASI>
-        <FSC>K04CA</FSC>
+        <FSC>K${forceStationCode}</FSC>
         <IDS>K00/${prosecutorRef} ${personFamilyName}</IDS>
         <CCR>K97/1626/8395Q                 </CCR>
         ${cofString}

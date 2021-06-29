@@ -30,5 +30,5 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 		# And I see no exceptions
 		And the PNC updates the record
 		When I resolve all of the triggers
-		Then the record for "SEXOFFENCE TRPRFOUR" is "resolved"
+		Then the "record" for "SEXOFFENCE TRPRFOUR" is "resolved"
 
