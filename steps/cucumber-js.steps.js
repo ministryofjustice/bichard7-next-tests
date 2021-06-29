@@ -23,6 +23,7 @@ const {
   visitTeamPage,
   canSeeReports,
   editTeam,
+  clickButton,
   clickMainTab,
   exceptionIsNotEditable,
   cannotReallocateCase,
@@ -67,6 +68,8 @@ When("I visit the Team Management screen", visitTeamPage);
 When("I open the record for {string}", openRecordFor);
 
 When("I click the {string} menu button", clickMainTab);
+
+When("I click the {string} button", clickButton);
 
 When("I access the {string} report", accessReport);
 

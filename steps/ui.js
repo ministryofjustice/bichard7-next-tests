@@ -110,6 +110,11 @@ const isButtonVisible = async function (page, sectionName) {
   return Boolean(triggersBtn);
 };
 
+const clickButton = async function (value) {
+  const { page } = this.browser;
+  await Promise.all([page.click(`input[type='submit'][value='${value}']`), page.waitForNavigation()]);
+};
+
 const clickMainTab = async function (label) {
   await this.browser.page.waitForSelector("span.wpsNavLevel1");
 
@@ -408,6 +413,7 @@ module.exports = {
   exceptionIsNotEditable,
   buttonIsVisible,
   buttonIsNotVisible,
+  clickButton,
   clickMainTab,
   triggersAreVisible,
   exceptionsAreVisible,
