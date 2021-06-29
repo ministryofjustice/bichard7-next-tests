@@ -18,6 +18,6 @@ module.exports = [
   },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K04YZ</FSC><IDS>K00/459646G WILLIAMS                </IDS><CCR>K97/1626/8395Q                 </CCR><COU>I1892                                                                       WILLIAMS/PETER                                        261120090000</COU><CCH>K001              CJ67002 </CCH><ADJ>INOT GUILTY   GUILTY        261120090000 </ADJ><DIS>I1015            0000100.0000                                                                            </DIS>"
+      "<FSC>K04YZ</FSC><IDS>K00/459646G WILLIAMS                </IDS><CCR>K97/1626/8395Q                 </CCR><COU>I2732                                                                       WILLIAMS/PETER                                        261120090000</COU><CCH>K001              CJ67002 </CCH><ADJ>INOT GUILTY   GUILTY        261120090000 </ADJ><DIS>I1015            0000100.0000                                                                            </DIS>"
   })
 ];
