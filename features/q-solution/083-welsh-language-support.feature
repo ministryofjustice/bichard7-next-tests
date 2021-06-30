@@ -14,7 +14,7 @@ Feature: {083} R4.1_BR7_Welsh Language Handling
 			Pre and Post Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Welsh language characters are not supported by the PNC
 			"""
 
 	@Should
