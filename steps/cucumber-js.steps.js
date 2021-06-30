@@ -42,6 +42,7 @@ const {
   checkRecordNotResolved,
   checkRecordNotExists,
   correctOffenceException,
+  correctOffenceFreeTextException,
   submitRecord,
   reloadUntilStringPresent,
   checkNoExceptions
@@ -94,6 +95,8 @@ When("I view offence {string}", viewOffence);
 When("I return to the list", returnToList);
 
 When("I correct {string} to {string}", correctOffenceException);
+
+When("I prepend {string} with {string}", correctOffenceFreeTextException);
 
 Then("I reload until I see {string}", reloadUntilStringPresent);
 
