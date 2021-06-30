@@ -16,16 +16,20 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 			A PRE Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			This tests that no exceptions but 1 trigger is created when driver disqualification is received from the court with duration value only.
+
+			As this has two messages and the second one is against a changed record in the PNC, we need to get the mocks from running against the PNC
+			to see how the enquiry response changes.
 			"""
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	Scenario: No exceptions and one trigger when driver disqualification - duration only
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution test 029" in the PNC
-		When message id "q-solution/029A" is received
+		And there is a valid record for "q-solution/029" in the PNC
+		When message id "q-solution/029a" is received
 		And I view the list of exceptions
 		Then there are no exceptions raised for "Patrick Duffy"
 		And I see trigger "PR01 - Disqualified driver" in the exception list table
@@ -33,7 +37,7 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0001 - Driver Disqualification - Update DD screen" in the exception list table
 		And the PNC updates the record
-		When message id "q-solution/029B" is received
+		When message id "q-solution/029b" is received
 		And I click the "Return To List (Unlock)" button
 		And I view the list of exceptions
 		Then there are no exceptions raised for "Patrick Duffy"
