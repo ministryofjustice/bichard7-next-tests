@@ -11,17 +11,16 @@ Feature: {088} R4.1.1_BR7_Court Location from Text
 			PNC Update is generated and the Court Hearing Results are successfully added automatically onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			PNC is updated with next hearing location from court results
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 088" in the PNC
+	Scenario: PNC is updated with next hearing location from court results
+		Given I am logged in as a "supervisor"
+		Given there is a valid record for "q-solution/088" in the PNC
 		When message id "q-solution/088" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
-
+		Then the PNC updates the record
+		And there are no exceptions
