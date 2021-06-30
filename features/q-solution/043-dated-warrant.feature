@@ -14,15 +14,15 @@ Feature: {043} #151 - FTA Dated Warrant
 			Pre Update Triggers are also successfully created on the Portal and manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Record is inserted, raises a PR02 exception, exception is resolved and pnc updates
 
 			Where is CJS result code, we have it reflected as "TH68006" We need to talk to Richard from Q Solution
 			"""
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Exceptions are triggered when a record is received with a dated warrant
 		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/043" in the PNC
 		When message id "q-solution/043" is received
