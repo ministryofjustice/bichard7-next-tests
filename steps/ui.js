@@ -350,7 +350,7 @@ const filterRecords = async function (world, resolvedType, recordType) {
   if (!recordSelectId) {
     throw new Error(`Record type '${recordType}' is unknown`);
   }
-  await world.browser.page.select("select#resolvedFilter", recordSelectId);
+  await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
 
   const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
   if (!resolutionSelectId) {
@@ -419,6 +419,12 @@ const reloadUntilStringPresent = async function (content) {
   await reloadUntilContent(this.browser.page, content);
 };
 
+const checkNoExceptions = async function () {
+  await filterRecords(this, "unresolved", "exception");
+  const tableRows = await this.browser.page.$$("table.resultsTable tr");
+  expect(tableRows.length).toEqual(2);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -465,5 +471,6 @@ module.exports = {
   checkRecordNotExists,
   correctOffenceException,
   submitRecord,
-  reloadUntilStringPresent
+  reloadUntilStringPresent,
+  checkNoExceptions
 };
