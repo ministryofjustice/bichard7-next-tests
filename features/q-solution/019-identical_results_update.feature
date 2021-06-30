@@ -23,4 +23,3 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
     When message id "q-solution/019" is received
     Then the PNC updates the record
     And the record for "PUFIVE UPDATE" does not exist
-

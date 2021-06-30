@@ -17,7 +17,7 @@ Feature: Trigger handler permissions
   Scenario: Trigger handlers cannot handle exceptions
     And I open the record for "Rigout Dean"
     Then I cannot correct the exception
-    
+
   Scenario: Trigger handlers can handle triggers
     And I open the record for "Rigout Dean"
     Then the "Triggers" menu item is visible
@@ -25,4 +25,3 @@ Feature: Trigger handler permissions
   Scenario: Trigger handlers cannot reallocate cases to another force area
     And I open the record for "Rigout Dean"
     Then I cannot reallocate the case to another force area
-    

@@ -34,4 +34,3 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 		And I view the list of exceptions
 		Then the "record" for "EXONEA EXCEPTION" is "Resolved"
 		And the PNC record has not been updated
-

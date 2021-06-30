@@ -16,13 +16,13 @@ Feature: {028} R5.6_BR7 Driver Disqualification - Duration and Date values
 			A PRE Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Verification of Driver Disqualification handling where only a Duration is received from the Court
 			"""
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Driver Disqualification handling when only a Duration is received
 		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution test 028" in the PNC
 		When message id "q-solution/028A" is received
@@ -40,7 +40,3 @@ Feature: {028} R5.6_BR7 Driver Disqualification - Duration and Date values
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0001" for offence "1"
 		# And the PNC updates the record
-
-
-
-
