@@ -109,6 +109,8 @@ then
   echo "export INCOMING_MESSAGE_HANDLER_REGION=\"${INCOMING_MESSAGE_HANDLER_REGION}\"" >> $TEST_ENV_FILE
   echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_ENV_FILE
   echo "export MESSAGE_ENTRY_POINT=\"${MESSAGE_ENTRY_POINT}\"" >> $TEST_ENV_FILE
+  echo "export DB_SSL=\"true\"" >> $TEST_ENV_FILE
+  echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
 else
   echo "export MQ_URL=\"${MQ_IP}\"" >> $TEST_ENV_FILE
   fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/ec2/db2/password"

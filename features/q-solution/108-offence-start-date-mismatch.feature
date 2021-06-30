@@ -19,12 +19,34 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
             """
 
     @Must
-    @NeedsValidating
+    @ReadyToValidate
     @NeedsRunningAgainstPNC
     Scenario: PNC is updated when there are multiple identical results
         Given I am logged in as a "general handler"
         And there is a valid record for "q-solution/108" in the PNC
         When message id "q-solution/108" is received
         And I view the list of exceptions
-        And pending
+        Then I see trigger "HO100310 (2)" in the exception list table
+        When I open the record for "MISMATCH OFFENCE"
+        And I click the "Triggers" tab
+        Then I see trigger "TRPR0018" for offence "2"
+        Then I see trigger "TRPR0018" for offence "3"
+        When I click the "Offences" tab
+        And I view offence "1"
+        And I correct "Sequence Number" to "1"
+        And I click the "Offences" tab
+        And I view offence "4"
+        And I correct "Sequence Number" to "4"
+        And I click the "Offences" tab
+        And I submit the record
+        Then I see exception "(Submitted)" in the exception list table
+        When I reload until I see "PS10 - Offence added to PNC"
+        When I open the record for "MISMATCH OFFENCE"
+        And I click the "Triggers" tab
+        Then I see trigger "TRPR0018" for offence "1"
+        Then I see trigger "TRPR0018" for offence "2"
+        Then I see trigger "TRPR0018" for offence "3"
+        Then I see trigger "TRPS0010" for offence "4"
+        Then I see trigger "TRPS0010" for offence "5"
+
 
