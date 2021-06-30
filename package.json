@@ -4,7 +4,9 @@
   "description": "Tests for Bichard",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --fix .",
+    "lint": "npm run lint:js && npm run lint:features",
+    "lint:js": "eslint --fix .",
+    "lint:features": "gherkin-lint features",
     "test": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --fail-fast --tags 'not @Excluded' features",
     "test:file": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
     "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next STACK_TYPE=next npm run test",
