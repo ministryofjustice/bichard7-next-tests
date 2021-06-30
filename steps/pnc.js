@@ -12,18 +12,24 @@ const createValidRecordInPNC = async function (record) {
   }
 };
 
-const checkMocks = async function () {
-  const mockResponsePromises = this.mocks.map(({ id }) => this.pnc.awaitMockRequest(id));
+const fetchMocks = async (world) => {
+  const mockResponsePromises = world.mocks.map(({ id }) => world.pnc.awaitMockRequest(id));
   const mockResponses = await Promise.all(mockResponsePromises);
-  for (let i = 0; i < this.mocks.length; i += 1) {
-    this.mocks[i].requests = mockResponses[i].requests;
+  for (let i = 0; i < world.mocks.length; i += 1) {
+    // eslint-disable-next-line no-param-reassign
+    world.mocks[i].requests = mockResponses[i].requests;
   }
-  console.log(this.mocks);
+};
+
+const checkMocks = async function () {
+  await fetchMocks(this);
   expect(this.mocks.length).toBeGreaterThan(0);
   let mockCount = 0;
   this.mocks.forEach((mock) => {
-    expect(mock.requests.length).toBe(1);
-    expect(mock.requests[0]).toMatch(mock.expectedRequest);
+    if (mock.expectedRequest !== "") {
+      expect(mock.requests.length).toBe(1);
+      expect(mock.requests[0]).toMatch(mock.expectedRequest);
+    }
     mockCount += 1;
   });
   expect(mockCount).toEqual(this.mocks.length);
@@ -43,8 +49,16 @@ const pncNotUpdated = async function () {
   expect(mockCount).toEqual(updateMocks.length);
 };
 
+const pncUpdateIncludes = async function (data) {
+  await fetchMocks(this);
+  const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
+  const checkedMocks = updateMocks.filter((mock) => mock.requests.length > 0 && mock.requests[0].includes(data));
+  expect(checkedMocks.length).toEqual(1);
+};
+
 module.exports = {
   createValidRecordInPNC,
   checkMocks,
-  pncNotUpdated
+  pncNotUpdated,
+  pncUpdateIncludes
 };

@@ -1,7 +1,7 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { logInAs } = require("./auth");
 const { sendMessage } = require("./message");
-const { createValidRecordInPNC, checkMocks, pncNotUpdated } = require("./pnc");
+const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes } = require("./pnc");
 const {
   findRecordFor,
   goToExceptionList,
@@ -158,3 +158,5 @@ Then("the record for {string} does not exist", checkRecordNotExists);
 Then("there are no exceptions", checkNoExceptions);
 
 Then("pending", () => "pending");
+
+Then("the PNC update includes {string}", pncUpdateIncludes);

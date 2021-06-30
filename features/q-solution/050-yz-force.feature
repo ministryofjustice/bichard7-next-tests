@@ -16,7 +16,7 @@ Feature: {050} R3.4_BR7_YZ Force Code
       """
 
   @Must
-  @NeedsValidating
+  @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: YZ Force code is used in logs
     Given I am logged in as a "general handler"
@@ -24,5 +24,21 @@ Feature: {050} R3.4_BR7_YZ Force Code
     When message id "q-solution/050" is received
     And I view the list of exceptions
     Then I see exception "HO100310 (2)" in the exception list table
-    # TODO: Audit logs should show a YZ code
-    And pending
+    When I open the record for "Bass Barry"
+    And I click the "Offences" tab
+    And I view offence "1"
+    And I correct "Sequence Number" to "1"
+    And I click the "Offences" tab
+    And I view offence "2"
+    And I correct "Sequence Number" to "2"
+    And I click the "Offences" tab
+    And I submit the record
+    Then I see exception "(Submitted)" in the exception list table
+    When I reload until I see "PS02 - Check address"
+    And I open the record for "Bass Barry"
+    And I click the "Triggers" tab
+    Then I see trigger "TRPR0021" for offence "1"
+    And I see trigger "TRPR0006"
+    And I see trigger "TRPS0002"
+    And the PNC updates the record
+    And the PNC update includes "K01YZ"
