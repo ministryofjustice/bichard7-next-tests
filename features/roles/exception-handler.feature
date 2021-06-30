@@ -17,11 +17,11 @@ Feature: Exception handler permissions
   Scenario: Exception handlers can handle exceptions
     And I open the record for "Rigout Dean"
     Then I can correct the exception
-    
+
   Scenario: Exception handlers cannot see triggers
     And I open the record for "Rigout Dean"
     Then the "Triggers" menu item is not visible
-    
+
   Scenario: Exception handlers can reallocate cases to another force area
     And I open the record for "Rigout Dean"
     Then I can reallocate the case to another force area

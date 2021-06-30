@@ -38,4 +38,3 @@ Feature: {049} #191 - TRPS0008 Required for curfew orders (1052) NOT TRPR0003
 		And I see "3105" in the "CJS Code" row of the results table
 		And I see "BA" in the "Code" row of the results table
 		And the PNC updates the record
-

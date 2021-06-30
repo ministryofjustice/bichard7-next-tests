@@ -48,5 +48,3 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
         Then I see trigger "TRPR0018" for offence "3"
         Then I see trigger "TRPS0010" for offence "4"
         Then I see trigger "TRPS0010" for offence "5"
-
-

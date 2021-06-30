@@ -29,4 +29,3 @@ Feature: {107} BR7 R5.0-RCD352-Fuzzy Offence Matching
     Then I see trigger "TRPR0018" for offence "1"
     Then I see trigger "TRPR0018" for offence "2"
     Then I see trigger "TRPR0018" for offence "3"
-

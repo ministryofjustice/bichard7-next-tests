@@ -33,4 +33,3 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
     And I view offence "2"
     Then I see "2509" in the "CJS Code" row of the results table
     And the PNC record has not been updated
-

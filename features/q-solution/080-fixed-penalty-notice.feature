@@ -27,4 +27,3 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
     When message id "q-solution/080" is received
     Then the PNC updates the record
     And the record for "Williams Peter" does not exist
-

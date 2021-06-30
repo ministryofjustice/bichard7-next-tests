@@ -26,4 +26,3 @@ Feature: {050} R3.4_BR7_YZ Force Code
     Then I see exception "HO100310 (2)" in the exception list table
     # TODO: Audit logs should show a YZ code
     And pending
-

@@ -32,4 +32,3 @@ Feature: {043} #151 - FTA Dated Warrant
 		And I click the "Triggers" tab
 		And I resolve all of the triggers
 		Then the PNC updates the record
-

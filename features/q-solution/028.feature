@@ -40,7 +40,3 @@ Feature: {028} R5.6_BR7 Driver Disqualification - Duration and Date values
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0001" for offence "1"
 		# And the PNC updates the record
-
-
-
-

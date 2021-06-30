@@ -46,4 +46,3 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0001 - Driver Disqualification - Update DD screen" in the exception list table
 		And the PNC updates the record
-
