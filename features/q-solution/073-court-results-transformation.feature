@@ -34,4 +34,3 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 		When message id "q-solution/073" is received
 		And I view the list of exceptions
 		Then there are no exceptions raised for "MISTER NOCONVICTION"
-
