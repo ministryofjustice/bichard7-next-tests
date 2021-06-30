@@ -46,6 +46,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.5",
     "eslint-plugin-prettier": "^3.3.1",
+    "gherkin-lint": "^4.2.2",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1"
