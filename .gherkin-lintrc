@@ -10,5 +10,11 @@
   "no-trailing-spaces": "on",
   "no-unnamed-features": "on",
   "no-unnamed-scenarios": "on",
-  "one-space-between-tags": "on"
+  "one-space-between-tags": "on",
+  "no-restricted-patterns": ["on", {
+    "Global": [
+      "<add concise test definition here>",
+      "<add human readable test description>"
+    ]
+  }]
 }
