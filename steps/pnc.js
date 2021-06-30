@@ -18,7 +18,6 @@ const checkMocks = async function () {
   for (let i = 0; i < this.mocks.length; i += 1) {
     this.mocks[i].requests = mockResponses[i].requests;
   }
-  console.log(this.mocks);
   expect(this.mocks.length).toBeGreaterThan(0);
   let mockCount = 0;
   this.mocks.forEach((mock) => {
