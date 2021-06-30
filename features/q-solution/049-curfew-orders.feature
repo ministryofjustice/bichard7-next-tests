@@ -18,17 +18,24 @@ Feature: {049} #191 - TRPS0008 Required for curfew orders (1052) NOT TRPR0003
 			Post Update Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Insert the record into the pnc, validate there is a PS08 exception
+			Interrogate the results, confirm both offence codes exist and the BA code is a qualifier for the results
 			"""
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Ensure that a trigger is raised on Electronic Tagging and the qualifier is in the correct table
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution test 049" in the PNC
+		And there is a valid record for "q-solution/049" in the PNC
 		When message id "q-solution/049" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		And I see trigger "PS08 - Curfew order" in the exception list table
+		Then I open the record for "TEARCE WALLACE"
+		And I click the "Offences" tab
+		And I view offence "1"
+		Then I see "1116" in the "CJS Code" row of the results table
+		And I see "3105" in the "CJS Code" row of the results table
+		And I see "BA" in the "Code" row of the results table
+		And the PNC updates the record
 
