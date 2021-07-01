@@ -45,7 +45,8 @@ const {
   correctOffenceFreeTextException,
   submitRecord,
   reloadUntilStringPresent,
-  checkNoExceptions
+  checkNoExceptions,
+  waitForRecordStep
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -97,6 +98,8 @@ When("I return to the list", returnToList);
 When("I correct {string} to {string}", correctOffenceException);
 
 When("I prepend {string} with {string}", correctOffenceFreeTextException);
+
+When("I wait for {string} in the list of records", waitForRecordStep);
 
 Then("I reload until I see {string}", reloadUntilStringPresent);
 
