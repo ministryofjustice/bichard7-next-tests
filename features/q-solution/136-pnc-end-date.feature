@@ -17,16 +17,18 @@ Feature: {136} BR7 R5.1.3-RCD462 - No PNC-End-Date All Offences Dates the same
 			Post Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Testing start and end date matching for offence codes
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: testing start and end date matching for offence codes
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/136" in the PNC
 		When message id "q-solution/136" is received
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		And I wait for "IDENTICALDATES NOPNCENDDATE" in the list of records
+		Then there are no exceptions raised for "IDENTICALDATES NOPNCENDDATE"
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+		And I cannot see trigger "PR18" in the exception list table
+		And the PNC updates the record
