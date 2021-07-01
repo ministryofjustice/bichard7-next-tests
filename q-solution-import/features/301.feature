@@ -21,9 +21,8 @@ Feature: {301} BR7-R5.9-RCD644-Case Reallocation-Force Owner Court Area match-RC
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 301" in the PNC
+		And there is a valid record for "q-solution/301" in the PNC
 		When message id "q-solution/301" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

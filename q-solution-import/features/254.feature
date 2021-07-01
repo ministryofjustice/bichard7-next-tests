@@ -22,9 +22,8 @@ Feature: {254} BR7 R5.7-RCD612-Force Owner Court Area MISmatch-NO Trigger Exclus
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 254" in the PNC
+		And there is a valid record for "q-solution/254" in the PNC
 		When message id "q-solution/254" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

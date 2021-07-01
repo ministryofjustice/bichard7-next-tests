@@ -18,9 +18,8 @@ Feature: {322} BR7 R5.11-RCD687 - Existing Offence Result 2060 with Offence adde
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 322" in the PNC
+		And there is a valid record for "q-solution/322" in the PNC
 		When message id "q-solution/322" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

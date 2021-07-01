@@ -19,9 +19,8 @@ Feature: {057} #192 - Result Date
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 057" in the PNC
+		And there is a valid record for "q-solution/057" in the PNC
 		When message id "q-solution/057" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-
