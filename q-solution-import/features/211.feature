@@ -23,9 +23,8 @@ Feature: {211} BR7 R5.4-RCD538-Tagging-4xQualifiers None BA-no Qualifiers to be 
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 211" in the PNC
+		And there is a valid record for "q-solution/211" in the PNC
 		When message id "q-solution/211" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

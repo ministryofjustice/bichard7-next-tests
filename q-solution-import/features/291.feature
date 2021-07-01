@@ -18,9 +18,8 @@ Feature: {291} BR7-R5.8-RCD641 - Police Bail Variation Refused
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 291" in the PNC
+		And there is a valid record for "q-solution/291" in the PNC
 		When message id "q-solution/291" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

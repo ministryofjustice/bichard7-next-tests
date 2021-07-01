@@ -20,9 +20,8 @@ Feature: {074} R4.0_BR7_Stripout Conviction for 2058-2059-2060
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 074" in the PNC
+		And there is a valid record for "q-solution/074" in the PNC
 		When message id "q-solution/074" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

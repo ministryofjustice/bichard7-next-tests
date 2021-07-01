@@ -19,9 +19,8 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 081" in the PNC
+		And there is a valid record for "q-solution/081" in the PNC
 		When message id "q-solution/081" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

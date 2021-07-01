@@ -20,9 +20,8 @@ Feature: {145} BR7 R5.2-RCD490-TRPR0025 case not reopened
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 145" in the PNC
+		And there is a valid record for "q-solution/145" in the PNC
 		When message id "q-solution/145" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-

@@ -17,9 +17,8 @@ Feature: R3.1_BR7_PU_008_CC_Filter
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test R3.1_BR7_PU_008_CC_Filter" in the PNC
+		And there is a valid record for "q-solution/R3.1_BR7_PU_008_CC_Filter" in the PNC
 		When message id "q-solution/R3.1_BR7_PU_008_CC_Filter" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
-
