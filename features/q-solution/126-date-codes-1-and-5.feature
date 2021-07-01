@@ -13,17 +13,21 @@ Feature: {126} BR7 R5.1-RCD411-Date Codes 1 and 5 Offence Matching
 			Successful update of the PNC is made and PRE and POST Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Offence code matching for date codes 1 and 5
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 126" in the PNC
+	Scenario: Offence code matching for date codes 1 and 5
+		Given I am logged in as a "supervisor"
+		And there is a valid record for "q-solution/126" in the PNC
 		When message id "q-solution/126" is received
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
-
+		And I wait for "ONEANDFIVE DATECODES" in the list of records
+		Then there are no exceptions raised for "ONEANDFIVE DATECODES"
+		When I open the record for "ONEANDFIVE DATECODES"
+		And I click the "Triggers" tab
+		Then I see trigger "TRPR0018" for offence "1"
+		And I see trigger "TRPR0018" for offence "2"
+		And I see trigger "TRPS0010" for offence "4"
+		And the PNC updates the record

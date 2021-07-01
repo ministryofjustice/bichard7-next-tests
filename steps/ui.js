@@ -443,6 +443,10 @@ const checkNoExceptions = async function () {
   expect(tableRows.length).toEqual(2);
 };
 
+const waitForRecordStep = async function (record) {
+  await reloadUntilContent(this.browser.page, record);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -491,5 +495,6 @@ module.exports = {
   correctOffenceFreeTextException,
   submitRecord,
   reloadUntilStringPresent,
-  checkNoExceptions
+  checkNoExceptions,
+  waitForRecordStep
 };
