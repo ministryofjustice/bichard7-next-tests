@@ -12,17 +12,20 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 			with a setting of "R") is also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Trigger is still created when record is not found in PNC
 			"""
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	Scenario: Trigger is still created when record is not found in PNC
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution test 101" in the PNC
 		When message id "q-solution/101" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
-
+		Then I see trigger "PR16 - Forfeiture order" in the exception list table
+		When I open the record for "TRPRSIXTEEN TRIGGER"
+		And I click the "Triggers" tab
+		Then I see trigger "TRPR0016" for offence "1"
+		And I see trigger "TRPR0016" for offence "2"
+		And the PNC record has not been updated
