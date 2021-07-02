@@ -12,16 +12,17 @@ Feature: {089} R4.1.1_BR7_Court Location from Text Exception
 			PNC Update is NOT generated.
 
 			MadeTech Definition:
-			Updating the PNC with the court location from Text Exception
+			Raising an exception if the court location is not found
 			"""
 
 	@Should
-	@ReadyToValidate
+	@Problem
 	@NeedsRunningAgainstPNC
+	@Excluded
 	Scenario: Updating the PNC with the court location from Text Exception
 		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/089" in the PNC
 		When message id "q-solution/089" is received
 		And I view the list of exceptions
-		Then the PNC updates the record
-		And there are no exceptions
+		Then I see exception "HO100322" in the exception list table
+		And the PNC record has not been updated
