@@ -11,16 +11,17 @@ Feature: {174} BR7 R5.3-RCD497 - Partial Match - Stop List
 			Pre Update Triggers are created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Ensure offences are correctly matched when there is a partial match in the stop list
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Ensure offences are correctly matched when there is a partial match in the stop list
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/174" in the PNC
 		When message id "q-solution/174" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+		And there are no exceptions
+		And the PNC updates the record
