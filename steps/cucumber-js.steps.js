@@ -46,7 +46,8 @@ const {
   submitRecord,
   reloadUntilStringPresent,
   checkNoExceptions,
-  waitForRecordStep
+  waitForRecordStep,
+  cannotSeeTrigger
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -134,6 +135,8 @@ Then("I can reallocate the case to another force area", reallocateCase);
 Then("I cannot reallocate the case to another force area", cannotReallocateCase);
 
 Then("I see trigger {string} in the exception list table", canSeeTrigger);
+
+Then("I cannot see trigger {string} in the exception list table", cannotSeeTrigger);
 
 Then("the {string} menu item is visible", buttonIsVisible);
 

@@ -26,10 +26,10 @@ module.exports = {
     const xmlData = fs.readFileSync(`./fixtures/ncmFiles/${id}.xml`, "utf8");
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);
-    const personFamilyName = parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.padEnd(
-      24,
-      " "
-    );
+    const personFamilyName = parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(
+      0,
+      12
+    ).padEnd(12, " ");
     const offenceEl = parsed.NewCaseMessage.Case.Defendant.Offence;
     const offenceData = Object.prototype.hasOwnProperty.call(offenceEl, "length") ? offenceEl : [offenceEl];
     const offences = offenceData.map((offence) => ({
@@ -51,7 +51,7 @@ module.exports = {
       <GMH>073ENQR000020SENQASIPNCA05A73000017300000120210316152773000001                                             050001772</GMH>
       <ASI>
         <FSC>K${forceStationCode}</FSC>
-        <IDS>K00/${prosecutorRef} ${personFamilyName}</IDS>
+        <IDS>K00/${prosecutorRef} ${personFamilyName}            </IDS>
         <CCR>K97/1626/8395Q                 </CCR>
         ${cofString}
       </ASI>
