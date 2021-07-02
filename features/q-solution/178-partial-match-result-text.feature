@@ -12,16 +12,35 @@ Feature: {178} BR7 R5.3-RCD497 - Partial Match - Result Text
 			Pre Update Triggers are created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Verifying correct behaviour when the result text for each offence is different
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Verifying correct behaviour when the result text for each offence is different
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/178" in the PNC
 		When message id "q-solution/178" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see exception "HO100310" in the exception list table
+		When I open the record for "Text Marcus"
+		And I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+		And I see trigger "TRPR0021" for offence "1"
+		And I see trigger "TRPR0021" for offence "2"
+		When I click the "Offences" tab
+		And I view offence "1"
+		And I correct "Sequence Number" to "1"
+		And I click the "Offences" tab
+		And I view offence "2"
+		And I correct "Sequence Number" to "2"
+		And I click the "Offences" tab
+		And I submit the record
+		Then I see exception "(Submitted)" in the exception list table
+		When I reload until I see "PR18 - Update offence dates"
+		And I open the record for "Text Marcus"
+		And I click the "Triggers" tab
+		And I see trigger "TRPR0018" for offence "1"
+		And I see trigger "TRPR0018" for offence "2"
+		And the PNC updates the record

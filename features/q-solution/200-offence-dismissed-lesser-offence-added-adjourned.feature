@@ -16,16 +16,18 @@ Feature: {200} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added-Adjourne
 			A Post Update Trigger is generated to alert the Police to the fact that the Lesser Offence has been Added to the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Trigger is created to alert police of adding lesser offence to PNC
 			"""
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	@Excluded
+	Scenario: Trigger is created to alert police of adding lesser offence to PNC
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/200" in the PNC
 		When message id "q-solution/200" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+		And there are no exceptions raised for "HAMANDCITY THETUBE"
+		And the PNC updates the record

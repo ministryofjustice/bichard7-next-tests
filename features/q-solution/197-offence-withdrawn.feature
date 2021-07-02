@@ -11,16 +11,15 @@ Feature: {197} BR7-R5.3.2-RCD556-Offence Withdrawn
 			PNC Update is generated and the Court Hearing Results are successfully and automatically added onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Verify Result Class calculation and Withdrawn Offences processing
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Verify Result Class calculation and Withdrawn Offences processing
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/197" in the PNC
 		When message id "q-solution/197" is received
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then the PNC updates the record
+		And the record for "PUFIVE UPDATE" does not exist

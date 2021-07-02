@@ -12,16 +12,27 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 			Pre Update Triggers are also successfully created on the Portal and manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Pre-update triggers are created for warrants and appear in the warrants report
 			"""
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Pre-update triggers are created for warrants and appear in the warrants report
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/219" in the PNC
 		When message id "q-solution/219" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
+		Then I see trigger "PR02 - Warrant issued" in the exception list table
+		And there are no exceptions raised for "UNDATED Fta"
+		And the PNC updates the record
+		When I open the record for "UNDATED Fta"
+		And I click the "Triggers" tab
+		And I resolve all of the triggers
+		Then the "record" for "UNDATED Fta" is "resolved"
+		And the "record" for "UNDATED Fta" is not "unresolved"
+		When I navigate to the list of reports
+		And I access the "Warrants" report
+		# And I generate today's Warrants report
+		# Then I see "xxx" in the Warrants report
 		And pending
