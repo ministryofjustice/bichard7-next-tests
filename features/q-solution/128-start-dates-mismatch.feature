@@ -11,16 +11,16 @@ Feature: {128} BR7 R5.1-RCD411-No Offence End Dates-Start Dates do not match
 			Therefore no update is applied and instead an Exception is generated
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Exception is raised when start dates do not match
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Exception is raised when start dates do not match
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/128" in the PNC
 		When message id "q-solution/128" is received
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		And I see exception "HO100304" in the exception list table
+		And there are no triggers raised for "ENDDATES NOOFFENCE"
+		And the PNC record has not been updated
