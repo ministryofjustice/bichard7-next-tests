@@ -66,7 +66,7 @@
 									<DC:AddressLine3>Scenario1 Address Line 3</DC:AddressLine3>
 								</DC:SimpleAddress>
 							</DC:Address>
-							<DC:PresentAtHearing>A</DC:PresentAtHearing>
+							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
 						</DC:CourtIndividualDefendant>
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
