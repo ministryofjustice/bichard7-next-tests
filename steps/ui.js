@@ -256,10 +256,8 @@ const canSeeReports = async function () {
 
 const accessReport = async function (report) {
   const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
-  await reportsBtn.click();
-
-  await this.browser.page.waitForSelector("#report-index-list .wpsNavLevel2");
-  this.browser.page.click("#report-index-list .wpsNavLevel2");
+  await Promise.all([reportsBtn.click(), this.browser.page.waitForNavigation()]);
+  await this.browser.clickLinkAndWait(report);
   await expect(await this.browser.pageText()).toMatch(report);
 };
 
