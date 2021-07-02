@@ -17,16 +17,22 @@ Feature: {212} BR7 R5.4-RCD538-Tagging-BA Qualifier on some Offences
 			Post Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Adding electronic tagging information to the PNC
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Adding electronic tagging information to the PNC
+		Given I am logged in as a "supervisor"
 		And there is a valid record for "q-solution/212" in the PNC
 		When message id "q-solution/212" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see trigger "PS08 - Curfew order" in the exception list table
+		And there are no exceptions raised for "Morethanoneoffence Tagging"
+		When I open the record for "Morethanoneoffence Tagging"
+		And I click the "Triggers" tab
+		And I see trigger "TRPS0008" for offence "1"
+		And I see trigger "TRPS0008" for offence "2"
+		And I see trigger "TRPS0008" for offence "3"
+		And the PNC updates the record
