@@ -58,7 +58,7 @@
       "eslint --fix",
       "prettier -w"
     ],
-    "*.feature": [
+    "features/**/*.feature": [
       "gherkin-lint"
     ]
   }
