@@ -22,14 +22,16 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 			to see how the enquiry response changes.
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
 	@Excluded
 	Scenario: No exceptions and one trigger when driver disqualification - duration only
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/029" in the PNC
-		When message id "q-solution/029a" is received
+		When "input-message-1" is received
 		And I view the list of exceptions
 		Then there are no exceptions raised for "Patrick Duffy"
 		And I see trigger "PR01 - Disqualified driver" in the exception list table
@@ -37,7 +39,7 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0001 - Driver Disqualification - Update DD screen" in the exception list table
 		And the PNC updates the record
-		When message id "q-solution/029b" is received
+		When "input-message-2" is received
 		And I click the "Return To List (Unlock)" button
 		And I view the list of exceptions
 		Then there are no exceptions raised for "Patrick Duffy"

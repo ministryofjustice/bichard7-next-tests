@@ -16,13 +16,15 @@ Feature: {126} BR7 R5.1-RCD411-Date Codes 1 and 5 Offence Matching
 			Offence code matching for date codes 1 and 5
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Offence code matching for date codes 1 and 5
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/126" in the PNC
-		When message id "q-solution/126" is received
 		And I wait for "ONEANDFIVE DATECODES" in the list of records
 		Then there are no exceptions raised for "ONEANDFIVE DATECODES"
 		When I open the record for "ONEANDFIVE DATECODES"

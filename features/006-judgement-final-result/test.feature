@@ -14,13 +14,15 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 			This test will generate a trigger for PS02 - Check address and will check that we are able to resolve that trigger
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: I can resolve a trigger for check address
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/006" in the PNC
-		When message id "q-solution/006" is received
 		And I view the list of exceptions
 		Then I see trigger "PS02 - Check address" in the exception list table
 		When I open the record for "TRTHREE TRPSTWO"

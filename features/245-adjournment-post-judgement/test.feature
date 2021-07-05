@@ -15,13 +15,15 @@ Feature: {245} BR7 R5.6-RCD554-Existing Offence-Adj Post Judg-no PNC Adjudicatio
 			Raise exception for adjournment post judgement
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Raise exception for adjournment post judgement
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/245" in the PNC
-		When message id "q-solution/245" is received
 		And I view the list of exceptions
 		Then I see exception "HO100325 (2)" in the exception list table
 		And there are no triggers raised for "EXIOFFAPJNOPNCADJ EXCEPTION"

@@ -16,12 +16,14 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
 
       """
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
   @Must
   @NeedsValidating
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution/142" in the PNC
-    When message id "q-solution/142" is received
     And I view the list of exceptions
     And pending

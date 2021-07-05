@@ -22,13 +22,15 @@ Feature: {049} #191 - TRPS0008 Required for curfew orders (1052) NOT TRPR0003
 			Interrogate the results, confirm both offence codes exist and the BA code is a qualifier for the results
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Ensure that a trigger is raised on Electronic Tagging and the qualifier is in the correct table
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/049" in the PNC
-		When message id "q-solution/049" is received
 		And I view the list of exceptions
 		And I see trigger "PS08 - Curfew order" in the exception list table
 		Then I open the record for "TEARCE WALLACE"

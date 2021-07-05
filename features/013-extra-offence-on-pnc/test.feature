@@ -14,13 +14,15 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
       This tests that an exception is raised when there is a mismatch between the incoming message and the PNC data
       """
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
   @Must
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "supervisor"
-    And there is a valid record for "q-solution/013" in the PNC
-    When message id "q-solution/013" is received
     And I view the list of exceptions
     And I see exception "HO100304" in the exception list table
     When I open the record for "EXONE EXCEPTION"

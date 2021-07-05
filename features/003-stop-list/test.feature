@@ -14,13 +14,15 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
       This tests that exceptions and triggers are created for a message when the result code is present in the stop list
       """
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
   @Must
   @Validated
   @NeedsRunningAgainstPNC
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution/003" in the PNC
-    When message id "q-solution/003" is received
     And I view the list of exceptions
     Then I see exception "HO200212" in the exception list table
     When I open the record for "TRTHREE TRPRTWELVE"

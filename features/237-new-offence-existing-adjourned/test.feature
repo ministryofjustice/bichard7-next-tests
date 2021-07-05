@@ -13,13 +13,15 @@ Feature: {237} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Judg With Final 
 			Offence added in court where existing judgements are adjourned
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Offence added in court where existing judgements are adjourned
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/237" in the PNC
-		When message id "q-solution/237" is received
 		And I view the list of exceptions
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
 		And there are no exceptions raised for "OFFENCEADDED APJJWF"

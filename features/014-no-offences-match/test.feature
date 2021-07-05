@@ -15,13 +15,15 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 			the trigger so that the record is flagged as resolved, but do not update the PNC.
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Test that PNC detects a mismatch on offences and they can be manually resolved
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/014" in the PNC
-		When message id "q-solution/014" is received
 		And I view the list of exceptions
 		Then I see trigger "HO100304" in the exception list table
 		When I open the record for "EXONEA EXCEPTION"

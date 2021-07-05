@@ -25,12 +25,14 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Add a case to the PNC, no exceptions are flagged if certain properties are set
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/073" in the PNC
-		When message id "q-solution/073" is received
 		And I view the list of exceptions
 		Then there are no exceptions raised for "MISTER NOCONVICTION"

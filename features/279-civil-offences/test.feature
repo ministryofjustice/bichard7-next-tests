@@ -18,14 +18,16 @@ Feature: {279} BR7 R5.8-RCD638 - TRPR0029 - Civil & Non-Civil Offences
 			Currently this is raising an "HO200111 - Unknown order varied/revoked result code" exception but shouldn't be
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
 	@Excluded
 	Scenario: Handling civil offences
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/279" in the PNC
-		When message id "q-solution/279" is received
 		And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 		And I see trigger "PR20 - Breach" in the exception list table

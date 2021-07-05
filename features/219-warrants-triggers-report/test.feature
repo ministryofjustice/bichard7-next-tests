@@ -15,13 +15,15 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 			Pre-update triggers are created for warrants and appear in the warrants report
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Pre-update triggers are created for warrants and appear in the warrants report
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/219" in the PNC
-		When message id "q-solution/219" is received
 		And I view the list of exceptions
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
 		And there are no exceptions raised for "UNDATED Fta"

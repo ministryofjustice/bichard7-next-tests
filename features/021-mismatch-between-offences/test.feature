@@ -14,13 +14,15 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
       This tests that an exception is raised when there is a mismatch between the incoming message and the PNC data
       """
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
   @Must
   @Problem
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "general handler"
-    And there is a valid record for "q-solution/021" in the PNC
-    When message id "q-solution/021" is received
     And I view the list of exceptions
     Then I see exception "HO100304" in the exception list table
     When I open the record for "SCONEA EXCEPTION"

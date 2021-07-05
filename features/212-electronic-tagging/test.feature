@@ -20,13 +20,15 @@ Feature: {212} BR7 R5.4-RCD538-Tagging-BA Qualifier on some Offences
 			Adding electronic tagging information to the PNC
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Adding electronic tagging information to the PNC
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/212" in the PNC
-		When message id "q-solution/212" is received
 		And I view the list of exceptions
 		Then I see trigger "PS08 - Curfew order" in the exception list table
 		And there are no exceptions raised for "Morethanoneoffence Tagging"

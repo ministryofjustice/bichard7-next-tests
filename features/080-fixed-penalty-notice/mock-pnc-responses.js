@@ -1,6 +1,6 @@
 const { mockUpdate } = require("../../utils/pncMocks");
 
-module.exports = [
+module.exports = (ncm) => [
   {
     matchRegex: "CXE01",
     response: `<?XML VERSION="1.0" STANDALONE="YES"?>

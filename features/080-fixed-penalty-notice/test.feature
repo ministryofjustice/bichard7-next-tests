@@ -17,13 +17,15 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
 
       """
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
   @Must
   @NeedsValidating
   @NeedsRunningAgainstPNC
   @MissingNCMFile
   Scenario: PNC is updated when there are multiple identical results
-    Given there is a valid record for "q-solution/080" in the PNC
-    And I am logged in as a "supervisor"
-    When message id "q-solution/080" is received
+    Given I am logged in as a "supervisor"
     Then the PNC updates the record
     And the record for "Williams Peter" does not exist

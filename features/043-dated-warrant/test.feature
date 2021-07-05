@@ -19,13 +19,16 @@ Feature: {043} #151 - FTA Dated Warrant
 			Where is CJS result code, we have it reflected as "TH68006" We need to talk to Richard from Q Solution
 			"""
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Exceptions are triggered when a record is received with a dated warrant
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/043" in the PNC
-		When message id "q-solution/043" is received
+
 		And I view the list of exceptions
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
 		Then I open the record for "NEWTRPRTWO Trigger"

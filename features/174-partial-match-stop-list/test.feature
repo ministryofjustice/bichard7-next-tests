@@ -14,13 +14,15 @@ Feature: {174} BR7 R5.3-RCD497 - Partial Match - Stop List
 			Ensure offences are correctly matched when there is a partial match in the stop list
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Ensure offences are correctly matched when there is a partial match in the stop list
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/174" in the PNC
-		When message id "q-solution/174" is received
 		And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 		And there are no exceptions

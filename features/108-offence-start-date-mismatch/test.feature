@@ -18,13 +18,15 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
             Ensure that dates are correctly matched and that the PNC is updated correctly
             """
 
+   Background:
+     Given the data for this test is in the PNC
+     And "input-message" is received
+
     @Must
     @ReadyToValidate
     @NeedsRunningAgainstPNC
     Scenario: PNC is updated when there are multiple identical results
         Given I am logged in as a "general handler"
-        And there is a valid record for "q-solution/108" in the PNC
-        When message id "q-solution/108" is received
         And I view the list of exceptions
         Then I see trigger "HO100310 (2)" in the exception list table
         When I open the record for "MISMATCH OFFENCE"

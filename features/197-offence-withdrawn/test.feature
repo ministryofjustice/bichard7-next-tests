@@ -14,12 +14,14 @@ Feature: {197} BR7-R5.3.2-RCD556-Offence Withdrawn
 			Verify Result Class calculation and Withdrawn Offences processing
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Verify Result Class calculation and Withdrawn Offences processing
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/197" in the PNC
-		When message id "q-solution/197" is received
 		Then the PNC updates the record
 		And the record for "PUFIVE UPDATE" does not exist

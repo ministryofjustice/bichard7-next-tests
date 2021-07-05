@@ -14,13 +14,15 @@ Feature: {247} BR7 R5.6-RCD554-Existing Offence-Sentence-no PNC Adjudication
 			Updating an existing offence with no PNC adjudication
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updating an existing offence with no PNC adjudication
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/247" in the PNC
-		When message id "q-solution/247" is received
 		And I view the list of exceptions
 		Then I see exception "HO100326 (2)" in the exception list table
 		And there are no triggers raised for "EXIOFFSENNOPNCADJ EXCEPTION"

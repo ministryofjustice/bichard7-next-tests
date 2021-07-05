@@ -22,5 +22,5 @@ Feature: {119} BR7 R5.1-238-414-Multiple CCR-No overlaps-Withdrawn Offences
     Given pending
     # Note: this test does not have an NCM file as it is not possible to have multiple CCRs with an NCM
     Given there is a valid record for "q-solution/119" in the PNC
-    When message id "q-solution/119a" is received
-    When message id "q-solution/119b" is received
+    When "input-message-1" is received
+    When "input-message-2" is received

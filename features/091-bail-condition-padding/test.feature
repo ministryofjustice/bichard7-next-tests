@@ -16,13 +16,15 @@ Feature: {091} R4.1.1_BR7_Bail Condition Padding
 			The bail conditions are padded to make sure no words are split over two lines
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: The bail conditions are padded to make sure no words are split over two lines
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/091" in the PNC
-		When message id "q-solution/091" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And the PNC updates the record

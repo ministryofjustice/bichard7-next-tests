@@ -19,20 +19,23 @@ Feature: {028} R5.6_BR7 Driver Disqualification - Duration and Date values
 			Verification of Driver Disqualification handling where only a Duration is received from the Court
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@Excluded
 	Scenario: Driver Disqualification handling when only a Duration is received
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution test 028" in the PNC
-		When message id "q-solution/028A" is received
+		When "input-message-1" is received
 		And I view the list of exceptions
 		# Then there are no exceptions
 		When I open the record for "Jimbobjones Bobby"
 		And I click the "Triggers" tab
 		Then I see trigger "TRPR0001" for offence "1"
 		# And the PNC updates the record
-		When message id "q-solution/028B" is received
+		When "input-message-2" is received
 		And I click the "Return To List (Unlock)" button
 		And I view the list of exceptions
 	    # Then there are no exceptions

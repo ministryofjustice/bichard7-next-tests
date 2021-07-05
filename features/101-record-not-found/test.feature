@@ -15,13 +15,15 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 			Trigger is still created when record is not found in PNC
 			"""
 
+	Background:
+		And "input-message" is received
+
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
 	@Excluded
 	Scenario: Trigger is still created when record is not found in PNC
 		Given I am logged in as a "general handler"
-		When message id "q-solution/101" is received
 		And I view the list of exceptions
 		Then I see trigger "PR16 - Forfeiture order" in the exception list table
 		When I open the record for "TRPRSIXTEEN TRIGGER"

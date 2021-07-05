@@ -14,13 +14,15 @@ Feature: {088} R4.1.1_BR7_Court Location from Text
 			PNC is updated with next hearing location from court results
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: PNC is updated with next hearing location from court results
 		Given I am logged in as a "supervisor"
-		Given there is a valid record for "q-solution/088" in the PNC
-		When message id "q-solution/088" is received
 		And I view the list of exceptions
 		Then the PNC updates the record
 		And there are no exceptions

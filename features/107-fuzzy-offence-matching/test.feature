@@ -15,13 +15,15 @@ Feature: {107} BR7 R5.0-RCD352-Fuzzy Offence Matching
       Ensure that dates are correctly matched and that the PNC is updated correctly
       """
 
+  Background:
+    Given the data for this test is in the PNC
+    And "input-message" is received
+
   @Must
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
-    Given there is a valid record for "q-solution/107" in the PNC
-    And I am logged in as a "supervisor"
-    When message id "q-solution/107" is received
+    Given I am logged in as a "supervisor"
     Then the PNC updates the record
     When I view the list of exceptions
     When I open the record for "OFFENCE FUZZY"

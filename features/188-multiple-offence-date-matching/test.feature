@@ -14,13 +14,15 @@ Feature: {188} BR7 R5.3-RCD494 - 2x Offence Date Match
 			Matching multiple offences with approximate date matching
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Matching multiple offences with approximate date matching
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/188" in the PNC
-		When message id "q-solution/188" is received
 		And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 		And there are no exceptions raised for "Bishop Charles"

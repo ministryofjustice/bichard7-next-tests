@@ -14,13 +14,15 @@ Feature: {128} BR7 R5.1-RCD411-No Offence End Dates-Start Dates do not match
 			Exception is raised when start dates do not match
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Exception is raised when start dates do not match
 		Given I am logged in as a "supervisor"
-		And there is a valid record for "q-solution/128" in the PNC
-		When message id "q-solution/128" is received
 		And I see exception "HO100304" in the exception list table
 		And there are no triggers raised for "ENDDATES NOOFFENCE"
 		And the PNC record has not been updated
