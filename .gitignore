@@ -111,3 +111,5 @@ workspaces
 .idea/
 tmp/
 screenshots/
+
+.DS_STORE
