@@ -16,7 +16,7 @@ Feature: {245} BR7 R5.6-RCD554-Existing Offence-Adj Post Judg-no PNC Adjudicatio
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Raise exception for adjournment post judgement
 		Given I am logged in as a "general handler"

@@ -15,7 +15,7 @@ Feature: {247} BR7 R5.6-RCD554-Existing Offence-Sentence-no PNC Adjudication
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updating an existing offence with no PNC adjudication
 		Given I am logged in as a "general handler"
