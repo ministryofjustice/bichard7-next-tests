@@ -18,13 +18,15 @@ Feature: {298} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Results-Result Text 
 			<add concise test definition here>
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/298" in the PNC
-		When message id "q-solution/298" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending

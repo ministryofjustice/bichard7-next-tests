@@ -14,13 +14,15 @@ Feature: {303} BR7-R5.9-RCD609-HO100332 and HO100304 combination no longer possi
 			<add concise test definition here>
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/303" in the PNC
-		When message id "q-solution/303" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending

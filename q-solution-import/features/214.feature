@@ -15,13 +15,15 @@ Feature: {214} BR7 R5.4-RCD471-Multiple CCR to Single CCR switch between PNC sub
 			<add concise test definition here>
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/214" in the PNC
-		When message id "q-solution/214" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
