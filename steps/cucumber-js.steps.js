@@ -1,7 +1,7 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { logInAs } = require("./auth");
-const { sendMessage } = require("./message");
-const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes } = require("./pnc");
+const { sendMessage, sendMessageForTest } = require("./message");
+const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes, mockPNCDataForTest } = require("./pnc");
 const {
   findRecordFor,
   goToExceptionList,
@@ -52,6 +52,8 @@ const {
 
 setDefaultTimeout(60000);
 
+Given("the data for this test is in the PNC", mockPNCDataForTest);
+
 Given("there is a valid record for {string} in the PNC", createValidRecordInPNC);
 
 Given("a message is received", function () {
@@ -67,6 +69,8 @@ Given("I navigate to the list of reports", canSeeReports);
 When("message id {string} is received", function (id) {
   sendMessage.apply(this, [id]);
 });
+
+When("{string} is received", sendMessageForTest);
 
 When("I view the list of exceptions", goToExceptionList);
 

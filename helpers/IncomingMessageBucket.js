@@ -1,6 +1,5 @@
 const { S3 } = require("aws-sdk");
 const { format } = require("date-fns");
-const fs = require("fs");
 
 class IncomingMessageBucket {
   constructor(config) {
@@ -21,11 +20,9 @@ class IncomingMessageBucket {
     this.incomingMessageBucketName = config.incomingMessageBucketName;
   }
 
-  async upload(messageId, externalCorrelationId, receivedDate) {
-    const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${messageId.replace("/", "_")}.xml`;
-    const content = (await fs.promises.readFile(`./fixtures/messages/${messageId}.xml`))
-      .toString()
-      .replace("EXTERNAL_CORRELATION_ID", externalCorrelationId);
+  async upload(message, externalCorrelationId, receivedDate) {
+    const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${externalCorrelationId}.xml`;
+    const content = message.replace("EXTERNAL_CORRELATION_ID", externalCorrelationId);
 
     const params = {
       Bucket: this.incomingMessageBucketName,

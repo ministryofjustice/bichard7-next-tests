@@ -1,6 +1,7 @@
 const { After, Before } = require("@cucumber/cucumber");
 
-Before(async function () {
+Before(async function (context) {
+  this.featureUri = context.gherkinDocument.uri;
   await this.browser.setupDownloadFolder("./tmp");
   await this.db.clearExceptions();
   await this.pnc.clearMocks();
