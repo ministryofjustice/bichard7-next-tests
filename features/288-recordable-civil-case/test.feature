@@ -11,7 +11,7 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 			No Civil Proceedings Trigger is generated but other Triggers are produced.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling a recordable civil case
 			"""
 
 	Background:
@@ -21,8 +21,10 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	Scenario: Handling a recordable civil case
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		And there are no exceptions raised for "CIVILCASE RECORDABLE"
+		Then I see trigger "PS08 - Curfew order" in the exception list table
+		And the PNC updates the record
