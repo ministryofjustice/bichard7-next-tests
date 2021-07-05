@@ -1,6 +1,11 @@
 const expect = require("expect");
 const { initialRefreshUrl } = require("../utils/urls");
-const { reloadUntilSelector, waitForRecord, reloadUntilContent } = require("../utils/puppeteer-utils");
+const {
+  reloadUntilSelector,
+  waitForRecord,
+  reloadUntilContent,
+  reloadUntilNotContent
+} = require("../utils/puppeteer-utils");
 const fsHelp = require("../helpers/fsHelper");
 
 const containsValue = async function (page, selector, value) {
@@ -435,6 +440,10 @@ const reloadUntilStringPresent = async function (content) {
   await reloadUntilContent(this.browser.page, content);
 };
 
+const reloadUntilStringNotPresent = async function (content) {
+  await reloadUntilNotContent(this.browser.page, content);
+};
+
 const checkNoExceptions = async function () {
   await filterRecords(this, "unresolved", "exception");
   const tableRows = await this.browser.page.$$("table.resultsTable tr");
@@ -493,6 +502,7 @@ module.exports = {
   correctOffenceFreeTextException,
   submitRecord,
   reloadUntilStringPresent,
+  reloadUntilStringNotPresent,
   checkNoExceptions,
   waitForRecordStep
 };

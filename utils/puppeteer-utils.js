@@ -40,6 +40,16 @@ const reloadUntilContent = async (page, content) => {
   return retryDelay(checkForContent, reloadPage, 1000);
 };
 
+const reloadUntilNotContent = async (page, content) => {
+  const checkForContent = async () => !(await page.evaluate(() => document.body.innerText)).includes(content);
+
+  const reloadPage = async () => {
+    await page.reload();
+  };
+
+  return retryDelay(checkForContent, reloadPage, 1000);
+};
+
 const waitForRecord = async (page) => {
   await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link");
 };
@@ -49,4 +59,4 @@ const delay = (seconds) =>
     setTimeout(resolve, seconds * 1000);
   });
 
-module.exports = { delay, retryDelay, reloadUntilSelector, waitForRecord, reloadUntilContent };
+module.exports = { delay, retryDelay, reloadUntilSelector, waitForRecord, reloadUntilContent, reloadUntilNotContent };
