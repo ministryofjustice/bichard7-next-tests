@@ -12,7 +12,7 @@ Feature: {007} R3_BR7_TR_002_Date
 			A Post Update Trigger is also successfully created on the Portal and manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Split adjournment court results automation
 			"""
 
 	Background:
@@ -20,10 +20,18 @@ Feature: {007} R3_BR7_TR_002_Date
 		And "input-message" is received
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	@Excluded
+	Scenario: Split adjournment court results automation
+		Given I am logged in as a "supervisor"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
+		Then I see trigger "PS04 - Split adjournment" in the exception list table
+		When I open the record for "TRTWODATE TRIGGER"
+		And I click the "Triggers" tab
+		And I resolve all of the triggers
+		Then the "record" for "TRTWODATE TRIGGER" is "resolved"
+		And the "record" for "TRTWODATE TRIGGER" is not "unresolved"
 		And pending
+		# There are multiple PNC updates issued
+		And the PNC updates the record

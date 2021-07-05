@@ -15,7 +15,7 @@ Feature: {298} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Results-Result Text 
 			PNC Exception Update is generated and the Court Hearing Results with portal-added values (Offence Sequence Numbers and Result Text details) are successfully added onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Updating the PNC after resolving the exception with result text not used for disposal text
 			"""
 
 	Background:
@@ -23,10 +23,21 @@ Feature: {298} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Results-Result Text 
 		And "input-message" is received
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Updating the PNC after resolving the exception with result text not used for disposal text
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see exception "HO100310 (2)" in the exception list table
+		When I open the record for "RESULTTEXTFORCED DUPLICATEOFFENCES"
+		And I click the "Offences" tab
+		And I view offence "1"
+		And I correct "Sequence Number" to "1"
+		And I click the "Offences" tab
+		And I view offence "2"
+		And I correct "Sequence Number" to "2"
+		And I click the "Offences" tab
+		When I submit the record
+		Then I see exception "(Submitted)" in the exception list table
+		And I reload until I don't see "(Submitted)"
+		And the PNC updates the record

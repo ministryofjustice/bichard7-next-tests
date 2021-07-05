@@ -17,7 +17,7 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 			PRE Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Updating duplicate offences when one offence is added in court and making sure the result text is used as the PNC disposal text
 			"""
 
 	Background:
@@ -25,10 +25,28 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 		And "input-message" is received
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Updating duplicate offences when one offence is added in court and making sure the result text is used as the PNC disposal text
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see exception "HO100310 (2)" in the exception list table
+		When I open the record for "RESULTTEXTISUSED DUPLICATEOFFENCEADDEDINCOURT"
+		And I click the "Offences" tab
+		And I view offence "1"
+		And I correct "Sequence Number" to "1"
+		And I click the "Offences" tab
+		And I view offence "2"
+		And I correct "Sequence Number" to "2"
+		And I click the "Offences" tab
+		And I submit the record
+		Then I see exception "(Submitted)" in the exception list table
+		When I reload until I see "PS03 - Disposal text truncated"
+		And I open the record for "RESULTTEXTISUSED DUPLICATEOFFENCEADDEDINCOURT"
+		And I click the "Triggers" tab
+		Then I see trigger "TRPR0003" for offence "1"
+		Then I see trigger "TRPR0003" for offence "2"
+		Then I see trigger "TRPS0003" for offence "1"
+		Then I see trigger "TRPS0003" for offence "2"
+		Then I see trigger "TRPS0010" for offence "2"
+		And the PNC updates the record

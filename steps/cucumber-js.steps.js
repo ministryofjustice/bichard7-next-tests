@@ -47,7 +47,8 @@ const {
   reloadUntilStringPresent,
   checkNoExceptions,
   waitForRecordStep,
-  cannotSeeTrigger
+  cannotSeeTrigger,
+  reloadUntilStringNotPresent
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -107,6 +108,8 @@ When("I prepend {string} with {string}", correctOffenceFreeTextException);
 When("I wait for {string} in the list of records", waitForRecordStep);
 
 Then("I reload until I see {string}", reloadUntilStringPresent);
+
+Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
