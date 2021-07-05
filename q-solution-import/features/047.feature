@@ -14,13 +14,15 @@ Feature: {047} #186 - Result text population for Orders - 2nd variation
 			<add concise test definition here>
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/047" in the PNC
-		When message id "q-solution/047" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending

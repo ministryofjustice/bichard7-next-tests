@@ -14,13 +14,15 @@ Feature: {256} BR7 R5.7-RCD616-Case Reallocation-Force Owner Court Area MISmatch
 			<add concise test definition here>
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+		And "input-message" is received
+
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: <add human readable test description>
 		Given I am logged in as a "general handler"
-		And there is a valid record for "q-solution/256" in the PNC
-		When message id "q-solution/256" is received
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		And pending
