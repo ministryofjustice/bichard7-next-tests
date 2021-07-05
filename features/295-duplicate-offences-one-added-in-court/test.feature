@@ -17,7 +17,7 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 			PRE Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			Updating duplicate offences when one offence is added in court
+			Updating duplicate offences when one offence is added in court and making sure the result text is used as the PNC disposal text
 			"""
 
 	Background:
@@ -25,9 +25,9 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 		And "input-message" is received
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: Updating duplicate offences when one offence is added in court
+	Scenario: Updating duplicate offences when one offence is added in court and making sure the result text is used as the PNC disposal text
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
 		Then I see exception "HO100310 (2)" in the exception list table
