@@ -11,16 +11,17 @@ Feature: {247} BR7 R5.6-RCD554-Existing Offence-Sentence-no PNC Adjudication
 			No PNC update is made.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Updating an existing offence with no PNC adjudication
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Updating an existing offence with no PNC adjudication
 		Given I am logged in as a "general handler"
 		And there is a valid record for "q-solution/247" in the PNC
 		When message id "q-solution/247" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see exception "HO100326 (2)" in the exception list table
+		And there are no triggers raised for "EXIOFFSENNOPNCADJ EXCEPTION"
+		And the PNC record has not been updated

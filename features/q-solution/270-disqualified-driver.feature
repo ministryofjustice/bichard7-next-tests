@@ -11,16 +11,18 @@ Feature: {270} BR7 R5.7-RCD464-TRPR0026 Driving Disqualification Suspended
 			The Trigger is Marked as Complete once this has been completed.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correctly handle disqualified driver triggers
 			"""
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Correctly handle disqualified driver triggers
 		Given I am logged in as a "general handler"
 		And there is a valid record for "q-solution/270" in the PNC
 		When message id "q-solution/270" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+		And I see trigger "PR26 - Disq. suspended" in the exception list table
+		And there are no exceptions raised for "SUSPENDED DRIVERDISQ"
+		And the PNC updates the record
