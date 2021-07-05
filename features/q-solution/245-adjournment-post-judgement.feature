@@ -12,16 +12,17 @@ Feature: {245} BR7 R5.6-RCD554-Existing Offence-Adj Post Judg-no PNC Adjudicatio
 			No PNC update is made.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Raise exception for adjournment post judgement
 			"""
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Raise exception for adjournment post judgement
 		Given I am logged in as a "general handler"
 		And there is a valid record for "q-solution/245" in the PNC
 		When message id "q-solution/245" is received
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see exception "HO100325 (2)" in the exception list table
+		And there are no triggers raised for "EXIOFFAPJNOPNCADJ EXCEPTION"
+		And the PNC record has not been updated
