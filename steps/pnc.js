@@ -1,4 +1,17 @@
 const expect = require("expect");
+const path = require("path");
+
+const mockPNCDataForTest = async function () {
+  // mock a response in the PNC
+  const specFolder = path.dirname(this.featureUri);
+  this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`);
+
+  const mockPromises = this.mocks.map((mock) => this.pnc.addMock(mock.matchRegex, mock.response));
+  const mockIds = await Promise.all(mockPromises);
+  for (let i = 0; i < this.mocks.length; i += 1) {
+    this.mocks[i].id = mockIds[i];
+  }
+};
 
 const createValidRecordInPNC = async function (record) {
   // mock a response in the PNC
@@ -60,5 +73,6 @@ module.exports = {
   createValidRecordInPNC,
   checkMocks,
   pncNotUpdated,
-  pncUpdateIncludes
+  pncUpdateIncludes,
+  mockPNCDataForTest
 };

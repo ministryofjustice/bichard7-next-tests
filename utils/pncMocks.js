@@ -22,8 +22,8 @@ const extractDates = (offence) => {
 };
 
 module.exports = {
-  mockEnquiryFromNCM: (id, options = {}) => {
-    const xmlData = fs.readFileSync(`./fixtures/ncmFiles/${id}.xml`, "utf8");
+  mockEnquiryFromNCM: (ncmFile, options = {}) => {
+    const xmlData = fs.readFileSync(ncmFile, "utf8");
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);
     const personFamilyName = parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(

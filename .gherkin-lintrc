@@ -1,6 +1,5 @@
 {
   "new-line-at-eof": ["on", "yes"],
-  "no-background-only-scenario": "on",
   "no-dupe-feature-names": "on",
   "no-duplicate-tags": "on",
   "no-empty-background": "on",

@@ -7,17 +7,13 @@ const axiosInstance = axios.create({
   })
 });
 
-const fs = require("fs");
-
 class IbmMqHelper {
   constructor(config) {
     this.config = config;
   }
 
-  async sendMessage(queueName, messageId) {
+  async sendMessage(queueName, message) {
     const url = `https://${this.config.user}:${this.config.password}@${this.config.url}/ibmmq/rest/v2/messaging/qmgr/${this.config.queueManager}/queue/${queueName}/message`;
-
-    const message = await fs.promises.readFile(`./fixtures/messages/${messageId}.xml`);
 
     const resp = await axiosInstance.post(url, message, {
       headers: {

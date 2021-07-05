@@ -1,5 +1,4 @@
 const { ConnectFailover } = require("stompit");
-const fs = require("fs");
 
 class ActiveMqHelper {
   constructor(config) {
@@ -47,14 +46,11 @@ class ActiveMqHelper {
     return this.client;
   }
 
-  async sendMessage(queueName, messageId) {
+  async sendMessage(queueName, message) {
     const client = await this.connectIfRequired();
     const headers = {
       destination: `/queue/${queueName}`
     };
-
-    // !TODO: make this relative to the file, not package.json
-    const message = await fs.promises.readFile(`./fixtures/messages/${messageId}.xml`);
 
     return new Promise((resolve, reject) => {
       const writable = client.send(headers);
