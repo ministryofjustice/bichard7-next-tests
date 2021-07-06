@@ -11,7 +11,7 @@ Feature: {044} #151 - FTA Undated Warrant
 			Pre Update Triggers are also successfully created on the Portal and manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling FTA results with undated warrant
 			"""
 
 	Background:
@@ -19,10 +19,15 @@ Feature: {044} #151 - FTA Undated Warrant
 		And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Handling FTA results with undated warrant
+		Given I am logged in as a "supervisor"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I open the record for "NONEWREM Trigger"
+		And I click the "Triggers" tab
+		Then I see trigger "TRPR0002"
+		When I resolve all of the triggers
+		Then the "record" for "NONEWREM Trigger" is "resolved"
+		And the "record" for "NONEWREM Trigger" is not "unresolved"
+		And the PNC updates the record
