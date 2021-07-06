@@ -12,18 +12,17 @@ Feature: {166} BR7 R5.3-RCD505 - Ignored offence - Stop List Result
 			Verification is made that this processing has been logged to the database (into the General Event Log).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Results in the stop list are not processed
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Results in the stop list are not processed
+		Given I am logged in as a "supervisor"
+		Then the PNC record has not been updated
+			And there are no exceptions or triggers
