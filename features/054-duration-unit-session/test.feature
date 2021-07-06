@@ -10,18 +10,18 @@ Feature: {054} R3.4_BR7_Duration Unit_Session
 			PNC Update is generated and the Court Hearing Results are successfully and automatically added onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling messages with session duration
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling messages with session duration
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions raised for "Ladyfish Larry"
+			And the PNC updates the record
