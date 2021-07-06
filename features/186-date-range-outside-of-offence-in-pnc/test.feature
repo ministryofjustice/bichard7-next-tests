@@ -9,18 +9,19 @@ Feature: {186} BR7 R5.3-RCD494 - No Date Match
 			Where multiple Offences match on Offence and Result but the Date Range of the Court Offence data is outside of the Offence Date Range on PNC the solution will generate an Exception.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Exception is generated when the Court Offence data date range is outside of the Offence date range in PNC
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Exception is generated when the Court Offence data date range is outside of the Offence date range in PNC
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then I see exception "HO100304" in the exception list table
+			And there are no triggers raised for "Ripley Charles"
+			And the PNC record has not been updated
