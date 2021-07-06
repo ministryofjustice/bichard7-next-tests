@@ -59,7 +59,9 @@ class BrowserHelper {
       await this.page.goto(logout());
       await this.page.waitForSelector("input[type=submit][value=OK]");
       await this.page.click("input[type=submit][value=OK]");
-      await this.page.waitForSelector("#username");
+
+      const selector = this.options.world.stackType === "next" ? ".infoMessage" : "#username";
+      await this.page.waitForSelector(selector);
     }
   }
 
