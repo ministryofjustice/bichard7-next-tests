@@ -12,18 +12,23 @@ Feature: {187} BR7 R5.3-RCD494 - Date Match with Stop List Result
 			Pre Update Trigggers are also created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Stop List Result is removed from the PNC update request
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Stop List Result is removed from the PNC update request
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then there are no exceptions raised for "Hudson Charles"
+		When I open the record for "Hudson Charles"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0018" for offence "1"
+			And I see trigger "TRPR0018" for offence "2"
+			And I see trigger "TRPR0006"
+			And the PNC updates the record
