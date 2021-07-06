@@ -11,7 +11,7 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 			An Exception is generated to highlight this on the Portal and Pre Update Triggers are also successfully created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
 			"""
 
 	Background:
@@ -19,10 +19,13 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 		And "input-message" is received
 
 	@Should
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	Scenario: Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
+		Then I see exception "HO100200" in the exception list table
+		Then I see exception "HO100307" in the exception list table
 		And pending
