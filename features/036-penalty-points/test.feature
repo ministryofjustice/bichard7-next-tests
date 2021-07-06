@@ -10,7 +10,7 @@ Feature: {036} 3.3_BR7_Penalty Points for Result Code 3008
 			PNC Update is generated and the Court Hearing Results are successfully added automatically onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Hearing results with penalty points are sent to the PNC
 			"""
 
 	Background:
@@ -18,10 +18,10 @@ Feature: {036} 3.3_BR7_Penalty Points for Result Code 3008
 		And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
+	Scenario: Hearing results with penalty points are sent to the PNC
+		Given I am logged in as a "supervisor"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then the PNC updates the record
+		And there are no exceptions raised for "Bethel Barry"
