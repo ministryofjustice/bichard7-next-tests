@@ -10,18 +10,27 @@ Feature: {130} BR7 R5.1-RCD411-Offence Matching-Start-End-Dates Match
 			Post Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling exceptions when start and end dates match
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Handling exceptions when start and end dates match
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO100310 (2)" in the exception list table
+		When I open the record for "STARTENDDATES OFFENCEMATCH"
+			And I click the "Offences" tab
+			And I view offence "1"
+			And I correct "Sequence Number" to "1"
+			And I click the "Offences" tab
+			And I submit the record
+		Then I see exception "(Submitted)" in the exception list table
+		When I reload until I see "PS10 - Offence added to PNC"
+		Then I cannot see trigger "TRPR0018" in the exception list table
+			And the PNC updates the record
