@@ -11,18 +11,19 @@ Feature: {148} BR7 R5.2-RCD452-Extracting Remand Date-Group 1
 			Successul update of the PNC is made.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Update PNC based on date time and location in result text
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Update PNC based on date time and location in result text
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no triggers raised for "RemandTest Cortez"
+			And there are no exceptions raised for "RemandTest Cortez"
+			And the PNC updates the record
