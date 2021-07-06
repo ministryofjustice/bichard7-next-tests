@@ -12,18 +12,25 @@ Feature: {150} BR7 R5.2-RCD488-Person Title field Single Char
 			Post Update Triggers are also successfully created on the Portal and manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling messages with a single title character
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling messages with a single title character
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		When I open the record for "PersonTitle Single"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPS0010" for offence "4"
+			And I see trigger "TRPS0010" for offence "5"
+			And the PNC updates the record
+		When I resolve all of the triggers
+		Then the "record" for "PersonTitle Single" is "resolved"
+		Then the "record" for "PersonTitle Single" is not "unresolved"
+			And there are no exceptions
