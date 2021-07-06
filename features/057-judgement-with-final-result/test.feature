@@ -11,18 +11,25 @@ Feature: {057} #192 - Result Date
 			Pre Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Validating judgement with final result automation
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Validating judgement with final result automation
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		When I open the record for "Anchovy Adam"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0003" for offence "2"
+			And I see trigger "TRPR0003" for offence "3"
+			And I see trigger "TRPR0021" for offence "2"
+			And I see trigger "TRPS0003" for offence "2"
+			And I see trigger "TRPS0003" for offence "3"
+			And I see trigger "TRPR0006"
+			And the PNC updates the record
