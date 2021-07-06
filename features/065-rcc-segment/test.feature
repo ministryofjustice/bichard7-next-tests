@@ -11,18 +11,22 @@ Feature: {065} R3.5_BR7_Populate RCC with PTIURN-Offence Withdrawn
 			The message sent to the PNC will include RCC segment information since an Offence was added in Court (to replace the Offence with which the Defendant was originally charged).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correctly adding RCC segment
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	Scenario: Correctly adding RCC segment
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions raised for "INNOCUOUS MISTER"
+			And the PNC updates the record
+			# This does not match what is in the test spec
+			And the PNC update includes "<RCC>I01ZD/5100008"
