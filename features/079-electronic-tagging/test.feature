@@ -13,7 +13,7 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 			Post Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correctly handling electronic tagging results
 			"""
 
 	Background:
@@ -21,10 +21,11 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 		And "input-message" is received
 
 	@Should
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Correctly handling electronic tagging results
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see trigger "PS08 - Curfew order" in the exception list table
+		And there are no exceptions raised for "Ben Mister"
+		And the PNC updates the record
