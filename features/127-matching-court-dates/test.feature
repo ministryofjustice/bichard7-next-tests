@@ -14,18 +14,20 @@ Feature: {127} BR7 R5.1-RCD411-Date Codes 2 and 3 and 6 Offence Matching
 			The PNC matching Offence DOES have an associated PNC Offence End Date and this is NOT considered a match and the HO Error is generated as a result
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Checking matches for court dates
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	Scenario: Checking matches for court dates
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO100304" in the exception list table
+			And there are no triggers raised for "TWOTHREESIX DATECODES"
+			And the PNC record has not been updated
