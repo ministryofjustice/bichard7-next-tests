@@ -13,18 +13,30 @@ Feature: {176} BR7 R5.3-RCD497 - Partial Match - Date Duration
 			Pre Update Triggers are created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Manually resolving exceptions for date duration mismatches
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Manually resolving exceptions for date duration mismatches
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "PR06 - Imprisoned" in the exception list table
+		When I open the record for "Dibbley Marcus"
+			And I click the "Offences" tab
+			And I view offence "1"
+			And I correct "Sequence Number" to "1"
+			And I click the "Offences" tab
+			And I view offence "2"
+			And I correct "Sequence Number" to "2"
+			And I click the "Offences" tab
+			And I view offence "3"
+			And I correct "Sequence Number" to "3"
+			And I click the "Offences" tab
+			And I submit the record
+		Then the PNC updates the record
