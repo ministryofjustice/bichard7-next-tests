@@ -13,18 +13,17 @@ Feature: {157} BR7 R5.2.2-RCD518 - Result class Adjournment With Judgement
 			this is a Remand that has been received).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correctly processing adjournment with judgement
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Correctly processing adjournment with judgement
+		Given I am logged in as a "supervisor"
+		Then the PNC updates the record
+			And there are no exceptions or triggers

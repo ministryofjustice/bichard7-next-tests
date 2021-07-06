@@ -48,7 +48,8 @@ const {
   checkNoExceptions,
   waitForRecordStep,
   cannotSeeTrigger,
-  reloadUntilStringNotPresent
+  reloadUntilStringNotPresent,
+  checkNoRecords
 } = require("./ui");
 
 setDefaultTimeout(60000);
@@ -172,6 +173,8 @@ Then("I see {string} in the {string} row of the results table", checkOffenceData
 Then("the record for {string} does not exist", checkRecordNotExists);
 
 Then("there are no exceptions", checkNoExceptions);
+
+Then("there are no exceptions or triggers", checkNoRecords);
 
 Then("pending", () => "pending");
 
