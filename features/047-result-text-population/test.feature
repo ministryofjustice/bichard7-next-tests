@@ -11,18 +11,20 @@ Feature: {047} #186 - Result text population for Orders - 2nd variation
 			Pre Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Result text population for Orders - 2nd variation
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Result text population for Orders - 2nd variation
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PR03 - Order issues" in the exception list table
+			And I see trigger "PS03 - Disposal text truncated" in the exception list table
+			And there are no exceptions raised for "RTTOO Update"
+			And the PNC updates the record
