@@ -9,17 +9,18 @@ const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHa
 const AuditLoggingApi = require("../helpers/AuditLoggingApi");
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
+const { authType, stackType } = require("../utils/config");
 
 class Bichard extends World {
   constructor(options) {
     super(options);
 
-    this.stackType = process.env.STACK_TYPE || "next";
-    this.authType = process.env.AUTH_TYPE || "user-service";
+    this.stackType = process.env.STACK_TYPE || stackType.next;
+    this.authType = process.env.AUTH_TYPE || authType.userService;
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = (process.env.MESSAGE_ENTRY_POINT || "mq") === "s3";
 
-    if (this.stackType === "next") {
+    if (this.stackType === stackType.next) {
       this.db = new PostgresHelper({
         host: process.env.DB_HOST || defaults.postgresHost,
         port: process.env.DB_PORT || defaults.postgresPort,
@@ -51,7 +52,7 @@ class Bichard extends World {
         url: process.env.AWS_URL,
         region: process.env.AUDIT_LOGGING_API_REGION || defaults.awsRegion
       });
-    } else if (this.stackType === "baseline") {
+    } else if (this.stackType === stackType.baseline) {
       this.db = new Db2Helper({
         host: process.env.DB_HOST || defaults.db2Host,
         port: process.env.DB_PORT || defaults.db2Port,

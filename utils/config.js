@@ -16,4 +16,18 @@ const getConfig = () => {
   };
 };
 
-module.exports = { getConfig };
+const authType = {
+  bichard: "bichard",
+  userService: "user-service"
+};
+
+const stackType = {
+  baseline: "baseline",
+  next: "next"
+};
+
+module.exports = {
+  getConfig,
+  authType,
+  stackType
+};

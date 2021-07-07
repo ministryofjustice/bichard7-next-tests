@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const PuppeteerMassScreenshots = require("puppeteer-mass-screenshots");
+const { authType } = require("../utils/config");
 const { logout } = require("../utils/urls");
 
 class BrowserHelper {
@@ -60,7 +61,7 @@ class BrowserHelper {
       await this.page.waitForSelector("input[type=submit][value=OK]");
       await this.page.click("input[type=submit][value=OK]");
 
-      const selector = this.options.world.authType === "user-service" ? ".infoMessage" : "#username";
+      const selector = this.options.world.authType === authType.userService ? ".infoMessage" : "#username";
       await this.page.waitForSelector(selector);
     }
   }

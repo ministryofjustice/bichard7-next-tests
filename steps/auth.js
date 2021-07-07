@@ -1,4 +1,5 @@
 const expect = require("expect");
+const { authType } = require("../utils/config");
 const { home, userService } = require("../utils/urls");
 
 const logInToBichardAs = async function (world, username) {
@@ -28,7 +29,7 @@ const logInToUserServiceAs = async function (world, username) {
 const logInAs = async function (group) {
   const username = `${group.replace(" ", "")}1`;
 
-  if (this.authType === "bichard") {
+  if (this.authType === authType.bichard) {
     await logInToBichardAs(this, username);
   } else {
     await logInToUserServiceAs(this, username);
