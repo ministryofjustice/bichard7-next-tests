@@ -1,7 +1,7 @@
 const expect = require("expect");
 const { home, userService } = require("../utils/urls");
 
-const logInToBaselineAs = async function (world, username) {
+const logInToBichardAs = async function (world, username) {
   const page = await world.browser.newPage(home());
   await page.waitForSelector("#username");
 
@@ -12,7 +12,7 @@ const logInToBaselineAs = async function (world, username) {
   await page.waitForSelector(".wpsToolBarUserName");
 };
 
-const logInToNextAs = async function (world, username) {
+const logInToUserServiceAs = async function (world, username) {
   const emailAddress = `${username}@example.com`;
 
   const page = await world.browser.newPage(userService());
@@ -28,10 +28,10 @@ const logInToNextAs = async function (world, username) {
 const logInAs = async function (group) {
   const username = `${group.replace(" ", "")}1`;
 
-  if (this.stackType === "baseline") {
-    await logInToBaselineAs(this, username);
+  if (this.authType === "bichard") {
+    await logInToBichardAs(this, username);
   } else {
-    await logInToNextAs(this, username);
+    await logInToUserServiceAs(this, username);
   }
 
   await expect(await this.browser.pageText()).toMatch(new RegExp(`You are logged in as: ${username}`, "i"));

@@ -60,7 +60,7 @@ class BrowserHelper {
       await this.page.waitForSelector("input[type=submit][value=OK]");
       await this.page.click("input[type=submit][value=OK]");
 
-      const selector = this.options.world.stackType === "next" ? ".infoMessage" : "#username";
+      const selector = this.options.world.authType === "user-service" ? ".infoMessage" : "#username";
       await this.page.waitForSelector(selector);
     }
   }
