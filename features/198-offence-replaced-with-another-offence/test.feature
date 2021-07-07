@@ -15,18 +15,21 @@ Feature: {198} BR7-R5.3.2-RCD556-Offence Withdrawn-Replaced-Adjourned
 			A Post Update Trigger is generated to alert the Police to the fact that the Replacing Offence has been Added to the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			PNC is updated when an Offence is replaced with another Offence
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: PNC is updated when an Offence is replaced with another Offence
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then there are no exceptions raised for "DISTRICTUS THETUBE"
+		When I open the record for "DISTRICTUS THETUBE"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPS0010"
+			And the PNC updates the record
