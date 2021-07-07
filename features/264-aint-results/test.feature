@@ -12,18 +12,26 @@ Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
 			No PNC updated is generated since the solution recognises that AINT results are of no interest to the Police.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Verifying AINT results generate no PNC update
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Verifying AINT results generate no PNC update
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see exception "HO100209" in the exception list table
+			And there are no triggers raised for "EXCEPTIONAINT CASE"
+		When I open the record for "EXCEPTIONAINT CASE"
+			And I click the "Defendant" tab
+			And I correct "Court PNCID" to "2013/0000016P"
+			And I submit the record
+			And I click the "Return To List" button
+		Then the "record" for "EXCEPTIONAINT CASE" is "resolved"
+			And the "record" for "EXCEPTIONAINT CASE" is not "unresolved"
+			And the PNC record has not been updated
