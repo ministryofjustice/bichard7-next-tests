@@ -13,18 +13,21 @@ Feature: {201} BR7-R5.3.2-RCD556-Offence Non-Conviction
 			A Pre Update Trigger is also created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Verifying that trigger is generated and PNC is updated when Defendant is considered as "Unfit To Plead"
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Trigger is generated and PNC is updated when Defendant is considered as "Unfit To Plead"
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then there are no exceptions raised for "DEEELAR THETUBE"
+		When I open the record for "DEEELAR THETUBE"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+			And the PNC updates the record
