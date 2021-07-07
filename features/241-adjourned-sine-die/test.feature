@@ -11,18 +11,25 @@ Feature: {241} BR7 R5.6-RCD469-Sine Die No Conviction Date from Court
 			The Court Hearing Results are successfully added automatically onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Adjourned Sine Die results with no conviction date
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Adjourned Sine Die results with no conviction date
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no exceptions raised for "PICADILLUS THETUBE"
+			And I see trigger "PR23 - Domestic violence" in the exception list table
+		When I open the record for "AdjSineDie NoConvictionDate"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0017" for offence "1"
+			And I see trigger "TRPR0017" for offence "2"
+			And I see trigger "TRPR0017" for offence "3"
+			And I see trigger "TRPR0023"
+			And the PNC updates the record
