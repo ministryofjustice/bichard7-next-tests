@@ -15,7 +15,7 @@ Feature: {196} BR7-R5.3.2-RCD556-Breach Offence with Re-sentence for original of
 			Pre Update Triggers are also created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Re-sentencing of the original offence is adjourned to the next hearing, so an exception is returned
 			"""
 
 	Background:
@@ -23,10 +23,11 @@ Feature: {196} BR7-R5.3.2-RCD556-Breach Offence with Re-sentence for original of
 		And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: re-sentencing of offence is adjourned to a new hearing
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		Then I see exception "HO200212" in the exception list table
+		And I see trigger "PR20 - Breach" in the exception list table
+		And the PNC record has not been updated
