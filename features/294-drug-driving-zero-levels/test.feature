@@ -10,18 +10,20 @@ Feature: {294} BR7-R5.9-RCD605-Drug Driving-Minimum AlcoholLevelAmount
 			The PNC is successfully updated with the results from Court.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling results with drug driving zero levels
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@Problem
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	@Excluded
+	Scenario: Handling results with drug driving zero levels
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+			And there are no exceptions raised for "DRUGDRIVING MINVALUE"
+			And the PNC updates the record
