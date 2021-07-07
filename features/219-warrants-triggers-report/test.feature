@@ -17,7 +17,7 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@Problem
@@ -25,17 +25,16 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 	@ExcludedOnBaseline
 	Scenario: Pre-update triggers are created for warrants and appear in the warrants report
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
-		And there are no exceptions raised for "UNDATED Fta"
-		And the PNC updates the record
+			And there are no exceptions raised for "UNDATED Fta"
+			And the PNC updates the record
 		When I open the record for "UNDATED Fta"
-		And I click the "Triggers" tab
-		And I resolve all of the triggers
+			And I click the "Triggers" tab
+			And I resolve all of the triggers
 		Then the "record" for "UNDATED Fta" is "resolved"
-		And the "record" for "UNDATED Fta" is not "unresolved"
+			And the "record" for "UNDATED Fta" is not "unresolved"
 		When I navigate to the list of reports
-		And I access the "Warrants" report
-		# And I generate today's Warrants report
-		# Then I see "xxx" in the Warrants report
-		And pending
+			And I access the "Warrants" report
+			And I generate today's Warrants report
+		Then I see "01ZD0307708" in the Warrants report

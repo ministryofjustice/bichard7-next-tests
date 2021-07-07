@@ -3,6 +3,7 @@ const { logInAs } = require("./auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./message");
 const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes, mockPNCDataForTest } = require("./pnc");
+const { generateTodaysWarrantsReport, reportContains, accessReport } = require("./reports");
 const {
   findRecordFor,
   goToExceptionList,
@@ -28,7 +29,6 @@ const {
   clickMainTab,
   exceptionIsNotEditable,
   cannotReallocateCase,
-  accessReport,
   downloadCSV,
   checkFileDownloaded,
   loadTab,
@@ -109,6 +109,8 @@ When("I prepend {string} with {string}", correctOffenceFreeTextException);
 
 When("I wait for {string} in the list of records", waitForRecordStep);
 
+When("I generate today's Warrants report", generateTodaysWarrantsReport);
+
 Then("I reload until I see {string}", reloadUntilStringPresent);
 
 Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
@@ -176,6 +178,8 @@ Then("the record for {string} does not exist", checkRecordNotExists);
 Then("there are no exceptions", checkNoExceptions);
 
 Then("there are no exceptions or triggers", checkNoRecords);
+
+Then("I see {string} in the Warrants report", reportContains);
 
 Then("pending", () => "pending");
 
