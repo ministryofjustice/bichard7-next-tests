@@ -13,18 +13,21 @@ Feature: {195} BR7-R5.3.2-RCD556-Breach Offence with Sentence
 			Pre Update Triggers are also created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			PNC is updated for the provided Result Class in the Breach Offence/Result
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: PNC is updated for the provided Result Class in the Breach Offence/Result
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then there are no exceptions raised for "NORTHERS THETUBE"
+		When I open the record for "NORTHERS THETUBE"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0020"
+			And the PNC updates the record
