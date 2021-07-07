@@ -12,18 +12,19 @@ Feature: {210} BR7 R5.4-RCD550-Undated Restraining Order-3047
 			Pre Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Updating the PNC with a restraining order
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Updating the PNC with a restraining order
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no exceptions raised for "RESTRAINORDER Undated"
+			And I see trigger "PR03 - Order issues" in the exception list table
+			And the PNC updates the record
