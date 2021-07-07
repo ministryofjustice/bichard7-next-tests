@@ -12,18 +12,19 @@ Feature: {191} BR7-R5.3.2-RCD556-Guilty Verdict-No Conviction Date
 			The Result Class for the Offence/Result combination without the Date of Conviction is set to "Unresulted".
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Exception is generated when no Conviction Date is provided
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Exception is generated when no Conviction Date is provided
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then I see exception "HO100305" in the exception list table
+			And there are no triggers raised for "KINGERS THETUBE"
+			And the PNC record has not been updated
