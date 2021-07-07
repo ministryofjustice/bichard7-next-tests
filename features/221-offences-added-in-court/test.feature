@@ -12,18 +12,19 @@ Feature: {221} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 			The PNC is otherwise successfully updated with Court Hearing Results.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Offences added in court with no adjudication on the PNC
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Offences added in court with no adjudication on the PNC
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no exceptions raised for "PICADILLUS THETUBE"
+			And I see trigger "PS11 - Add offence to PNC" in the exception list table
+			And the PNC updates the record

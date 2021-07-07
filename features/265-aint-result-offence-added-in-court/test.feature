@@ -10,18 +10,20 @@ Feature: {265} BR7-R5.7-RCD603-AINT Result-Offence Added In Court
 			No PNC updated is generated since the solution recognises that AINT results are of no interest to the Police.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			AINT result with offence added in court
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: AINT result with offence added in court
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PR23 - Domestic violence" in the exception list table
+			And I see trigger "PS11 - Add offence to PNC" in the exception list table
+			And there are no exceptions raised for "ADDEDOFFENCEAINT CASE"
+			And the PNC record has not been updated

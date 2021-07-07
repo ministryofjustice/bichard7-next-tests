@@ -16,18 +16,19 @@ Feature: {199} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added
 			A Post Update Trigger is generated to alert the Police to the fact that the Lesser Offence has been Added to the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Original offence is dismissed but new offence is added
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Original offence is dismissed but new offence is added
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no exceptions raised for "PICADILLUS THETUBE"
+			And I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And the PNC updates the record

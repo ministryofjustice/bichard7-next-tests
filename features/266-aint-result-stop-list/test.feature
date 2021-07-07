@@ -10,18 +10,18 @@ Feature: {266} BR7-R5.7-RCD603-AINT Result-Stop List Offence Added In Court
 			No PNC updated is generated since the solution recognises that AINT results are of no interest to the Police.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling an AINT result that only contains offences on the stop list
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling an AINT result that only contains offences on the stop list
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then the PNC record has not been updated
+			And there are no exceptions or triggers

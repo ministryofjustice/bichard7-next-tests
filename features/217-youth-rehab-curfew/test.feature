@@ -12,18 +12,24 @@ Feature: {217} BR7 R5.4-RCD517-TRPR0003 conditions-Youth Rehabilitation Orders
 			the combination of a "Youth Rehabilitation Order" Result and a specific "Requirement" Result is received for an Offence).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Youth Rehabilitation Orders and Curfew Requirement handling
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Youth Rehabilitation Orders and Curfew Requirement handling
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PR03 - Order issues" in the exception list table
+		When I open the record for "Rehaborders Youth"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0003" for offence "1"
+			And I see trigger "TRPR0003" for offence "3"
+			And I see trigger "TRPS0008" for offence "1"
+			And I see trigger "TRPS0008" for offence "3"
+			And the PNC updates the record

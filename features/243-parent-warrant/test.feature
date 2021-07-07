@@ -12,18 +12,19 @@ Feature: {243} BR7 R5.6-RCD592-Parent Warrant-4585
 			the Warrant Issued Trigger is only created once per Case irrespective of the number of matching conditions encountered).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Parent warrant handling
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Parent warrant handling
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO200212 (2)" in the exception list table
+			And I see trigger "PR02 - Warrant issued" in the exception list table
+			And the PNC record has not been updated
