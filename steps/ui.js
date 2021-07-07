@@ -450,6 +450,12 @@ const checkNoExceptions = async function () {
   expect(tableRows.length).toEqual(2);
 };
 
+const checkNoRecords = async function () {
+  await filterRecords(this, "unresolved", "record");
+  const tableRows = await this.browser.page.$$("table.resultsTable tr");
+  expect(tableRows.length).toEqual(2);
+};
+
 const waitForRecordStep = async function (record) {
   await reloadUntilContent(this.browser.page, record);
 };
@@ -504,5 +510,6 @@ module.exports = {
   reloadUntilStringPresent,
   reloadUntilStringNotPresent,
   checkNoExceptions,
+  checkNoRecords,
   waitForRecordStep
 };
