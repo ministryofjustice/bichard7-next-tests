@@ -25,6 +25,7 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
   @NeedsValidating
   @NeedsRunningAgainstPNC
   @MissingNCMFile
+  @ExcludedOnBaseline
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as a "supervisor"
     Then the PNC updates the record

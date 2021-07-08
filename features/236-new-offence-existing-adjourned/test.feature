@@ -20,6 +20,7 @@ Feature: {236} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Adj With Judg-Of
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Adding new offence in court where existing offences are adjourned
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions

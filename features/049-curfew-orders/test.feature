@@ -29,6 +29,7 @@ Feature: {049} #191 - TRPS0008 Required for curfew orders (1052) NOT TRPR0003
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Ensure that a trigger is raised on Electronic Tagging and the qualifier is in the correct table
 		Given I am logged in as a "supervisor"
 		And I view the list of exceptions

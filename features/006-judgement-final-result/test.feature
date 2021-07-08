@@ -21,6 +21,7 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: I can resolve a trigger for check address
 		Given I am logged in as a "supervisor"
 		And I view the list of exceptions

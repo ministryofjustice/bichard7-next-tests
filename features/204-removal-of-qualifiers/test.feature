@@ -23,6 +23,7 @@ Feature: {204} UAT_Removal of Qualifiers 4004
   @Must
   @ReadyToValidate
   @NeedsRunningAgainstPNC
+  @ExcludedOnBaseline
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as a "general handler"
     And I view the list of exceptions

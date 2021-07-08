@@ -23,6 +23,7 @@ Feature: {276} BR7 R5.8-RCD626 - Offences Added in Court Adjourned Sine Die Case
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Validate Offences Added in Court that are Adjourned Sine Die with Undated FTA Warrant Issued
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

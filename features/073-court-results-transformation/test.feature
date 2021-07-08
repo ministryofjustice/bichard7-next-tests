@@ -32,6 +32,7 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Add a case to the PNC, no exceptions are flagged if certain properties are set
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions

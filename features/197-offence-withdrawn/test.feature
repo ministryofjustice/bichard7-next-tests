@@ -21,6 +21,7 @@ Feature: {197} BR7-R5.3.2-RCD556-Offence Withdrawn
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Verify Result Class calculation and Withdrawn Offences processing
 		Given I am logged in as a "supervisor"
 		Then the PNC updates the record
