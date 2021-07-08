@@ -11,18 +11,26 @@ Feature: {171} BR7 R5.3-RCD513 - Stop List Offence added in court - 4583
 			Pre Update Triggers are created on the Portal - this includes a Trigger (TRPR0006) for the Recordable Results received against the Ignored Offence.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Stop List Offence added in court
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Stop List Offence added in court
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see exception "HO100304" in the exception list table
+		When I open the record for "Venger Terry"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+		When I resolve all of the triggers
+			And I return to the list
+		Then the "trigger" for "Venger Terry" is "resolved"
+			And the "trigger" for "Venger Terry" is not "unresolved"
+			And the PNC record has not been updated
