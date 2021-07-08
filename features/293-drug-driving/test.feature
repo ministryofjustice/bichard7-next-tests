@@ -10,7 +10,7 @@ Feature: {293} BR7-R5.9-RCD605-Drug Driving Offences
 			The PNC is successfully updated with the results from Court.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Drug driving trigger is created
 			"""
 
 	Background:
@@ -20,8 +20,9 @@ Feature: {293} BR7-R5.9-RCD605-Drug Driving Offences
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	@Excluded
+	Scenario: Test that a drug driving trigger is created
+		Given I am logged in as a "supervisor"
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+		And there are no exceptions
+		And the PNC updates the record
