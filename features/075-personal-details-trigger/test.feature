@@ -12,18 +12,26 @@ Feature: {075} R4.0_BR7_Personal Details Trigger
 			Specific Result Codes are stripped out of the update to the PNC (4592) and Pre Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Revising ASN on the UI and removing specific result codes
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Revising ASN on the UI and removing specific result codes
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO100206" in the exception list table
+			And I see trigger "PR15 - Personal details changed" in the exception list table
+		When I open the record for "DETAILSTRIG PERSONAL"
+			And I click the "Defendant" tab
+			And I correct "ASN" to "1101ZD0100000410830N"
+			And I submit the record
+		Then I see exception "(Submitted)" in the exception list table
+		When I reload until I don't see "(Submitted)"
+		Then I see trigger "PR15 - Personal details changed" in the exception list table
+			And the PNC updates the record
