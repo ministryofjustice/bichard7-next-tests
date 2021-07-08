@@ -12,18 +12,19 @@ Feature: {074} R4.0_BR7_Stripout Conviction for 2058-2059-2060
 			Post Update Triggers are also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Removing adjudication values for certain offences
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Removing adjudication values for certain offences
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions raised for "STRIPCONVICTION MISTER"
+			And the PNC updates the record
