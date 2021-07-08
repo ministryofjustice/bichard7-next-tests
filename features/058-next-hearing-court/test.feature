@@ -16,13 +16,14 @@ Feature: {058} R3.1_BR7_NH_001_Next Hearing Court
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@Excluded
 	Scenario: Test next hearing location is calculated and updated correctly
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then there are no exceptions raised for "HearingCourt Next"
-		And the PNC updates the record
+			And the PNC updates the record

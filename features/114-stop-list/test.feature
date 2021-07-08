@@ -14,18 +14,19 @@ Feature: {114} BR7 R5.1-RCD384-395-Stop checking Result Code Qualifiers against 
 			Pre Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Checking result codes against the stop list
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Checking result codes against the stop list
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And there are no exceptions raised for "Qualifiers ResultCode"
+			And the PNC updates the record
