@@ -25,6 +25,7 @@ Feature: {296} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text IS used 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Ensure the result text is used as the PNC disposal text
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions

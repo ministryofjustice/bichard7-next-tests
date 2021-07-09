@@ -24,6 +24,7 @@ Feature: {139} BR7 R5.2-RCD456-Bail Conditions 200 Char
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Ensure invalid characters are removed before being sent to the PNC
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions

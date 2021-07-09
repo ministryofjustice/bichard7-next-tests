@@ -21,6 +21,7 @@ Feature: {057} #192 - Result Date
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Validating judgement with final result automation
 		Given I am logged in as a "supervisor"
 			And I view the list of exceptions

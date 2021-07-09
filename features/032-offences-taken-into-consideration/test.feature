@@ -21,6 +21,7 @@ Feature: {032} 3.2 UAT - TIC Change
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Offences Taken Into Consideration update PNC and raise a trigger
 		Given I am logged in as a "supervisor"
 		And I view the list of exceptions

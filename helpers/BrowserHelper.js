@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const PuppeteerMassScreenshots = require("puppeteer-mass-screenshots");
+const { authType } = require("../utils/config");
 const { logout } = require("../utils/urls");
 
 class BrowserHelper {
@@ -59,7 +60,9 @@ class BrowserHelper {
       await this.page.goto(logout());
       await this.page.waitForSelector("input[type=submit][value=OK]");
       await this.page.click("input[type=submit][value=OK]");
-      await this.page.waitForSelector("#username");
+
+      const selector = this.options.world.authType === authType.userService ? ".infoMessage" : "#username";
+      await this.page.waitForSelector(selector);
     }
   }
 
@@ -91,7 +94,7 @@ class BrowserHelper {
 
   async setupDownloadFolder(folder) {
     if (fs.existsSync("./tmp")) {
-      fs.rmdirSync("./tmp", { recursive: true });
+      fs.rmSync("./tmp", { recursive: true });
     }
     if (this.page) {
       // eslint-disable-next-line no-underscore-dangle

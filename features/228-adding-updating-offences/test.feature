@@ -22,6 +22,7 @@ Feature: {228} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Adding offences as well as updating existing offences
 		Given I am logged in as a "general handler"
 		And I view the list of exceptions

@@ -20,6 +20,7 @@ Feature: {036} 3.3_BR7_Penalty Points for Result Code 3008
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Hearing results with penalty points are sent to the PNC
 		Given I am logged in as a "supervisor"
 		And I view the list of exceptions

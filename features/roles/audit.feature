@@ -2,6 +2,7 @@ Feature: Audit role
 
   Auditors can view resolved and unresolved exceptions/triggers, but they cannot update them. (i.e. read-only access)
 
+  @ExcludedOnBaseline
   Scenario: Auditors have read only access
     Given there is a valid record for "Rigout Dean" in the PNC
     And a message is received

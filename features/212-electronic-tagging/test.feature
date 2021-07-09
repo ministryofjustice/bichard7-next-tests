@@ -27,6 +27,7 @@ Feature: {212} BR7 R5.4-RCD538-Tagging-BA Qualifier on some Offences
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Adding electronic tagging information to the PNC
 		Given I am logged in as a "supervisor"
 		And I view the list of exceptions

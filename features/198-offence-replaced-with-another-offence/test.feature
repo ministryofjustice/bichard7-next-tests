@@ -25,6 +25,7 @@ Feature: {198} BR7-R5.3.2-RCD556-Offence Withdrawn-Replaced-Adjourned
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: PNC is updated when an Offence is replaced with another Offence
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions
