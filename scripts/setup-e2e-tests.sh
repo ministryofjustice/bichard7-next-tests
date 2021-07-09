@@ -46,7 +46,7 @@ fi
 AWS_CLI_PATH="$(which aws)"
 aws_credential_check
 UI_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7 --query 'LoadBalancers[0].DNSName' --output text)
-USER_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7-user-ser --query 'LoadBalancers[0].DNSName' --output text)
+USERS_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7-user-ser --query 'LoadBalancers[0].DNSName' --output text)
 PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7-pncemula --query 'LoadBalancers[0].DNSName' --output text)
 BROKER_ID=$(aws mq list-brokers --query "BrokerSummaries[?BrokerName=='cjse-${WORKSPACE}-bichard-7-amq'].BrokerId" --output text)
 STOMP_BROKER_ENDPOINTS=$(aws mq describe-broker --broker-id ${BROKER_ID} --query "join(',', BrokerInstances[*].Endpoints[2])" --output text)
@@ -61,9 +61,9 @@ then
   exit 1
 fi
 
-if [ "$USER_HOST" = 'null' ] || [ "$USER_HOST" = '' ]
+if [ "$USERS_HOST" = 'null' ] || [ "$USERS_HOST" = '' ]
 then
-  echo "Error fetching User Host"
+  echo "Error fetching User Service Host"
   exit 1
 fi
 
@@ -87,8 +87,8 @@ echo "export UI_HOST=\"${UI_HOST}\""  >> $TEST_ENV_FILE
 echo "export UI_PORT=\"443\""  >> $TEST_ENV_FILE
 echo "export UI_SCHEME=\"https\""  >> $TEST_ENV_FILE
 echo "export PNC_HOST=\"${PNC_HOST}\""  >> $TEST_ENV_FILE
-echo "export USER_HOST=\"${USER_HOST}\""  >> $TEST_ENV_FILE
-echo "export USER_PORT=\"443\""  >> $TEST_ENV_FILE
+echo "export USERS_HOST=\"${USERS_HOST}\""  >> $TEST_ENV_FILE
+echo "export USERS_PORT=\"443\""  >> $TEST_ENV_FILE
 echo "export MQ_URL=\"${STOMP_BROKER_URL}\"" >> $TEST_ENV_FILE
 echo "export MQ_CONN_STR=\"${OPENWIRE_BROKER_URL}\"" >> $TEST_ENV_FILE
 fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/rds/db/password"
