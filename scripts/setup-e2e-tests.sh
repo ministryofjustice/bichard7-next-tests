@@ -1,16 +1,11 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 env_check() {
   if [ -z "$WORKSPACE" ]
   then
     echo "WORKSPACE env var has not been set"
-    exit 1
-  fi
-  if [ -z "$STACK_TYPE" ]
-  then
-    echo "STACK_TYPE env var has not been set"
     exit 1
   fi
 }
@@ -39,7 +34,7 @@ function fetchParam() {
   echo "export $ENVNAME=\"$VALUE\"" >> $TEST_ENV_FILE
 }
 
-mkdir -p e2e-tests/workspaces
+mkdir -p workspaces
 TEST_ENV_FILE="workspaces/${WORKSPACE}.env"
 rm -f $TEST_ENV_FILE
 
@@ -49,30 +44,26 @@ then
 fi
 
 AWS_CLI_PATH="$(which aws)"
-PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pncemulator" | cut -c1-32)
 aws_credential_check
-WAS_IP=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7 --query 'LoadBalancers[0].DNSName' --output text)
-PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names ${PNC_ELB_NAME} --query 'LoadBalancers[0].DNSName' --output text)
+UI_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7 --query 'LoadBalancers[0].DNSName' --output text)
+USER_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7-user-ser --query 'LoadBalancers[0].DNSName' --output text)
+PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7-pncemula --query 'LoadBalancers[0].DNSName' --output text)
+BROKER_ID=$(aws mq list-brokers --query "BrokerSummaries[?BrokerName=='cjse-${WORKSPACE}-bichard-7-amq'].BrokerId" --output text)
+STOMP_BROKER_ENDPOINTS=$(aws mq describe-broker --broker-id ${BROKER_ID} --query "join(',', BrokerInstances[*].Endpoints[2])" --output text)
+STOMP_BROKER_URL="failover:(${STOMP_BROKER_ENDPOINTS})"
+OPENWIRE_BROKER_ENDPOINTS=$(aws mq describe-broker --broker-id ${BROKER_ID} --query "join(',', BrokerInstances[*].Endpoints[0])" --output text)
+OPENWIRE_BROKER_URL="failover:(${OPENWIRE_BROKER_ENDPOINTS})"
+DB_HOST=$($AWS_CLI_PATH rds describe-db-clusters --region eu-west-2 --filters Name=db-cluster-id,Values=cjse-${WORKSPACE}-bichard-7-aurora-cluster --query "DBClusters[0].Endpoint" --output text)
 
-if [ "$STACK_TYPE" = 'next' ]
+if [ "$UI_HOST" = 'null' ] || [ "$UI_HOST" = '' ]
 then
-  BROKER_ID=$(aws mq list-brokers --query "BrokerSummaries[?BrokerName=='cjse-${WORKSPACE}-bichard-7-amq'].BrokerId" --output text)
-  BROKER_ENDPOINTS=$(aws mq describe-broker --broker-id ${BROKER_ID} --query "join(',', BrokerInstances[*].Endpoints[2])" --output text)
-  BROKER_URL="failover:(${BROKER_ENDPOINTS})"
-  DB_HOST=$($AWS_CLI_PATH rds describe-db-clusters --region eu-west-2 --filters Name=db-cluster-id,Values=cjse-${WORKSPACE}-bichard-7-aurora-cluster --query "DBClusters[0].Endpoint" --output text)
-  S3_INCOMING_MESSAGE_BUCKET=$(aws lambda list-functions --query "Functions[?contains(FunctionName, 'retrieve-from-s3')].Environment.Variables.INCOMING_MESSAGE_BUCKET_NAME" --output text)
-  S3_REGION="$AWS_REGION"
-  INCOMING_MESSAGE_HANDLER_REGION="$AWS_REGION"
-  AUDIT_LOGGING_API_REGION="$AWS_REGION"
-  MESSAGE_ENTRY_POINT=mq
-else
-  MQ_IP=$($AWS_CLI_PATH ec2 describe-instances --region eu-west-2 --filters Name=tag:Name,Values=cjse-${WORKSPACE}-bichard-7-mq  Name=instance-state-name,Values=running --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
-  DB_HOST=$($AWS_CLI_PATH ec2 describe-instances --region eu-west-2 --filters Name=tag:Name,Values=cjse-${WORKSPACE}-bichard-7-db2  Name=instance-state-name,Values=running --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
+  echo "Error fetching UI Host"
+  exit 1
 fi
 
-if [ "$WAS_IP" = 'null' ] || [ "$WAS_IP" = '' ]
+if [ "$USER_HOST" = 'null' ] || [ "$USER_HOST" = '' ]
 then
-  echo "Error fetching WAS IP"
+  echo "Error fetching User Host"
   exit 1
 fi
 
@@ -88,34 +79,20 @@ then
   exit 1
 fi
 
-mkdir -p workspaces
 rm -f $TEST_ENV_FILE
 
-echo "export STACK_TYPE=\"${STACK_TYPE}\"" > $TEST_ENV_FILE
+echo "export STACK_TYPE=\"next\"" >> $TEST_ENV_FILE
 echo "export DB_HOST=\"${DB_HOST}\"" >> $TEST_ENV_FILE
-echo "export UI_HOST=\"${WAS_IP}\""  >> $TEST_ENV_FILE
+echo "export UI_HOST=\"${UI_HOST}\""  >> $TEST_ENV_FILE
 echo "export UI_PORT=\"443\""  >> $TEST_ENV_FILE
 echo "export UI_SCHEME=\"https\""  >> $TEST_ENV_FILE
 echo "export PNC_HOST=\"${PNC_HOST}\""  >> $TEST_ENV_FILE
-
-if [ "$STACK_TYPE" = 'next' ]
-then
-  echo "export MQ_URL=\"${BROKER_URL}\"" >> $TEST_ENV_FILE
-  fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/rds/db/password"
-  fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/mq/password"
-  echo "export MQ_USER=\"bichard\""  >> $TEST_ENV_FILE
-  echo "export S3_INCOMING_MESSAGE_BUCKET=\"${S3_INCOMING_MESSAGE_BUCKET}\"" >> $TEST_ENV_FILE
-  echo "export S3_REGION=\"${S3_REGION}\"" >> $TEST_ENV_FILE
-  echo "export INCOMING_MESSAGE_HANDLER_REGION=\"${INCOMING_MESSAGE_HANDLER_REGION}\"" >> $TEST_ENV_FILE
-  echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_ENV_FILE
-  echo "export MESSAGE_ENTRY_POINT=\"${MESSAGE_ENTRY_POINT}\"" >> $TEST_ENV_FILE
-  echo "export DB_SSL=\"true\"" >> $TEST_ENV_FILE
-  echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
-else
-  echo "export MQ_URL=\"${MQ_IP}\"" >> $TEST_ENV_FILE
-  fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/ec2/db2/password"
-  fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/ec2/mq/password"
-fi
+echo "export USER_HOST=\"${USER_HOST}\""  >> $TEST_ENV_FILE
+echo "export USER_PORT=\"443\""  >> $TEST_ENV_FILE
+echo "export MQ_URL=\"${STOMP_BROKER_URL}\"" >> $TEST_ENV_FILE
+echo "export MQ_CONN_STR=\"${OPENWIRE_BROKER_URL}\"" >> $TEST_ENV_FILE
+fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/rds/db/password"
+fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/mq/password"
+echo "export MQ_USER=\"bichard\""  >> $TEST_ENV_FILE
 
 echo 'Done'
-
