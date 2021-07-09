@@ -94,7 +94,7 @@ class BrowserHelper {
 
   async setupDownloadFolder(folder) {
     if (fs.existsSync("./tmp")) {
-      fs.rmdirSync("./tmp", { recursive: true });
+      fs.rmSync("./tmp", { recursive: true });
     }
     if (this.page) {
       // eslint-disable-next-line no-underscore-dangle
