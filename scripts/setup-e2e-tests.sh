@@ -47,7 +47,8 @@ AWS_CLI_PATH="$(which aws)"
 PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pncemulator" | cut -c1-32)
 aws_credential_check
 UI_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7 --query 'LoadBalancers[0].DNSName' --output text)
-USERS_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names cjse-${WORKSPACE}-bichard-7-user-ser --query 'LoadBalancers[0].DNSName' --output text)
+HOSTED_ZONE=$($AWS_CLI_PATH route53 list-hosted-zones-by-name --query "HostedZones[?contains(Name, 'justice.gov.uk') && contains(Name, '${WORKSPACE}')].Name" --output text)
+USERS_HOST="users.${HOSTED_ZONE}"
 PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names ${PNC_ELB_NAME} --query 'LoadBalancers[0].DNSName' --output text)
 BROKER_ID=$(aws mq list-brokers --query "BrokerSummaries[?BrokerName=='cjse-${WORKSPACE}-bichard-7-amq'].BrokerId" --output text)
 BROKER_ENDPOINTS=$(aws mq describe-broker --broker-id ${BROKER_ID} --query "join(',', BrokerInstances[*].Endpoints[2])" --output text)
