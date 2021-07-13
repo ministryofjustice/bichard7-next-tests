@@ -37,7 +37,7 @@ jobs:
     resource_class: large
     environment:
       STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://liberty-next:9443/bichard-ui/Authenticate
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       WORKSPACE: local-next
     steps:
       - checkout
@@ -93,7 +93,7 @@ jobs:
     environment:
       STACK_TYPE: baseline
       MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://was-next:9443/bichard-ui/Authenticate
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       WORKSPACE: local-baseline
     steps:
       - attach_workspace:
