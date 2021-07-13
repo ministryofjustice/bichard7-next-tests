@@ -56,6 +56,8 @@ jobs:
     environment:
       STACK_TYPE: next
       MESSAGE_ENTRY_POINT: s3
+      BICHARD_REDIRECT_URL: https://liberty-next:9443/bichard-ui/Authenticate
+      WORKSPACE: local-next
     steps:
       - checkout
       - attach_workspace:
@@ -105,7 +107,7 @@ jobs:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
-            WORKSPACE=local-next make e2e-tests
+            make e2e-tests
 
   test-baseline:
     machine:
@@ -114,6 +116,8 @@ jobs:
     environment:
       STACK_TYPE: baseline
       MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://was-next:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
     steps:
       - attach_workspace:
           at: ~/
@@ -163,7 +167,7 @@ jobs:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
-            WORKSPACE=local-baseline make e2e-tests
+            make e2e-tests
 workflows:
   version: 2
 
