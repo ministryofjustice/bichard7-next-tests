@@ -81,6 +81,11 @@ jobs:
           name: Build E2E tests
           command: make build
       - run:
+          name: Warm-up login test
+          command: |
+            cd ~/bichard7-next
+            make e2e-warmup
+      - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
@@ -140,6 +145,11 @@ jobs:
       - run:
           name: Build E2E tests
           command: make build
+      - run:
+          name: Warm-up login test
+          command: |
+            cd ~/bichard7-next
+            make e2e-warmup
       - run:
           name: Run E2E tests
           command: |
