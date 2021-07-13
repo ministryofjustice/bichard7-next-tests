@@ -24,7 +24,7 @@ const uploadToS3 = async (context, message, externalCorrelationId, messageReceiv
 const sendMsg = async function (world, messagePath, externalCorrelationId, date) {
   const message = await fs.promises.readFile(messagePath);
 
-  if (this.shouldUploadMessagesToS3) {
+  if (world.shouldUploadMessagesToS3) {
     const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
     const dateValue = date || new Date();
     const uploadResult = await uploadToS3(this, message, externalCorrelationIdValue, dateValue);
