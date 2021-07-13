@@ -22,14 +22,6 @@ jobs:
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
 
       - run:
-          command: ssh-add -D
-      - run:
-          command: ssh-add ~/.ssh/id_rsa_efec5d99f7ecd835fff62b8b23a1faf4
-      - run:
-          name: Clone Bichard7 Next Audit Logging
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
-
-      - run:
           name: Build Bichard7 Next
           command: |
             cd ~/bichard7-next
@@ -37,16 +29,6 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next
-      - run:
-          name: Build Bichard7 Next Audit Logging
-          command: |
-            cd ~/bichard7-next-audit-logging
-            nvm install
-            bash ./scripts/install-all.sh
-            bash ./scripts/build-all.sh
-      - persist_to_workspace:
-          root: ~/
-          paths: bichard7-next-audit-logging
 
   test-next:
     machine:
@@ -55,7 +37,6 @@ jobs:
     resource_class: large
     environment:
       STACK_TYPE: next
-      MESSAGE_ENTRY_POINT: s3
       BICHARD_REDIRECT_URL: https://liberty-next:9443/bichard-ui/Authenticate
       WORKSPACE: local-next
     steps:
@@ -95,10 +76,6 @@ jobs:
           command: |
             cd ~/bichard7-next
             bash ./scripts/wait_for_bichard.sh
-
-      - run:
-          name: Run Audit Logging
-          command: bash ./.circleci/scripts/run-audit-logging.sh
 
       - run:
           name: Build E2E tests
