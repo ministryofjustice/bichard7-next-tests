@@ -52,7 +52,8 @@ const {
   checkNoRecords
 } = require("./ui");
 
-setDefaultTimeout(60000);
+const timeout = process.env.TEST_TIMEOUT || 30000;
+setDefaultTimeout(parseInt(timeout, 10));
 
 Given("the data for this test is in the PNC", mockPNCDataForTest);
 
