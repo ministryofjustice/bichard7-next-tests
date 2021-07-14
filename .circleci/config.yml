@@ -39,6 +39,7 @@ jobs:
       STACK_TYPE: next
       BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       WORKSPACE: local-next
+      RECORD: "true"
     steps:
       - checkout
       - attach_workspace:
@@ -88,10 +89,32 @@ jobs:
             cd ~/bichard7-next
             make e2e-warmup
       - run:
+          name: Remove warmup test container
+          command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
+      - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
             make e2e-tests
+      - run:
+          name: Copy the screenshots from the image
+          when: always
+          command: docker cp $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited"):/src/screenshots ./screenshots
+      - run:
+          name: Compress the screenshots for easier downloading
+          when: always
+          command: for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+      - run:
+          name: Create the artifacts directory
+          when: always
+          command: mkdir ./artifacts; for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+      - run:
+          name: Move the gzipped files across
+          when: always
+          command: mv ./screenshots/*.tar.gz ./artifacts/
+
+      - store_artifacts:
+          path: /home/circleci/project/artifacts
 
   test-baseline:
     machine:
@@ -102,6 +125,7 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       WORKSPACE: local-baseline
+      RECORD: "true"
     steps:
       - attach_workspace:
           at: ~/
@@ -155,10 +179,32 @@ jobs:
             cd ~/bichard7-next
             make e2e-warmup
       - run:
+          name: Remove warmup test container
+          command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
+      - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
             make e2e-tests
+      - run:
+          name: Copy the screenshots from the image
+          when: always
+          command: docker cp $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited"):/src/screenshots ./screenshots
+      - run:
+          name: Compress the screenshots for easier downloading
+          when: always
+          command: for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+      - run:
+          name: Create the artifacts directory
+          when: always
+          command: mkdir ./artifacts; for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+      - run:
+          name: Move the gzipped files across
+          when: always
+          command: mv ./screenshots/*.tar.gz ./artifacts/
+
+      - store_artifacts:
+          path: /home/circleci/project/artifacts
 workflows:
   version: 2
 
