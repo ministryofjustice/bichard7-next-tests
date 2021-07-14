@@ -82,6 +82,8 @@ jobs:
           command: make build
       - run:
           name: Warm-up login test
+          environment:
+            - TEST_TIMEOUT: 180000
           command: |
             cd ~/bichard7-next
             make e2e-warmup
@@ -147,6 +149,8 @@ jobs:
           command: make build
       - run:
           name: Warm-up login test
+          environment:
+            - TEST_TIMEOUT: 180000
           command: |
             cd ~/bichard7-next
             make e2e-warmup
