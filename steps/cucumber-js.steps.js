@@ -1,5 +1,6 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { logInAs } = require("./auth");
+const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./message");
 const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes, mockPNCDataForTest } = require("./pnc");
 const {
@@ -52,8 +53,7 @@ const {
   checkNoRecords
 } = require("./ui");
 
-const timeout = process.env.TEST_TIMEOUT || 30000;
-setDefaultTimeout(parseInt(timeout, 10));
+setDefaultTimeout(timeout);
 
 Given("the data for this test is in the PNC", mockPNCDataForTest);
 

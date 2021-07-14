@@ -1,8 +1,6 @@
 const expect = require("expect");
-const { authType } = require("../utils/config");
+const { authType, timeout } = require("../utils/config");
 const { home, userService } = require("../utils/urls");
-
-const timeout = process.env.TEST_TIMEOUT || 30000;
 
 const logInToBichardAs = async function (world, username) {
   const page = await world.browser.newPage(home());
@@ -12,7 +10,7 @@ const logInToBichardAs = async function (world, username) {
   await page.type("#password", "password");
   await page.click("input[type='submit']");
 
-  await page.waitForSelector(".wpsToolBarUserName", { timeout: parseInt(timeout, 10) });
+  await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
 const logInToUserServiceAs = async function (world, username) {
@@ -25,7 +23,7 @@ const logInToUserServiceAs = async function (world, username) {
   await page.type("#password", "password");
   await page.click("button[type='submit']");
 
-  await page.waitForSelector(".wpsToolBarUserName", { timeout: parseInt(timeout, 10) });
+  await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
 const logInAs = async function (group) {
