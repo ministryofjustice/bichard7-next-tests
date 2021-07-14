@@ -37,7 +37,7 @@ jobs:
     resource_class: large
     environment:
       STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://liberty-next:9443/bichard-ui/Authenticate
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       WORKSPACE: local-next
     steps:
       - checkout
@@ -81,6 +81,13 @@ jobs:
           name: Build E2E tests
           command: make build
       - run:
+          name: Warm-up login test
+          environment:
+            - TEST_TIMEOUT: 180000
+          command: |
+            cd ~/bichard7-next
+            make e2e-warmup
+      - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
@@ -93,7 +100,7 @@ jobs:
     environment:
       STACK_TYPE: baseline
       MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://was-next:9443/bichard-ui/Authenticate
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       WORKSPACE: local-baseline
     steps:
       - attach_workspace:
@@ -140,6 +147,13 @@ jobs:
       - run:
           name: Build E2E tests
           command: make build
+      - run:
+          name: Warm-up login test
+          environment:
+            - TEST_TIMEOUT: 180000
+          command: |
+            cd ~/bichard7-next
+            make e2e-warmup
       - run:
           name: Run E2E tests
           command: |

@@ -9,9 +9,12 @@ const getConfig = () => {
 
   const hostMachine = process.env.HOST_MACHINE || "localhost";
 
+  const timeout = parseInt(process.env.TEST_TIMEOUT, 10) || 30000;
+
   return {
     baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
     hostMachine,
+    timeout,
     usersUrl: `${usersScheme}://${usersHost}:${usersPort}`
   };
 };
