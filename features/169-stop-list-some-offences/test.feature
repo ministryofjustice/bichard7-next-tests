@@ -14,18 +14,26 @@ Feature: {169} BR7 R5.3-RCD513 - Some Offences Stop Listed
 			All Triggers are Resolved via the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Ignored offence handling when some results are on the stop list
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Ignored offence handling when some results are on the stop list
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I open the record for "Mumm-Ra Terry"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+			And I see trigger "TRPS0010" for offence "2"
+		When I resolve all of the triggers
+		Then the "record" for "Mumm-Ra Terry" is "resolved"
+		Then the "record" for "Mumm-Ra Terry" is not "unresolved"
+			And there are no exceptions
+			And the PNC updates the record

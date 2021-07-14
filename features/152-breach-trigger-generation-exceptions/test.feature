@@ -12,18 +12,19 @@ Feature: {152} BR7 R5.2.2-RCD518 - 2xResult Code Only - NG - Final Result
 			the Breach Trigger is only created once per Offence irrespective of the number of matching conditions encountered).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Breach trigger generation with exceptions
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Breach trigger generation with exceptions
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PR20 - Breach" in the exception list table
+			And I see exception "HO200212" in the exception list table
+			And the PNC record has not been updated

@@ -12,18 +12,18 @@ Feature: {153} BR7 R5.2.2-RCD518 - Verdict Not Guilty
 			No Pre Update Breach Trigger is generated despite the Offence meeting the criteria to generate it since the Verdict for the Offence is "Not Guilty".
 
 			MadeTech Definition:
-			<add concise test definition here>
+			No breach trigger is generated for not guilty updates
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: No breach trigger is generated for not guilty updates
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+			And the PNC updates the record
