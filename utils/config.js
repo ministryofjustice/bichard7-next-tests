@@ -21,7 +21,8 @@ const getConfig = () => {
 
 const authType = {
   bichard: "bichard",
-  userService: "user-service"
+  userService: "user-service",
+  bichardJwt: "bichard-jwt"
 };
 
 const stackType = {

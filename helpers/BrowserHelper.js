@@ -62,7 +62,7 @@ class BrowserHelper {
       await this.page.waitForSelector("input[type=submit][value=OK]");
       await this.page.click("input[type=submit][value=OK]");
 
-      const selector = this.options.world.authType === authType.userService ? ".infoMessage" : "#username";
+      const selector = this.options.world.authType === authType.bichard ? "#username" : ".infoMessage";
       await this.page.waitForSelector(selector);
     }
   }
