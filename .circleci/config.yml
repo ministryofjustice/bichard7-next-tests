@@ -103,11 +103,11 @@ jobs:
       - run:
           name: Compress the screenshots for easier downloading
           when: always
-          command: for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+          command: for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
       - run:
           name: Create the artifacts directory
           when: always
-          command: mkdir ./artifacts; for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+          command: mkdir ./artifacts; for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
       - run:
           name: Move the gzipped files across
           when: always
@@ -193,11 +193,11 @@ jobs:
       - run:
           name: Compress the screenshots for easier downloading
           when: always
-          command: for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+          command: for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
       - run:
           name: Create the artifacts directory
           when: always
-          command: mkdir ./artifacts; for file in ./screenshots/*; do tar -czvvf ${file}.tar.gz $file; done
+          command: mkdir ./artifacts; for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
       - run:
           name: Move the gzipped files across
           when: always

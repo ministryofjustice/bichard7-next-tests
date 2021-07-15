@@ -4,7 +4,11 @@ const fs = require("fs");
 BeforeAll(async () => {
   const clearRecordings = process.env.CLEAR_RECORDINGS !== "false";
   if (clearRecordings) {
-    fs.rmdirSync("./screenshots", { recursive: true });
+    try {
+      fs.rmSync("./screenshots", { recursive: true });
+    } catch (e) {
+      console.log("Screenshots directory did not exist");
+    }
   }
 });
 
