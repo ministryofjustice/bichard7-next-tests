@@ -4,7 +4,7 @@ const fs = require("fs");
 BeforeAll(async () => {
   const clearRecordings = process.env.CLEAR_RECORDINGS !== "false";
   if (clearRecordings) {
-    fs.rmdirSync("./screenshots", { recursive: true });
+    fs.rmSync("./screenshots", { recursive: true, force: true });
   }
 });
 
