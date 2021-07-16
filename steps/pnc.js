@@ -30,7 +30,7 @@ const fetchMocks = async (world) => {
   const mockResponses = await Promise.all(mockResponsePromises);
   for (let i = 0; i < world.mocks.length; i += 1) {
     // eslint-disable-next-line no-param-reassign
-    world.mocks[i].requests = mockResponses[i].requests;
+    world.mocks[i].requests = mockResponses[i].requests || [];
   }
 };
 
@@ -40,6 +40,7 @@ const checkMocks = async function () {
   let mockCount = 0;
   this.mocks.forEach((mock) => {
     if (mock.expectedRequest !== "") {
+      if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
       expect(mock.requests.length).toBe(1);
       expect(mock.requests[0]).toMatch(mock.expectedRequest);
     }
