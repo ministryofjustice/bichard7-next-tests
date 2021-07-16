@@ -71,7 +71,8 @@ class Bichard extends World {
 
     this.pnc = new MockPNCHelper({
       host: process.env.PNC_HOST || defaults.pncHost,
-      port: process.env.PNC_PORT || defaults.pncPort
+      port: process.env.PNC_PORT || defaults.pncPort,
+      world: this
     });
 
     const uiScheme = process.env.UI_SCHEME || "https";

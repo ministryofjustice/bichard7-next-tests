@@ -39,10 +39,11 @@ class BrowserHelper {
   async record() {
     if (this.options.record) {
       this.recorder = new PuppeteerMassScreenshots();
-      const featureName = this.options.world.featureUri.split("/").slice(-2)[0];
-      this.outputDir = `./screenshots/${featureName}/${new Date().getTime()}`;
-      fs.mkdirSync(this.outputDir, { recursive: true });
-      await this.recorder.init(this.page, this.outputDir, { afterWritingImageFile: () => {} });
+      const outputDir = `${this.options.world.outputDir}/images`;
+      fs.mkdirSync(outputDir, { recursive: true });
+      await this.recorder.init(this.page, outputDir, {
+        afterWritingImageFile: () => {}
+      });
       await this.recorder.start();
     }
   }
@@ -70,7 +71,7 @@ class BrowserHelper {
   async close() {
     if (this.recorder) {
       await this.recorder.stop();
-      this.options.world.attach(this.outputDir);
+      this.options.world.attach(this.options.world.outputDir);
     }
     if (this.browser) this.browser.close();
   }
