@@ -39,8 +39,11 @@ class BrowserHelper {
   async record() {
     if (this.options.record) {
       this.recorder = new PuppeteerMassScreenshots();
-      fs.mkdirSync(this.options.world.outputDir, { recursive: true });
-      await this.recorder.init(this.page, this.options.world.outputDir, { afterWritingImageFile: () => {} });
+      const outputDir = `${this.options.world.outputDir}/images`;
+      fs.mkdirSync(outputDir, { recursive: true });
+      await this.recorder.init(this.page, outputDir, {
+        afterWritingImageFile: () => {}
+      });
       await this.recorder.start();
     }
   }
