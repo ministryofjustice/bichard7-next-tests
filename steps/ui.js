@@ -267,13 +267,6 @@ const canSeeReports = async function () {
   await expect(await this.browser.pageText()).toMatch("Live Status Summary");
 };
 
-const accessReport = async function (report) {
-  const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
-  await Promise.all([reportsBtn.click(), this.browser.page.waitForNavigation()]);
-  await this.browser.clickLinkAndWait(report);
-  await expect(await this.browser.pageText()).toMatch(report);
-};
-
 const canSeeQAStatus = async function () {
   await this.browser.page.waitForSelector(".resultsTable");
 
@@ -498,7 +491,6 @@ module.exports = {
   canSeeQAStatus,
   visitTeamPage,
   editTeam,
-  accessReport,
   downloadCSV,
   checkFileDownloaded,
   loadTab,
