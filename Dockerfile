@@ -19,3 +19,5 @@ COPY ./utils/ /src/utils
 COPY ./scripts/prepare-environment.sh /src/scripts/prepare-environment.sh
 
 CMD CI=true npm test
+
+EXPOSE 4000
