@@ -65,6 +65,7 @@ class LogRecorder {
 
   async save(world) {
     await this.waitForLogs();
+    console.log(`Saving ${this.buffer.length} lines of logs`);
     const log = this.buffer.join("");
     this.buffer = [];
     await fs.promises.writeFile(`${world.outputDir}/log.txt`, log);
