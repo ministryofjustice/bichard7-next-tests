@@ -92,10 +92,16 @@ jobs:
           name: Remove warmup test container
           command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
       - run:
+          name: Pipe logs to the test container
+          command: |
+            cd ~/bichard7-next
+            bash ./scripts/pipe_logs.sh was-baseline &> /tmp/logpipe.txt
+          background: true
+      - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
-            make e2e-tests
+            make e2e-tests-record
       - run:
           name: Copy the screenshots from the image
           when: always
@@ -182,10 +188,16 @@ jobs:
           name: Remove warmup test container
           command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
       - run:
+          name: Pipe logs to the test container
+          command: |
+            cd ~/bichard7-next
+            bash ./scripts/pipe_logs.sh was-baseline &> /tmp/logpipe.txt
+          background: true
+      - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
-            make e2e-tests
+            make e2e-tests-record
       - run:
           name: Copy the screenshots from the image
           when: always
