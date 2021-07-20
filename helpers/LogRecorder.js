@@ -9,7 +9,7 @@ class LogRecorder {
     this.server = net.createServer();
     this.server.on("connection", this.handleConnection.bind(this));
 
-    this.server.listen(4000, () => console.log("Log server listening"));
+    this.server.listen(4000, "0.0.0.0", () => console.log("Log server listening", this.server.address()));
 
     this.connected = false;
     this.buffer = [];
@@ -33,18 +33,19 @@ class LogRecorder {
     const startTime = new Date().getTime();
     return new Promise((resolve) => {
       const checkLogs = () => {
+        const now = new Date().getTime();
         if (this.connected) {
           if (logSize === this.buffer.length && logSize !== 0) {
             resolve();
+          } else if (now - startTime > 2000 && logSize === 0) {
+            resolve();
           } else {
-            const now = new Date().getTime();
-            if (now - startTime > 2000 && logSize === 0) {
-              resolve();
-            } else {
-              logSize = this.buffer.length;
-              setTimeout(checkLogs, 100);
-            }
+            logSize = this.buffer.length;
+            setTimeout(checkLogs, 100);
           }
+        } else if (now - startTime > 10000) {
+          console.log("No log connection made before timeout");
+          resolve();
         } else {
           console.log("Waiting for connection");
           setTimeout(checkLogs, 500);
