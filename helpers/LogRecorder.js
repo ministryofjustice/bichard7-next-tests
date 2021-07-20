@@ -12,6 +12,7 @@ class LogRecorder {
     this.server.listen(4000, "0.0.0.0", () => console.log("Log server listening", this.server.address()));
 
     this.connected = false;
+    this.startedAt = new Date().getTime();
     this.buffer = [];
   }
 
@@ -43,7 +44,7 @@ class LogRecorder {
             logSize = this.buffer.length;
             setTimeout(checkLogs, 100);
           }
-        } else if (now - startTime > 10000) {
+        } else if (now - this.startedAt > 10000) {
           console.log("No log connection made before timeout");
           resolve();
         } else {
