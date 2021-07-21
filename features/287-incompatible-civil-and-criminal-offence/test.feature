@@ -18,21 +18,19 @@ Feature: {287} BR7 R5.8-RCD638 - TRPR0029 - Recordable & Non-Recordable Civil Of
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
-	@Problem
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Test exception is generated for incompatible civil and criminal offences
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
-		And I see trigger "PR20 - Breach" in the exception list table
-#		We get an exception currently
-		And there are no exceptions raised for "CIVILCASE RECANDNONREC"
+			And I view the list of exceptions
+			And I see trigger "PR20 - Breach" in the exception list table
+			And I cannot see trigger "PR29" in the exception list table
+			And there are no exceptions raised for "CIVILCASE RECANDNONREC"
 		When I open the record for "CIVILCASE RECANDNONREC"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0020" for offence "1"
-		Then I see trigger "TRPR0020" for offence "2"
-#		The PNC does not seem to update
-		And the PNC updates the record
+			And I see trigger "TRPR0020" for offence "2"
+			And the PNC updates the record
