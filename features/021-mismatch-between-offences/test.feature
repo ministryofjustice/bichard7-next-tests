@@ -12,21 +12,21 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
 
       MadeTech Definition:
       This tests that an exception is raised when there is a mismatch between the incoming message and the PNC data
+
+      Note:
+      Test script says: 3x HO100300 - Organisation not recognised. Are also present on the portal 1 per offence
+      Q Solution have verified that it is not necessary to check for these exceptions - main point is to check for a HO100304
       """
 
   Background:
     Given the data for this test is in the PNC
-    And "input-message" is received
+      And "input-message" is received
 
   @Must
-  @Problem
+  @Validated
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as a "general handler"
-    And I view the list of exceptions
+      And I view the list of exceptions
     Then I see exception "HO100304" in the exception list table
-    When I open the record for "SCONEA EXCEPTION"
-    # Inconsistency:
-    # Test script says: 3x HO100300 - Organisation not recognised. Are also present on the portal 1 per offence
-    # This is not the case
-    And the PNC record has not been updated
+      And the PNC record has not been updated
