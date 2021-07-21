@@ -50,7 +50,9 @@ const {
   waitForRecordStep,
   cannotSeeTrigger,
   reloadUntilStringNotPresent,
-  checkNoRecords
+  checkNoRecords,
+  checkOffence,
+  checkTableRows
 } = require("./ui");
 
 setDefaultTimeout(timeout);
@@ -184,3 +186,7 @@ Then("I see {string} in the Warrants report", reportContains);
 Then("pending", () => "pending");
 
 Then("the PNC update includes {string}", pncUpdateIncludes);
+
+Then("I see {string} for offence {string}", checkOffence);
+
+Then("there should only be {string} offences", checkTableRows);
