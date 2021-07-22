@@ -20,16 +20,15 @@ Feature: {279} BR7 R5.8-RCD638 - TRPR0029 - Civil & Non-Civil Offences
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
-	@Problem
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Handling civil offences
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
-		And I see trigger "PR20 - Breach" in the exception list table
-		And there are no exceptions raised for "CIVILCASE RECANDNONREC"
-		And the PNC updates the record
+			And I see trigger "PR20 - Breach" in the exception list table
+			And there are no exceptions raised for "CIVILCASE RECANDNONREC"
+			And the PNC updates the record

@@ -461,6 +461,18 @@ const waitForRecordStep = async function (record) {
   await reloadUntilContent(this.browser.page, record);
 };
 
+const checkOffence = async function (offenceCode, offenceId) {
+  await checkDataTable(this, [
+    { column: 2, value: offenceId, exact: true },
+    { column: 4, value: offenceCode, exact: true }
+  ]);
+};
+
+const checkTableRows = async function (offenceCount) {
+  const trPromises = await this.browser.page.$$("#br7_exception_details_court_data_table .resultsTable tbody tr");
+  expect(trPromises.length).toEqual(parseInt(offenceCount, 10));
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -511,5 +523,7 @@ module.exports = {
   reloadUntilStringNotPresent,
   checkNoExceptions,
   checkNoRecords,
-  waitForRecordStep
+  waitForRecordStep,
+  checkOffence,
+  checkTableRows
 };

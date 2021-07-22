@@ -20,7 +20,7 @@ Feature: {150} BR7 R5.2-RCD488-Person Title field Single Char
 			And "input-message" is received
 
 	@Could
-	@Problem
+	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	@ExcludedOnBaseline
 	Scenario: Handling messages with a single title character
@@ -33,5 +33,5 @@ Feature: {150} BR7 R5.2-RCD488-Person Title field Single Char
 			And the PNC updates the record
 		When I resolve all of the triggers
 		Then the "record" for "PersonTitle Single" is "resolved"
-		Then the "record" for "PersonTitle Single" is not "unresolved"
+			And the "record" for "PersonTitle Single" is not "unresolved"
 			And there are no exceptions
