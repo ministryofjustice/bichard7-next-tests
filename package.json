@@ -37,6 +37,7 @@
     "expect": "^26.6.2",
     "fast-xml-parser": "^3.19.0",
     "ibm_db": "^2.7.3",
+    "jsonwebtoken": "^8.5.1",
     "pg-promise": "^10.10.1",
     "puppeteer": "^8.0.0",
     "puppeteer-mass-screenshots": "^1.0.15",
