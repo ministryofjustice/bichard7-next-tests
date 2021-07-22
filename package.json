@@ -8,7 +8,7 @@
     "lint:js": "eslint --fix .",
     "lint:features": "gherkin-lint features",
     "test": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded' features",
-    "test:chunk": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded' $(find features -iname '*.feature' | sort | awk \"(NR % $TOTAL_CHUNKS == $CHUNK_NUMBER)\" | paste -d ' ' -s -)",
+    "test:chunk": "./scripts/prepare-environment.sh && bash ./scripts/run_test_chunk.sh",
     "test:file": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
     "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next STACK_TYPE=next npm run test",
     "test:baseline": "STACK_TYPE=baseline npm run test",
