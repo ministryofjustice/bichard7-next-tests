@@ -41,7 +41,6 @@ Before(async function (context) {
 });
 
 After(async function () {
-  await this.browser.logout();
   await this.browser.close();
   if (process.env.RECORD === "true") {
     await this.pnc.recordMocks();

@@ -26,7 +26,8 @@ class BrowserHelper {
           "--window-size=1024x768"
         ]
       });
-    this.page = await this.browser.newPage();
+    const context = await this.browser.createIncognitoBrowserContext();
+    this.page = await context.newPage();
     await this.page.setViewport({
       width: 1024,
       height: 768
