@@ -23,7 +23,7 @@ Feature: {018} R3_BR7_NX001_Results Already on PNC
 	@Could
 	Scenario: Handling results when they are already on the PNC
 		Given "input-message-1" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "NXONE LOG"

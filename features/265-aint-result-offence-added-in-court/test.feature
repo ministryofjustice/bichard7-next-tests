@@ -21,7 +21,7 @@ Feature: {265} BR7-R5.7-RCD603-AINT Result-Offence Added In Court
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: AINT result with offence added in court
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR23 - Domestic violence" in the exception list table
 			And I see trigger "PS11 - Add offence to PNC" in the exception list table

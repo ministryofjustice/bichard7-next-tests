@@ -65,9 +65,7 @@ Given("a message is received", async function () {
   await sendMessage.apply(this);
 });
 
-Given("I am logged in as a(n) {string}", logInAs);
-
-Given("I am logged in as a user with {string} permissions", logInAs);
+Given("I am logged in as {string}", logInAs);
 
 Given("I navigate to the list of reports", canSeeReports);
 

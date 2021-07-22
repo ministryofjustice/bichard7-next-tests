@@ -21,7 +21,7 @@ Feature: {048} #189 - DH page updated with sentence postponed DDMMYY
 	@Could
 	Scenario: Correctly adding dates for sentence
 		Given "input-message-1" is received
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received

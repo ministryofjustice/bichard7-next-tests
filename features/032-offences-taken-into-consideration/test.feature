@@ -22,7 +22,7 @@ Feature: {032} 3.2 UAT - TIC Change
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Offences Taken Into Consideration update PNC and raise a trigger
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "Bethel Barry"
 			And I see trigger "PR06 - Imprisoned" in the exception list table

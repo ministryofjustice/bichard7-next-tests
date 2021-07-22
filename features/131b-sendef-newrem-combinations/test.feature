@@ -28,7 +28,7 @@ Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM - part 2
 	@Excluded
 	Scenario: Verifying SENDEF and NEWREM combinations in PNC updates
 		Given "input-message-1" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "SENDNEW ONECCR"
 		When "input-message-2" is received

@@ -21,11 +21,11 @@ Feature: {300} BR7-R5.9-RCD401-501-Subsequent Remand-Different Dates
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Verifying 'Results already on PNC' processing
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And "input-message-1" is received
 			And I wait "3" seconds
 			And "input-message-2" is received
 		When I view the list of exceptions
 		Then there are no exceptions or triggers
 			And the PNC updates the record
-			#And "Results already on PNC" is not in the audit log
+#And "Results already on PNC" is not in the audit log

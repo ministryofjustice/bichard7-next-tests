@@ -23,7 +23,7 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Pre-update triggers are created for warrants and appear in the warrants report
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
 			And there are no exceptions raised for "UNDATED Fta"

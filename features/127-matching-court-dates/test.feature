@@ -24,7 +24,7 @@ Feature: {127} BR7 R5.1-RCD411-Date Codes 2 and 3 and 6 Offence Matching
 	@Could
 	@NeedsRunningAgainstPNC
 	Scenario: Checking matches for court dates
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100304" in the exception list table
 			And there are no triggers raised for "TWOTHREESIX DATECODES"

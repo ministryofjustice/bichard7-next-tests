@@ -27,7 +27,7 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 
 	@Should
 	Scenario: No exceptions and one trigger when driver disqualification - duration only
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When "input-message-1" is received
 			And I view the list of exceptions
 		Then there are no exceptions raised for "Patrick Duffy"

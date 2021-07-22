@@ -26,7 +26,7 @@ Feature: {296} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text IS used 
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Ensure the result text is used as the PNC disposal text
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100310 (2)" in the exception list table
 		When I open the record for "RESULTTEXTISUSED DUPLICATEOFFENCES"

@@ -22,7 +22,7 @@ Feature: {057} #192 - Result Date
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Validating judgement with final result automation
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS03 - Disposal text truncated" in the exception list table

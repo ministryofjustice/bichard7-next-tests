@@ -25,7 +25,7 @@ Feature: {114} BR7 R5.1-RCD384-395-Stop checking Result Code Qualifiers against 
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Checking result codes against the stop list
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "Qualifiers ResultCode"

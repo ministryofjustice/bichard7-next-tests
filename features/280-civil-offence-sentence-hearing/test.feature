@@ -22,7 +22,7 @@ Feature: {280} BR7 R5.8-RCD638 - TRPR0029 - Civil Offence added in Court at Sent
 	@Should
 	Scenario: Civil Offence added in Court at Sentence Hearing
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received

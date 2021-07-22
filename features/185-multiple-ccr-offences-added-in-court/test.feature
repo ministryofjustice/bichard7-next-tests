@@ -25,7 +25,7 @@ Feature: {185} BR7 R5.3-RCD496 - Multiple CCR group NG Verdict -offence added in
 
 	@Could
 	Scenario: Multiple CCR groups and offences added in court
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And "input-message-1" is received
 		When I view the list of exceptions
 		Then there are no triggers raised for "Liverpool Martin"

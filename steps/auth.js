@@ -7,6 +7,12 @@ const dummyUsers = require("../utils/dummyUserData");
 const tokenIssuer = () => process.env.TOKEN_ISSUER || "Bichard";
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
+const createUser = async (world, username) => {
+  const user = dummyUsers[username];
+  if (!user) throw new Error(`User '${username}' not defined`);
+  world.db.createUser(username, user.groups, user.inclusionList, user.exclusionList);
+};
+
 const logInToBichardAs = async function (world, username) {
   const page = await world.browser.newPage(home());
   await page.waitForSelector("#username");
@@ -48,7 +54,7 @@ const logInToBichardJwtAs = async function (world, username) {
   if (!user) throw new Error(`Could not find user data for ${username}`);
   const tokenData = {
     username,
-    exclusionList: [],
+    exclusionList: user.exclusionList,
     inclusionList: user.inclusionList,
     forenames: "Bichard User",
     surname: "01",
@@ -63,8 +69,9 @@ const logInToBichardJwtAs = async function (world, username) {
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
-const logInAs = async function (group) {
-  const username = `${group.replace(" ", "")}1`;
+const logInAs = async function (username) {
+  createUser(this, username);
+
   if (this.authType === authType.bichard) {
     await logInToBichardAs(this, username);
   } else if (this.authType === authType.bichardJwt) {

@@ -27,7 +27,7 @@ Feature: {043} #151 - FTA Dated Warrant
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Exceptions are triggered when a record is received with a dated warrant
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
 		Then I open the record for "NEWTRPRTWO Trigger"

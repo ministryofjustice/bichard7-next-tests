@@ -20,7 +20,7 @@ Feature: {303} BR7-R5.9-RCD609-HO100332 and HO100304 combination no longer possi
 
 	@Could
 	Scenario: HO100332 and HO100304 is not possible
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see exception "HO100332" in the exception list table

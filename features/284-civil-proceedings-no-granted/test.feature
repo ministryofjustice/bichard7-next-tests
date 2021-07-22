@@ -19,7 +19,7 @@ Feature: {284} BR7 R5.8-RCD638 - TRPR0029 - Offence Code Granted Text Missing
 
 	@Should
 	Scenario: No civil proceedings trigger without "granted" text
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "CIVILCASE GRANTEDTEXTMISSING"
 			And there are no triggers raised for "CIVILCASE GRANTEDTEXTMISSING"

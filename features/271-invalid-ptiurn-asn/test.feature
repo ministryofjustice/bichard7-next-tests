@@ -21,7 +21,7 @@ Feature: {271} BR7-R5.8-RCD502-503 - Remove extraneous ASN-MCR Exceptions
 
 	@Could
 	Scenario: Raising exceptions for invalid PTIURN and ASN
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100201" in the exception list table
 			And I cannot see "HO100204" in the exception list table

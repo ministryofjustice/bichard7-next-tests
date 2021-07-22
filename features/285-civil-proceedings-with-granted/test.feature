@@ -19,7 +19,7 @@ Feature: {285} BR7 R5.8-RCD638 - TRPR0029 - Offence Code plus Granted Text
 
 	@Should
 	Scenario: Generate civil proceedings trigger with "granted" text
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then I see trigger "PR29 - Civil Proceedings" in the exception list table
 			And there are no exceptions raised for "CIVILCASE GRANTEDTEXT"

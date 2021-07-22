@@ -21,7 +21,7 @@ Feature: {109} BR7 R5.0-RCD382-Order to Continue-HO-PNC Offence Dates different
 	@Should
 	Scenario: Ignoring breach offence dates
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received

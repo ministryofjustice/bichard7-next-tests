@@ -23,7 +23,7 @@ Feature: {050} R3.4_BR7_YZ Force Code
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: YZ Force code is used in logs
-    Given I am logged in as a "general handler"
+    Given I am logged in as "generalhandler"
       And I view the list of exceptions
     Then I see exception "HO100310 (2)" in the exception list table
     When I open the record for "Bass Barry"

@@ -21,7 +21,7 @@ Feature: {266} BR7-R5.7-RCD603-AINT Result-Stop List Offence Added In Court
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling an AINT result that only contains offences on the stop list
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then the PNC record has not been updated
 			And there are no exceptions or triggers

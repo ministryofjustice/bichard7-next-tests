@@ -24,7 +24,7 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Correctly handling electronic tagging results
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS08 - Curfew order" in the exception list table

@@ -25,7 +25,7 @@ Feature: {250} BR7 R5.6-RCD459-Multi CCR HO200212 handling
 
 	@Should
 	Scenario: Multi CCR HO200212 handling
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PS11" in the exception list table
 			And there are no exceptions raised for "NOEXCEPTION AddedOffence"
