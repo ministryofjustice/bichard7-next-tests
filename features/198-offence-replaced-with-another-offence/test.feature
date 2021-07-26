@@ -29,7 +29,8 @@ Feature: {198} BR7-R5.3.2-RCD556-Offence Withdrawn-Replaced-Adjourned
 	Scenario: PNC is updated when an Offence is replaced with another Offence
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions
-		Then there are no exceptions raised for "DISTRICTUS THETUBE"
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions raised for "DISTRICTUS THETUBE"
 		When I open the record for "DISTRICTUS THETUBE"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPS0010"

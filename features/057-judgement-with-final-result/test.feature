@@ -24,7 +24,8 @@ Feature: {057} #192 - Result Date
 	@ExcludedOnBaseline
 	Scenario: Validating judgement with final result automation
 		Given I am logged in as a "supervisor"
-			And I view the list of exceptions
+		When I view the list of exceptions
+		Then I see trigger "PS03 - Disposal text truncated" in the exception list table
 		When I open the record for "Anchovy Adam"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0003" for offence "2"

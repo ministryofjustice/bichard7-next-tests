@@ -25,8 +25,9 @@ Feature: {217} BR7 R5.4-RCD517-TRPR0003 conditions-Youth Rehabilitation Orders
 	@ExcludedOnBaseline
 	Scenario: Youth Rehabilitation Orders and Curfew Requirement handling
 		Given I am logged in as a "general handler"
-			And I view the list of exceptions
+		When I view the list of exceptions
 		Then I see trigger "PR03 - Order issues" in the exception list table
+			And I see trigger "PS08 - Curfew order" in the exception list table
 		When I open the record for "Rehaborders Youth"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0003" for offence "1"
