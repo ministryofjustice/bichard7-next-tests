@@ -213,7 +213,7 @@ jobs:
       WORKSPACE: local-next
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 3
+      TOTAL_CHUNKS: 4
       CHUNK_NUMBER: 0
     steps:
       - run-test-next-chunk
@@ -229,7 +229,7 @@ jobs:
       WORKSPACE: local-next
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 3
+      TOTAL_CHUNKS: 4
       CHUNK_NUMBER: 1
     steps:
       - run-test-next-chunk
@@ -245,24 +245,26 @@ jobs:
       WORKSPACE: local-next
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 3
+      TOTAL_CHUNKS: 4
       CHUNK_NUMBER: 2
     steps:
       - run-test-next-chunk
 
-  test-baseline:
+  test-next-chunk-3:
     machine:
       image: ubuntu-2004:202104-01
       docker_layer_caching: true
+    resource_class: large
     environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
+      STACK_TYPE: next
       BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
+      WORKSPACE: local-next
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 4
+      CHUNK_NUMBER: 3
     steps:
-      - run-test-baseline
+      - run-test-next-chunk
 
   test-baseline-chunk-0:
     machine:
@@ -275,7 +277,7 @@ jobs:
       WORKSPACE: local-baseline
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 3
+      TOTAL_CHUNKS: 5
       CHUNK_NUMBER: 0
     steps:
       - run-test-baseline-chunk
@@ -291,7 +293,7 @@ jobs:
       WORKSPACE: local-baseline
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 3
+      TOTAL_CHUNKS: 5
       CHUNK_NUMBER: 1
     steps:
       - run-test-baseline-chunk
@@ -307,8 +309,40 @@ jobs:
       WORKSPACE: local-baseline
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 3
+      TOTAL_CHUNKS: 5
       CHUNK_NUMBER: 2
+    steps:
+      - run-test-baseline-chunk
+
+  test-baseline-chunk-3:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 3
+    steps:
+      - run-test-baseline-chunk
+
+  test-baseline-chunk-4:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 4
     steps:
       - run-test-baseline-chunk
 
@@ -318,12 +352,6 @@ workflows:
   deploy:
     jobs:
       - build-ci
-      - test-next:
-          requires:
-            - build-ci
-      - test-baseline:
-          requires:
-            - build-ci
       - test-next-chunk-0:
           requires:
             - build-ci
@@ -333,6 +361,9 @@ workflows:
       - test-next-chunk-2:
           requires:
             - build-ci
+      - test-next-chunk-3:
+          requires:
+            - build-ci
       - test-baseline-chunk-0:
           requires:
             - build-ci
@@ -340,5 +371,11 @@ workflows:
           requires:
             - build-ci
       - test-baseline-chunk-2:
+          requires:
+            - build-ci
+      - test-baseline-chunk-3:
+          requires:
+            - build-ci
+      - test-baseline-chunk-4:
           requires:
             - build-ci
