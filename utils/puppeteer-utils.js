@@ -40,6 +40,21 @@ const reloadUntilContent = async (page, content) => {
   return retryDelay(checkForContent, reloadPage, 1000);
 };
 
+const reloadUntilContentInSelector = async (page, content, selector) => {
+  const checkForContent = async () =>
+    !!(await page.evaluate(
+      (cont, sel) => [...document.querySelectorAll(sel)].map((s) => s.innerText).some((el) => el.includes(cont)),
+      content,
+      selector
+    ));
+
+  const reloadPage = async () => {
+    await page.reload();
+  };
+
+  return retryDelay(checkForContent, reloadPage, 1000);
+};
+
 const reloadUntilNotContent = async (page, content) => {
   const checkForContent = async () => !(await page.evaluate(() => document.body.innerText)).includes(content);
 
@@ -59,4 +74,12 @@ const delay = (seconds) =>
     setTimeout(resolve, seconds * 1000);
   });
 
-module.exports = { delay, retryDelay, reloadUntilSelector, waitForRecord, reloadUntilContent, reloadUntilNotContent };
+module.exports = {
+  delay,
+  retryDelay,
+  reloadUntilSelector,
+  waitForRecord,
+  reloadUntilContent,
+  reloadUntilContentInSelector,
+  reloadUntilNotContent
+};

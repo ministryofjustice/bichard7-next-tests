@@ -4,7 +4,8 @@ const {
   reloadUntilSelector,
   waitForRecord,
   reloadUntilContent,
-  reloadUntilNotContent
+  reloadUntilNotContent,
+  reloadUntilContentInSelector
 } = require("../utils/puppeteer-utils");
 const fsHelp = require("../helpers/fsHelper");
 
@@ -168,9 +169,7 @@ const reallocateCase = async function () {
 };
 
 const canSeeTrigger = async function (value) {
-  await waitForRecord(this.browser.page);
-  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
-  expect(isVisible).toBe(true);
+  await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
 };
 
 const cannotSeeTrigger = async function (value) {
