@@ -3,100 +3,9 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.7.0
 
-jobs:
-  build-ci:
-    machine:
-      image: ubuntu-2004:202104-01
+commands:
+  save_artifacts:
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - 3d:e6:7f:cd:d1:2b:35:a5:71:da:87:12:c2:0b:0b:44
-            - ef:ec:5d:99:f7:ec:d8:35:ff:f6:2b:8b:23:a1:fa:f4
-      - run:
-          command: ssh-add -D
-      - run:
-          command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
-      - run:
-          name: Clone Bichard7 Next
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
-
-      - run:
-          name: Build Bichard7 Next
-          command: |
-            cd ~/bichard7-next
-            make build-ci
-      - persist_to_workspace:
-          root: ~/
-          paths: bichard7-next
-
-  test-next:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    resource_class: large
-    environment:
-      STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-next
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Clear out the networks before we start our Docker services
-          command: docker network prune -f
-      - run:
-          name: Make a fake user-service image
-          command: docker pull hello-world && docker tag hello-world user-service
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            make run-all-no-bc -j 4
-      - run:
-          name: Fetch the PNC Emulator image
-          command: |
-            cd ~/bichard7-next
-            bash scripts/fetch_pncemulator_docker.sh
-      - run:
-          name: Fetch the BeanConnect image
-          command: |
-            cd ~/bichard7-next
-            bash scripts/fetch_beanconnect_docker.sh
-      - run:
-          name: Run BeanConnect and PNC Emulator docker services
-          command: |
-            cd ~/bichard7-next
-            make run-beanconnect
-      - run:
-          name: Build E2E tests
-          command: cd ~/project && make build
-      - run:
-          name: Wait for Bichard
-          command: |
-            cd ~/bichard7-next
-            bash ./scripts/wait_for_bichard.sh
-      - run:
-          name: Warm-up login test
-          environment:
-            - TEST_TIMEOUT: 180000
-          command: |
-            cd ~/bichard7-next
-            make e2e-warmup
-      - run:
-          name: Remove warmup test container
-          command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
-      - run:
-          name: Pipe logs to the test container
-          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
-          background: true
-      - run:
-          name: Run E2E tests
-          command: |
-            cd ~/bichard7-next
-            make e2e-tests-record
       - run:
           name: Copy the artifacts from the image
           when: always
@@ -113,36 +22,22 @@ jobs:
           name: Move the gzipped files across
           when: always
           command: mv ./screenshots/*.tar.gz ./saved_artifacts/
-
       - store_artifacts:
           path: /home/circleci/project/saved_artifacts
 
-  test-baseline:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
+  pre_run_setup:
     steps:
-      - checkout
       - attach_workspace:
           at: ~/
       - run:
-          command: docker network prune -f
           name: Clear out the networks before we start our Docker services
+          command: docker network prune -f
       - run:
           name: Make a fake user-service image
           command: docker pull hello-world && docker tag hello-world user-service
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            make run-all-baseline-no-bc -j 4
+
+  run_services_and_wait:
+    steps:
       - run:
           name: Fetch the PNC Emulator image
           command: |
@@ -166,11 +61,9 @@ jobs:
           command: |
             cd ~/bichard7-next
             bash ./scripts/wait_for_bichard.sh
-      - run:
-          name: Wait for DB2
-          command: |
-            cd ~/bichard7-next
-            ./scripts/db/wait_for_db.sh
+
+  run_warmup:
+    steps:
       - run:
           name: Warm-up login test
           environment:
@@ -181,43 +74,308 @@ jobs:
       - run:
           name: Remove warmup test container
           command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
+
+  run_tests:
+    steps:
       - run:
           name: Pipe logs to the test container
-          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh was-baseline &> /tmp/logpipe.txt
+          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
           background: true
       - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
             make e2e-tests-record
-      - run:
-          name: Copy the artifacts from the image
-          when: always
-          command: docker cp $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited"):/src/screenshots ./screenshots
-      - run:
-          name: Compress the artifacts for easier downloading
-          when: always
-          command: for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
-      - run:
-          name: Create the artifacts directory
-          when: always
-          command: mkdir ./saved_artifacts;
-      - run:
-          name: Move the gzipped files across
-          when: always
-          command: mv ./screenshots/*.tar.gz ./saved_artifacts/
 
-      - store_artifacts:
-          path: /home/circleci/project/saved_artifacts
+  run_test_chunk:
+    steps:
+      - run:
+          name: Pipe logs to the test container
+          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
+          background: true
+      - run:
+          name: Run E2E tests
+          command: |
+            cd ~/bichard7-next
+            make e2e-tests-record-chunk
+
+  run-test-next:
+    steps:
+      - checkout
+      - pre_run_setup
+      - run:
+          name: Run docker services (except BeanConnect)
+          command: |
+            cd ~/bichard7-next
+            make run-all-no-bc -j 4
+      - run_services_and_wait
+      - run_warmup
+      - run_tests
+      - save_artifacts
+
+  run-test-next-chunk:
+    steps:
+      - checkout
+      - pre_run_setup
+      - run:
+          name: Run docker services (except BeanConnect)
+          command: |
+            cd ~/bichard7-next
+            make run-all-no-bc -j 4
+      - run_services_and_wait
+      - run_warmup
+      - run_test_chunk
+      - save_artifacts
+
+  run-test-baseline:
+    steps:
+      - checkout
+      - pre_run_setup
+      - run:
+          name: Run docker services (except BeanConnect)
+          command: |
+            cd ~/bichard7-next
+            make run-all-baseline-no-bc -j 4
+      - run_services_and_wait
+      - run:
+          name: Wait for DB2
+          command: |
+            cd ~/bichard7-next
+            ./scripts/db/wait_for_db.sh
+      - run_warmup
+      - run_tests
+      - save_artifacts
+
+  run-test-baseline-chunk:
+    steps:
+      - checkout
+      - pre_run_setup
+      - run:
+          name: Run docker services (except BeanConnect)
+          command: |
+            cd ~/bichard7-next
+            make run-all-baseline-no-bc -j 4
+      - run_services_and_wait
+      - run:
+          name: Wait for DB2
+          command: |
+            cd ~/bichard7-next
+            ./scripts/db/wait_for_db.sh
+      - run_warmup
+      - run_test_chunk
+      - save_artifacts
+
+jobs:
+  build-ci:
+    machine:
+      image: ubuntu-2004:202104-01
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 3d:e6:7f:cd:d1:2b:35:a5:71:da:87:12:c2:0b:0b:44
+            - ef:ec:5d:99:f7:ec:d8:35:ff:f6:2b:8b:23:a1:fa:f4
+      - run:
+          command: ssh-add -D
+      - run:
+          command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
+      - run:
+          name: Clone Bichard7 Next
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
+      - run:
+          name: Build Bichard7 Next
+          command: cd ~/bichard7-next && make build-ci
+      - persist_to_workspace:
+          root: ~/
+          paths: bichard7-next
+
+  test-next:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    resource_class: large
+    environment:
+      STACK_TYPE: next
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-next
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+    steps:
+      - run-test-next
+
+  test-next-chunk-0:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    resource_class: large
+    environment:
+      STACK_TYPE: next
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-next
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 4
+      CHUNK_NUMBER: 0
+    steps:
+      - run-test-next-chunk
+
+  test-next-chunk-1:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    resource_class: large
+    environment:
+      STACK_TYPE: next
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-next
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 4
+      CHUNK_NUMBER: 1
+    steps:
+      - run-test-next-chunk
+
+  test-next-chunk-2:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    resource_class: large
+    environment:
+      STACK_TYPE: next
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-next
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 4
+      CHUNK_NUMBER: 2
+    steps:
+      - run-test-next-chunk
+
+  test-next-chunk-3:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    resource_class: large
+    environment:
+      STACK_TYPE: next
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-next
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 4
+      CHUNK_NUMBER: 3
+    steps:
+      - run-test-next-chunk
+
+  test-baseline-chunk-0:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 0
+    steps:
+      - run-test-baseline-chunk
+
+  test-baseline-chunk-1:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 1
+    steps:
+      - run-test-baseline-chunk
+
+  test-baseline-chunk-2:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 2
+    steps:
+      - run-test-baseline-chunk
+
+  test-baseline-chunk-3:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 3
+    steps:
+      - run-test-baseline-chunk
+
+  test-baseline-chunk-4:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: true
+    environment:
+      STACK_TYPE: baseline
+      MESSAGE_ENTRY_POINT: mq
+      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
+      WORKSPACE: local-baseline
+      RECORD: "true"
+      AUTH_TYPE: bichard-jwt
+      TOTAL_CHUNKS: 5
+      CHUNK_NUMBER: 4
+    steps:
+      - run-test-baseline-chunk
+
 workflows:
   version: 2
 
   deploy:
     jobs:
       - build-ci
-      - test-next:
+      - test-next-chunk-0:
           requires:
             - build-ci
-      - test-baseline:
+      - test-next-chunk-1:
+          requires:
+            - build-ci
+      - test-next-chunk-2:
+          requires:
+            - build-ci
+      - test-next-chunk-3:
+          requires:
+            - build-ci
+      - test-baseline-chunk-0:
+          requires:
+            - build-ci
+      - test-baseline-chunk-1:
+          requires:
+            - build-ci
+      - test-baseline-chunk-2:
+          requires:
+            - build-ci
+      - test-baseline-chunk-3:
+          requires:
+            - build-ci
+      - test-baseline-chunk-4:
           requires:
             - build-ci
