@@ -18,7 +18,7 @@ Feature: {126} BR7 R5.1-RCD411-Date Codes 1 and 5 Offence Matching
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -26,11 +26,12 @@ Feature: {126} BR7 R5.1-RCD411-Date Codes 1 and 5 Offence Matching
 	@ExcludedOnBaseline
 	Scenario: Offence code matching for date codes 1 and 5
 		Given I am logged in as a "supervisor"
-		And I wait for "ONEANDFIVE DATECODES" in the list of records
-		Then there are no exceptions raised for "ONEANDFIVE DATECODES"
+			And I view the list of exceptions
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions raised for "ONEANDFIVE DATECODES"
 		When I open the record for "ONEANDFIVE DATECODES"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0018" for offence "1"
-		And I see trigger "TRPR0018" for offence "2"
-		And I see trigger "TRPS0010" for offence "4"
-		And the PNC updates the record
+			And I see trigger "TRPR0018" for offence "2"
+			And I see trigger "TRPS0010" for offence "4"
+			And the PNC updates the record
