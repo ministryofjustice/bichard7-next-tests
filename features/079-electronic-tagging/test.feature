@@ -18,7 +18,7 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -26,7 +26,7 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 	@ExcludedOnBaseline
 	Scenario: Correctly handling electronic tagging results
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS08 - Curfew order" in the exception list table
-		And there are no exceptions raised for "Ben Mister"
-		And the PNC updates the record
+			And there are no exceptions raised for "Ben Mister"

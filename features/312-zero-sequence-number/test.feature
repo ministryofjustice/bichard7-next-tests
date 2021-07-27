@@ -27,8 +27,9 @@ Feature: {312} BR7-R5.10-RCD606-Permit Court Offence Sequence Number of 0
 	@ExcludedOnBaseline
 	Scenario: Allowing court offence sequence number of zero
 		Given I am logged in as a "supervisor"
-			And I view the list of exceptions
-			And I see trigger "PR06 - Imprisoned" in the exception list table
+		When I view the list of exceptions
+			And the PNC updates the record
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see trigger "PS02 - Check address" in the exception list table
 		When I open the record for "ZERO OFFENCESEQUENCE"
 			And I click the "Triggers" tab
@@ -36,4 +37,3 @@ Feature: {312} BR7-R5.10-RCD606-Permit Court Offence Sequence Number of 0
 			And I see trigger "TRPR0001" for offence "3"
 			And I see trigger "TRPR0006"
 			And I see trigger "TRPS0002"
-			And the PNC updates the record

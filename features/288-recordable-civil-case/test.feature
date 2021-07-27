@@ -16,7 +16,7 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
@@ -24,7 +24,7 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 	@Excluded
 	Scenario: Handling a recordable civil case
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		And there are no exceptions raised for "CIVILCASE RECORDABLE"
+		When I view the list of exceptions
+			And the PNC updates the record
+		Then there are no exceptions raised for "CIVILCASE RECORDABLE"
 		Then I see trigger "PS08 - Curfew order" in the exception list table
-		And the PNC updates the record

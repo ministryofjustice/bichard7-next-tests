@@ -26,6 +26,7 @@ Feature: {217} BR7 R5.4-RCD517-TRPR0003 conditions-Youth Rehabilitation Orders
 	Scenario: Youth Rehabilitation Orders and Curfew Requirement handling
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PR03 - Order issues" in the exception list table
 			And I see trigger "PS08 - Curfew order" in the exception list table
 		When I open the record for "Rehaborders Youth"
@@ -34,4 +35,3 @@ Feature: {217} BR7 R5.4-RCD517-TRPR0003 conditions-Youth Rehabilitation Orders
 			And I see trigger "TRPR0003" for offence "3"
 			And I see trigger "TRPS0008" for offence "1"
 			And I see trigger "TRPS0008" for offence "3"
-			And the PNC updates the record

@@ -17,7 +17,7 @@ Feature: {228} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -25,7 +25,7 @@ Feature: {228} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 	@ExcludedOnBaseline
 	Scenario: Adding offences as well as updating existing offences
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
-		And there are no exceptions raised for "ADDEDOFFENCEJWFTHREE Nopncadj"
-		And the PNC updates the record
+			And there are no exceptions raised for "ADDEDOFFENCEJWFTHREE Nopncadj"

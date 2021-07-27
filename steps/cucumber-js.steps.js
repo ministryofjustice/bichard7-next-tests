@@ -12,14 +12,13 @@ const {
   exceptionsAreVisible,
   triggersAreVisible,
   exceptionIsReadOnly,
-  canSeeException,
+  canSeeContentInTable,
   cannotSeeException,
   noExceptionPresentForOffender,
   noTriggersPresentForOffender,
   exceptionIsEditable,
   buttonIsNotVisible,
   reallocateCase,
-  canSeeTrigger,
   buttonIsVisible,
   canSeeQAStatus,
   visitTeamPage,
@@ -129,7 +128,7 @@ Then("I can see triggers", triggersAreVisible);
 
 Then("I cannot make any changes", exceptionIsReadOnly);
 
-Then("I see exception {string} in the exception list table", canSeeException);
+Then("I see exception {string} in the exception list table", canSeeContentInTable);
 
 Then("I cannot see {string} in the exception list table", cannotSeeException);
 
@@ -147,7 +146,7 @@ Then("I can reallocate the case to another force area", reallocateCase);
 
 Then("I cannot reallocate the case to another force area", cannotReallocateCase);
 
-Then("I see trigger {string} in the exception list table", canSeeTrigger);
+Then("I see trigger {string} in the exception list table", canSeeContentInTable);
 
 Then("I cannot see trigger {string} in the exception list table", cannotSeeTrigger);
 

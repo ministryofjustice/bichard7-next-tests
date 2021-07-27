@@ -26,15 +26,15 @@ Feature: {169} BR7 R5.3-RCD513 - Some Offences Stop Listed
 	@NeedsRunningAgainstPNC
 	Scenario: Ignored offence handling when some results are on the stop list
 		Given I am logged in as a "supervisor"
-			And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see trigger "PS10 - Offence added to PNC" in the exception list table
-			And I open the record for "Mumm-Ra Terry"
+		When I open the record for "Mumm-Ra Terry"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
 			And I see trigger "TRPS0010" for offence "2"
 		When I resolve all of the triggers
 		Then the "record" for "Mumm-Ra Terry" is "resolved"
-		Then the "record" for "Mumm-Ra Terry" is not "unresolved"
+			And the "record" for "Mumm-Ra Terry" is not "unresolved"
 			And there are no exceptions
-			And the PNC updates the record

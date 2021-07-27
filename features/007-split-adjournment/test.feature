@@ -17,7 +17,7 @@ Feature: {007} R3_BR7_TR_002_Date
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@Problem
@@ -25,13 +25,13 @@ Feature: {007} R3_BR7_TR_002_Date
 	@Excluded
 	Scenario: Split adjournment court results automation
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS04 - Split adjournment" in the exception list table
 		When I open the record for "TRTWODATE TRIGGER"
-		And I click the "Triggers" tab
-		And I resolve all of the triggers
+			And I click the "Triggers" tab
+			And I resolve all of the triggers
 		Then the "record" for "TRTWODATE TRIGGER" is "resolved"
-		And the "record" for "TRTWODATE TRIGGER" is not "unresolved"
-		And pending
-		# There are multiple PNC updates issued
-		And the PNC updates the record
+			And the "record" for "TRTWODATE TRIGGER" is not "unresolved"
+			And pending
+# There are multiple PNC updates issued

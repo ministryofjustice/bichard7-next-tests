@@ -19,7 +19,7 @@ Feature: {139} BR7 R5.2-RCD456-Bail Conditions 200 Char
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -27,7 +27,7 @@ Feature: {139} BR7 R5.2-RCD456-Bail Conditions 200 Char
 	@ExcludedOnBaseline
 	Scenario: Ensure invalid characters are removed before being sent to the PNC
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		Then I cannot see trigger "PS06" in the exception list table
-		And the PNC updates the record
+			And I cannot see trigger "PS06" in the exception list table

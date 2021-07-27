@@ -13,6 +13,7 @@ class Db2Helper {
         this.conn = conn;
       },
       (err) => {
+        // eslint-disable-next-line no-console
         console.log(err);
         throw err;
       }
@@ -32,6 +33,17 @@ class Db2Helper {
     if (!this.conn) return null;
 
     return db2.close();
+  }
+
+  async dumpData() {
+    await this.connect();
+    try {
+      return this.conn.query("select * from BR7OWN.ERROR_LIST");
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log("Error dumping database", err);
+      return false;
+    }
   }
 }
 

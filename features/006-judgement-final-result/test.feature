@@ -16,7 +16,7 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -24,12 +24,12 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 	@ExcludedOnBaseline
 	Scenario: I can resolve a trigger for check address
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS02 - Check address" in the exception list table
 		When I open the record for "TRTHREE TRPSTWO"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		When I resolve all of the triggers
 		Then the "record" for "TRTHREE TRPSTWO" is "resolved"
 		Then the "record" for "TRTHREE TRPSTWO" is not "unresolved"
-		And there are no exceptions
-		Then the PNC updates the record
+			And there are no exceptions

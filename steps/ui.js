@@ -168,18 +168,15 @@ const reallocateCase = async function () {
   expect(latestNote).toContain("Case reallocated to new force owner");
 };
 
-const canSeeTrigger = async function (value) {
-  await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
+const canSeeContentInTable = async function (value) {
+  const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
+  expect(found).toBeTruthy();
 };
 
 const cannotSeeTrigger = async function (value) {
   await waitForRecord(this.browser.page);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
   expect(isVisible).toBe(false);
-};
-
-const canSeeException = async function (value) {
-  await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
 };
 
 const cannotSeeException = async function (exception) {
@@ -481,9 +478,8 @@ module.exports = {
   openRecordFor,
   reallocateCase,
   cannotReallocateCase,
-  canSeeTrigger,
+  canSeeContentInTable,
   cannotSeeTrigger,
-  canSeeException,
   cannotSeeException,
   noExceptionPresentForOffender,
   noTriggersPresentForOffender,

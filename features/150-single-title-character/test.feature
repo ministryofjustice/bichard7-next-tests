@@ -26,12 +26,12 @@ Feature: {150} BR7 R5.2-RCD488-Person Title field Single Char
 	Scenario: Handling messages with a single title character
 		Given I am logged in as a "supervisor"
 		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
 		When I open the record for "PersonTitle Single"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPS0010" for offence "4"
 			And I see trigger "TRPS0010" for offence "5"
-			And the PNC updates the record
 		When I resolve all of the triggers
 		Then the "record" for "PersonTitle Single" is "resolved"
 			And the "record" for "PersonTitle Single" is not "unresolved"

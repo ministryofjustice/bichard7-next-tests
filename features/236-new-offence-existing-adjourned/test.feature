@@ -15,7 +15,7 @@ Feature: {236} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Adj With Judg-Of
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -23,7 +23,7 @@ Feature: {236} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Adj With Judg-Of
 	@ExcludedOnBaseline
 	Scenario: Adding new offence in court where existing offences are adjourned
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
-		And there are no exceptions raised for "OFFENCEADDED APJAWJ "
-		And the PNC updates the record
+			And there are no exceptions raised for "OFFENCEADDED APJAWJ "
