@@ -26,8 +26,8 @@ Feature: {276} BR7 R5.8-RCD626 - Offences Added in Court Adjourned Sine Die Case
 	@ExcludedOnBaseline
 	Scenario: Validate Offences Added in Court that are Adjourned Sine Die with Undated FTA Warrant Issued
 		Given I am logged in as a "general handler"
-			And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PR02 - Warrant issued" in the exception list table
 			And I see trigger "PR17 - Adjourned sine die" in the exception list table
 			And I see trigger "PS11 - Add offence to PNC" in the exception list table
-			And the PNC updates the record

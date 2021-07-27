@@ -21,7 +21,7 @@ Feature: {200} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added-Adjourne
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@Problem
@@ -29,7 +29,7 @@ Feature: {200} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added-Adjourne
 	@Excluded
 	Scenario: Trigger is created to alert police of adding lesser offence to PNC
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
-		And there are no exceptions raised for "HAMANDCITY THETUBE"
-		And the PNC updates the record
+			And there are no exceptions raised for "HAMANDCITY THETUBE"

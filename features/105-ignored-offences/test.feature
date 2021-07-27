@@ -26,6 +26,7 @@ Feature: {105} BR7 R5.0-RCD334-4583-Some Offences Ignored
 	Scenario: Ensuring that ignored offences are not displayed
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see trigger "PS02 - Check address" in the exception list table
 		When I open the record for "SOMEOFFENCES IGNORE"
@@ -33,4 +34,3 @@ Feature: {105} BR7 R5.0-RCD334-4583-Some Offences Ignored
 		Then I see "TH68010" for offence "1"
 			And I see "TH68012" for offence "2"
 			And there should only be "2" offences
-			And the PNC updates the record

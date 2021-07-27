@@ -22,7 +22,7 @@ Feature: {212} BR7 R5.4-RCD538-Tagging-BA Qualifier on some Offences
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -30,12 +30,12 @@ Feature: {212} BR7 R5.4-RCD538-Tagging-BA Qualifier on some Offences
 	@ExcludedOnBaseline
 	Scenario: Adding electronic tagging information to the PNC
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS08 - Curfew order" in the exception list table
-		And there are no exceptions raised for "Morethanoneoffence Tagging"
+			And there are no exceptions raised for "Morethanoneoffence Tagging"
 		When I open the record for "Morethanoneoffence Tagging"
-		And I click the "Triggers" tab
-		And I see trigger "TRPS0008" for offence "1"
-		And I see trigger "TRPS0008" for offence "2"
-		And I see trigger "TRPS0008" for offence "3"
-		And the PNC updates the record
+			And I click the "Triggers" tab
+			And I see trigger "TRPS0008" for offence "1"
+			And I see trigger "TRPS0008" for offence "2"
+			And I see trigger "TRPS0008" for offence "3"

@@ -29,7 +29,7 @@ Feature: {199} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added
 	@ExcludedOnBaseline
 	Scenario: Original offence is dismissed but new offence is added
 		Given I am logged in as a "general handler"
-			And I view the list of exceptions
+		When I view the list of exceptions
+			And the PNC updates the record
 		Then there are no exceptions raised for "PICADILLUS THETUBE"
 			And I see trigger "PS10 - Offence added to PNC" in the exception list table
-			And the PNC updates the record

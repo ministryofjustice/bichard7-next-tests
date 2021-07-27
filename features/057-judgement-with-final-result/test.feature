@@ -25,6 +25,7 @@ Feature: {057} #192 - Result Date
 	Scenario: Validating judgement with final result automation
 		Given I am logged in as a "supervisor"
 		When I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS03 - Disposal text truncated" in the exception list table
 		When I open the record for "Anchovy Adam"
 			And I click the "Triggers" tab
@@ -34,4 +35,3 @@ Feature: {057} #192 - Result Date
 			And I see trigger "TRPS0003" for offence "2"
 			And I see trigger "TRPS0003" for offence "3"
 			And I see trigger "TRPR0006"
-			And the PNC updates the record

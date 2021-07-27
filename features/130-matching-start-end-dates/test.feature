@@ -23,7 +23,7 @@ Feature: {130} BR7 R5.1-RCD411-Offence Matching-Start-End-Dates Match
 	@ExcludedOnBaseline
 	Scenario: Handling exceptions when start and end dates match
 		Given I am logged in as a "general handler"
-			And I view the list of exceptions
+		When I view the list of exceptions
 		Then I see exception "HO100310 (2)" in the exception list table
 		When I open the record for "STARTENDDATES OFFENCEMATCH"
 			And I click the "Offences" tab
@@ -32,6 +32,6 @@ Feature: {130} BR7 R5.1-RCD411-Offence Matching-Start-End-Dates Match
 			And I click the "Offences" tab
 			And I submit the record
 		Then I see exception "(Submitted)" in the exception list table
+			And the PNC updates the record
 		When I reload until I see "PS10 - Offence added to PNC"
 		Then I cannot see trigger "TRPR0018" in the exception list table
-			And the PNC updates the record

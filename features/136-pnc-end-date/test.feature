@@ -22,7 +22,7 @@ Feature: {136} BR7 R5.1.3-RCD462 - No PNC-End-Date All Offences Dates the same
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
@@ -30,8 +30,9 @@ Feature: {136} BR7 R5.1.3-RCD462 - No PNC-End-Date All Offences Dates the same
 	@ExcludedOnBaseline
 	Scenario: testing start and end date matching for offence codes
 		Given I am logged in as a "supervisor"
-		And I wait for "IDENTICALDATES NOPNCENDDATE" in the list of records
+		When I view the list of exceptions
+			And the PNC updates the record
+			And I wait for "IDENTICALDATES NOPNCENDDATE" in the list of records
 		Then there are no exceptions raised for "IDENTICALDATES NOPNCENDDATE"
-		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
-		And I cannot see trigger "PR18" in the exception list table
-		And the PNC updates the record
+			And I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And I cannot see trigger "PR18" in the exception list table
