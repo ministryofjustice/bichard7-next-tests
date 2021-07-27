@@ -17,6 +17,7 @@ const retryDelay = async (condition, retryFunction, delay, attempts = 20) => {
       }
     }
   }
+  return conditionMet;
   /* eslint-enable no-await-in-loop */
 };
 
