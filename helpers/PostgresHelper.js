@@ -16,6 +16,11 @@ class PostgresHelper {
   async closeConnection() {
     pgp.end();
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  async dumpData() {
+    return global.postgresConnection.any("select * from BR7OWN.ERROR_LIST");
+  }
 }
 
 module.exports = PostgresHelper;

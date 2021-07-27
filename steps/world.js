@@ -1,3 +1,4 @@
+const fs = require("fs").promises;
 const { setWorldConstructor, World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
 const Db2Helper = require("../helpers/Db2Helper");
@@ -85,6 +86,11 @@ class Bichard extends World {
       record: process.env.RECORD === "true",
       world: this
     });
+  }
+
+  async dumpData() {
+    const data = await this.db.dumpData();
+    await fs.writeFile(`${this.outputDir}/db.json`, JSON.stringify(data));
   }
 }
 

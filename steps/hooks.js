@@ -16,6 +16,7 @@ BeforeAll(async () => {
     }
   }
   if (recordLogs) {
+    // eslint-disable-next-line no-console
     console.log("Recording Bichard logs");
     logRecorder = new LogRecorder({
       fifo: process.env.LOG_FIFO || "/tmp/docker_logs"
@@ -45,6 +46,7 @@ After(async function () {
   if (process.env.RECORD === "true") {
     await this.pnc.recordMocks();
     await this.pnc.recordRequests();
+    await this.dumpData();
   }
   if (recordLogs) {
     await logRecorder.save(this);
