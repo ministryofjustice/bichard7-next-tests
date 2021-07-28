@@ -18,14 +18,13 @@ Feature: {091} R4.1.1_BR7_Bail Condition Padding
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: The bail conditions are padded to make sure no words are split over two lines
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And the PNC updates the record
+			And the PNC updates the record

@@ -16,15 +16,14 @@ Feature: {032} 3.2 UAT - TIC Change
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Offences Taken Into Consideration update PNC and raise a trigger
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then there are no exceptions raised for "Bethel Barry"
-		And I see trigger "PR06 - Imprisoned" in the exception list table
-		And the PNC updates the record
+			And I see trigger "PR06 - Imprisoned" in the exception list table
+			And the PNC updates the record

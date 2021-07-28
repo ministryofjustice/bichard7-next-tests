@@ -27,13 +27,12 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Add a case to the PNC, no exceptions are flagged if certain properties are set
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then there are no exceptions raised for "MISTER NOCONVICTION"

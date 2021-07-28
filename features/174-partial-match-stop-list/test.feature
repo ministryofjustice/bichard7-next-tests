@@ -16,15 +16,14 @@ Feature: {174} BR7 R5.3-RCD497 - Partial Match - Stop List
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Ensure offences are correctly matched when there is a partial match in the stop list
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
-		And there are no exceptions
-		And the PNC updates the record
+			And there are no exceptions
+			And the PNC updates the record

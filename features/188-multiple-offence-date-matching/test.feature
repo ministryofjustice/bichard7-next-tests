@@ -16,24 +16,23 @@ Feature: {188} BR7 R5.3-RCD494 - 2x Offence Date Match
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Matching multiple offences with approximate date matching
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
-		And there are no exceptions raised for "Bishop Charles"
+			And there are no exceptions raised for "Bishop Charles"
 		When I open the record for "Bishop Charles"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
-		And I see trigger "TRPR0018" for offence "1"
-		And I see trigger "TRPR0018" for offence "2"
-		And I see trigger "TRPR0018" for offence "3"
-		And I see trigger "TRPR0018" for offence "4"
-		And I see trigger "TRPR0018" for offence "5"
-		And I see trigger "TRPR0018" for offence "6"
-		And the PNC updates the record
+			And I see trigger "TRPR0018" for offence "1"
+			And I see trigger "TRPR0018" for offence "2"
+			And I see trigger "TRPR0018" for offence "3"
+			And I see trigger "TRPR0018" for offence "4"
+			And I see trigger "TRPR0018" for offence "5"
+			And I see trigger "TRPR0018" for offence "6"
+			And the PNC updates the record

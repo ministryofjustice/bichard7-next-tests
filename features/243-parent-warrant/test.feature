@@ -22,7 +22,6 @@ Feature: {243} BR7 R5.6-RCD592-Parent Warrant-4585
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Parent warrant handling
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

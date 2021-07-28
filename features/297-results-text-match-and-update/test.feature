@@ -20,14 +20,13 @@ Feature: {297} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text ISNT use
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: No exceptions are generated when the result text is the same and PNC is updated
 		Given I am logged in as a "supervisor"
 		Then the PNC updates the record
-		And there are no exceptions raised for "RESULTTEXTISNTUSED DUPLICATEOFFENCES"
-		And there are no triggers raised for "RESULTTEXTISNTUSED DUPLICATEOFFENCES"
+			And there are no exceptions raised for "RESULTTEXTISNTUSED DUPLICATEOFFENCES"
+			And there are no triggers raised for "RESULTTEXTISNTUSED DUPLICATEOFFENCES"

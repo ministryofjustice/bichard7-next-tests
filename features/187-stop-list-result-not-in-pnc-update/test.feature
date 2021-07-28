@@ -22,7 +22,6 @@ Feature: {187} BR7 R5.3-RCD494 - Date Match with Stop List Result
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Stop List Result is removed from the PNC update request
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions

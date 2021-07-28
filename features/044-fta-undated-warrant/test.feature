@@ -16,19 +16,18 @@ Feature: {044} #151 - FTA Undated Warrant
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Handling FTA results with undated warrant
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		When I open the record for "NONEWREM Trigger"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0002"
 		When I resolve all of the triggers
 		Then the "record" for "NONEWREM Trigger" is "resolved"
-		And the "record" for "NONEWREM Trigger" is not "unresolved"
-		And the PNC updates the record
+			And the "record" for "NONEWREM Trigger" is not "unresolved"
+			And the PNC updates the record

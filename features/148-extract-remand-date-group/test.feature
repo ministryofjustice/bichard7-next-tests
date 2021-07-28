@@ -21,7 +21,6 @@ Feature: {148} BR7 R5.2-RCD452-Extracting Remand Date-Group 1
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Update PNC based on date time and location in result text
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

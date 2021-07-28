@@ -23,7 +23,6 @@ Feature: {157} BR7 R5.2.2-RCD518 - Result class Adjournment With Judgement
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Correctly processing adjournment with judgement
 		Given I am logged in as a "supervisor"
 		Then the PNC updates the record

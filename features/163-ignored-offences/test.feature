@@ -20,7 +20,6 @@ Feature: {163} BR7 R5.3-RCD505 - Ignored offence - Adj Pre Judgement
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Handling ignored offences when they are present on the PNC
 		Given I am logged in as a "supervisor"
 		Then the PNC updates the record

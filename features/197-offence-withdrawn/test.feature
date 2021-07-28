@@ -16,13 +16,12 @@ Feature: {197} BR7-R5.3.2-RCD556-Offence Withdrawn
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Verify Result Class calculation and Withdrawn Offences processing
 		Given I am logged in as a "supervisor"
 		Then the PNC updates the record
-		And the record for "PUFIVE UPDATE" does not exist
+			And the record for "PUFIVE UPDATE" does not exist

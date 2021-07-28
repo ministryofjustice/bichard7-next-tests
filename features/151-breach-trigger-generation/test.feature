@@ -23,6 +23,7 @@ Feature: {151} BR7 R5.2.2-RCD518 - 2xResult Code Only - Final Result
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Breach trigger generation
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions
