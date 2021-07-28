@@ -22,7 +22,6 @@ Feature: {050} R3.4_BR7_YZ Force Code
   @Must
   @ReadyToValidate
   @NeedsRunningAgainstPNC
-  @ExcludedOnBaseline
   Scenario: YZ Force code is used in logs
     Given I am logged in as a "general handler"
       And I view the list of exceptions

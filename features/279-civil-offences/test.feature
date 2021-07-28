@@ -25,6 +25,7 @@ Feature: {279} BR7 R5.8-RCD638 - TRPR0029 - Civil & Non-Civil Offences
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
+	@ExcludedOnBaseline
 	Scenario: Handling civil offences
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

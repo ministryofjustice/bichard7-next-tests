@@ -16,22 +16,21 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Updates and triggers are correctly generated for sexual offences
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		When I open the record for "SEXOFFENCE TRPRFOUR"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0003" for offence "1"
-		And I see trigger "TRPR0004" for offence "1"
-		And I see trigger "TRPR0004" for offence "2"
-		And the PNC updates the record
+			And I see trigger "TRPR0004" for offence "1"
+			And I see trigger "TRPR0004" for offence "2"
+			And the PNC updates the record
 		When I resolve all of the triggers
 		Then the "record" for "SEXOFFENCE TRPRFOUR" is "resolved"
 		Then the "record" for "SEXOFFENCE TRPRFOUR" is not "unresolved"
-		And there are no exceptions
+			And there are no exceptions
