@@ -16,14 +16,14 @@ Feature: {088} R4.1.1_BR7_Court Location from Text
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-  	@ExcludedOnBaseline
+	@ExcludedOnBaseline
 	Scenario: PNC is updated with next hearing location from court results
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then the PNC updates the record
-		And there are no exceptions
+			And there are no exceptions
