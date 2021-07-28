@@ -23,7 +23,6 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Correctly handling electronic tagging results
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions

@@ -20,25 +20,24 @@ Feature: {298} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Results-Result Text 
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Updating the PNC after resolving the exception with result text not used for disposal text
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see exception "HO100310 (2)" in the exception list table
 		When I open the record for "RESULTTEXTFORCED DUPLICATEOFFENCES"
-		And I click the "Offences" tab
-		And I view offence "1"
-		And I correct "Sequence Number" to "1"
-		And I click the "Offences" tab
-		And I view offence "2"
-		And I correct "Sequence Number" to "2"
-		And I click the "Offences" tab
+			And I click the "Offences" tab
+			And I view offence "1"
+			And I correct "Sequence Number" to "1"
+			And I click the "Offences" tab
+			And I view offence "2"
+			And I correct "Sequence Number" to "2"
+			And I click the "Offences" tab
 		When I submit the record
 		Then I see exception "(Submitted)" in the exception list table
-		And I reload until I don't see "(Submitted)"
-		And the PNC updates the record
+			And I reload until I don't see "(Submitted)"
+			And the PNC updates the record

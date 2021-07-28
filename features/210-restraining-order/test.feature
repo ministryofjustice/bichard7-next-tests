@@ -22,7 +22,6 @@ Feature: {210} BR7 R5.4-RCD550-Undated Restraining Order-3047
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Updating the PNC with a restraining order
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

@@ -26,7 +26,6 @@ Feature: {043} #151 - FTA Dated Warrant
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Exceptions are triggered when a record is received with a dated warrant
 		Given I am logged in as a "supervisor"
 			And I view the list of exceptions

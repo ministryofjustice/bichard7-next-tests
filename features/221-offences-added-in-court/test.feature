@@ -22,7 +22,6 @@ Feature: {221} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Offences added in court with no adjudication on the PNC
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions

@@ -16,16 +16,15 @@ Feature: {270} BR7 R5.7-RCD464-TRPR0026 Driving Disqualification Suspended
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Correctly handle disqualified driver triggers
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR01 - Disqualified driver" in the exception list table
-		And I see trigger "PR26 - Disq. suspended" in the exception list table
-		And there are no exceptions raised for "SUSPENDED DRIVERDISQ"
-		And the PNC updates the record
+			And I see trigger "PR26 - Disq. suspended" in the exception list table
+			And there are no exceptions raised for "SUSPENDED DRIVERDISQ"
+			And the PNC updates the record

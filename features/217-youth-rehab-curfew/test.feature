@@ -22,7 +22,6 @@ Feature: {217} BR7 R5.4-RCD517-TRPR0003 conditions-Youth Rehabilitation Orders
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Youth Rehabilitation Orders and Curfew Requirement handling
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions

@@ -20,15 +20,14 @@ Feature: {196} BR7-R5.3.2-RCD556-Breach Offence with Re-sentence for original of
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: re-sentencing of offence is adjourned to a new hearing
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see exception "HO200212" in the exception list table
-		And I see trigger "PR20 - Breach" in the exception list table
-		And the PNC record has not been updated
+			And I see trigger "PR20 - Breach" in the exception list table
+			And the PNC record has not been updated

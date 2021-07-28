@@ -22,7 +22,6 @@ Feature: {191} BR7-R5.3.2-RCD556-Guilty Verdict-No Conviction Date
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Exception is generated when no Conviction Date is provided
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions

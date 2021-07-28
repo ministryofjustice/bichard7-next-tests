@@ -22,7 +22,6 @@ Feature: {173} BR7 R5.3-RCD497 - Partial Match - Fine Amount
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Handling exceptions for identical offences with manual handling
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

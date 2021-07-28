@@ -17,33 +17,32 @@ Feature: {178} BR7 R5.3-RCD497 - Partial Match - Result Text
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Verifying correct behaviour when the result text for each offence is different
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see exception "HO100310" in the exception list table
 		When I open the record for "Text Marcus"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
-		And I see trigger "TRPR0021" for offence "1"
-		And I see trigger "TRPR0021" for offence "2"
+			And I see trigger "TRPR0021" for offence "1"
+			And I see trigger "TRPR0021" for offence "2"
 		When I click the "Offences" tab
-		And I view offence "1"
-		And I correct "Sequence Number" to "1"
-		And I click the "Offences" tab
-		And I view offence "2"
-		And I correct "Sequence Number" to "2"
-		And I click the "Offences" tab
-		And I submit the record
+			And I view offence "1"
+			And I correct "Sequence Number" to "1"
+			And I click the "Offences" tab
+			And I view offence "2"
+			And I correct "Sequence Number" to "2"
+			And I click the "Offences" tab
+			And I submit the record
 		Then I see exception "(Submitted)" in the exception list table
 		When I reload until I see "PR18 - Update offence dates"
-		And I open the record for "Text Marcus"
-		And I click the "Triggers" tab
-		And I see trigger "TRPR0018" for offence "1"
-		And I see trigger "TRPR0018" for offence "2"
-		And the PNC updates the record
+			And I open the record for "Text Marcus"
+			And I click the "Triggers" tab
+			And I see trigger "TRPR0018" for offence "1"
+			And I see trigger "TRPR0018" for offence "2"
+			And the PNC updates the record

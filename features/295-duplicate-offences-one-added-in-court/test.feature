@@ -27,7 +27,6 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Updating duplicate offences when one offence is added in court and making sure the result text is used as the PNC disposal text
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

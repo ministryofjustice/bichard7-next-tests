@@ -24,7 +24,6 @@ Feature: {114} BR7 R5.1-RCD384-395-Stop checking Result Code Qualifiers against 
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Checking result codes against the stop list
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

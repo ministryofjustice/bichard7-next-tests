@@ -15,14 +15,13 @@ Feature: {036} 3.3_BR7_Penalty Points for Result Code 3008
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Hearing results with penalty points are sent to the PNC
 		Given I am logged in as a "supervisor"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then the PNC updates the record
-		And there are no exceptions raised for "Bethel Barry"
+			And there are no exceptions raised for "Bethel Barry"

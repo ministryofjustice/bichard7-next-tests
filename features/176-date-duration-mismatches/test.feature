@@ -23,7 +23,6 @@ Feature: {176} BR7 R5.3-RCD497 - Partial Match - Date Duration
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Manually resolving exceptions for date duration mismatches
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

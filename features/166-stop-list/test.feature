@@ -22,7 +22,6 @@ Feature: {166} BR7 R5.3-RCD505 - Ignored offence - Stop List Result
 	@Could
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@ExcludedOnBaseline
 	Scenario: Results in the stop list are not processed
 		Given I am logged in as a "supervisor"
 		Then the PNC record has not been updated
