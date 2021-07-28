@@ -24,7 +24,6 @@ Feature: {083} R4.1_BR7_Welsh Language Handling
   @Should
   @NeedsValidating
   @NeedsRunningAgainstPNC
-  @ExcludedOnBaseline
   Scenario: Using characters from the Welsh Language raises an exception
     Given I am logged in as a "general handler"
       And I view the list of exceptions

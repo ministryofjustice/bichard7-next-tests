@@ -17,18 +17,17 @@ Feature: {107} BR7 R5.0-RCD352-Fuzzy Offence Matching
 
   Background:
     Given the data for this test is in the PNC
-    And "input-message" is received
+      And "input-message" is received
 
   @Must
   @ReadyToValidate
   @NeedsRunningAgainstPNC
-  @ExcludedOnBaseline
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as a "supervisor"
     Then the PNC updates the record
     When I view the list of exceptions
     When I open the record for "OFFENCE FUZZY"
-    And I click the "Triggers" tab
+      And I click the "Triggers" tab
     Then I see trigger "TRPR0018" for offence "1"
     Then I see trigger "TRPR0018" for offence "2"
     Then I see trigger "TRPR0018" for offence "3"

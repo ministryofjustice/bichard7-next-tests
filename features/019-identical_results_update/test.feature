@@ -16,13 +16,12 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
 
   Background:
     Given the data for this test is in the PNC
-    And "input-message" is received
+      And "input-message" is received
 
   @Must
   @ReadyToValidate
   @NeedsRunningAgainstPNC
-  @ExcludedOnBaseline
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as a "supervisor"
     Then the PNC updates the record
-    And the record for "PUFIVE UPDATE" does not exist
+      And the record for "PUFIVE UPDATE" does not exist
