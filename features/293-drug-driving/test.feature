@@ -15,14 +15,14 @@ Feature: {293} BR7-R5.9-RCD605-Drug Driving Offences
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	@Excluded
+	@ExcludedOnMaster
 	Scenario: Test that a drug driving trigger is created
 		Given I am logged in as a "supervisor"
 		Then I see trigger "PR01 - Disqualified driver" in the exception list table
-		And there are no exceptions
-		And the PNC updates the record
+			And there are no exceptions
+			And the PNC updates the record

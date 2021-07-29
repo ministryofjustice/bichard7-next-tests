@@ -385,6 +385,13 @@ const checkOffenceData = async function (value, key) {
   ]);
 };
 
+const checkOffenceDataError = async function (value, key) {
+  await checkDataTable(this, [
+    { column: 1, value: key, exact: true },
+    { column: 3, value, exact: false }
+  ]);
+};
+
 const returnToList = async function () {
   await this.browser.clickAndWait("input[type='submit'][value='Return To List (Unlock)']");
   await this.browser.clickAndWait("input[type='submit'][value='Yes']");
@@ -507,6 +514,7 @@ module.exports = {
   manuallyResolveRecord,
   viewOffence,
   checkOffenceData,
+  checkOffenceDataError,
   returnToList,
   checkRecordNotExists,
   correctOffenceException,

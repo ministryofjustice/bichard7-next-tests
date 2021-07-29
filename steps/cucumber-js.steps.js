@@ -36,6 +36,7 @@ const {
   manuallyResolveRecord,
   viewOffence,
   checkOffenceData,
+  checkOffenceDataError,
   checkTriggerforOffence,
   returnToList,
   checkRecordResolved,
@@ -173,6 +174,8 @@ Then("the {string} for {string} is not {string}", checkRecordNotResolved);
 Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
+
+Then("I see error {string} in the {string} row of the results table", checkOffenceDataError);
 
 Then("the record for {string} does not exist", checkRecordNotExists);
 

@@ -21,10 +21,16 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	@Excluded
+	@ExcludedOnMaster
 	Scenario: Handling a recordable civil case
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then there are no exceptions raised for "CIVILCASE RECORDABLE"
-		Then I see trigger "PS08 - Curfew order" in the exception list table
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see trigger "PR20 - Breach" in the exception list table
+		When I open the record for "CIVILCASE RECORDABLE"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+			And I see trigger "TRPR0020" for offence "1"
+			And I see trigger "TRPR0020" for offence "2"

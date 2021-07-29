@@ -16,16 +16,23 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
-	@Excluded
+	@ExcludedOnMaster
 	Scenario: Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		Then I see exception "HO100200" in the exception list table
-		Then I see exception "HO100307" in the exception list table
-		And pending
+			And I see exception "HO100307" in the exception list table
+		When I open the record for "Pacman Manny"
+			And I click the "Offences" tab
+			And I view offence "1"
+		Then I see error "HO100307" in the "CJS Code" row of the results table
+			And I see error "HO100200" in the "Next Hearing location" row of the results table
+		When I click the "Offences" tab
+			And I view offence "2"
+		Then I see error "HO100307" in the "CJS Code" row of the results table
+			And I see error "HO100200" in the "Next Hearing location" row of the results table
