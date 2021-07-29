@@ -22,13 +22,14 @@ Feature: {027} R3.2_Orphaned Non-Recordable Offence
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@Excluded
 	Scenario: No exceptions are created for orphaned non-recordable offence
 		When "input-message-1" is received
-		And I am logged in as a "general handler"
-		And pending
-		And I view the list of exceptions
+			And I am logged in as a "general handler"
+			And pending
+			And I view the list of exceptions
 		Then there are no exceptions raised for "Wells Homer"
 		When "input-message-2" is received
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then there are no exceptions raised for "Wells Homer"
-		And the PNC updates the record
+			And the PNC updates the record

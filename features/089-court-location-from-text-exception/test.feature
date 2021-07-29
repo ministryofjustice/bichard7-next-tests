@@ -17,14 +17,15 @@ Feature: {089} R4.1.1_BR7_Court Location from Text Exception
 
   Background:
     Given the data for this test is in the PNC
-    And "input-message" is received
+      And "input-message" is received
 
   @Should
   @Problem
   @NeedsRunningAgainstPNC
-  @Excluded
+  @ExcludedOnMaster
   Scenario: Updating the PNC with the court location from Text Exception
     Given I am logged in as a "supervisor"
-    And I view the list of exceptions
+      And I view the list of exceptions
     Then I see exception "HO100322" in the exception list table
-    And the PNC record has not been updated
+      And there are no triggers raised for "Harp Nigel"
+      And the PNC record has not been updated
