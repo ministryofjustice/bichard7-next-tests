@@ -21,7 +21,6 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	@ExcludedOnMaster
 	Scenario: Handling a recordable civil case
 		Given I am logged in as a "general handler"
 		When I view the list of exceptions
