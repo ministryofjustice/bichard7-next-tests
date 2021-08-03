@@ -27,9 +27,9 @@ const sendMsg = async function (world, messagePath, externalCorrelationId, date)
   if (world.shouldUploadMessagesToS3) {
     const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
     const dateValue = date || new Date();
-    const uploadResult = await uploadToS3(this, message, externalCorrelationIdValue, dateValue);
+    const uploadResult = await uploadToS3(world, message, externalCorrelationIdValue, dateValue);
     expect(isError(uploadResult)).toBeFalsy();
-    const pollingResult = await pollMessagesForEvent(this, externalCorrelationIdValue, "Message Sent to Bichard");
+    const pollingResult = await pollMessagesForEvent(world, externalCorrelationIdValue, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", message);
