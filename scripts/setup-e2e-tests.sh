@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 env_check() {
   if [ -z "$WORKSPACE" ]
