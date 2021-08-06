@@ -1,8 +1,11 @@
 const expect = require("expect");
 const jwt = require("jsonwebtoken");
 const { authType, timeout } = require("../utils/config");
-const { home, userService, authenticateUrl } = require("../utils/urls");
+const { home, authenticateUrl, userService, userServiceVerification } = require("../utils/urls");
 const dummyUsers = require("../utils/dummyUserData");
+
+const tokenIssuer = () => process.env.TOKEN_ISSUER || "Bichard";
+const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
 const logInToBichardAs = async function (world, username) {
   const page = await world.browser.newPage(home());
@@ -18,10 +21,22 @@ const logInToBichardAs = async function (world, username) {
 const logInToUserServiceAs = async function (world, username) {
   const emailAddress = `${username}@example.com`;
 
-  const page = await world.browser.newPage(userService());
+  let page = await world.browser.newPage(userService());
   await page.waitForSelector("#email");
 
   await page.type("#email", emailAddress);
+  await page.click("button[type='submit']");
+
+  // Grab verification code from the database and generate the email verification token
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const verificationCode = await world.db.getEmailVerificationCode(emailAddress);
+  const tokenData = { emailAddress, verificationCode };
+  const verificationToken = jwt.sign(tokenData, tokenSecret(), { issuer: tokenIssuer() });
+
+  // Visit page linked to from verification email
+  page = await world.browser.newPage(userServiceVerification(verificationToken));
+  await page.waitForSelector("#password");
+
   await page.type("#password", "password");
   await page.click("button[type='submit']");
 
@@ -29,7 +44,6 @@ const logInToUserServiceAs = async function (world, username) {
 };
 
 const logInToBichardJwtAs = async function (world, username) {
-  const jwtSecret = process.env.TOKEN_SECRET || "OliverTwist";
   const user = dummyUsers[username.toLowerCase()];
   if (!user) throw new Error(`Could not find user data for ${username}`);
   const tokenData = {
@@ -44,7 +58,7 @@ const logInToBichardJwtAs = async function (world, username) {
     exp: 9999999999,
     iss: "Bichard"
   };
-  const token = jwt.sign(tokenData, jwtSecret);
+  const token = jwt.sign(tokenData, tokenSecret());
   const page = await world.browser.newPage(authenticateUrl(token));
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
