@@ -17,7 +17,7 @@ class Bichard extends World {
     super(options);
 
     this.stackType = process.env.STACK_TYPE || stackType.next;
-    this.authType = process.env.AUTH_TYPE || authType.bichardJwt;
+    this.authType = process.env.AUTH_TYPE || authType.userService;
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
 
