@@ -146,19 +146,9 @@ const reallocateCase = async function () {
   // Bedfordshire Police has value 28...
   await page.select("#reallocateAction", "28");
 
-  await Promise.all([
-    page.click("input[value='OK']"),
-    page.waitForSelector(".resultsTable a.br7_exception_list_record_table_link")
-  ]);
-
-  await Promise.all([
-    page.click(".resultsTable a.br7_exception_list_record_table_link"),
-    page.waitForSelector(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']")
-  ]);
-
-  await page.click(".br7_exception_details_court_data_tabs_table input[type='submit'][value='Notes']");
-
-  await page.waitForSelector("#br7_exception_details_display_notes tr > td");
+  await this.browser.clickAndWait("input[value='OK']");
+  await this.browser.clickAndWait(".resultsTable a.br7_exception_list_record_table_link");
+  await loadRecordTab(this.browser.page, "#br7_button_Note", ".br7_exception_details_court_data_tabs_table");
 
   const latestNote = await page
     .$("#br7_exception_details_display_notes tr > td")
