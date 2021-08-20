@@ -21,7 +21,6 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 	@Should
 	@Problem
 	@NeedsRunningAgainstPNC
-	@ExcludedOnMaster
 	Scenario: Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions
