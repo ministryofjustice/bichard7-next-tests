@@ -20,7 +20,6 @@ Feature: {294} BR7-R5.9-RCD605-Drug Driving-Minimum AlcoholLevelAmount
 	@Could
 	@Problem
 	@NeedsRunningAgainstPNC
-	@ExcludedOnMaster
 	Scenario: Handling results with drug driving zero levels
 		Given I am logged in as a "supervisor"
 			And I view the list of exceptions
