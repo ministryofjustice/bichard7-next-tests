@@ -83,7 +83,8 @@ const loadTab = async function (tabName) {
     defendant: "#br7_button_Defendant",
     offences: "#br7_button_OffenceList",
     notes: "#br7_button_Note",
-    triggers: "#br7_button_Trigger"
+    triggers: "#br7_button_Trigger",
+    "pnc errors": "#br7_button_PNCError"
   };
   const tabId = tabIds[tabName.toLowerCase()];
   if (!tabId) throw new Error("Unsupported tab name");
