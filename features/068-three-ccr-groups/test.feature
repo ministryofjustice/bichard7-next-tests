@@ -11,18 +11,20 @@ Feature: {068} R3.5_BR7_CCR Group Matching-Offence Added In Court-Offence in CCR
 			An Exception is successfully created and Pre Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handles PNC errors with 3 CCR groups
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@OnlyRunsOnPNC
+	Scenario: Handles PNC errors with 3 CCR groups
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO100314" in the exception list table
+			And I see trigger "PR06 - Imprisoned" in the exception list table
+			And the PNC record has not been updated
+		When I open the record for "LOMAX DAVID"
+			And I click the "PNC Errors" tab
+		Then I see "I1008 - GWAY - ENQUIRY ERROR MORE THAN 3 DISPOSAL GROUPS 09/0000/00/20004H" in the "Error" row of the results table
