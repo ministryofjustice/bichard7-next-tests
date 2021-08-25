@@ -16,18 +16,18 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 			"""
 
 	Background:
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Should
-	@Problem
-	@NeedsRunningAgainstPNC
-	@Excluded
+	@OnlyRunsOnPNC
 	Scenario: Trigger is still created when record is not found in PNC
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+			And I view the list of exceptions
 		Then I see trigger "PR16 - Forfeiture order" in the exception list table
+			And I see exception "HO100301" in the exception list table
 		When I open the record for "TRPRSIXTEEN TRIGGER"
-		And I click the "Triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0016" for offence "1"
-		And I see trigger "TRPR0016" for offence "2"
-		And the PNC record has not been updated
+			And I see trigger "TRPR0016" for offence "2"
+		When I click the "PNC Errors" tab
+		Then I see "I1008 - GWAY - ENQUIRY ERROR ARREST/SUMMONS REF (11/01ZD/01/410843C) NOT FOUND" in the "Error" row of the results table
