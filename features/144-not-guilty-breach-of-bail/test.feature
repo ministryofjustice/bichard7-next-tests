@@ -10,18 +10,18 @@ Feature: {144} BR7 R5.2-RCD491-TRPR0008 BA76005 Not Guilty
 			An Exception and Pre Update Triggers are created - however, the Breach of Bail Trigger is not created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling breach of bail when not guilty
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@OnlyRunsOnPNC
+	Scenario: Handling breach of bail when not guilty
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO100301" in the exception list table
+			And I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see trigger "PR21 - Disq. non-motoring" in the exception list table
+			And I cannot see trigger "PR08 - Breach of bail" in the exception list table
