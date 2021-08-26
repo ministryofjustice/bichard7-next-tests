@@ -1,4 +1,4 @@
-Feature: {034} R3.3_BR7_SPI ASN Validation
+Feature: {034} R3.3_BR7_SPI ASN Validation - 2
 
 			"""
 			{034} R3.3_BR7_SPI ASN Validation
@@ -12,18 +12,16 @@ Feature: {034} R3.3_BR7_SPI ASN Validation
 			PNC Update is generated and the Court Hearing Results are successfully added automatically onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Validating correct ASN format
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
-	@Could
-	@NeedsValidating
+	@Should
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Validating correct ASN format
+		Given I am logged in as a "supervisor"
+		Then the PNC updates the record
+			And there are no exceptions or triggers
