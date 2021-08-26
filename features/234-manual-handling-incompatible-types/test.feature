@@ -11,18 +11,16 @@ Feature: {234} BR7 R5.5.1-PFI Change-1xCCR-PENHRG-DISARR
 			As a result an Exception is generated to indicate that manual resolution of the PNC is required and NO PNC Update is generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Manual handling of incompatible PNC types
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Manual handling of incompatible PNC types
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I view the list of exceptions
+		Then I see exception "HO100507" in the exception list table
+			And the PNC record has not been updated

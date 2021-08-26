@@ -12,18 +12,20 @@ Feature: {290} BR7-R5.8-RCD641 - Police Bail Variation Granted
 			The "Personal details changed" Trigger is also produced.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Bail conditions trigger on non-recordable offence
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+	@Excluded
+	Scenario: Bail conditions trigger on non-recordable offence
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I see trigger "PR15 - Personal details changed" in the exception list table
+		When I navigate to the list of reports
+			And I access the "Bail Conditions" report
+			And I generate today's report
+		Then I see "00PP0000008" in the report

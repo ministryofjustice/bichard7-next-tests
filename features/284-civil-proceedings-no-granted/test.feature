@@ -11,18 +11,15 @@ Feature: {284} BR7 R5.8-RCD638 - TRPR0029 - Offence Code Granted Text Missing
 			No Exception is raised and no PNC Update is generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			No civil proceedings trigger without "granted" text
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: No civil proceedings trigger without "granted" text
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no exceptions raised for "CIVILCASE GRANTEDTEXTMISSING"
+			And there are no triggers raised for "CIVILCASE GRANTEDTEXTMISSING"

@@ -7,7 +7,7 @@ const accessReport = async function (report) {
   await expect(await this.browser.pageText()).toMatch(report);
 };
 
-const generateTodaysWarrantsReport = async function () {
+const generateTodaysReport = async function () {
   await this.browser.page.select(".resultsTable select[name='fromDate']", "0");
   await this.browser.page.select(".resultsTable select[name='toDate']", "0");
 
@@ -18,4 +18,4 @@ const reportContains = async function (text) {
   expect(await this.browser.elementText("#br7_report_data tbody")).toContain(text);
 };
 
-module.exports = { generateTodaysWarrantsReport, reportContains, accessReport };
+module.exports = { generateTodaysReport, reportContains, accessReport };

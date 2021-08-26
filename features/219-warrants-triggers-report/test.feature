@@ -35,5 +35,5 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 			And the "record" for "UNDATED Fta" is not "unresolved"
 		When I navigate to the list of reports
 			And I access the "Warrants" report
-			And I generate today's Warrants report
+			And I generate today's report
 		Then I see "01ZD0307708" in the Warrants report

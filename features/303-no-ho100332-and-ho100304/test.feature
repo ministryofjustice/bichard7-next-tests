@@ -11,18 +11,28 @@ Feature: {303} BR7-R5.9-RCD609-HO100332 and HO100304 combination no longer possi
 			Pre Update Triggers are created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			HO100332 and HO100304 is not possible
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: HO100332 and HO100304 is not possible
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see exception "HO100332" in the exception list table
+			And I cannot see "HO100304" in the exception list table
+		When I open the record for "AVALON MARTIN"
+			And I click the "Offences" tab
+			And I view offence "1"
+		Then I see error "HO100332 - Offences match more than one CCR" in the "Sequence Number" row of the results table
+		When I click the "Offences" tab
+			And I view offence "2"
+		Then I see error "HO100332 - Offences match more than one CCR" in the "Sequence Number" row of the results table
+		When I click the "Offences" tab
+			And I view offence "3"
+		Then I see error "HO100332 - Offences match more than one CCR" in the "Sequence Number" row of the results table
+			And the PNC record has not been updated

@@ -13,18 +13,15 @@ Feature: {269} BR7 R5.7-RCD464-TRPR0022 Extradition Order
 			The Trigger is Marked as Complete once this has been completed.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Creating extradition order triggers
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Creating extradition order triggers
+		Given I am logged in as a "supervisor"
+		When I view the list of exceptions
+		Then I see trigger "PR22 - Extradition order" in the exception list table
+			And there are no exceptions

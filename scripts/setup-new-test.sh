@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 echo "Setting up files for test $1"
 
 featureDir="features/$1"

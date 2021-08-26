@@ -11,18 +11,16 @@ Feature: {154} BR7 R5.2.2-RCD518 - New Offence - Guilty - 1040 Result
 			No Pre Update Breach Trigger is generated despite the Offence and the Verdict meeting the criteria to generate it since the Result received from Court is "1040" (Order To Continue).
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Does not create breach trigger for 1040 result
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@OnlyRunsOnPNC
+	Scenario: Does not create breach trigger for 1040 result
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see exception "HO100301" in the exception list table
+			And I cannot see trigger "PR20 - Breach" in the exception list table

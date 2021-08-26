@@ -11,18 +11,15 @@ Feature: {232} BR7 R5.5-RCD544-Non-Recordable-Personal Details Change and other 
 			The Case is (purposely) ignored by the solution but the Personal Details changes Trigger is generated alongside other Pre Update Triggers.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Non-recordable personal details change
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Non-recordable personal details change
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+			And I see trigger "PR15 - Personal details changed" in the exception list table

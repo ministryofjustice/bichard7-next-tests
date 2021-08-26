@@ -11,18 +11,17 @@ Feature: {282} BR7 R5.8-RCD638 - TRPR0029 - Ignored Offence
 			No Civil Proceedings Trigger is generated and no Exception is raised.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Ignore civil offences
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Ignore civil offences
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then there are no exceptions raised for "CIVILCASE IGNORED"
+			And there are no triggers raised for "CIVILCASE IGNORED"

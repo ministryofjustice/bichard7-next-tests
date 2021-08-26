@@ -10,18 +10,20 @@ Feature: {261} BR7 R5.7-RCD611 - Bail Qualifier for Non Recordable Case
 			Since the solution (purposely) ignores the results (since PNC has no interest) a message is logged to the General Event Log.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling non-recordable bail conditions
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
+		Given "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+	@Excluded
+	@OnlyRunsOnPNC
+	Scenario: Handling non-recordable bail conditions
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+		When I navigate to the list of reports
+			And I access the "Bail Conditions" report
+			And I generate today's report
+		Then I see "01ZD0300108" in the report
