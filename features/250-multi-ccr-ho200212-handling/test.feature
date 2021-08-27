@@ -16,18 +16,23 @@ Feature: {250} BR7 R5.6-RCD459-Multi CCR HO200212 handling
 			Pre Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Multi CCR HO200212 handling
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Multi CCR HO200212 handling
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PS11" in the exception list table
+			And there are no exceptions raised for "NOEXCEPTION AddedOffence"
+		When I open the record for "NOEXCEPTION AddedOffence"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+			And I see trigger "TRPR0020" for offence "3"
+			And I see trigger "TRPR0020" for offence "4"
+			And I see trigger "TRPS0011" for offence "3"
+			And the PNC updates the record
