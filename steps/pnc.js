@@ -6,10 +6,10 @@ const mockPNCDataForTest = async function () {
   const specFolder = path.dirname(this.featureUri);
   this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`);
 
-  const mockPromises = this.mocks.map((mock) => this.pnc.addMock(mock.matchRegex, mock.response));
-  const mockIds = await Promise.all(mockPromises);
-  for (let i = 0; i < this.mocks.length; i += 1) {
-    this.mocks[i].id = mockIds[i];
+  /* eslint-disable no-restricted-syntax */
+  for (const mock of this.mocks) {
+    /* eslint-disable no-await-in-loop */
+    mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
   }
 };
 

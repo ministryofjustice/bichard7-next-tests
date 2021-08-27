@@ -7,8 +7,8 @@ class MockPNCHelper {
     this.options = options;
   }
 
-  async addMock(matchRegex, response) {
-    const data = { matchRegex, response };
+  async addMock(matchRegex, response, count = null) {
+    const data = { matchRegex, response, count };
     const resp = await axios.post(`http://${this.options.host}:${this.options.port}/mocks`, data);
     if (resp.status < 200 || resp.status >= 300) {
       throw new Error("Error setting mock in PNC Emulator");
