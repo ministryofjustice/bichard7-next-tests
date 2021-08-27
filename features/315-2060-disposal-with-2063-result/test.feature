@@ -8,18 +8,19 @@ Feature: {315} BR7 R5.11-RCD528 - 2060_No PNC update for 2063 result only
 			No PNC update is generated for result code 2063 where No other result is present on same offence
 
 			MadeTech Definition:
-			<add concise test definition here>
+			2060 No PNC update for 2063 result
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: 2060 No PNC update for 2063 result
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions
+			And the PNC updates the record
