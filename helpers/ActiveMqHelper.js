@@ -58,6 +58,7 @@ class ActiveMqHelper {
       writable.write(message);
       writable.end();
       this.client.disconnect((error) => {
+        this.client = null;
         if (error) {
           reject(error);
         } else {
