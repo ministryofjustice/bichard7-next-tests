@@ -9,18 +9,19 @@ Feature: {319} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Wit
 			PNC updated with Remand
 
 			MadeTech Definition:
-			<add concise test definition here>
+			No PNC update for 3052 result (judgement)
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: No PNC update for 3052 result (judgement)
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+			And the PNC updates the record
+		Then I see trigger "PR04 - Sex offender" in the exception list table
+			And there are no exceptions
