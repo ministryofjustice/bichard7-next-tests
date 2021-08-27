@@ -30,9 +30,9 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 			And "input-message" is received
 
 	@Should
-	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Add a case to the PNC, no exceptions are flagged if certain properties are set
-		Given I am logged in as a "general handler"
+		Given I am logged in as a "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions raised for "MISTER NOCONVICTION"
+		Then there are no exceptions or triggers
+			And the PNC updates the record

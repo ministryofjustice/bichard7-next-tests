@@ -27,5 +27,6 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
   @MissingNCMFile
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as a "supervisor"
+      And I view the list of exceptions
     Then the PNC updates the record
       And the record for "Williams Peter" does not exist

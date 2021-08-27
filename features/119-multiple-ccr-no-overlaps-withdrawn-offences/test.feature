@@ -14,14 +14,16 @@ Feature: {119} BR7 R5.1-238-414-Multiple CCR-No overlaps-Withdrawn Offences
 
       """
 
+  Background:
+    Given the data for this test is in the PNC
+
   @Must
-  @NeedsValidating
-  @NeedsRunningAgainstPNC
-  @MissingNCMFile
-  @Excluded
   Scenario: PNC is updated when there are multiple CCR, no overlaps and withdrawn offences
-    Given pending
-    # Note: this test does not have an NCM file as it is not possible to have multiple CCRs with an NCM
-    Given there is a valid record for "q-solution/119" in the PNC
+    When I am logged in as a "supervisor"
     When "input-message-1" is received
-    When "input-message-2" is received
+      And I wait "2" seconds
+      And "input-message-2" is received
+      And I view the list of exceptions
+    Then the PNC updates the record
+      And I see trigger "PR06 - Imprisoned" in the exception list table
+      And there are no exceptions raised for "NOLAN NIGEL"
