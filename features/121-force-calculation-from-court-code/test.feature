@@ -11,18 +11,17 @@ Feature: {121} BR7 R5.1-RCD399-Force calculation-FF code in CourtHearingLocation
 			The invalid ASN value is corrected, the record resubmitted from the Portal and the remaining exception is now visable to the force as defined by the corrected ASN
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Deriving the force owner from the court hearing location
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
+	@Excluded
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Deriving the force owner from the court hearing location
+		When I am logged in as a "supervisor"
+			And I view the list of exceptions
