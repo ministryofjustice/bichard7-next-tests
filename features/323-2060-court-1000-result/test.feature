@@ -11,18 +11,19 @@ Feature: {323} BR7 R5.11-RCD687 - Existing Offence Result 2060 with Offence adde
 			2060  replaced with 2063 result on PNC update
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Existing offence with 2060 result and 1000 result added in court
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Existing offence with 2060 result and 1000 result added in court
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+			And the PNC updates the record
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions
