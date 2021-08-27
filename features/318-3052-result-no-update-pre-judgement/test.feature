@@ -14,11 +14,10 @@ Feature: {318} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Pre
 			"""
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is in the PNC
+			And "input-message" is received
 
 	@Should
-	@Excluded
-	@OnlyRunsOnPNC
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: No PNC update for 3052 result (pre-judgement)
@@ -26,3 +25,4 @@ Feature: {318} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Pre
 			And I view the list of exceptions
 		Then I see trigger "PR04 - Sex offender" in the exception list table
 			And I see exception "HO100305" in the exception list table
+			And the PNC record has not been updated
