@@ -16,18 +16,19 @@ Feature: {179} BR7 R5.3-RCD496 - Multiple CCR group offence added in court_Judge
 			Pre and Post Update Triggers are created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Multiple CCR groups and offence added in court
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Multiple CCR groups and offence added in court
+		Given "input-message-1" is received
+			And I wait "2" seconds
+			And "input-message-2" is received
+			And I am logged in as a "general handler"
+		Then the PNC updates the record
+		When I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see trigger "PS10 - Offence added to PNC" in the exception list table
