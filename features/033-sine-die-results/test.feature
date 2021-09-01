@@ -11,18 +11,23 @@ Feature: {033} R3.3_BR7_Sine Die_Add Result Code 3027
 			In all cases the solution ensures that a 3027 disposal together with the date of the original conviction - as provided in the ADJ segment received in the PNC enquiry - are included in the PNC Update that is generated and updated on PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correctly handling Sine Die results
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
-	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	@Could
+	Scenario: Correctly handling Sine Die results
+		Given I am logged in as a "supervisor"
+		When "input-message-1" is received
+			And I view the list of exceptions
+		Then I see trigger "PR17 - Adjourned sine die" in the exception list table
+			And there are no exceptions raised for "Lebowski Jeffrey"
+		When I open the record for "Lebowski Jeffrey"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0017" for offence "1"
+			And I see trigger "TRPR0017" for offence "2"
+			And I see trigger "TRPR0017" for offence "3"
+		When "input-message-2" is received
+		Then the PNC updates the record
