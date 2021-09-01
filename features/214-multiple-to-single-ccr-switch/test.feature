@@ -12,18 +12,27 @@ Feature: {214} BR7 R5.4-RCD471-Multiple CCR to Single CCR switch between PNC sub
 			Pre and Post Update Triggers are also generated on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Switching from a multiple CCR to a single CCR case between submissions
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Switching from a multiple CCR to a single CCR case between submissions
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see exception "HO100209" in the exception list table
+		When I open the record for "TOSINGLECCR MULTIPLECCR"
+			And I click the "Defendant" tab
+			And I correct "ASN" to "1101ZD0100000445720M"
+			And I correct "Court PNCID" to "2012/0000029N"
+			And I submit the record
+			And I see exception "(Submitted)" in the exception list table
+		When I reload until I see "PS02 - Check address"
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see trigger "PR21 - Disq. non-motoring" in the exception list table
+			And the PNC updates the record

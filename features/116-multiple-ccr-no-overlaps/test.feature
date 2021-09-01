@@ -13,18 +13,21 @@ Feature: {116} BR7 R5.1-238-414-Multiple CCR-Adjudications-Existing Results
 			As part of this Test Pre Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Multiple CCR with no offence overlaps
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Multiple CCR with no offence overlaps
+		Given "input-message-1" is received
+			And I wait "2" seconds
+			And "input-message-2" is received
+			And I am logged in as a "general handler"
+			And "input-message-3" is received
+			And I wait "2" seconds
+			And "input-message-4" is received
+		Then the PNC updates the record
+		When I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table

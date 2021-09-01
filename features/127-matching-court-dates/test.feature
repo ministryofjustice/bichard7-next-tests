@@ -22,9 +22,7 @@ Feature: {127} BR7 R5.1-RCD411-Date Codes 2 and 3 and 6 Offence Matching
 			And "input-message" is received
 
 	@Could
-	@Problem
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Checking matches for court dates
 		Given I am logged in as a "general handler"
 			And I view the list of exceptions

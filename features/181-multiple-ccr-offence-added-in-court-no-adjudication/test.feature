@@ -17,18 +17,18 @@ Feature: {181} BR7 R5.3-RCD496 - Multiple CCR group offence added in court_Adj p
 			A Post Update Trigger (to identify the requirement to manually add the Offence Added In Court to the PNC) is created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Multiple CCR groups and offence added in court with no adjudication
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Multiple CCR groups and offence added in court with no adjudication
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And "input-message-1" is received
+		When I view the list of exceptions
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+		When "input-message-2" is received
+		Then the PNC updates the record
+			And I see trigger "PS11 - Add offence to PNC" in the exception list table
