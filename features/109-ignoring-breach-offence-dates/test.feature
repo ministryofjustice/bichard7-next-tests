@@ -12,18 +12,18 @@ Feature: {109} BR7 R5.0-RCD382-Order to Continue-HO-PNC Offence Dates different
 			Pre Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Ignoring breach offence dates
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Ignoring breach offence dates
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PR20 - Breach" in the exception list table
+			And the PNC updates the record
