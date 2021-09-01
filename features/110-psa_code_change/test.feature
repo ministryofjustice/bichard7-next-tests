@@ -12,18 +12,22 @@ Feature: {110} BR7 R5.0-RCD385-PSA Code Change
 			Post Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			PSA code change handling
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	@Excluded
+	@Problem
+	Scenario: PSA code change handling
+		Given "input-message-1" is received
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions raised for "CHANGES PSACODENEW"
+		When "input-message-2" is received
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions raised for "CHANGES PSACODENEW"
+			And the PNC updates the record
