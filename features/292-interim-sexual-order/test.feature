@@ -10,18 +10,21 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 			A PRE Update Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling interim sexual order results
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
+	@Problem
+	@Excluded
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
+	Scenario: Handling interim sexual order results
 		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And I view the list of exceptions
+		Then I see trigger "PR04 - Sex offender" in the exception list table
+			And there are no exceptions raised for "SEXUALORDER Interim"
+# Check if the PNC is updated or not - test is not clear
