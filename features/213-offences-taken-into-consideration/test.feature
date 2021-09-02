@@ -11,18 +11,19 @@ Feature: {213} BR7 R5.4-RCD533-Offences taken into consideration-SENDEF
 			Since the Offences Taken Into Consideration cannot be added to the PNC (since the update to the PNC at this point is via a SENDEF PNC Message Type) a POST Update Trigger identifying the need for this to be manually added is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Offences taken into consideration
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Offences taken into consideration
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PS13 - Offence(s) TIC" in the exception list table
+			And there are no exceptions raised for "SENDEF TICS"
+			And the PNC updates the record
