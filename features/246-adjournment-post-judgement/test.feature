@@ -19,18 +19,23 @@ Feature: {246} BR7 R5.6-RCD554-Offence Added In Court-Adj Post Judg-no PNC Adjud
 			The PNC is successfully updated with Court Hearing Results and Triggers are also generated for the Offences Added In Court that cannot be automatically added to the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling offences added in court (Adjournment Post Judgement)
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling offences added in court (Adjournment Post Judgement)
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PS11 - Add offence to PNC" in the exception list table
+			And there are no exceptions raised for "SENDEF TICS"
+		When I open the record for "ADDOFFAPJNOPNCADJ NOEXCEPTION"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPS0011" for offence "3"
+			And I see trigger "TRPS0011" for offence "4"
+			And the PNC updates the record
