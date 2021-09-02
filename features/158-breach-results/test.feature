@@ -15,18 +15,25 @@ Feature: {158} BR7 R5.2.2-RCD518 - Result class Sentence & Adjournment Post Judg
 			In addition the Breach Trigger is created for Offence 2 only since this Offence is being Sentenced at this point.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Breach results automation
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	@Problem
+	@Excluded
+	Scenario: Breach results automation
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I see exception "HO200113" in the exception list table
+		When I open the record for "DDDraven Alex"
+			And I click the "triggers" tab
+		Then I see trigger "TRPR0020" for offence "2"
+			And I see trigger "TRPR0006"
+			And the PNC updates the record
