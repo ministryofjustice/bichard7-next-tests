@@ -13,18 +13,23 @@ Feature: {280} BR7 R5.8-RCD638 - TRPR0029 - Civil Offence added in Court at Sent
 			Other Pre Update Triggers are generated as part of the processing for this Case.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Civil Offence added in Court at Sentence Hearing
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Civil Offence added in Court at Sentence Hearing
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And I cannot see trigger "PR29" in the exception list table
+			And there are no exceptions raised for "CIVILCASE ADDEDATSENTENCE"
+		When I open the record for "CIVILCASE ADDEDATSENTENCE"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0003" for offence "2"
+			And the PNC updates the record
