@@ -25,18 +25,37 @@ Feature: {278} BR7-R5.8-RCD628 - Breach Plus Other Offences Admits Plea No Verdi
 			Pre Update Triggers are also generated.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling breach results with a plea of 'Admits'
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+	Scenario: Handling breach results with a plea of 'Admits'
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+			And there are no exceptions raised for "BREACHPLEANOVERDICT OtherOffences"
+		When I open the record for "BREACHPLEANOVERDICT OtherOffences"
+			And I click the "Offences" tab
+			And I view offence "1"
+		Then I see "Adjournment pre Judgement" in the "Result Class" row of the results table
+		When "input-message-2" is received
+			And I return to the list
+		Then I see trigger "PR10 - Conditional bail" in the exception list table
+			And there are no exceptions raised for "BREACHPLEANOVERDICT OtherOffences"
+		When I open the record for "BREACHPLEANOVERDICT OtherOffences"
+			And I click the "Offences" tab
+			And I view offence "1"
+		Then I see "Adjournment pre Judgement" in the "Result Class" row of the results table
+		When "input-message-3" is received
+			And I return to the list
+		Then I see trigger "PR20 - Breach" in the exception list table
+			And there are no exceptions raised for "BREACHPLEANOVERDICT OtherOffences"
+		When I open the record for "BREACHPLEANOVERDICT OtherOffences"
+			And I click the "Offences" tab
+			And I view offence "1"
+		Then I see "Judgement with final result" in the "Result Class" row of the results table
+			And the PNC updates the record
