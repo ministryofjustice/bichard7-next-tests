@@ -12,18 +12,19 @@ Feature: {193} BR7 R5.3.2-RCD422-Standalone Breach-Order to Continue-Order Varie
 			Pre Update Triggers are also created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Order Varied breach results
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Order Varied breach results
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PR20 - Breach" in the exception list table
+			And there are no exceptions raised for "ORDERTOCONTINUE STANDALONE"
+			And the PNC updates the record
