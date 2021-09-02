@@ -13,18 +13,22 @@ Feature: {159} BR7 R5.3-RCD482 - Offence added in court - Adj Post Judgement
 			A Post Update Trigger is also successfully created on the Portal for the Offence (that cannot be) Added In Court and is manually resolved.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Adding offences in court
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Adding offences in court
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see trigger "PS11 - Add offence to PNC" in the exception list table
+		When I open the record for "Largeman Alan"
+			And I click the "Triggers" tab
+			And I resolve all of the triggers
+		Then there are no exceptions or triggers
+			And the PNC updates the record
