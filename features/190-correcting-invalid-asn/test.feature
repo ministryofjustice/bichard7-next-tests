@@ -17,18 +17,32 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 			An Exception is created to identify manual resolution as required.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correcting invalid ASN codes
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Correcting invalid ASN codes
+		Given "input-message-1" is received
+			And I am logged in as a "general handler"
+			And I view the list of exceptions
+		Then I see exception "HO100206" in the exception list table
+			And there are no triggers raised for "fuller Sam"
+		When I open the record for "fuller Sam"
+			And I click the "Defendant" tab
+			And I correct "ASN" to "0901VK0100000342547V"
+			And I submit the record
+			And I click the "Return To List" button
+		Then I see exception "HO100304" in the exception list table
+		When "input-message-2" is received
+		Then I see exception "HO100206" in the exception list table
+			And there are no triggers raised for "fuller Sam"
+		When I open the record for "fuller Sam"
+			And I click the "Defendant" tab
+			And I correct "ASN" to "0901VK0100000342547V"
+			And I submit the record
+			And I click the "Return To List" button
+		Then I see exception "HO100304" in the exception list table
+			And the PNC record has not been updated
