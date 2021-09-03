@@ -385,7 +385,10 @@ const checkOffenceDataError = async function (value, key) {
 
 const returnToList = async function () {
   await this.browser.clickAndWait("input[type='submit'][value='Return To List (Unlock)']");
-  await this.browser.clickAndWait("input[type='submit'][value='Yes']");
+  const yesButton = await this.browser.page.$("input[type='submit'][value='Yes']");
+  if (yesButton) {
+    await this.browser.clickAndWait("input[type='submit'][value='Yes']");
+  }
 };
 
 const correctOffenceException = async function (field, newValue) {

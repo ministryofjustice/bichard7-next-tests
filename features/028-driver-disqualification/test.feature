@@ -23,23 +23,14 @@ Feature: {028} R5.6_BR7 Driver Disqualification - Duration and Date values
 		Given the data for this test is in the PNC
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Driver Disqualification handling when only a Duration is received
 		Given I am logged in as a "supervisor"
 		When "input-message-1" is received
-		And I view the list of exceptions
-		# Then there are no exceptions
-		When I open the record for "Jimbobjones Bobby"
-		And I click the "Triggers" tab
-		Then I see trigger "TRPR0001" for offence "1"
-		# And the PNC updates the record
+			And I view the list of exceptions
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+			And there are no exceptions raised for "Jimbobjones Bobby"
 		When "input-message-2" is received
-		And I click the "Return To List (Unlock)" button
-		And I view the list of exceptions
-	    # Then there are no exceptions
-		When I open the record for "Jimbobjones Bobby"
-		And I click the "Triggers" tab
-		Then I see trigger "TRPR0001" for offence "1"
-		# And the PNC updates the record
+			And I view the list of exceptions
+		Then I see trigger "PR01 - Disqualified driver" in the exception list table
+			And there are no exceptions raised for "Jimbobjones Bobby"
+			And the PNC updates the record
