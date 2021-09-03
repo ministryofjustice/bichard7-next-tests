@@ -12,18 +12,19 @@ Feature: {113} BR7 R5.1-RCD422-Breach of Suspended Sentence-Order to Continue
 			Pre Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			PNC Error for result code 1508
 			"""
 
-	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
-
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	@OnlyRunsOnPNC
+	Scenario: PNC Error for result code 1508
+		Given "input-message-1" is received
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then I see exception "HO100402" in the exception list table
+			And I see trigger "PR20 - Breach" in the exception list table
+		When I open the record for "SUSSENTENCE BREACH"
+			And I click the "PNC Errors" tab
+		Then I see "I0001 - THE FOLLOWING ELEMENT(S) IN THE DIS SEGMENT CONTAIN INVALID DATA: DISPOSAL TYPE , DISPOSAL QUANTITY" in the "Error" row of the results table
