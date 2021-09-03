@@ -15,18 +15,25 @@ Feature: {112} BR7 R5.1-RCD422-Breach with Further Offence-Suspended Sentence
 			Pre Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Breach offence handling where a further offence is charged
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Breach offence handling where a further offence is charged
+		Given "input-message-1" is received
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then there are no exceptions raised for "SUSSENTENCE BREACH"
+			And I see trigger "PS11 - Add offence to PNC" in the exception list table
+		When I open the record for "SUSSENTENCE BREACH"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0020" for offence "2"
+			And I see trigger "TRPR0020" for offence "3"
+			And I see trigger "TRPR0006"
+			And I see trigger "TRPS0011" for offence "2"
+			And the PNC updates the record
