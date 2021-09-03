@@ -15,18 +15,21 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 			The Local Offence Code is unknown to the solution and all relevant Offence-related values are displayed.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Testing invalid offence codes
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Testing invalid offence codes
+		Given "<messageId>" is received
+			And I am logged in as a "general handler"
+			And I view the list of exceptions
+		Then I see exception "HO100306" in the exception list table
+			And the PNC record has not been updated
+
+		Examples:
+			| messageId       |
+			| input-message-1 |
+			| input-message-2 |
