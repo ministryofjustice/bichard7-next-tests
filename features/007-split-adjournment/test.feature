@@ -20,9 +20,7 @@ Feature: {007} R3_BR7_TR_002_Date
 			And "input-message" is received
 
 	@Should
-	@Problem
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Split adjournment court results automation
 		Given I am logged in as a "supervisor"
 		When I view the list of exceptions
@@ -33,5 +31,3 @@ Feature: {007} R3_BR7_TR_002_Date
 			And I resolve all of the triggers
 		Then the "record" for "TRTWODATE TRIGGER" is "resolved"
 			And the "record" for "TRTWODATE TRIGGER" is not "unresolved"
-			And pending
-# There are multiple PNC updates issued
