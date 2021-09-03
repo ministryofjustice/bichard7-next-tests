@@ -12,18 +12,25 @@ Feature: {115} BR7 R5.1-RCD-327-Handling of Withdrawn-Dismissed Offences
 			Pre Update Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling of Withdrawn-Dismissed Offences
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
+	@Problem
+	@Excluded
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling of Withdrawn-Dismissed Offences
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then there are no exceptions raised for "OFFENCES DISMISSED"
+			And I see trigger "PR10 - Conditional bail" in the exception list table
+		When "input-message-3" is received
+		Then there are no exceptions or triggers
+			And the PNC updates the record

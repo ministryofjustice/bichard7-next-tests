@@ -32,14 +32,13 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-		<?xml version="1.0" encoding="utf-8"?>
 		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
 			<DC:Session>
 				<DC:CourtHearing>
 					<DC:Hearing>
 						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-						<DC:DateOfHearing>2008-11-01</DC:DateOfHearing>
-						<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
+						<DC:DateOfHearing>2008-12-02</DC:DateOfHearing>
+						<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
 					</DC:Hearing>
 					<DC:PSAcode>2576</DC:PSAcode>
 				</DC:CourtHearing>
@@ -56,16 +55,14 @@
 									</DC:PersonName>
 									<DC:Gender>9</DC:Gender>
 								</DC:BasePersonDetails>
-								<DC:BailConditions>give to the court any passport held</DC:BailConditions>
 							</DC:PersonDefendant>
-							<DC:BailStatus>B</DC:BailStatus>
+							<DC:BailStatus>A</DC:BailStatus>
 							<DC:Address>
 								<DC:SimpleAddress>
 									<DC:AddressLine1>112 Letsbe Avenue</DC:AddressLine1>
 								</DC:SimpleAddress>
 							</DC:Address>
-							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
-							<DC:ReasonForBailConditionsOrCustody>to ensure appearance; </DC:ReasonForBailConditionsOrCustody>
+							<DC:PresentAtHearing>N</DC:PresentAtHearing>
 						</DC:CourtIndividualDefendant>
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
@@ -83,27 +80,30 @@
 								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
 							</DC:BaseOffenceDetails>
 							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Plea>3</DC:Plea>
+							<DC:ModeOfTrial>03</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
 							<DC:ConvictionDate>2008-11-01</DC:ConvictionDate>
 							<DC:ConvictingCourt>2576</DC:ConvictingCourt>
 							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>4011</DC:ResultCode>
-								<DC:ResultText>Remittal for Sentence on Conditional Bail, SEND</DC:ResultText>
-								<DC:ResultCodeQualifier>JA</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>JL</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>RA</DC:ResultCodeQualifier>
-								<DC:NextHearing>
-									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-										<DC:DateOfHearing>2008-12-02</DC:DateOfHearing>
-										<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
-									</DC:NextHearingDetails>
-									<DC:NextHearingReason>for pre-sentence report;</DC:NextHearingReason>
-									<DC:BailStatusOffence>B</DC:BailStatusOffence>
-								</DC:NextHearing>
+								<DC:ResultCode>1116</DC:ResultCode>
+								<DC:ResultText>Community order made. The defendant must comply with the follEND</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationEndDate>2009-05-29</DC:DurationEndDate>
+									</DC:Duration>
+								</DC:Outcome>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>3101</DC:ResultCode>
+								<DC:ResultText>Carry out unpaid work for 100 hours within the next twelve months.  This work will be supervised by Probation Officer. </DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>100</DC:DurationValue>
+										<DC:DurationUnit>H</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 						<DC:Offence>
@@ -122,27 +122,30 @@
 								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
 							</DC:BaseOffenceDetails>
 							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Plea>3</DC:Plea>
+							<DC:ModeOfTrial>03</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
 							<DC:ConvictionDate>2008-11-01</DC:ConvictionDate>
 							<DC:ConvictingCourt>2576</DC:ConvictingCourt>
 							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>4011</DC:ResultCode>
-								<DC:ResultText>Remittal for Sentence on Conditional Bail, SEND</DC:ResultText>
-								<DC:ResultCodeQualifier>JA</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>JL</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>RA</DC:ResultCodeQualifier>
-								<DC:NextHearing>
-									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-										<DC:DateOfHearing>2008-12-02</DC:DateOfHearing>
-										<DC:TimeOfHearing>13:30:00</DC:TimeOfHearing>
-									</DC:NextHearingDetails>
-									<DC:NextHearingReason>for pre-sentence report;</DC:NextHearingReason>
-									<DC:BailStatusOffence>B</DC:BailStatusOffence>
-								</DC:NextHearing>
+								<DC:ResultCode>1116</DC:ResultCode>
+								<DC:ResultText>Community order made. The defendant must comply with the follEND</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationEndDate>2009-05-29</DC:DurationEndDate>
+									</DC:Duration>
+								</DC:Outcome>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>3101</DC:ResultCode>
+								<DC:ResultText>Carry out unpaid work for 19 hours within the next twelve months.  This work will be supervised by Probation Officer. </DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>19</DC:DurationValue>
+										<DC:DurationUnit>H</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 					</DC:Defendant>
