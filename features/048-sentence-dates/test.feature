@@ -12,18 +12,21 @@ Feature: {048} #189 - DH page updated with sentence postponed DDMMYY
 			Pre Update Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Correctly adding dates for sentence
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Correctly adding dates for sentence
+		Given "input-message-1" is received
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then there are no exceptions or triggers
+		When "input-message-3" is received
+		Then there are no exceptions raised for "Tenenbaum Chas"
+			And I see trigger "PR06 - Imprisoned" in the exception list table
+			And the PNC updates the record
