@@ -14,18 +14,25 @@ Feature: {161} BR7 R5.3-RCD505 - Ignored offence - Judge Final Result x2
 			existing Final Results on the PNC and an Adjudication received from Court.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling ignored offences
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling ignored offences
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions raised for "Judge Franklin"
+			And I see trigger "PR06 - Imprisoned" in the exception list table
+		When I open the record for "Judge Franklin"
+			And I click the "Triggers" tab
+			And I resolve all of the triggers
+		Then the "record" for "Judge Franklin" is "resolved"
+		Then the "record" for "Judge Franklin" is not "unresolved"
+		When "input-message-2" is received
+		Then there are no triggers raised for "Judge Franklin"
+			And I see exception "HO200104" in the exception list table
+			And the PNC updates the record
