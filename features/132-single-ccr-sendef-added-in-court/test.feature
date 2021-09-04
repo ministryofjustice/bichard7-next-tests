@@ -14,18 +14,24 @@ Feature: {132} BR7 R5.1.3-RCD467-Single CCR-SENDEF-Offence Added In Court
 			Pre Update Triggers are also created.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Adding a single CCR SENDEF offence in court
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
+	@Problem
+	@Excluded
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Adding a single CCR SENDEF offence in court
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then there are no exceptions raised for "SENDEFOFFENCEADDED ONECCR"
+			And I see trigger "PS11 - Add offence to PNC" in the exception list table
+			And I see trigger "PR06 - Imprisoned" in the exception list table
+			And the PNC updates the record
