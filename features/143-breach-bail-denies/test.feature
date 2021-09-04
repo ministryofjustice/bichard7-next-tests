@@ -15,18 +15,24 @@ Feature: {143} BR7 R5.5_RCD563-Breach of Bail-Plea of Denies
 			The existing Offence on the PNC is successfully updated and Pre Update Triggers are created including the Breach of Bail Trigger to alert PNC Resulters to the additional Offence heard at the Court Hearing.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling a breach of bail with a 'Denies' plea
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling a breach of bail with a 'Denies' plea
+		Given "input-message-1" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions raised for "DENIES Breachy"
+			And I see trigger "PR10 - Conditional bail" in the exception list table
+		When "input-message-2" is received
+		Then there are no exceptions raised for "DENIES Breachy"
+			And I see trigger "PR10 - Conditional bail" in the exception list table
+		When "input-message-3" is received
+		Then there are no exceptions raised for "DENIES Breachy"
+			And I see trigger "PR10 - Conditional bail" in the exception list table
+			And I see trigger "PR08 - Breach of bail" in the exception list table
+			And the PNC updates the record
