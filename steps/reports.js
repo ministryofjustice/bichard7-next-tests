@@ -18,4 +18,8 @@ const reportContains = async function (text) {
   expect(await this.browser.elementText("#br7_report_data tbody")).toContain(text);
 };
 
-module.exports = { generateTodaysReport, reportContains, accessReport };
+const reportDoesNotContain = async function (text) {
+  expect(await this.browser.elementText("#br7_report_data tbody")).not.toContain(text);
+};
+
+module.exports = { generateTodaysReport, reportContains, reportDoesNotContain, accessReport };
