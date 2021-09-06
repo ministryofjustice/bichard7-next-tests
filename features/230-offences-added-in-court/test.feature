@@ -12,18 +12,19 @@ Feature: {230} BR7-R5.5-RCD576-PNC_Adj-Existing_Offences_Adj_Post_Judg-Offence_A
 			The PNC is otherwise successfully updated with Court Hearing Results.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Validating offences added in court behaviour
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Validating offences added in court behaviour
+		Given I am logged in as a "supervisor"
+			And "input-message-1" is received
+			And I wait "3" seconds
+			And "input-message-2" is received
+			And I view the list of exceptions
+		Then I see trigger "PS11 - Add offence to PNC" in the exception list table
+			And there are no exceptions raised for "ADDEDOFFENCESENTENCE Pncadj"
+			And the PNC updates the record
