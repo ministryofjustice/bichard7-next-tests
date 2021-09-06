@@ -3,7 +3,7 @@ const { logInAs } = require("./auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./message");
 const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes, mockPNCDataForTest } = require("./pnc");
-const { generateTodaysReport, reportContains, accessReport } = require("./reports");
+const { generateTodaysReport, reportContains, accessReport, reportDoesNotContain } = require("./reports");
 const {
   findRecordFor,
   goToExceptionList,
@@ -186,6 +186,8 @@ Then("there are no exceptions or triggers", checkNoRecords);
 Then("I see {string} in the Warrants report", reportContains);
 
 Then("I see {string} in the report", reportContains);
+
+Then("I do not see {string} in the report", reportDoesNotContain);
 
 Then("pending", () => "pending");
 
