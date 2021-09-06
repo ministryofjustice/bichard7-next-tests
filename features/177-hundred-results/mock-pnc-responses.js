@@ -1,9 +1,124 @@
-const { mockEnquiryFromNCM, mockUpdate } = require("../../utils/pncMocks");
+const { mockUpdate } = require("../../utils/pncMocks");
 
-module.exports = (ncm) => [
-  mockEnquiryFromNCM(ncm),
+module.exports = () => [
+  {
+    matchRegex: "CXE01",
+    response: `<?xml version="1.0" standalone="yes"?>
+    <CXE01>
+      <GMH>073ENQR000155RENQASIPNCA05A73000017300000120210906110373000001                                             050001965</GMH>
+      <ASI>
+        <FSC>K01ZD</FSC>
+        <IDS>K21/4Y      ATWOOD                  </IDS>
+        <CCR>K21/2732/3K                    </CCR>
+        <COF>K001    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K002    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K003    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K004    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K005    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K006    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K007    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K008    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K009    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K010    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K011    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K012    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K013    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K014    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K015    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K016    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K017    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K018    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K019    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K020    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K021    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K022    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K023    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K024    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K025    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K026    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K027    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K028    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K029    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K030    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K031    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K032    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K033    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K034    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K035    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K036    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K037    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K038    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K039    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K040    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K041    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K042    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K043    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K044    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K045    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K046    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K047    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K048    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K049    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K050    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K051    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K052    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K053    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K054    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K055    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K056    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K057    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K058    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K059    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K060    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K061    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K062    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K063    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K064    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K065    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K066    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K067    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K068    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K069    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K070    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K071    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K072    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K073    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K074    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K075    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K076    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K077    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K078    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K079    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K080    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K081    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K082    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K083    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K084    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K085    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K086    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K087    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K088    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K089    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K090    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K091    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K092    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K093    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K094    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K095    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K096    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K097    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K098    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K099    5:5:1:1      TH68020 09042010                </COF>
+        <COF>K100    5:5:1:1      TH68020 09042010                </COF>
+      </ASI>
+      <GMT>000107073ENQR000155R</GMT>
+    </CXE01>`,
+    expectedRequest: "",
+    count: 1
+  },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K00/448754K SEXOFFENCE              </IDS><CCR>K97/1626/8395Q                 </CCR><COU>I2732                                                                       SEXOFFENCE/TRPRFOUR                                   260920110000</COU><CCH>K001              SX03001A</CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I3078                      00                                                                            </DIS><CCH>K002              SX03001 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I3052                      00                                                                            </DIS><CCH>K003              RT88191 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I1015            0000100.0000                                                                            </DIS>"
+      "<FSC>K01YZ</FSC><IDS>K12/19C     MANCHESTER              </IDS><CCR>K12/2732/28F                   </CCR><COU>I2732                                                                       MANCHESTER/MARTIN                                     101020090000</COU><CCH>K001              OF61016 </CCH><ADJ>INOT GUILTY   GUILTY        101020090000 </ADJ><DIS>I1002M12                   00                                                                            </DIS><CCH>K002              PC53001 </CCH><ADJ>INOT GUILTY   GUILTY        101020090000 </ADJ><DIS>I1002M13                   00                                                                            </DIS>",
+    count: 1
   })
 ];
