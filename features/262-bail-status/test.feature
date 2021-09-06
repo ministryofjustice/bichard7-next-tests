@@ -12,18 +12,20 @@ Feature: {262} BR7 R5.7-RCD602-No NEWREM Bail Conditions for Defendant on Pre Re
 			No Bail Conditions are added onto the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			No NEWREM Bail Conditions for Defendant on Pre Release Conditions
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: No NEWREM Bail Conditions for Defendant on Pre Release Conditions
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then I see trigger "PR19 - Bail direction" in the exception list table
+			And there are no exceptions raised for "PRERELEASECONDITIONS DefendantOn"
+		When I navigate to the list of reports
+			And I access the "Bail Conditions" report
+			And I generate today's report
+		Then I do not see "01ZD0300108" in the report
