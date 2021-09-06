@@ -18,18 +18,26 @@ Feature: {302} BR7-R5.9-RCD607-Twice Breached-Same ASN incorrectly re-used
 			the original Dismissal of the Case) an Exception is generated on the Portal to indicate this inconsistency to the user.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Handling incorrectly re-used ASN
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Handling incorrectly re-used ASN
+		Given I am logged in as a "supervisor"
+			And "input-message-1" is received
+			And I wait "3" seconds
+		When I view the list of exceptions
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+			And I wait "3" seconds
+		Then there are no exceptions or triggers
+		#And "Results already on PNC" is in the audit log
+		When "input-message-3" is received
+		Then I see exception "HO200104" in the exception list table
+			And I see trigger "PR20 - Breach" in the exception list table
+			And the PNC updates the record
