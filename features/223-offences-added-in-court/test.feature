@@ -19,14 +19,12 @@ Feature: {223} BR7-R5.5-RCD576-PNC_Adj-Existing_Offences_Adj_Post_Judg-Offence_A
 		Given the data for this test is in the PNC
 
 	@Could
-	@NeedsValidating
-	@Excluded
-	@NeedsRunningAgainstPNC
 	Scenario: Validating offences added in court behaviour
 		Given "input-message-1" is received
 			And I wait "2" seconds
 			And "input-message-2" is received
-		Given I am logged in as a "general handler"
+		Given I am logged in as a "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PS11 - Add offence to PNC" in the exception list table
+			And there are no exceptions
 			And the PNC updates the record
