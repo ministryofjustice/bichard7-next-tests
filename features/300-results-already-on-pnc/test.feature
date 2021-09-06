@@ -11,18 +11,21 @@ Feature: {300} BR7-R5.9-RCD401-501-Subsequent Remand-Different Dates
 			The Results from Court are successfully added to the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Verifying 'Results already on PNC' processing
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Verifying 'Results already on PNC' processing
+		Given I am logged in as a "supervisor"
+			And "input-message-1" is received
+			And I wait "3" seconds
+			And "input-message-2" is received
+		When I view the list of exceptions
+		Then there are no exceptions or triggers
+			And the PNC updates the record
+			#And "Results already on PNC" is not in the audit log
