@@ -13,18 +13,19 @@ Feature: {263} BR7 R5.7-RCD601-Result Code 2065 received after Defendant found G
 			A Pre Update Trigger is also successfully created on the Portal.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Defendant dies after being found guilty
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Defendant dies after being found guilty
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+			And "input-message-1" is received
+		Then there are no exceptions or triggers
+		When "input-message-2" is received
+		Then there are no exceptions raised for "POSTADJUDICATION Passaway"
+			And I see exception "PR07 - Defendant dead" in the exception list table
+			And the PNC updates the record
