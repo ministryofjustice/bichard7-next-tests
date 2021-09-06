@@ -118,7 +118,410 @@ module.exports = () => [
   },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K12/19C     MANCHESTER              </IDS><CCR>K12/2732/28F                   </CCR><COU>I2732                                                                       MANCHESTER/MARTIN                                     101020090000</COU><CCH>K001              OF61016 </CCH><ADJ>INOT GUILTY   GUILTY        101020090000 </ADJ><DIS>I1002M12                   00                                                                            </DIS><CCH>K002              PC53001 </CCH><ADJ>INOT GUILTY   GUILTY        101020090000 </ADJ><DIS>I1002M13                   00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC>" +
+      "<IDS>K21/4Y      ATWOOD                  </IDS>" +
+      "<CCR>K21/2732/3K                    </CCR>" +
+      "<COU>I2732                                                                       ATWOOD/MARCUS                                         280920110000</COU>" +
+      "<CCH>K001              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K002              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K003              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K004              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K005              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K006              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K007              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K008              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K009              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K010              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K011              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K012              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K013              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K014              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K015              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K016              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K017              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K018              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K019              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K020              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K021              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K022              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K023              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K024              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K025              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K026              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K027              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K028              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K029              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K030              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K031              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K032              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K033              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K034              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K035              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K036              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K037              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K038              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K039              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K040              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K041              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K042              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K043              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K044              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K045              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K046              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K047              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K048              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K049              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K050              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K051              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K052              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K053              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K054              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K055              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K056              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K057              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K058              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K059              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K060              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K061              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K062              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K063              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K064              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K065              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K066              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K067              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K068              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K069              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K070              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K071              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K072              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K073              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K074              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K075              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K076              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K077              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K078              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K079              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K080              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K081              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K082              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K083              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K084              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K085              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K086              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K087              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K088              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K089              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K090              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K091              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K092              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K093              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K094              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K095              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K096              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K097              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K098              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K099              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>" +
+      "<CCH>K100              TH68020 </CCH>" +
+      "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
+      "<DIS>I1002M12                   00                                                                            </DIS>" +
+      "<DIS>I1015            0000100.0000                                                                            </DIS>",
     count: 1
   })
 ];
