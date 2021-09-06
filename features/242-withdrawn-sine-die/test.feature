@@ -11,18 +11,25 @@ Feature: {242} BR7 R5.6-RCD562-Sine Die Results then Withdrawn
 			The PNC is successfully updated and the Final Results from Court are automatically added to the PNC.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Withdrawn Sine Die results
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Withdrawn Sine Die results
+		Given I am logged in as a "supervisor"
+			And I view the list of exceptions
+			And "input-message-1" is received
+		Then I see trigger "PR17 - Adjourned sine die" in the exception list table
+			And there are no exceptions raised for "SINEDIE WITHDRAWN"
+		When I open the record for "SINEDIE WITHDRAWN"
+			And I click the "Triggers" tab
+		Then I see trigger "TRPR0017" for offence "1"
+			And I see trigger "TRPR0017" for offence "2"
+		When I return to the list
+			And "input-message-2" is received
+			And I reload until I don't see "PR17 - Adjourned sine die"
+		Then there are no exceptions or triggers
+			And the PNC updates the record
