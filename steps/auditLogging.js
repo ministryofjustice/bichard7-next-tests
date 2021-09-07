@@ -29,6 +29,30 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
   return true;
 };
 
+const checkAuditLogContains = async function (auditMessageNumber, message) {
+  // if (! this.shouldUploadMessagesToS3) return;
+  if (this.incomingMessageBucket.uploadedS3Files.length !== 1) {
+    throw new Error(
+      `Unexpected number of uploaded S3 files. Expected 1, but received ${this.incomingMessageBucket.uploadedS3Files.length}`
+    );
+  }
+
+  const correlationId = this.incomingMessageBucket.uploadedS3Files[parseInt(auditMessageNumber, 10) - 1]
+    .split("/")
+    .slice(-1)[0]
+    .split(".")[0];
+  const axiosInstance = axios.create();
+  const apiUrl = await getApiUrl(this);
+  const messages = await axiosInstance
+    .get(`${apiUrl}/messages`)
+    .then((response) => response.data)
+    .catch((error) => error);
+  const messageLogs = messages.find((m) => m.externalCorrelationId === correlationId);
+  if (!messageLogs.events.some((event) => event.eventType === message)) {
+    throw new Error("Could not find any message that contains the expected string");
+  }
+};
+
 const pollMessagesForEvent = async (context, externalCorrelationId, eventType) => {
   const axiosInstance = axios.create();
   const apiUrl = await getApiUrl(context);
@@ -60,5 +84,6 @@ const pollMessagesForEvent = async (context, externalCorrelationId, eventType) =
 
 module.exports = {
   pollMessagesForEvent,
-  checkIfMessageHasEvent
+  checkIfMessageHasEvent,
+  checkAuditLogContains
 };
