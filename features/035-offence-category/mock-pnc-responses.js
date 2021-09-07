@@ -1,3 +1,3 @@
 const { dummyUpdate } = require("../../utils/pncMocks");
 
-module.exports = () => [dummyUpdate];
+module.exports = (ncm) => [dummyUpdate];
