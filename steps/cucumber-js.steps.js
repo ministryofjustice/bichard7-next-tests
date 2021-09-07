@@ -54,6 +54,7 @@ const {
   checkOffence,
   checkTableRows
 } = require("./ui");
+const { checkAuditLogContains } = require("./auditLogging");
 
 setDefaultTimeout(timeout);
 
@@ -196,3 +197,5 @@ Then("the PNC update includes {string}", pncUpdateIncludes);
 Then("I see {string} for offence {string}", checkOffence);
 
 Then("there should only be {string} offences", checkTableRows);
+
+Then("the audit log {string} contains {string}", checkAuditLogContains);

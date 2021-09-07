@@ -18,10 +18,13 @@ class IncomingMessageBucket {
 
     this.s3Client = new S3(options);
     this.incomingMessageBucketName = config.incomingMessageBucketName;
+    this.uploadedS3Files = [];
   }
 
   async upload(message, externalCorrelationId, receivedDate) {
     const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${externalCorrelationId}.xml`;
+    this.uploadedS3Files.push(s3FileName);
+
     const content = message.replace("EXTERNAL_CORRELATION_ID", externalCorrelationId);
 
     const params = {
