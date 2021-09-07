@@ -18,6 +18,7 @@ Feature: {242} BR7 R5.6-RCD562-Sine Die Results then Withdrawn
 		Given the data for this test is in the PNC
 
 	@Could
+	@ExcludedOnBaseline
 	Scenario: Withdrawn Sine Die results
 		Given I am logged in as a "supervisor"
 			And I view the list of exceptions
