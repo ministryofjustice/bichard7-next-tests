@@ -21,7 +21,7 @@ Feature: {326} BR7 R5.11-RCD688 - Existing Offence Result_2060 and 2063 with Off
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Existing offence with 2060 and 2063 result and 2059 result added in court
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table

@@ -3,5 +3,5 @@ Feature: Warm-up test
     I want to login to Bichard and view the Exception List table
 
     Scenario: Login to Bichard
-        Given I am logged in as an "exception handler"
+        Given I am logged in as "exceptionhandler"
         When I view the list of exceptions

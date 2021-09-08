@@ -22,7 +22,7 @@ Feature: {007} R3_BR7_TR_002_Date
 	@Should
 	@NeedsRunningAgainstPNC
 	Scenario: Split adjournment court results automation
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS04 - Split adjournment" in the exception list table

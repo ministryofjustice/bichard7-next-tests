@@ -28,7 +28,7 @@ Feature: {212} BR7 R5.4-RCD538-Tagging-BA Qualifier on some Offences
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Adding electronic tagging information to the PNC
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS08 - Curfew order" in the exception list table

@@ -23,7 +23,7 @@ Feature: {107} BR7 R5.0-RCD352-Fuzzy Offence Matching
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
-    Given I am logged in as a "supervisor"
+    Given I am logged in as "supervisor"
     Then the PNC updates the record
     When I view the list of exceptions
     When I open the record for "OFFENCE FUZZY"

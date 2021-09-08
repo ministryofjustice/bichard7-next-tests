@@ -21,7 +21,7 @@ Feature: {193} BR7 R5.3.2-RCD422-Standalone Breach-Order to Continue-Order Varie
 	@Should
 	Scenario: Order Varied breach results
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received

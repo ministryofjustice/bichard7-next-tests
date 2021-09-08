@@ -22,7 +22,7 @@ Feature: {182} BR7 R5.3-RCD496 - No HO100332 for offences added in court
 
 	@Should
 	Scenario: No HO100332 for offences added in court
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "Manchester Martin"

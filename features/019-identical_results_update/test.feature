@@ -22,6 +22,6 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
-    Given I am logged in as a "supervisor"
+    Given I am logged in as "supervisor"
     Then the PNC updates the record
       And the record for "PUFIVE UPDATE" does not exist

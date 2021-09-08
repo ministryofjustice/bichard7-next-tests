@@ -22,7 +22,7 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 			And I see exception "HO100307" in the exception list table

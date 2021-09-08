@@ -22,7 +22,7 @@ Feature: {320} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Pos
 	@NeedsRunningAgainstPNC
 	Scenario: No PNC update for 3052 result (post-judgement)
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "THREEZEROFIVETWO ADJPOSTJUDGE"
 			And there are no triggers raised for "THREEZEROFIVETWO ADJPOSTJUDGE"

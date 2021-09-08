@@ -25,7 +25,7 @@ Feature: {169} BR7 R5.3-RCD513 - Some Offences Stop Listed
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Ignored offence handling when some results are on the stop list
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PR06 - Imprisoned" in the exception list table

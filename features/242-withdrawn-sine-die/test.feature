@@ -20,7 +20,7 @@ Feature: {242} BR7 R5.6-RCD562-Sine Die Results then Withdrawn
 	@Could
 	@ExcludedOnBaseline
 	Scenario: Withdrawn Sine Die results
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 			And "input-message-1" is received
 		Then I see trigger "PR17 - Adjourned sine die" in the exception list table

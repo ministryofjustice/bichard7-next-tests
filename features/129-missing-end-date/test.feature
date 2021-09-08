@@ -21,7 +21,7 @@ Feature: {129} BR7 R5.1-RCD411-No PNC Offence End Date
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Exception is raised if end dates are missing
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100304" in the exception list table
 			And there are no triggers raised for "ENDDATE NOPNCOFFENCE"

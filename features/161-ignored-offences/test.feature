@@ -23,7 +23,7 @@ Feature: {161} BR7 R5.3-RCD505 - Ignored offence - Judge Final Result x2
 	@Could
 	Scenario: Handling ignored offences
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "Judge Franklin"
 			And I see trigger "PR06 - Imprisoned" in the exception list table

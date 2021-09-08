@@ -19,7 +19,7 @@ Feature: {033} R3.3_BR7_Sine Die_Add Result Code 3027
 
 	@Could
 	Scenario: Correctly handling Sine Die results
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When "input-message-1" is received
 			And I view the list of exceptions
 		Then I see trigger "PR17 - Adjourned sine die" in the exception list table

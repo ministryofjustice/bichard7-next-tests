@@ -23,7 +23,7 @@ Feature: {178} BR7 R5.3-RCD497 - Partial Match - Result Text
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Verifying correct behaviour when the result text for each offence is different
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100310" in the exception list table
 		When I open the record for "Text Marcus"

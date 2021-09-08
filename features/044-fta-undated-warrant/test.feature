@@ -22,7 +22,7 @@ Feature: {044} #151 - FTA Undated Warrant
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling FTA results with undated warrant
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		When I open the record for "NONEWREM Trigger"
 			And I click the "Triggers" tab

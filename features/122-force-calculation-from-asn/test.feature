@@ -23,5 +23,5 @@ Feature: {122} BR7 R5.1-RCD399-Force calculation-FF in ASN
 	@Excluded
 	@OnlyRunsOnPNC
 	Scenario: Deriving the force owner from the ASN
-		When I am logged in as a "supervisor"
+		When I am logged in as "supervisor"
 			And I view the list of exceptions

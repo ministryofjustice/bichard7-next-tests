@@ -20,7 +20,7 @@ Feature: {234} BR7 R5.5.1-PFI Change-1xCCR-PENHRG-DISARR
 
 	@Could
 	Scenario: Manual handling of incompatible PNC types
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then I see exception "HO100507" in the exception list table
 			And the PNC record has not been updated

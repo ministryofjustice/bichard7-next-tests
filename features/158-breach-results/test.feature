@@ -26,7 +26,7 @@ Feature: {158} BR7 R5.2.2-RCD518 - Result class Sentence & Adjournment Post Judg
 	@Excluded
 	Scenario: Breach results automation
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received

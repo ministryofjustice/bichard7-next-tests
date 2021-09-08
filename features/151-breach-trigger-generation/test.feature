@@ -24,7 +24,7 @@ Feature: {151} BR7 R5.2.2-RCD518 - 2xResult Code Only - Final Result
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Breach trigger generation
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR20 - Breach" in the exception list table
 			And there are no exceptions raised for "Seagull Martin"

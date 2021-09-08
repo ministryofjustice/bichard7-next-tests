@@ -23,7 +23,7 @@ Feature: {244} BR7 R5.6-RCD592-Witness Warrant-4586
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling witness warrants
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO200212 (2)" in the exception list table
 			And I see trigger "PR02 - Warrant issued" in the exception list table

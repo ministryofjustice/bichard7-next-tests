@@ -26,7 +26,7 @@ Feature: {198} BR7-R5.3.2-RCD556-Offence Withdrawn-Replaced-Adjourned
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: PNC is updated when an Offence is replaced with another Offence
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table

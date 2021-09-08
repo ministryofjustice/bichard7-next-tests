@@ -22,6 +22,6 @@ Feature: {034} R3.3_BR7_SPI ASN Validation - 1
 	@Should
 	@NeedsRunningAgainstPNC
 	Scenario: Validating correct ASN format
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		Then the PNC updates the record
 			And there are no exceptions or triggers

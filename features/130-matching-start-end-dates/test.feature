@@ -21,7 +21,7 @@ Feature: {130} BR7 R5.1-RCD411-Offence Matching-Start-End-Dates Match
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling exceptions when start and end dates match
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then I see exception "HO100310 (2)" in the exception list table
 		When I open the record for "STARTENDDATES OFFENCEMATCH"

@@ -24,6 +24,6 @@ Feature: {157} BR7 R5.2.2-RCD518 - Result class Adjournment With Judgement
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Correctly processing adjournment with judgement
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		Then the PNC updates the record
 			And there are no exceptions or triggers

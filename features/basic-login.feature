@@ -4,8 +4,8 @@ Feature: Basic end-to-end test
 
   Scenario: Raising an exception message
     Given there is a valid record for "Rigout Dean" in the PNC
-    And a message is received
-    And I am logged in as an "exception handler"
+      And a message is received
+      And I am logged in as "exceptionhandler"
     When I view the list of exceptions
     Then the exception list should contain a record for "Rigout Dean"
-    And the record for "Rigout Dean" should not have any PNC errors
+      And the record for "Rigout Dean" should not have any PNC errors

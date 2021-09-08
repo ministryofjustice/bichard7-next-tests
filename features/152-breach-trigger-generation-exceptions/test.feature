@@ -23,7 +23,7 @@ Feature: {152} BR7 R5.2.2-RCD518 - 2xResult Code Only - NG - Final Result
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Breach trigger generation with exceptions
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR20 - Breach" in the exception list table
 			And I see exception "HO200212" in the exception list table

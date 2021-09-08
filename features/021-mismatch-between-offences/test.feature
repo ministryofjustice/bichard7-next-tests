@@ -26,7 +26,7 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
   @Validated
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
-    Given I am logged in as a "general handler"
+    Given I am logged in as "generalhandler"
       And I view the list of exceptions
     Then I see exception "HO100304" in the exception list table
       And the PNC record has not been updated
