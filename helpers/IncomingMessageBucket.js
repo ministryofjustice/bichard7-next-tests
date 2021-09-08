@@ -1,5 +1,6 @@
 const { S3 } = require("aws-sdk");
 const { format } = require("date-fns");
+const getUtcDate = require("../utils/getUtcDate");
 
 class IncomingMessageBucket {
   constructor(config) {
@@ -21,7 +22,8 @@ class IncomingMessageBucket {
   }
 
   async upload(message, externalCorrelationId, receivedDate) {
-    const s3FileName = `${format(receivedDate, "yyyy/MM/dd/HH/mm")}/${externalCorrelationId}.xml`;
+    const receivedDateUtc = getUtcDate(receivedDate);
+    const s3FileName = `${format(receivedDateUtc, "yyyy/MM/dd/HH/mm")}/${externalCorrelationId}.xml`;
     const content = message.replace("EXTERNAL_CORRELATION_ID", externalCorrelationId);
 
     const params = {
