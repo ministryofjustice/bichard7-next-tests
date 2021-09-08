@@ -14,6 +14,7 @@ Feature: {291} BR7-R5.8-RCD641 - Police Bail Variation Refused
 			"""
 
 	@Could
+	@AuditLog
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Non-Police prosecution court hearing is ignored
