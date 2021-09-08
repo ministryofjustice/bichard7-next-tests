@@ -202,4 +202,4 @@ Then("the audit log contains {string}", async function (message) {
   await checkAuditLogContains.apply(this, [1, message]);
 });
 
-Then("the audit log {string} contains {string}", checkAuditLogContains);
+Then("the audit log for message {string} contains {string}", checkAuditLogContains);
