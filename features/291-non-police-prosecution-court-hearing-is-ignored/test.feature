@@ -10,18 +10,15 @@ Feature: {291} BR7-R5.8-RCD641 - Police Bail Variation Refused
 			The entire Case is identified as of no interest to the PNC since the ASN is a Dummy ASN, the Offence is non-recordable and the results are therefore purposely ignored.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			This tests that Bichard successfully ignores a non-police prosecution
 			"""
-
-	Background:
-		Given the data for this test is in the PNC
-		And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Non-Police prosecution court hearing is ignored
+		Given "input-message" is received
+			And I am logged in as a "supervisor"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+			And the audit log contains "Hearing Outcome ignored as no offences are recordable"
