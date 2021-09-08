@@ -13,6 +13,7 @@ Feature: {146} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
 		Given "input-message" is received
 
 	@Should
+	@AuditLog
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Case reopened with original offences
