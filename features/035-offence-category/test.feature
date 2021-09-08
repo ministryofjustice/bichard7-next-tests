@@ -24,5 +24,4 @@ Feature: {035} R3.3_BR7_Remove HO Exception for No Results
 		Then there are no exceptions raised for "PETARD HOIST"
 			And there are no triggers raised for "PETARD HOIST"
 			And the PNC record has not been updated
-			And I wait "3" seconds
-			And the audit log "1" contains "Hearing Outcome ignored as no offences are recordable"
+			And the audit log contains "Hearing Outcome ignored as no offences are recordable"

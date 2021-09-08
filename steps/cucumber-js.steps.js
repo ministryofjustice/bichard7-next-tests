@@ -198,4 +198,8 @@ Then("I see {string} for offence {string}", checkOffence);
 
 Then("there should only be {string} offences", checkTableRows);
 
+Then("the audit log contains {string}", async function (message) {
+  await checkAuditLogContains.apply(this, [1, message]);
+});
+
 Then("the audit log {string} contains {string}", checkAuditLogContains);

@@ -1,4 +1,6 @@
 const axios = require("axios");
+const expect = require("expect");
+const isError = require("../utils/isError");
 const { getConfig } = require("../utils/config");
 const Poller = require("../utils/Poller");
 
@@ -30,27 +32,42 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
 };
 
 const checkAuditLogContains = async function (auditMessageNumber, message) {
-  // if (! this.shouldUploadMessagesToS3) return;
-  if (this.incomingMessageBucket.uploadedS3Files.length !== 1) {
-    throw new Error(
-      `Unexpected number of uploaded S3 files. Expected 1, but received ${this.incomingMessageBucket.uploadedS3Files.length}`
-    );
+  if (!this.shouldUploadMessagesToS3) return;
+  if (this.incomingMessageBucket.uploadedS3Files.length < 1) {
+    throw new Error(`Unexpected number of uploaded S3 files. Expected to be more than 0`);
   }
 
   const correlationId = this.incomingMessageBucket.uploadedS3Files[parseInt(auditMessageNumber, 10) - 1]
     .split("/")
     .slice(-1)[0]
     .split(".")[0];
+
   const axiosInstance = axios.create();
   const apiUrl = await getApiUrl(this);
-  const messages = await axiosInstance
-    .get(`${apiUrl}/messages`)
-    .then((response) => response.data)
+
+  const getMessages = async () =>
+    axiosInstance
+      .get(`${apiUrl}/messages`)
+      .then((response) => response.data)
+      .catch((error) => error);
+
+  const options = {
+    timeout: 20000,
+    delay: 1000,
+    name: "await for expected message",
+    condition: (allMessages) => {
+      const noResults = allMessages
+        .find((m) => m.externalCorrelationId === correlationId)
+        .events.filter((event) => event.eventType === message).length;
+      return noResults === 1;
+    }
+  };
+
+  const result = await new Poller(getMessages)
+    .poll(options)
+    .then((messages) => messages)
     .catch((error) => error);
-  const messageLogs = messages.find((m) => m.externalCorrelationId === correlationId);
-  if (!messageLogs.events.some((event) => event.eventType === message)) {
-    throw new Error("Could not find any message that contains the expected string");
-  }
+  expect(isError(result)).toBeFalsy();
 };
 
 const pollMessagesForEvent = async (context, externalCorrelationId, eventType) => {
