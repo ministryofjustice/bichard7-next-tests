@@ -1,4 +1,4 @@
-Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM
+Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM - part 2
 
 			"""
 			{131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM
@@ -30,13 +30,8 @@ Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM
 		Given "input-message-1" is received
 			And I am logged in as a "general handler"
 			And I view the list of exceptions
-		Then there are no exceptions raised for "SENDEFNEWREM ONECCR"
+		Then there are no exceptions raised for "SENDNEW ONECCR"
 		When "input-message-2" is received
-		Then I see trigger "PR06 - Imprisoned" in the exception list table
-			And there are no exceptions raised for "SENDEFNEWREM ONECCR"
-		When "input-message-3" is received
-		Then there are no exceptions raised for "SENDEFNEWREM ONECCR"
-		When "input-message-3" is received
 		Then I see exception "HO200113" in the exception list table
 			And I see trigger "PR06 - Imprisoned" in the exception list table
 			And the PNC updates the record
