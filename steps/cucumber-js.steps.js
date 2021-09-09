@@ -52,7 +52,8 @@ const {
   reloadUntilStringNotPresent,
   checkNoRecords,
   checkOffence,
-  checkTableRows
+  checkTableRows,
+  reallocateCaseToForce
 } = require("./ui");
 const { checkAuditLogContains } = require("./auditLogging");
 
@@ -201,3 +202,5 @@ Then("the audit log contains {string}", async function (message) {
 });
 
 Then("the audit log for message {string} contains {string}", checkAuditLogContains);
+
+When("I reallocate the case to {string}", reallocateCaseToForce);
