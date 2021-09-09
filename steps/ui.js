@@ -159,6 +159,17 @@ const reallocateCase = async function () {
   expect(latestNote).toContain("Case reallocated to new force owner");
 };
 
+const reallocateCaseToForce = async function (force) {
+  const { page } = this.browser;
+  await this.browser.clickAndWait("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
+  const options = await page.$$eval("#reallocateAction option", (els) =>
+    els.map((el) => ({ id: el.getAttribute("value"), text: el.innerText.trim() }))
+  );
+  const selectedOptionId = options.find((option) => option.text.includes(force)).id;
+  await page.select("#reallocateAction", selectedOptionId);
+  await this.browser.clickAndWait("input[value='OK']");
+};
+
 const canSeeContentInTable = async function (value) {
   const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
   expect(found).toBeTruthy();
@@ -479,6 +490,7 @@ module.exports = {
   openRecordFor,
   reallocateCase,
   cannotReallocateCase,
+  reallocateCaseToForce,
   canSeeContentInTable,
   cannotSeeTrigger,
   cannotSeeException,
