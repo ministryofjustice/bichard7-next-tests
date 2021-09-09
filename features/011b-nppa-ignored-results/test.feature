@@ -27,4 +27,4 @@ Feature: {011} R2_Regression_NPPA_PP_002 - part 2
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 			And the PNC record has not been updated
-#And the audit log contains ""
+			And the audit log contains "Hearing Outcome ignored as no offences are recordable"
