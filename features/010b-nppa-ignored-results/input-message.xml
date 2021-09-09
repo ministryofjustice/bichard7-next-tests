@@ -32,7 +32,6 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-		<?xml version="1.0" encoding="utf-8"?>
 		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
 			<DC:Session>
 				<DC:CourtHearing>
