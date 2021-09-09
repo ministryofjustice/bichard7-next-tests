@@ -52,7 +52,8 @@ const {
   reloadUntilStringNotPresent,
   checkNoRecords,
   checkOffence,
-  checkTableRows
+  checkTableRows,
+  reallocateCaseToForce
 } = require("./ui");
 const { checkAuditLogCondition } = require("./auditLogging");
 
@@ -207,3 +208,5 @@ Then("the audit log for message {string} contains {string}", async function (num
 Then("{string} is not in the audit log", async function (message) {
   await checkAuditLogCondition.apply(this, [1, message, false]);
 });
+
+When("I reallocate the case to {string}", reallocateCaseToForce);
