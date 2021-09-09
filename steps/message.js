@@ -6,7 +6,11 @@ const isError = require("../utils/isError");
 const { pollMessagesForEvent } = require("./auditLogging");
 
 const uploadToS3 = async (context, message, externalCorrelationId, messageReceivedDate) => {
-  const fileName = await context.incomingMessageBucket.upload(message, externalCorrelationId, messageReceivedDate);
+  const fileName = await context.incomingMessageBucket.upload(
+    message.toString(),
+    externalCorrelationId,
+    messageReceivedDate
+  );
 
   if (isError(fileName)) {
     throw fileName;

@@ -13,10 +13,11 @@ Feature: {146} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
 		Given "input-message" is received
 
 	@Should
+	@AuditLog
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Case reopened with original offences
 		When I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
-#Also need to check the audit logs
+			And the audit log contains "Re-opened / Statutory Declaration case ignored"

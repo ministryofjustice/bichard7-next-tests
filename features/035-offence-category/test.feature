@@ -17,10 +17,11 @@ Feature: {035} R3.3_BR7_Remove HO Exception for No Results
 			And "input-message" is received
 
 	@Should
+	@AuditLog
 	Scenario: No exceptions and triggers are created, nor is PNC called
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "PETARD HOIST"
 			And there are no triggers raised for "PETARD HOIST"
 			And the PNC record has not been updated
-# And the audit log contains...
+			And the audit log contains "Hearing Outcome ignored as no offences are recordable"
