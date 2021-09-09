@@ -54,7 +54,7 @@ const {
   checkOffence,
   checkTableRows
 } = require("./ui");
-const { checkAuditLogContains } = require("./auditLogging");
+const { checkAuditLogCondition } = require("./auditLogging");
 
 setDefaultTimeout(timeout);
 
@@ -197,7 +197,13 @@ Then("I see {string} for offence {string}", checkOffence);
 Then("there should only be {string} offences", checkTableRows);
 
 Then("the audit log contains {string}", async function (message) {
-  await checkAuditLogContains.apply(this, [1, message]);
+  await checkAuditLogCondition.apply(this, [1, message, true]);
 });
 
-Then("the audit log for message {string} contains {string}", checkAuditLogContains);
+Then("the audit log for message {string} contains {string}", async function (number, message) {
+  await checkAuditLogCondition.apply(this, [number, message, true]);
+});
+
+Then("{string} is not in the audit log", async function (message) {
+  await checkAuditLogCondition.apply(this, [1, message, false]);
+});
