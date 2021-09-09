@@ -24,7 +24,7 @@ Feature: {134} BR7 R5.1.3-RCD467 - Multiple CCR-SENDEF-NEWREM
 		Given "input-message-1" is received
 			And I wait "2" seconds
 			And "input-message-2" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 		Then the PNC updates the record
 		When I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table

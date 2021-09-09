@@ -23,7 +23,7 @@ Feature: {058} R3.1_BR7_NH_001_Next Hearing Court
 	@NeedsRunningAgainstPNC
 	@Excluded
 	Scenario: Test next hearing location is calculated and updated correctly
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "HearingCourt Next"
 			And the PNC updates the record

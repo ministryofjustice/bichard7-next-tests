@@ -28,7 +28,7 @@ Feature: {136} BR7 R5.1.3-RCD462 - No PNC-End-Date All Offences Dates the same
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: testing start and end date matching for offence codes
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 			And I wait for "IDENTICALDATES NOPNCENDDATE" in the list of records

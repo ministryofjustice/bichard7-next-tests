@@ -20,7 +20,7 @@ Feature: {261} BR7 R5.7-RCD611 - Bail Qualifier for Non Recordable Case
 	@Excluded
 	@OnlyRunsOnPNC
 	Scenario: Handling non-recordable bail conditions
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 		When I navigate to the list of reports

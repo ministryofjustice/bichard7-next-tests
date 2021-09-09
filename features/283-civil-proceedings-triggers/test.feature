@@ -23,7 +23,7 @@ Feature: {283} BR7 R5.8-RCD638 - TRPR0029 - Multiple Trigger-generating conditio
 
 	@Should
 	Scenario: Generating civil proceedings triggers
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR03 - Order issues" in the exception list table
 			And I see trigger "PR29 - Civil Proceedings" in the exception list table

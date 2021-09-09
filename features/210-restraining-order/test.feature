@@ -23,7 +23,7 @@ Feature: {210} BR7 R5.4-RCD550-Undated Restraining Order-3047
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updating the PNC with a restraining order
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "RESTRAINORDER Undated"
 			And I see trigger "PR03 - Order issues" in the exception list table

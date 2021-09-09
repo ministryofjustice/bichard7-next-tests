@@ -1,4 +1,4 @@
-Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM
+Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM - part 1
 
 			"""
 			{131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM
@@ -24,19 +24,12 @@ Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM
 		Given the data for this test is in the PNC
 
 	@Should
-	@Problem
-	@Excluded
 	Scenario: Verifying SENDEF and NEWREM combinations in PNC updates
 		Given "input-message-1" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "SENDEFNEWREM ONECCR"
 		When "input-message-2" is received
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "SENDEFNEWREM ONECCR"
-		When "input-message-3" is received
-		Then there are no exceptions raised for "SENDEFNEWREM ONECCR"
-		When "input-message-3" is received
-		Then I see exception "HO200113" in the exception list table
-			And I see trigger "PR06 - Imprisoned" in the exception list table
 			And the PNC updates the record

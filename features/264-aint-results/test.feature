@@ -23,7 +23,7 @@ Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Verifying AINT results generate no PNC update
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100209" in the exception list table
 			And there are no triggers raised for "EXCEPTIONAINT CASE"

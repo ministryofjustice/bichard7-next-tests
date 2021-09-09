@@ -20,10 +20,8 @@ Feature: {214} BR7 R5.4-RCD471-Multiple CCR to Single CCR switch between PNC sub
 			And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: Switching from a multiple CCR to a single CCR case between submissions
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100209" in the exception list table
 		When I open the record for "TOSINGLECCR MULTIPLECCR"

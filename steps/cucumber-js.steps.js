@@ -62,18 +62,16 @@ Given("the data for this test is in the PNC", mockPNCDataForTest);
 
 Given("there is a valid record for {string} in the PNC", createValidRecordInPNC);
 
-Given("a message is received", function () {
-  sendMessage.apply(this);
+Given("a message is received", async function () {
+  await sendMessage.apply(this);
 });
 
-Given("I am logged in as a(n) {string}", logInAs);
-
-Given("I am logged in as a user with {string} permissions", logInAs);
+Given("I am logged in as {string}", logInAs);
 
 Given("I navigate to the list of reports", canSeeReports);
 
-When("message id {string} is received", function (id) {
-  sendMessage.apply(this, [id]);
+When("message id {string} is received", async function (id) {
+  await sendMessage.apply(this, [id]);
 });
 
 When("{string} is received", sendMessageForTest);

@@ -23,7 +23,7 @@ Feature: {221} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Offences added in court with no adjudication on the PNC
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then there are no exceptions raised for "PICADILLUS THETUBE"

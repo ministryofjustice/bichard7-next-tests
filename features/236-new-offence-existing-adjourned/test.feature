@@ -21,7 +21,7 @@ Feature: {236} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Adj With Judg-Of
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Adding new offence in court where existing offences are adjourned
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table

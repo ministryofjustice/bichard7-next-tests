@@ -24,7 +24,7 @@ Feature: {176} BR7 R5.3-RCD497 - Partial Match - Date Duration
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Manually resolving exceptions for date duration mismatches
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "PR06 - Imprisoned" in the exception list table
 		When I open the record for "Dibbley Marcus"

@@ -20,7 +20,7 @@ Feature: {230} BR7-R5.5-RCD576-PNC_Adj-Existing_Offences_Adj_Post_Judg-Offence_A
 
 	@Could
 	Scenario: Validating offences added in court behaviour
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And "input-message-1" is received
 			And I wait "3" seconds
 			And "input-message-2" is received

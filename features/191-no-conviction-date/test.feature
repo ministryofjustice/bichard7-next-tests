@@ -23,7 +23,7 @@ Feature: {191} BR7-R5.3.2-RCD556-Guilty Verdict-No Conviction Date
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Exception is generated when no Conviction Date is provided
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then I see exception "HO100305" in the exception list table
 			And there are no triggers raised for "KINGERS THETUBE"

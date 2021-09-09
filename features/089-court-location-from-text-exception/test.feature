@@ -23,7 +23,7 @@ Feature: {089} R4.1.1_BR7_Court Location from Text Exception
   @Problem
   @NeedsRunningAgainstPNC
   Scenario: Updating the PNC with the court location from Text Exception
-    Given I am logged in as a "supervisor"
+    Given I am logged in as "supervisor"
       And I view the list of exceptions
     Then I see exception "HO100322" in the exception list table
       And there are no triggers raised for "Harp Nigel"

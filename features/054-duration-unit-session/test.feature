@@ -21,7 +21,7 @@ Feature: {054} R3.4_BR7_Duration Unit_Session
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling messages with session duration
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "Ladyfish Larry"
 			And the PNC updates the record

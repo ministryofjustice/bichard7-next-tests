@@ -23,7 +23,7 @@ Feature: {110} BR7 R5.0-RCD385-PSA Code Change
 	@Problem
 	Scenario: PSA code change handling
 		Given "input-message-1" is received
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
 			And there are no exceptions raised for "CHANGES PSACODENEW"

@@ -1,58 +1,73 @@
+// Note: These users are only created automatically when running against Postgres - they will need seeding in DB2 or LDAP
 module.exports = {
-  bichard01: {
+  supervisor: {
     inclusionList: ["B01", "B41ME00"],
-    groups: ["B7Allocator", "B7Audit", "B7ExceptionHandler", "B7GeneralHandler", "B7Supervisor", "B7TriggerHandler"]
-  },
-  allocator1: {
-    inclusionList: ["B01", "B41ME00"],
-    groups: ["B7Allocator"]
-  },
-  audit1: {
-    inclusionList: ["B01", "B41ME00"],
-    groups: ["B7Audit"]
-  },
-  exceptionhandler1: {
-    inclusionList: ["B01", "B41ME00"],
-    groups: ["B7ExceptionHandler"]
-  },
-  generalhandler1: {
-    inclusionList: ["B01", "B41ME00"],
-    groups: ["B7GeneralHandler"]
-  },
-  supervisor1: {
-    inclusionList: ["B01", "B41ME00"],
+    exclusionList: [],
     groups: ["B7Supervisor"]
   },
-  triggerhandler1: {
+  generalhandler: {
     inclusionList: ["B01", "B41ME00"],
-    groups: ["B7TriggerHandler"]
-  },
-  allocator2: {
-    inclusionList: ["B40ME00"],
-    groups: ["B7Allocator"]
-  },
-  audit2: {
-    inclusionList: ["B40ME00"],
-    groups: ["B7Audit"]
-  },
-  exceptionhandler2: {
-    inclusionList: ["B40ME00"],
-    groups: ["B7ExceptionHandler"]
-  },
-  generalhandler2: {
-    inclusionList: ["B40ME00"],
+    exclusionList: [],
     groups: ["B7GeneralHandler"]
   },
-  supervisor2: {
-    inclusionList: ["B40ME00"],
-    groups: ["B7Supervisor"]
-  },
-  triggerhandler2: {
-    inclusionList: ["B40ME00"],
+  triggerhandler: {
+    inclusionList: ["B01", "B41ME00"],
+    exclusionList: [],
     groups: ["B7TriggerHandler"]
   },
-  nogroupsassigned: {
-    inclusionList: ["B40ME00"],
-    groups: []
+  exceptionhandler: {
+    inclusionList: ["B01", "B41ME00"],
+    exclusionList: [],
+    groups: ["B7ExceptionHandler"]
+  },
+  auditor: {
+    inclusionList: ["B01", "B41ME00"],
+    exclusionList: [],
+    groups: ["B7Audit"]
+  },
+  "met.police": {
+    inclusionList: ["001"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "wilt.shire": {
+    inclusionList: ["054"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "super.fivefour": {
+    inclusionList: ["054"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "br7.btp": {
+    inclusionList: ["093"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "west.yorkshire": {
+    inclusionList: ["013"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "essex.user": {
+    inclusionList: ["042"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "norfolk.user": {
+    inclusionList: ["036"],
+    exclusionList: [],
+    groups: ["B7Supervisor"]
+  },
+  "trigger.fivefourexcl": {
+    inclusionList: ["B01HO", "B01EF"],
+    exclusionList: ["TRPR0003", "TRPR0004", "TRPR0006"],
+    groups: ["B7TriggerHandler"]
+  },
+  "general.fivefourexcl": {
+    inclusionList: ["B01HO", "B01EF"],
+    exclusionList: ["TRPR0003", "TRPR0004", "TRPR0006"],
+    groups: ["B7GeneralHandler"]
   }
 };

@@ -19,7 +19,7 @@ Feature: {286} BR7 R5.8-RCD638 - TRPR0029 - Offence Code Trigger only
 
 	@Should
 	Scenario: Creating civil proceedings triggers based on offence code
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then I see trigger "PR29 - Civil Proceedings" in the exception list table
 			And I see trigger "PR03 - Order issues" in the exception list table

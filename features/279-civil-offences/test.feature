@@ -26,7 +26,7 @@ Feature: {279} BR7 R5.8-RCD638 - TRPR0029 - Civil & Non-Civil Offences
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling civil offences
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see trigger "PR20 - Breach" in the exception list table

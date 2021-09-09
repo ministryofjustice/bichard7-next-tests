@@ -24,6 +24,6 @@ Feature: {204} UAT_Removal of Qualifiers 4004
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
-    Given I am logged in as a "general handler"
+    Given I am logged in as "generalhandler"
       And I view the list of exceptions
     Then I see trigger "PR10 - Conditional bail" in the exception list table

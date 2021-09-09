@@ -16,14 +16,14 @@ Feature: {247} BR7 R5.6-RCD554-Existing Offence-Sentence-no PNC Adjudication
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updating an existing offence with no PNC adjudication
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
+		Given I am logged in as "generalhandler"
+			And I view the list of exceptions
 		Then I see exception "HO100326 (2)" in the exception list table
-		And there are no triggers raised for "EXIOFFSENNOPNCADJ EXCEPTION"
-		And the PNC record has not been updated
+			And there are no triggers raised for "EXIOFFSENNOPNCADJ EXCEPTION"
+			And the PNC record has not been updated

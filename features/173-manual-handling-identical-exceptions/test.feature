@@ -23,7 +23,7 @@ Feature: {173} BR7 R5.3-RCD497 - Partial Match - Fine Amount
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling exceptions for identical offences with manual handling
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see exception "HO100310 (2)" in the exception list table

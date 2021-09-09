@@ -27,7 +27,7 @@ Feature: {179} BR7 R5.3-RCD496 - Multiple CCR group offence added in court_Judge
 		Given "input-message-1" is received
 			And I wait "2" seconds
 			And "input-message-2" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 		Then the PNC updates the record
 		When I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table

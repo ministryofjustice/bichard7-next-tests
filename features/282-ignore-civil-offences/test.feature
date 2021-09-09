@@ -21,7 +21,7 @@ Feature: {282} BR7 R5.8-RCD638 - TRPR0029 - Ignored Offence
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Ignore civil offences
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "CIVILCASE IGNORED"
 			And there are no triggers raised for "CIVILCASE IGNORED"

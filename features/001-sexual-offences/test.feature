@@ -22,7 +22,7 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updates and triggers are correctly generated for sexual offences
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		When I open the record for "SEXOFFENCE TRPRFOUR"
 			And I click the "Triggers" tab

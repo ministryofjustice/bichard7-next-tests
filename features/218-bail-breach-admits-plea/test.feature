@@ -23,7 +23,7 @@ Feature: {218} BR7 R5.5_RCD563-Breach of Bail-Plea of Admits
 	@Could
 	Scenario: Verifying 'Breach of Bail' Trigger generation where the Defendant Admits the charge of Breaching existing Bail Conditions
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "BAILY Breachy"
 			And I see trigger "PR10 - Conditional bail" in the exception list table

@@ -23,7 +23,7 @@ Feature: {075} R4.0_BR7_Personal Details Trigger
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Revising ASN on the UI and removing specific result codes
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100206" in the exception list table
 			And I see trigger "PR15 - Personal details changed" in the exception list table

@@ -24,7 +24,7 @@ Feature: {195} BR7-R5.3.2-RCD556-Breach Offence with Sentence
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: PNC is updated for the provided Result Class in the Breach Offence/Result
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then there are no exceptions raised for "NORTHERS THETUBE"
 		When I open the record for "NORTHERS THETUBE"

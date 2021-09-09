@@ -20,7 +20,7 @@ Feature: {154} BR7 R5.2.2-RCD518 - New Offence - Guilty - 1040 Result
 	@Could
 	@OnlyRunsOnPNC
 	Scenario: Does not create breach trigger for 1040 result
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100301" in the exception list table
 			And I cannot see trigger "PR20 - Breach" in the exception list table

@@ -24,7 +24,7 @@ Feature: {287} BR7 R5.8-RCD638 - TRPR0029 - Recordable & Non-Recordable Civil Of
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Test exception is generated for incompatible civil and criminal offences
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 			And I see trigger "PR20 - Breach" in the exception list table
 			And I cannot see trigger "PR29" in the exception list table
