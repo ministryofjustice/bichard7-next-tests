@@ -21,7 +21,7 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 	@Should
 	@OnlyRunsOnPNC
 	Scenario: Trigger is still created when record is not found in PNC
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR16 - Forfeiture order" in the exception list table
 			And I see exception "HO100301" in the exception list table

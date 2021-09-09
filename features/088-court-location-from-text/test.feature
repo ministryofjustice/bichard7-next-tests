@@ -22,7 +22,7 @@ Feature: {088} R4.1.1_BR7_Court Location from Text
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: PNC is updated with next hearing location from court results
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then the PNC updates the record
 			And there are no exceptions

@@ -26,7 +26,7 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 	@Should
 	Scenario: Correcting invalid ASN codes
 		Given "input-message-1" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100206" in the exception list table
 			And there are no triggers raised for "fuller Sam"

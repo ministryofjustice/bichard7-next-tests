@@ -24,7 +24,7 @@ Feature: {116} BR7 R5.1-238-414-Multiple CCR-Adjudications-Existing Results
 		Given "input-message-1" is received
 			And I wait "2" seconds
 			And "input-message-2" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 			And "input-message-3" is received
 			And I wait "2" seconds
 			And "input-message-4" is received

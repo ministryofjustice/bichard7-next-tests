@@ -20,24 +20,24 @@ Feature: {194} BR7-R5.4-RCD548-R5.3.2-RCD556-Breach Offence with Re-sentence for
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Verifying that new Breach Offence creates Exception and Trigger
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-    	Then I see exception "HO200212" in the exception list table
-    	When I open the record for "JUBES THETUBE"
-		And I click the "Offences" tab
-    	And I view offence "1"
-	    Then I see "3501" in the "CJS Code" row of the results table
-		And I click the "Return To List (Unlock)" button
-		And I view the list of exceptions
-    	When I open the record for "JUBES THETUBE"
-		And I click the "Triggers" tab
+		Given I am logged in as "generalhandler"
+			And I view the list of exceptions
+		Then I see exception "HO200212" in the exception list table
+		When I open the record for "JUBES THETUBE"
+			And I click the "Offences" tab
+			And I view offence "1"
+		Then I see "3501" in the "CJS Code" row of the results table
+			And I click the "Return To List (Unlock)" button
+			And I view the list of exceptions
+		When I open the record for "JUBES THETUBE"
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
-		And I see trigger "TRPR0020" for offence "1"
-		And I see trigger "TRPR0020" for offence "2"
-	    And the PNC record has not been updated
+			And I see trigger "TRPR0020" for offence "1"
+			And I see trigger "TRPR0020" for offence "2"
+			And the PNC record has not been updated

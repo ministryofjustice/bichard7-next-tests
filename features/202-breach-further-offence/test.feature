@@ -22,7 +22,7 @@ Feature: {202} BR7 R5.1-RCD422-Breach of Community Order-Revoked-Resentenced
 	@Could
 	Scenario: Breach Offence handling where a Further Offence is charged
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received

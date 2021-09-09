@@ -22,7 +22,7 @@ Feature: {047} #186 - Result text population for Orders - 2nd variation
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Result text population for Orders - 2nd variation
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PR03 - Order issues" in the exception list table

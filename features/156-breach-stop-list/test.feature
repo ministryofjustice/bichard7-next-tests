@@ -23,7 +23,7 @@ Feature: {156} BR7 R5.2.2-RCD518 - Offence Code Not in list
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: No breach triggers if offence is in stop list
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "Duck James"

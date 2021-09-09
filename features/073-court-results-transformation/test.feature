@@ -32,7 +32,7 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 	@Should
 	@NeedsRunningAgainstPNC
 	Scenario: Add a case to the PNC, no exceptions are flagged if certain properties are set
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 			And the PNC updates the record

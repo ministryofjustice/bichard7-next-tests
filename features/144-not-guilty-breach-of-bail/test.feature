@@ -19,7 +19,7 @@ Feature: {144} BR7 R5.2-RCD491-TRPR0008 BA76005 Not Guilty
 	@Could
 	@OnlyRunsOnPNC
 	Scenario: Handling breach of bail when not guilty
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100301" in the exception list table
 			And I see trigger "PR06 - Imprisoned" in the exception list table

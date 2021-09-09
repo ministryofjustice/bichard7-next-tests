@@ -24,7 +24,7 @@ Feature: {143} BR7 R5.5_RCD563-Breach of Bail-Plea of Denies
 	@Could
 	Scenario: Handling a breach of bail with a 'Denies' plea
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions raised for "DENIES Breachy"
 			And I see trigger "PR10 - Conditional bail" in the exception list table

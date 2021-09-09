@@ -16,8 +16,8 @@ Feature: {092} R4.1.1_BR7_CSV Report via Portal
   @Must
   @ReadyToValidate
   Scenario: Supervisors can download reports
-    Given I am logged in as a "supervisor"
-    And I navigate to the list of reports
+    Given I am logged in as "supervisor"
+      And I navigate to the list of reports
     When I access the "Live Status Summary" report
-    And I download the report
+      And I download the report
     Then the "LiveStatusSummary.csv" report will be downloaded as a CSV file

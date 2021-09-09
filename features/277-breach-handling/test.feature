@@ -31,7 +31,7 @@ Feature: {277} BR7-R5.8-RCD628 - Standalone Breach Admits Plea No Verdict
 	@Should
 	Scenario: Handling breach result classes
 		Given "input-message-1" is received
-			And I am logged in as a "supervisor"
+			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 			And there are no exceptions raised for "BREACHPLEANOVERDICT Standalone"

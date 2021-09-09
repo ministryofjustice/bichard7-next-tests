@@ -26,7 +26,7 @@ Feature: {200} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added-Adjourne
 	@Should
 	@NeedsRunningAgainstPNC
 	Scenario: Trigger is created to alert police of adding lesser offence to PNC
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table

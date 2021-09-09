@@ -23,7 +23,7 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Handling interim sexual order results
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR04 - Sex offender" in the exception list table
 			And there are no exceptions raised for "SEXUALORDER Interim"

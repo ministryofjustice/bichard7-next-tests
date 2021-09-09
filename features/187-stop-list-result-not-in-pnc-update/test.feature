@@ -23,7 +23,7 @@ Feature: {187} BR7 R5.3-RCD494 - Date Match with Stop List Result
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Stop List Result is removed from the PNC update request
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then there are no exceptions raised for "Hudson Charles"
 		When I open the record for "Hudson Charles"

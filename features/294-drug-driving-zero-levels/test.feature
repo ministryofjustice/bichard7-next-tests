@@ -21,7 +21,7 @@ Feature: {294} BR7-R5.9-RCD605-Drug Driving-Minimum AlcoholLevelAmount
 	@Problem
 	@NeedsRunningAgainstPNC
 	Scenario: Handling results with drug driving zero levels
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR01 - Disqualified driver" in the exception list table
 			And there are no exceptions raised for "DRUGDRIVING MINVALUE"

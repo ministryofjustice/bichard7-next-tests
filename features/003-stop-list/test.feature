@@ -16,22 +16,22 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
 
   Background:
     Given the data for this test is in the PNC
-    And "input-message" is received
+      And "input-message" is received
 
   @Must
   @Validated
   @NeedsRunningAgainstPNC
   Scenario: Exceptions and triggers are created for a "stop list" message
-    Given I am logged in as a "general handler"
-    And I view the list of exceptions
+    Given I am logged in as "generalhandler"
+      And I view the list of exceptions
     Then I see exception "HO200212" in the exception list table
     When I open the record for "TRTHREE TRPRTWELVE"
-    And I click the "Triggers" tab
+      And I click the "Triggers" tab
     Then I see trigger "TRPR0001" for offence "1"
-    And I see trigger "TRPR0001" for offence "3"
-    And I see trigger "TRPR0006"
-    And I see trigger "TRPR0012"
+      And I see trigger "TRPR0001" for offence "3"
+      And I see trigger "TRPR0006"
+      And I see trigger "TRPR0012"
     When I click the "Offences" tab
-    And I view offence "2"
+      And I view offence "2"
     Then I see "2509" in the "CJS Code" row of the results table
-    And the PNC record has not been updated
+      And the PNC record has not been updated

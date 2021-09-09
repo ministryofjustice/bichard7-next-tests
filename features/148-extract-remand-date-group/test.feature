@@ -22,7 +22,7 @@ Feature: {148} BR7 R5.2-RCD452-Extracting Remand Date-Group 1
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Update PNC based on date time and location in result text
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then there are no triggers raised for "RemandTest Cortez"
 			And there are no exceptions raised for "RemandTest Cortez"

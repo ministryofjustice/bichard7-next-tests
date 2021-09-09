@@ -23,7 +23,7 @@ Feature: {223} BR7-R5.5-RCD576-PNC_Adj-Existing_Offences_Adj_Post_Judg-Offence_A
 		Given "input-message-1" is received
 			And I wait "2" seconds
 			And "input-message-2" is received
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PS11 - Add offence to PNC" in the exception list table
 			And there are no exceptions

@@ -26,7 +26,7 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 	@Excluded
 	Scenario: Testing invalid offence codes
 		Given "<messageId>" is received
-			And I am logged in as a "general handler"
+			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100306" in the exception list table
 			And the PNC record has not been updated

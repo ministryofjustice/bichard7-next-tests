@@ -21,7 +21,7 @@ Feature: {263} BR7 R5.7-RCD601-Result Code 2065 received after Defendant found G
 
 	@Could
 	Scenario: Defendant dies after being found guilty
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 			And "input-message-1" is received
 		Then there are no exceptions or triggers

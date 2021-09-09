@@ -24,7 +24,7 @@ Feature: {201} BR7-R5.3.2-RCD556-Offence Non-Conviction
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Trigger is generated and PNC is updated when Defendant is considered as "Unfit To Plead"
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
 		Then there are no exceptions raised for "DEEELAR THETUBE"
 		When I open the record for "DEEELAR THETUBE"

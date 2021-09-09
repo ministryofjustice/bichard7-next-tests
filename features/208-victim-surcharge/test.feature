@@ -1,7 +1,7 @@
-Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
+Feature: {208} 3.2 UAT - Victim Surcharge
 
 			"""
-			{073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
+			{208} 3.2 UAT - Victim Surcharge
 			===============
 			Q-Solution Definition:
 			A Bichard7 Regression Test verifying Court Results automation for Victim Surcharge - SPI ResultedCaseMessage sent through the CJSE and onto Bichard 7.
@@ -9,7 +9,7 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 			PNC Update is generated and the Court Hearing Results are successfully added automatically onto the PNC.
 
 			MadeTech Definition:
-			Converting no conviction for 2050 and 2051 to not guilty
+			Testing automation for victim surcharge
 			"""
 
 	Background:
@@ -19,8 +19,8 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 	@Should
 	@ReadyForValidation
 	@NeedsRunningAgainstPNC
-	Scenario: Converting no conviction for 2050 and 2051 to not guilty
-		Given I am logged in as a "supervisor"
+	Scenario: Testing automation for victim surcharge
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 			And the PNC updates the record

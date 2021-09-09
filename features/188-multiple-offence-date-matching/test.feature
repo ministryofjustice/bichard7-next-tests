@@ -22,7 +22,7 @@ Feature: {188} BR7 R5.3-RCD494 - 2x Offence Date Match
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Matching multiple offences with approximate date matching
-		Given I am logged in as a "general handler"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "Bishop Charles"

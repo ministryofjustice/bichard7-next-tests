@@ -24,7 +24,7 @@ Feature: {028} R5.6_BR7 Driver Disqualification - Duration and Date values
 
 	@Should
 	Scenario: Driver Disqualification handling when only a Duration is received
-		Given I am logged in as a "supervisor"
+		Given I am logged in as "supervisor"
 		When "input-message-1" is received
 			And I view the list of exceptions
 		Then I see trigger "PR01 - Disqualified driver" in the exception list table

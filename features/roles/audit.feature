@@ -5,7 +5,7 @@ Feature: Audit role
   Scenario: Auditors have read only access
     Given there is a valid record for "Rigout Dean" in the PNC
       And a message is received
-      And I am logged in as a user with "audit" permissions
+      And I am logged in as "auditor"
     When I view the list of exceptions
       And I open the record for "Rigout Dean"
     Then I can see exceptions
