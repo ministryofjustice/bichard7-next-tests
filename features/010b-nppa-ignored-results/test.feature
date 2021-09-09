@@ -1,4 +1,4 @@
-Feature: {010} R2_Regression_NPPA_NPP_001
+Feature: {010} R2_Regression_NPPA_NPP_001 - part 2
 
 			"""
 			{010} R2_Regression_NPPA_NPP_001
@@ -9,18 +9,18 @@ Feature: {010} R2_Regression_NPPA_NPP_001
 			An additional NPPA Court Hearing Result is sent through the CJSE and onto Bichard7 containing no recordable offences/results which results in the solution ignoring the results (since PNC has no interest) and logging the message to the General Event Log.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			NPPA exception generation
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	@AuditLog
+	Scenario: NPPA exception generation
+		Given I am logged in as "wilt.shire"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
+			And the PNC record has not been updated
+#And the audit log contains ""
