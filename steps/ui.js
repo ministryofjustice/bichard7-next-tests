@@ -19,13 +19,17 @@ const containsValue = async function (page, selector, value) {
   return Boolean(jsonValues.find((j) => j.includes(value)));
 };
 
-const checkDataTable = async function (world, values) {
+const getTableData = async function (world, selector) {
   const trPromises = await world.browser.page
-    .$$("#br7_exception_details_court_data_table .resultsTable tbody tr")
+    .$$(selector)
     .then((els) =>
       els.map((elHandle) => elHandle.evaluate((el) => [...el.querySelectorAll("td")].map((e) => e.innerText.trim())))
     );
-  const tableData = await Promise.all(trPromises);
+  return Promise.all(trPromises);
+};
+
+const checkDataTable = async function (world, values) {
+  const tableData = await getTableData(world, "#br7_exception_details_court_data_table .resultsTable tbody tr");
   const check = tableData.filter((row) =>
     values.every((val) => {
       if (val.exact) {
@@ -313,6 +317,14 @@ const checkTriggerforOffence = async function (triggerId, offenceId) {
   ]);
 };
 
+const checkCompleteTriggerforOffence = async function (triggerId, offenceId) {
+  await checkDataTable(this, [
+    { column: 1, value: triggerId, exact: false },
+    { column: 2, value: offenceId, exact: true },
+    { column: 3, value: "Complete", exact: true }
+  ]);
+};
+
 const checkTrigger = async function (triggerId) {
   await checkDataTable(this, [{ column: 1, value: triggerId, exact: false }]);
 };
@@ -387,6 +399,13 @@ const checkOffenceData = async function (value, key) {
   ]);
 };
 
+const checkNoteExists = async function (value) {
+  const tableData = await getTableData(this, "#br7_exception_details_display_notes .resultsTable tbody tr");
+  if (!tableData.some((row) => row[0].includes(value))) {
+    throw new Error("Note does not exist");
+  }
+};
+
 const checkOffenceDataError = async function (value, key) {
   await checkDataTable(this, [
     { column: 1, value: key, exact: true },
@@ -409,7 +428,10 @@ const correctOffenceException = async function (field, newValue) {
         (rowEl, fieldName, value) => {
           const tds = [...rowEl.querySelectorAll("td")].map((e) => e.innerText.trim());
           if (tds[0] === fieldName) {
-            const input = rowEl.querySelector("input[type='text']");
+            let input = rowEl.querySelector("input[type='text']");
+            if (!input) {
+              input = rowEl.querySelector("textarea");
+            }
             input.value = value;
           }
         },
@@ -479,6 +501,14 @@ const checkTableRows = async function (offenceCount) {
   expect(trPromises.length).toEqual(parseInt(offenceCount, 10));
 };
 
+const selectTrigger = async function (triggerNo) {
+  const checkBoxes = await this.browser.page.$$(
+    "#br7_exception_details_court_data_table .resultsTable tbody tr input[type=checkbox]"
+  );
+  const index = parseInt(triggerNo, 10) - 1;
+  checkBoxes[index].click();
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -514,6 +544,7 @@ module.exports = {
   loadTab,
   checkTrigger,
   checkTriggerforOffence,
+  checkCompleteTriggerforOffence,
   resolveAllTriggers,
   checkRecordResolved,
   checkRecordNotResolved,
@@ -532,5 +563,7 @@ module.exports = {
   checkNoRecords,
   waitForRecordStep,
   checkOffence,
-  checkTableRows
+  checkTableRows,
+  checkNoteExists,
+  selectTrigger
 };
