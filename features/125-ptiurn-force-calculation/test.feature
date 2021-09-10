@@ -10,18 +10,22 @@ Feature: {125} BR7 R5.1-RCD399-Force calculation-FFSS in PTIURN
 			This is then verified by logging in as Users belonging to Forces that SHOULD NOT and SHOULD be able to view the Trigger Records.
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Force calculation from PTIURN
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should
 	@NeedsValidating
+	@Problem
+	@Excluded
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Force calculation from PTIURN
+		When I am logged in as "met.police"
+			And I view the list of exceptions
+		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
+		When I am logged in as "west.yorkshire"
+			And I view the list of exceptions
+		Then there are no exceptions or triggers
