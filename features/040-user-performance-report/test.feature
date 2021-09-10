@@ -8,18 +8,18 @@ Feature: {040} 04 MIS - User Performance Summary
 			failed to have been actioned within 24h of receipt)
 
 			MadeTech Definition:
-			<add concise test definition here>
+			Generating the user performance report
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Could
 	@NeedsValidating
+	@Excluded
 	@NeedsRunningAgainstPNC
-	Scenario: <add human readable test description>
-		Given I am logged in as a "general handler"
-		And I view the list of exceptions
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
-		And pending
+	Scenario: Generating the user performance report
+		Given I am logged in as "supervisor"
+			And I view the list of exceptions
+			And pending
