@@ -19,6 +19,7 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
       And "input-message" is received
 
   @Must
+  @AuditLog
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: Exception is raised when there is a data mismatch
@@ -32,3 +33,4 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
     Then the "record" for "EXONE EXCEPTION" is "Resolved"
       And the "record" for "EXONE EXCEPTION" is not "Unresolved"
       And the PNC record has not been updated
+      And the audit log contains "Exception marked as resolved by user"
