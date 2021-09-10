@@ -13,7 +13,7 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
       Ownership/visibility of this Case is then verified by logging in as Users belonging to Forces that SHOULD NOT and SHOULD be able to view the Exception/Trigger Records."
 
       MadeTech Definition:
-
+      Trigger reallocation when a force owner changes
       """
 
   Background:
@@ -24,7 +24,51 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
   @NeedsValidating
   @NeedsRunningAgainstPNC
   @Excluded
-  Scenario: PNC is updated when there are multiple CCR and overlapping offences
-    Given I am logged in as "generalhandler"
+  Scenario: Trigger reallocation when a force owner changes
+    Given I am logged in as "norfolk.user"
       And I view the list of exceptions
-      And pending
+    Then there are no exceptions or triggers
+    When I am logged in as "essex.user"
+      And I view the list of exceptions
+    Then I see exception "HO100206" in the exception list table
+    When I open the record for "Allocation Trigger"
+      And I click the "Triggers" tab
+    Then I see trigger "TRPR0004" for offence "2"
+      And I see trigger "TRPR0004" for offence "3"
+      And I see trigger "TRPR0006"
+    When I click the "Notes" tab
+    Then I see "Error codes: 1 x HO100206" in the table
+      And I see "Trigger codes: 2 x TRPR0004, 1 x TRPR0006" in the table
+    When I click the "Triggers" tab
+      And I select trigger "1" to resolve
+      And I click the "Mark Selected Complete" button
+      And I click the "Defendant" tab
+      And I correct "ASN" to "0836FP0100000377244A"
+      And I click the "Offences" tab
+      And I view offence "4"
+      And I correct "Text" to "**Imprisonment for 12 Months with result text greater sixty fourEnd"
+      And I submit the record
+    Then I see exception "(Submitted)" in the exception list table
+    When I reload until I don't see "(Submitted)"
+      And I click the "Refresh" button
+      And I click the "Return To List (Unlock)" button
+    Then there are no exceptions or triggers
+    When I am logged in as "met.police"
+      And I view the list of exceptions
+    Then I see trigger "PS03 - Disposal text truncated" in the exception list table
+    When I open the record for "Allocation Trigger"
+      And I click the "Notes" tab
+    Then I see "Error codes: 1 x HO100206" in the table
+      And I see "essex.user: Portal Action: Trigger Resolved. Code: TRPR0004" in the table
+      And I see "essex.user: Portal Action: Update Applied. Element: ASN. New Value: 0836FP0100000377244A" in the table
+      And I see "essex.user: Portal Action: Update Applied. Element: ResultVariableText. New Value: **Imprisonment for 12 Months with result text greater sixty fourEnd" in the table
+      And I see "essex.user: Portal Action: Resubmitted Message" in the table
+    When I click the "Triggers" tab
+    Then I see trigger "TRPR0001" for offence "1"
+      And I see trigger "TRPR0006"
+      And I see trigger "TRPS0003" for offence "4"
+      And I see complete trigger "TRPR0004" for offence "2"
+      And I see trigger "TRPR0004" for offence "3"
+      And the PNC updates the record
+      And the audit log contains "Trigger generated"
+      And the audit log contains "Trigger marked as resolved by user"

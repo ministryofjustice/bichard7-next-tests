@@ -53,7 +53,10 @@ const {
   checkNoRecords,
   checkOffence,
   checkTableRows,
-  reallocateCaseToForce
+  reallocateCaseToForce,
+  checkNoteExists,
+  selectTrigger,
+  checkCompleteTriggerforOffence
 } = require("./ui");
 const { checkAuditLogCondition } = require("./auditLogging");
 
@@ -151,6 +154,8 @@ Then("I see trigger {string} in the exception list table", canSeeContentInTable)
 
 Then("I cannot see trigger {string} in the exception list table", cannotSeeTrigger);
 
+Then("I cannot see exception {string} in the exception list table", cannotSeeTrigger);
+
 Then("the {string} menu item is visible", buttonIsVisible);
 
 Then("I can see the QA status of a record", canSeeQAStatus);
@@ -165,6 +170,8 @@ Then("the PNC record has not been updated", pncNotUpdated);
 
 Then("I see trigger {string} for offence {string}", checkTriggerforOffence);
 
+Then("I see complete trigger {string} for offence {string}", checkCompleteTriggerforOffence);
+
 Then("I see trigger {string}", checkTrigger);
 
 Then("the {string} for {string} is {string}", checkRecordResolved);
@@ -174,6 +181,8 @@ Then("the {string} for {string} is not {string}", checkRecordNotResolved);
 Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
+
+Then("I see {string} in the table", checkNoteExists);
 
 Then("I see error {string} in the {string} row of the results table", checkOffenceDataError);
 
@@ -210,3 +219,5 @@ Then("{string} is not in the audit log", async function (message) {
 });
 
 When("I reallocate the case to {string}", reallocateCaseToForce);
+
+When("I select trigger {string} to resolve", selectTrigger);
