@@ -31,7 +31,7 @@ const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
   return true;
 };
 
-const checkAuditLogContains = async function (auditMessageNumber, message) {
+const checkAuditLogCondition = async function (auditMessageNumber, message, contains) {
   if (!this.shouldUploadMessagesToS3) return;
   if (this.incomingMessageBucket.uploadedS3Files.length < 1) {
     throw new Error(`Unexpected number of uploaded S3 files. Expected to be more than 0`);
@@ -59,7 +59,10 @@ const checkAuditLogContains = async function (auditMessageNumber, message) {
       const noResults = allMessages
         .find((m) => m.externalCorrelationId === correlationId)
         .events.filter((event) => event.eventType === message).length;
-      return noResults === 1;
+      if (contains) {
+        return noResults === 1;
+      }
+      return noResults === 0;
     }
   };
 
@@ -102,5 +105,5 @@ const pollMessagesForEvent = async (context, externalCorrelationId, eventType) =
 module.exports = {
   pollMessagesForEvent,
   checkIfMessageHasEvent,
-  checkAuditLogContains
+  checkAuditLogCondition
 };

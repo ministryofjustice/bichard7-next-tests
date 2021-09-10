@@ -18,6 +18,7 @@ Feature: {300} BR7-R5.9-RCD401-501-Subsequent Remand-Different Dates
 		Given the data for this test is in the PNC
 
 	@Could
+	@AuditLog
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Verifying 'Results already on PNC' processing
@@ -28,4 +29,4 @@ Feature: {300} BR7-R5.9-RCD401-501-Subsequent Remand-Different Dates
 		When I view the list of exceptions
 		Then there are no exceptions or triggers
 			And the PNC updates the record
-#And "Results already on PNC" is not in the audit log
+			And "Results already on PNC" is not in the audit log
