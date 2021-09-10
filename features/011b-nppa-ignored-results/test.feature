@@ -20,6 +20,7 @@ Feature: {011} R2_Regression_NPPA_PP_002 - part 2
 			And "input-message" is received
 
 	@Could
+	@AuditLog
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Ignored results
