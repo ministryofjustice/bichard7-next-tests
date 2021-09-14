@@ -20,8 +20,6 @@ Feature: {260} BR7 R5.7-RCD611 - Bail Qualifier for Non Recordable & Ignored Off
 			And "input-message" is received
 
 	@Should
-	@Problem
-	@Excluded
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Handling non-recordable bail conditions
