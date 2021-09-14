@@ -21,7 +21,6 @@ Feature: {058} R3.1_BR7_NH_001_Next Hearing Court
 	@Should
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Test next hearing location is calculated and updated correctly
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
