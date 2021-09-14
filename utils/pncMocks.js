@@ -22,8 +22,20 @@ const extractDates = (offence) => {
 };
 
 module.exports = {
-  mockEnquiryFromNCM: (ncmFile, options = {}) => {
+  mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
     const xmlData = fs.readFileSync(ncmFile, "utf8");
+    if (process.env.RUN_PARALLEL) {
+      // change the PNC data
+      for (let i = 0; i < world.currentTestFamilyNames.length; i += 1) {
+        const COU = `${world.currentTestFamilyNames[i][0]}/${world.currentTestGivenNames1[i][0]}`;
+        const newCOU = `${world.currentTestFamilyNames[i][1]}/${world.currentTestGivenNames1[i][1]}`;
+        xmlData.replace(COU + " ".repeat(newCOU.length - COU.length), newCOU);
+
+        const IDS = world.currentTestFamilyNames[i][0];
+        const newIDS = world.currentTestFamilyNames[i][1];
+        xmlData.replace(IDS + " ".repeat(newIDS.length - IDS.length), newIDS);
+      }
+    }
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);
     const personFamilyName = parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(

@@ -1,4 +1,5 @@
 const fs = require("fs").promises;
+const uuid = require("uuid").v4;
 const { setWorldConstructor, World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
 const Db2Helper = require("../helpers/Db2Helper");
@@ -20,6 +21,10 @@ class Bichard extends World {
     this.authType = process.env.AUTH_TYPE || authType.userService;
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
+    this.currentTestGivenNames1 = [];
+    this.currentTestGivenNames2 = [];
+    this.currentTestFamilyNames = [];
+    this.currentPTIURN = uuid();
 
     if (this.stackType === stackType.next) {
       this.db = new PostgresHelper({
@@ -86,6 +91,14 @@ class Bichard extends World {
       record: process.env.RECORD === "true",
       world: this
     });
+  }
+
+  getOriginalRecordName(index) {
+    return `${this.currentTestFamilyNames[index][0]} ${this.currentTestGivenNames1[index][0]}`;
+  }
+
+  getRecordName(index) {
+    return `${this.currentTestFamilyNames[index][1]} ${this.currentTestGivenNames1[index][1]}`;
   }
 
   async dumpData() {

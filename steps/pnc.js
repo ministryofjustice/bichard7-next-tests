@@ -4,7 +4,7 @@ const path = require("path");
 const mockPNCDataForTest = async function () {
   // mock a response in the PNC
   const specFolder = path.dirname(this.featureUri);
-  this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`);
+  this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
 
   /* eslint-disable no-restricted-syntax */
   for (const mock of this.mocks) {
