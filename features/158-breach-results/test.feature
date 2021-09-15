@@ -22,14 +22,22 @@ Feature: {158} BR7 R5.2.2-RCD518 - Result class Sentence & Adjournment Post Judg
 		Given the data for this test is in the PNC
 
 	@Should
-	@Problem
-	@Excluded
 	Scenario: Breach results automation
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 		When "input-message-2" is received
+		Then I see exception "HO100310" in the exception list table
+		When I open the record for "DDDraven Alex"
+			And I click the "Offences" tab
+			And I view offence "1"
+			And I correct "Sequence Number" to "1"
+			And I click the "Offences" tab
+			And I view offence "2"
+			And I correct "Sequence Number" to "2"
+			And I submit the record
+			And I click the "Return To List" button
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see exception "HO200113" in the exception list table
 		When I open the record for "DDDraven Alex"

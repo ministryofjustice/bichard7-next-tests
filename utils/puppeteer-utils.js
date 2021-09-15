@@ -21,14 +21,14 @@ const retryDelay = async (condition, retryFunction, delay, attempts = 20) => {
   /* eslint-enable no-await-in-loop */
 };
 
-const reloadUntilSelector = async (page, selector) => {
+const reloadUntilSelector = async (page, selector, attempts) => {
   const checkForSelector = async () => !!(await page.$(selector));
 
   const reloadPage = async () => {
     await page.reload();
   };
 
-  return retryDelay(checkForSelector, reloadPage, 1000);
+  return retryDelay(checkForSelector, reloadPage, 1000, attempts);
 };
 
 const reloadUntilContent = async (page, content) => {
@@ -66,8 +66,8 @@ const reloadUntilNotContent = async (page, content) => {
   return retryDelay(checkForContent, reloadPage, 1000);
 };
 
-const waitForRecord = async (page) => {
-  await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link");
+const waitForRecord = async (page, reloadAttempts) => {
+  await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link", reloadAttempts);
 };
 
 const delay = (seconds) =>

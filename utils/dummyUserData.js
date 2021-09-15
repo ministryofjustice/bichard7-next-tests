@@ -65,9 +65,9 @@ module.exports = {
     exclusionList: ["TRPR0003", "TRPR0004", "TRPR0006"],
     groups: ["B7TriggerHandler"]
   },
-  "general.fivefourexcl": {
+  "general.handlerexclone": {
     inclusionList: ["B01HO", "B01EF"],
-    exclusionList: ["TRPR0003", "TRPR0004", "TRPR0006"],
+    exclusionList: ["TRPR0004", "TRPR0006"],
     groups: ["B7GeneralHandler"]
   },
   "herts.user": {

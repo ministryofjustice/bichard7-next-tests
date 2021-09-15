@@ -10,7 +10,9 @@ const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 const createUser = async (world, username) => {
   const user = dummyUsers[username];
   if (!user) throw new Error(`User '${username}' not defined`);
-  world.db.createUser(username, user.groups, user.inclusionList, user.exclusionList);
+  if (world.db.createUser) {
+    world.db.createUser(username, user.groups, user.inclusionList, user.exclusionList);
+  }
 };
 
 const logInToBichardAs = async function (world, username) {

@@ -12,13 +12,16 @@ Feature: {041} R3.3_BR7_Operational Trigger Report
 
 	Background:
 		Given the data for this test is in the PNC
-			And "input-message" is received
 
 	@Could
 	@NeedsValidating
 	@Excluded
 	@NeedsRunningAgainstPNC
 	Scenario: Generating the operational trigger report
-		Given I am logged in as "supervisor"
-			And I view the list of exceptions
-			And pending
+		# Insert data for test 03
+		Given "input-message-1" is received
+			And I wait "20" seconds
+		# Insert data for test 14
+		Given "input-message-2" is received
+# When I am logged in as "supervisor"
+# 	And I view the list of exceptions

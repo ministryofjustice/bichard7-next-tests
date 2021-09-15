@@ -19,7 +19,6 @@ Feature: {290} BR7-R5.8-RCD641 - Police Bail Variation Granted
 		Given "input-message" is received
 
 	@Could
-	@Excluded
 	Scenario: Bail conditions trigger on non-recordable offence
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
