@@ -67,7 +67,9 @@ const openRecordFor = async function (name) {
 };
 
 const openRecordForCurrentTest = async function () {
-  const currentTestName = this.getRecordName(0);
+  const currentTestName = this.getRecordName(1);
+  console.log(currentTestName);
+  await waitForRecord(this.browser.page);
   await Promise.all([
     this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${currentTestName}']`),
     this.browser.page.waitForNavigation()

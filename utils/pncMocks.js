@@ -1,4 +1,5 @@
 const fs = require("fs");
+const uuid = require("uuid").v4;
 const parser = require("fast-xml-parser");
 
 const reformatDate = (input) => {
@@ -21,11 +22,49 @@ const extractDates = (offence) => {
   return { startDate, endDate };
 };
 
+const extractAndReplaceTags = (world, message, tag) => {
+  const bits = message.split(`${tag}>`);
+  if (bits.length < 2) {
+    return message;
+  }
+  let newMessage = `${bits[0]}`;
+  for (let i = 1; i < bits.length; i += 2) {
+    const name = bits[i].substring(0, bits[i].length - 2);
+    let newName = name;
+    if (process.env.RUN_PARALLEL) {
+      newName = uuid().toString().substr(0, 8); // if string is too long, it fudges the PNC
+    }
+
+    if (tag === "PersonFamilyName") {
+      world.currentTestFamilyNames.push([name, newName]);
+    } else if (tag === "PersonGivenName1") {
+      world.currentTestGivenNames1.push([name, newName]);
+    } else if (tag === "PersonGivenName2") {
+      world.currentTestGivenNames2.push([name, newName]);
+    }
+    newMessage = `${newMessage}${tag}>${newName}</${tag}>${bits[i + 1]}`;
+  }
+  return newMessage;
+};
+
 module.exports = {
   mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
-    const xmlData = fs.readFileSync(ncmFile, "utf8");
+    let xmlData = fs.readFileSync(ncmFile, "utf8").toString();
     if (process.env.RUN_PARALLEL) {
       // change the PNC data
+      // Insert random name and PTIURN
+      xmlData.replace("<PTIURN>.+</PTIURN>", `<PTIURN>${world.currentPTIURN}</PTIURN>`); // find PTIURN and use world  - DC:PTIURN
+    }
+    // populate given names 1
+    xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName1");
+
+    // populate given names 2
+    xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName2");
+
+    // populate family names
+    xmlData = extractAndReplaceTags(world, xmlData, "PersonFamilyName");
+
+    /*
       for (let i = 0; i < world.currentTestFamilyNames.length; i += 1) {
         const COU = `${world.currentTestFamilyNames[i][0]}/${world.currentTestGivenNames1[i][0]}`;
         const newCOU = `${world.currentTestFamilyNames[i][1]}/${world.currentTestGivenNames1[i][1]}`;
@@ -34,8 +73,8 @@ module.exports = {
         const IDS = world.currentTestFamilyNames[i][0];
         const newIDS = world.currentTestFamilyNames[i][1];
         xmlData.replace(IDS + " ".repeat(newIDS.length - IDS.length), newIDS);
-      }
-    }
+      } */
+
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);
     const personFamilyName = parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(

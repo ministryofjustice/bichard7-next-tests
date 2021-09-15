@@ -32,10 +32,36 @@ const extractAndReplaceTags = async (world, message, tag) => {
   }
   let newMessage = `${bits[0]}${tag}>`;
   for (let i = 1; i < bits.length; i += 2) {
-    const familyName = bits[i].substring(0, bits[i].length - 2);
-    const newFamilyName = uuid();
-    world.currentTestFamilyNames.push([familyName, newFamilyName]);
-    newMessage = `${newMessage + newFamilyName}</${tag}>${bits[i + 1]}`;
+    const name = bits[i].substring(0, bits[i].length - 2);
+    // const newName = uuid().toString().substr(0, 10); // if string is too long, it fudges the PNC
+    let newName = "";
+
+    if (tag === "DC:PersonFamilyName") {
+      for (let j = 0; j < world.currentTestFamilyNames.length; j += 1) {
+        if (world.currentTestFamilyNames[j][0] === name) {
+          // eslint-disable-next-line prefer-destructuring
+          newName = world.currentTestFamilyNames[j][1];
+          break;
+        }
+      }
+    } else if (tag === "DC:PersonGivenName1") {
+      for (let j = 0; j < world.currentTestGivenNames1.length; j += 1) {
+        if (world.currentTestGivenNames1[j][0] === name) {
+          // eslint-disable-next-line prefer-destructuring
+          newName = world.currentTestGivenNames1[j][1];
+          break;
+        }
+      }
+    } else if (tag === "DC:PersonGivenName2") {
+      for (let j = 0; j < world.currentTestGivenNames2.length; j += 1) {
+        if (world.currentTestGivenNames2[j][0] === name) {
+          // eslint-disable-next-line prefer-destructuring
+          newName = world.currentTestGivenNames2[j][1];
+          break;
+        }
+      }
+    }
+    newMessage = `${newMessage + newName}</${tag}>${bits[i + 1]}`;
   }
   return newMessage;
 };
@@ -47,16 +73,15 @@ const sendMsg = async function (world, messagePath, externalCorrelationId, date)
   if (process.env.RUN_PARALLEL) {
     // Insert random name and PTIURN
     messageData.replace("<DC:PTIURN>.+</DC:PTIURN>", `<DC:PTIURN>${world.currentPTIURN}</DC:PTIURN>`); // find PTIURN and use world  - DC:PTIURN
-
-    // populate given names 1
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
-
-    // populate given names 2
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName2");
-
-    // populate family names
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
   }
+  // populate given names 1
+  messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
+
+  // populate given names 2
+  messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName2");
+
+  // populate family names
+  messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
 
   if (world.shouldUploadMessagesToS3) {
     const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
