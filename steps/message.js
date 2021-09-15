@@ -5,12 +5,8 @@ const fs = require("fs");
 const isError = require("../utils/isError");
 const { pollMessagesForEvent } = require("./auditLogging");
 
-const uploadToS3 = async (context, message, externalCorrelationId, messageReceivedDate) => {
-  const fileName = await context.incomingMessageBucket.upload(
-    message.toString(),
-    externalCorrelationId,
-    messageReceivedDate
-  );
+const uploadToS3 = async (context, message, correlationId) => {
+  const fileName = await context.incomingMessageBucket.upload(message, correlationId);
 
   if (isError(fileName)) {
     throw fileName;
@@ -25,25 +21,25 @@ const uploadToS3 = async (context, message, externalCorrelationId, messageReceiv
   }
 };
 
-const sendMsg = async function (world, messagePath, externalCorrelationId, date) {
-  const message = await fs.promises.readFile(messagePath);
+const sendMsg = async function (world, messagePath) {
+  const rawMessage = await fs.promises.readFile(messagePath);
+  const correlationId = `CID-${uuid()}`;
+  const message = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
 
   if (world.shouldUploadMessagesToS3) {
-    const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
-    const dateValue = date || new Date();
-    const uploadResult = await uploadToS3(world, message.toString(), externalCorrelationIdValue, dateValue);
+    const uploadResult = await uploadToS3(world, message.toString(), correlationId);
     expect(isError(uploadResult)).toBeFalsy();
-    const pollingResult = await pollMessagesForEvent(world, externalCorrelationIdValue, "Message Sent to Bichard");
+    const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", message);
   }
 };
 
-const sendMessage = async function (messageId, externalCorrelationId, date) {
+const sendMessage = async function (messageId) {
   const messageIdValue = messageId || "court_result_input_1_custom";
   const messagePath = `./fixtures/messages/${messageIdValue}.xml`;
-  return sendMsg(this, messagePath, externalCorrelationId, date);
+  return sendMsg(this, messagePath);
 };
 
 const sendMessageForTest = async function (messageFileName) {
