@@ -68,7 +68,6 @@ const openRecordFor = async function (name) {
 
 const openRecordForCurrentTest = async function () {
   const currentTestName = this.getRecordName(1);
-  console.log(currentTestName);
   await waitForRecord(this.browser.page);
   await Promise.all([
     this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${currentTestName}']`),
@@ -389,7 +388,7 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
 };
 
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
-  const currentRecordName = this.getRecordName(0);
+  const currentRecordName = this.getRecordName(1);
   await filterRecords(this, resolvedType, recordType);
   expect(await this.browser.elementText("table.resultsTable")).toMatch(currentRecordName);
 };
@@ -400,7 +399,7 @@ const checkRecordNotResolved = async function (recordType, recordName, resolvedT
 };
 
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
-  const currentRecordName = this.getRecordName(0);
+  const currentRecordName = this.getRecordName(1);
   await filterRecords(this, resolvedType, recordType);
   expect(await this.browser.elementText("table.resultsTable")).not.toMatch(currentRecordName);
 };

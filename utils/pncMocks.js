@@ -32,7 +32,7 @@ const extractAndReplaceTags = (world, message, tag) => {
     const name = bits[i].substring(0, bits[i].length - 2);
     let newName = name;
     if (process.env.RUN_PARALLEL) {
-      newName = uuid().toString().substr(0, 8); // if string is too long, it fudges the PNC
+      newName = uuid().toString().substr(0, 8) + uuid().toString().substr(0, 4); // if string is too long, it fudges the PNC
     }
 
     if (tag === "PersonFamilyName") {

@@ -28,7 +28,6 @@ const createValidRecordInPNC = async function (record) {
 const fetchMocks = async (world) => {
   const mockResponsePromises = world.mocks.map(({ id }) => world.pnc.awaitMockRequest(id));
   const mockResponses = await Promise.all(mockResponsePromises);
-  console.log(mockResponses, world.mocks);
   for (let i = 0; i < world.mocks.length; i += 1) {
     // eslint-disable-next-line no-param-reassign
     world.mocks[i].requests = mockResponses[i].requests || [];
@@ -41,10 +40,31 @@ const checkMocks = async function () {
   let mockCount = 0;
   this.mocks.forEach((mock) => {
     if (mock.expectedRequest !== "") {
-      console.log(mock.requests, mock.expectedRequest);
+      let { expectedRequest } = mock;
+      if (process.env.RUN_PARALLEL) {
+        for (let i = 0; i < this.currentTestFamilyNames.length; i += 1) {
+          let COU = `${this.currentTestFamilyNames[i][0]}/${this.currentTestGivenNames1[i][0]}`;
+          let newCOU = `${this.currentTestFamilyNames[i][1]}/${this.currentTestGivenNames1[i][1]}`.toUpperCase();
+          if (newCOU.length > COU.length) {
+            COU += " ".repeat(newCOU.length - COU.length);
+          } else {
+            newCOU += +" ".repeat(COU.length - newCOU.length);
+          }
+          expectedRequest = expectedRequest.replace(COU, newCOU);
+
+          let IDS = this.currentTestFamilyNames[i][0];
+          let newIDS = this.currentTestFamilyNames[i][1].toUpperCase();
+          if (newIDS.length > IDS.length) {
+            IDS += " ".repeat(newIDS.length - IDS.length);
+          } else {
+            newIDS += +" ".repeat(IDS.length - newIDS.length);
+          }
+          expectedRequest = expectedRequest.replace(IDS, newIDS);
+        }
+      }
       if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
       expect(mock.requests.length).toBe(1);
-      expect(mock.requests[0]).toMatch(mock.expectedRequest);
+      expect(mock.requests[0]).toMatch(expectedRequest);
     }
     mockCount += 1;
   });
