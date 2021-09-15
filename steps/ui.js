@@ -180,13 +180,13 @@ const canSeeContentInTable = async function (value) {
 };
 
 const cannotSeeTrigger = async function (value) {
-  await waitForRecord(this.browser.page);
+  await waitForRecord(this.browser.page, 2);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
   expect(isVisible).toBe(false);
 };
 
 const cannotSeeException = async function (exception) {
-  await waitForRecord(this.browser.page);
+  await waitForRecord(this.browser.page, 2);
   const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", exception);
   expect(isVisible).toBe(false);
 };
