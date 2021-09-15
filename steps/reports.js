@@ -22,4 +22,13 @@ const reportDoesNotContain = async function (text) {
   expect(await this.browser.elementText("#br7_report_data tbody")).not.toContain(text);
 };
 
-module.exports = { generateTodaysReport, reportContains, reportDoesNotContain, accessReport };
+const fakeTriggerReportData = async function () {
+  await this.db.pg.none(
+    "update br7own.error_list set msg_received_ts = msg_received_ts - INTERVAL '7 days' where trigger_reason = 'TRPR0003'"
+  );
+  await this.db.pg.none(
+    "update br7own.error_list set msg_received_ts = msg_received_ts - INTERVAL '8 days' where trigger_reason = 'TRPR0006'"
+  );
+};
+
+module.exports = { generateTodaysReport, reportContains, reportDoesNotContain, accessReport, fakeTriggerReportData };
