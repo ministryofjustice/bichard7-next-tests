@@ -22,8 +22,7 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 		Given the data for this test is in the PNC
 
 	@Could
-	@Problem
-	@Excluded
+	@OnlyRunsOnPNC
 	Scenario: Testing invalid offence codes
 		Given "<messageId>" is received
 			And I am logged in as "generalhandler"
