@@ -42,6 +42,7 @@ const checkMocks = async function () {
     if (mock.expectedRequest !== "") {
       let { expectedRequest } = mock;
       if (process.env.RUN_PARALLEL) {
+        // names
         for (let i = 0; i < this.currentTestFamilyNames.length; i += 1) {
           let COU = `${this.currentTestFamilyNames[i][0]}/${this.currentTestGivenNames1[i][0]}`;
           let newCOU = `${this.currentTestFamilyNames[i][1]}/${this.currentTestGivenNames1[i][1]}`.toUpperCase();
@@ -60,6 +61,16 @@ const checkMocks = async function () {
             newIDS += +" ".repeat(IDS.length - newIDS.length);
           }
           expectedRequest = expectedRequest.replace(IDS, newIDS);
+        }
+
+        // ASN number
+        for (let i = 0; i < this.currentProsecutorReference.length; i += 1) {
+          const ASN = this.currentProsecutorReference[i][0].substring(this.currentProsecutorReference[i][0].length - 7);
+          const newASN = this.currentProsecutorReference[i][1].substring(
+            this.currentProsecutorReference[i][1].length - 7
+          );
+
+          expectedRequest = expectedRequest.replace(ASN, newASN);
         }
       }
       if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);

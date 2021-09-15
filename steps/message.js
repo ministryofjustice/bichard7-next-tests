@@ -35,8 +35,16 @@ const extractAndReplaceTags = async (world, message, tag) => {
     const name = bits[i].substring(0, bits[i].length - 2);
     // const newName = uuid().toString().substr(0, 10); // if string is too long, it fudges the PNC
     let newName = "";
-
-    if (tag === "DC:PersonFamilyName") {
+    if (tag === "DC:PTIURN") {
+      for (let j = 0; j < world.currentPTIURNValues.length; j += 1) {
+        if (world.currentPTIURNValues[j][0] === name) {
+          // eslint-disable-next-line prefer-destructuring
+          newName = world.currentPTIURNValues[j][1];
+          break;
+        }
+        console.log(name, newName);
+      }
+    } else if (tag === "DC:PersonFamilyName") {
       for (let j = 0; j < world.currentTestFamilyNames.length; j += 1) {
         if (world.currentTestFamilyNames[j][0] === name) {
           // eslint-disable-next-line prefer-destructuring
@@ -60,6 +68,14 @@ const extractAndReplaceTags = async (world, message, tag) => {
           break;
         }
       }
+    } else if (tag === "DC:ProsecutorReference") {
+      for (let j = 0; j < world.currentProsecutorReference.length; j += 1) {
+        if (world.currentProsecutorReference[j][0] === name) {
+          // eslint-disable-next-line prefer-destructuring
+          newName = world.currentProsecutorReference[j][1];
+          break;
+        }
+      }
     }
     newMessage = `${newMessage + newName}</${tag}>${bits[i + 1]}`;
   }
@@ -69,11 +85,14 @@ const extractAndReplaceTags = async (world, message, tag) => {
 const sendMsg = async function (world, messagePath, externalCorrelationId, date) {
   const message = await fs.promises.readFile(messagePath);
   let messageData = message.toString();
-
+  /*
   if (process.env.RUN_PARALLEL) {
     // Insert random name and PTIURN
-    messageData.replace("<DC:PTIURN>.+</DC:PTIURN>", `<DC:PTIURN>${world.currentPTIURN}</DC:PTIURN>`); // find PTIURN and use world  - DC:PTIURN
-  }
+    messageData = messageData.replace("<DC:PTIURN>.+</DC:PTIURN>", `<DC:PTIURN>${world.currentPTIURN}</DC:PTIURN>`); // find PTIURN and use world  - DC:PTIURN
+  } */
+  // populate PTIURN
+  messageData = await extractAndReplaceTags(world, messageData, "DC:PTIURN");
+
   // populate given names 1
   messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
 
@@ -82,6 +101,9 @@ const sendMsg = async function (world, messagePath, externalCorrelationId, date)
 
   // populate family names
   messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
+
+  // populate prosecutor reference
+  messageData = await extractAndReplaceTags(world, messageData, "DC:ProsecutorReference");
 
   if (world.shouldUploadMessagesToS3) {
     const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;

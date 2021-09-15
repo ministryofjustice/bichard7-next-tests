@@ -41,7 +41,53 @@ const extractAndReplaceTags = (world, message, tag) => {
       world.currentTestGivenNames1.push([name, newName]);
     } else if (tag === "PersonGivenName2") {
       world.currentTestGivenNames2.push([name, newName]);
+    } else if (tag === "ProsecutorReference") {
+      const possibleProsecutorRefences = [
+        "1101ZD0100000410776E",
+        "1101ZD0100000448754K",
+        "1101ZD0100000410769X",
+        "1101ZD0100000410781K",
+        "1101ZD0100000410785P",
+        "1201ZD0100000448696W",
+        "1201ZD0100000448697X",
+        "1101ZD0100000410789U",
+        "1101ZD0100000410790V",
+        "1101ZD0100000410793Y",
+        "1101ZD0100000410795A",
+        "1101ZD0100000410796B",
+        "1101ZD0100000410798D",
+        "1101ZD0100000410799E",
+        "1101ZD0100000410800F",
+        "1101ZD0100000410801G",
+        "1101ZD0100000410804K"
+      ];
+      newName = possibleProsecutorRefences[parseInt(Math.random() * possibleProsecutorRefences.length - 1, 10)];
+
+      console.log(name, newName, "Prosecutor Reference");
+      world.currentProsecutorReference.push([name, newName]);
+    } else if (tag === "PTIURN") {
+      const possiblePIURNs = [
+        "36FP0300108",
+        "01ZD0300908",
+        "01VK0300208",
+        "01VK1600008",
+        "01ZD0300108",
+        "01ZD0302808",
+        "01ZD1600008",
+        "01VK0305808",
+        "01VK0303008",
+        "01ZD5100008",
+        "01VK1600008",
+        "01ZD0305408",
+        "01ZD0303408",
+        "01ZD0307208"
+      ];
+      newName = possiblePIURNs[parseInt(Math.random() * possiblePIURNs.length - 1, 10)];
+
+      console.log(name, newName, "PTIURN");
+      world.currentPTIURNValues.push([name, newName]);
     }
+
     newMessage = `${newMessage}${tag}>${newName}</${tag}>${bits[i + 1]}`;
   }
   return newMessage;
@@ -50,11 +96,15 @@ const extractAndReplaceTags = (world, message, tag) => {
 module.exports = {
   mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
     let xmlData = fs.readFileSync(ncmFile, "utf8").toString();
+    /*
     if (process.env.RUN_PARALLEL) {
       // change the PNC data
       // Insert random name and PTIURN
-      xmlData.replace("<PTIURN>.+</PTIURN>", `<PTIURN>${world.currentPTIURN}</PTIURN>`); // find PTIURN and use world  - DC:PTIURN
-    }
+      xmlData = xmlData.replace("<PTIURN>.+</PTIURN>", `<PTIURN>${world.currentPTIURN}</PTIURN>`); // find PTIURN and use world  - DC:PTIURN
+    } */
+    // populate given names 1
+    xmlData = extractAndReplaceTags(world, xmlData, "PTIURN");
+
     // populate given names 1
     xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName1");
 
@@ -64,16 +114,8 @@ module.exports = {
     // populate family names
     xmlData = extractAndReplaceTags(world, xmlData, "PersonFamilyName");
 
-    /*
-      for (let i = 0; i < world.currentTestFamilyNames.length; i += 1) {
-        const COU = `${world.currentTestFamilyNames[i][0]}/${world.currentTestGivenNames1[i][0]}`;
-        const newCOU = `${world.currentTestFamilyNames[i][1]}/${world.currentTestGivenNames1[i][1]}`;
-        xmlData.replace(COU + " ".repeat(newCOU.length - COU.length), newCOU);
-
-        const IDS = world.currentTestFamilyNames[i][0];
-        const newIDS = world.currentTestFamilyNames[i][1];
-        xmlData.replace(IDS + " ".repeat(newIDS.length - IDS.length), newIDS);
-      } */
+    // populate prosecutor reference
+    xmlData = extractAndReplaceTags(world, xmlData, "ProsecutorReference");
 
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);

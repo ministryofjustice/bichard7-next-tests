@@ -44,7 +44,16 @@ const logInToUserServiceAs = async function (world, username) {
   await page.waitForSelector("#password");
 
   await page.type("#password", "password");
+  if (process.env.RUN_PARALLEL) {
+    // entering the worlds worst border check ... it works ...
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await world.db.resetEmailVerificationCode(emailAddress);
+  }
   await page.click("button[type='submit']");
+  if (process.env.RUN_PARALLEL) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await world.db.resetEmailVerificationCode(emailAddress);
+  }
 
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };

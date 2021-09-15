@@ -58,13 +58,30 @@ class PostgresHelper {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  async resetEmailVerificationCode(emailAddress) {
+    const q = `
+      UPDATE br7own.users
+      SET email_verification_code = $1
+      WHERE email = $2
+    `;
+    await global.postgresConnection.any(q, [process.env.VERIFICATION_CODE, emailAddress]);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   async getEmailVerificationCode(emailAddress) {
+    const q = `
+      UPDATE br7own.users
+      SET email_verification_code = $1
+      WHERE email = $2
+    `;
+    await global.postgresConnection.any(q, [process.env.VERIFICATION_CODE, emailAddress]);
     const query = `
       SELECT email_verification_code
       FROM br7own.users
       WHERE email = $1
     `;
     const result = await global.postgresConnection.one(query, emailAddress);
+    console.log(result.email_verification_code, "Verifcaition code");
     return result.email_verification_code;
   }
 }

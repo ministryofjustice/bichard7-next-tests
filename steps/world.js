@@ -24,6 +24,8 @@ class Bichard extends World {
     this.currentTestGivenNames1 = [];
     this.currentTestGivenNames2 = [];
     this.currentTestFamilyNames = [];
+    this.currentProsecutorReference = [];
+    this.currentPTIURNValues = [];
     this.currentPTIURN = uuid();
 
     if (this.stackType === stackType.next) {
