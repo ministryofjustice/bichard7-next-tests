@@ -1,4 +1,4 @@
-Feature: {110} BR7 R5.0-RCD385-PSA Code Change
+Feature: {110} BR7 R5.0-RCD385-PSA Code Change - part 2
 
 			"""
 			{110} BR7 R5.0-RCD385-PSA Code Change
@@ -17,17 +17,11 @@ Feature: {110} BR7 R5.0-RCD385-PSA Code Change
 
 	Background:
 		Given the data for this test is in the PNC
+			And "input-message" is received
 
 	@Should
-	@Excluded
-	@Problem
 	Scenario: PSA code change handling
-		Given "input-message-1" is received
-		Given I am logged in as "generalhandler"
+		Given I am logged in as "met.police"
 			And I view the list of exceptions
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
 			And there are no exceptions raised for "CHANGES PSACODENEW"
-		When "input-message-2" is received
-		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
-			And there are no exceptions raised for "CHANGES PSACODENEW"
-			And the PNC updates the record
