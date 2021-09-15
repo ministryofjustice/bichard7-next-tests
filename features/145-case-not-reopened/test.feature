@@ -19,11 +19,8 @@ Feature: {145} BR7 R5.2-RCD490-TRPR0025 case not reopened
 		Given "input-message" is received
 
 	@Could
-	@Problem
-	@Excluded
 	@OnlyRunsOnPNC
 	Scenario: Not creating case reopened trigger if offence is not recordable
-		Given I am logged in as "generalhandler"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then I see exception "HO100301" in the exception list table
-			And I cannot see trigger "PR25 - Case reopened/stat dec" in the exception list table
+		Then there are no exceptions or triggers
