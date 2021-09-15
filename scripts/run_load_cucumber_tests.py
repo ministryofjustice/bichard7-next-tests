@@ -17,10 +17,10 @@ def run_tests(no_workers, no_runs):
 
     if no_runs == 0: # ad infinitum
         while True:
-            subprocess.run("AUTH_TYPE=bichard-jwt RECORD=true aws-vault exec bichard7-shared-e2e-test npm run test:file-parallel " + str(no_workers) + " " + " ".join(tests_to_run), shell=True)
+            subprocess.run("RUN_PARALLEL=1 npm run test:file-parallel " + str(no_workers) + " " + " ".join(tests_to_run), shell=True)
     else: # I know I do not need this, but its slightly easier to read
         for i in range(no_runs):
-            subprocess.run("AUTH_TYPE=bichard-jwt RECORD=true aws-vault exec bichard7-shared-e2e-test npm run test:file-parallel " + str(no_workers) + " " + " ".join(tests_to_run), shell=True)
+            subprocess.run("RUN_PARALLEL=1 npm run test:file-parallel " + str(no_workers) + " " + " ".join(tests_to_run), shell=True)
 
     for index in range(len(tests_to_run)):
         subprocess.run("rm -r " + tests_to_run[index], shell=True)
