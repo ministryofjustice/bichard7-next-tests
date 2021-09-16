@@ -92,23 +92,18 @@ const sendMsg = async function (world, messagePath) {
     const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
-    // populate PTIURN
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PTIURN");
-
-    // populate given names 1
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
-
-    // populate given names 2
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName2");
-
-    // populate family names
-    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
-
-    // populate prosecutor reference
-    messageData = await extractAndReplaceTags(world, messageData, "DC:ProsecutorReference");
-
-    const externalCorrelationIdValue = `CID-${uuid()}`;
-    messageData = messageData.replace("EXTERNAL_CORRELATION_ID", externalCorrelationIdValue);
+    if (process.env.RUN_PARALLEL) {
+      // populate PTIURN
+      messageData = await extractAndReplaceTags(world, messageData, "DC:PTIURN");
+      // populate given names 1
+      messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
+      // populate given names 2
+      messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName2");
+      // populate family names
+      messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
+      // populate prosecutor reference
+      messageData = await extractAndReplaceTags(world, messageData, "DC:ProsecutorReference");
+    }
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }
 };

@@ -67,10 +67,15 @@ const openRecordFor = async function (name) {
 };
 
 const openRecordForCurrentTest = async function () {
-  const currentTestName = this.getRecordName(1);
+  let currentRecordName = "";
+  if (process.env.RUN_PARALLEL) {
+    currentRecordName = this.getRecordName(1);
+  } else {
+    currentRecordName = this.getOriginalRecordName(1);
+  }
   await waitForRecord(this.browser.page);
   await Promise.all([
-    this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${currentTestName}']`),
+    this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${currentRecordName}']`),
     this.browser.page.waitForNavigation()
   ]);
 };
@@ -388,7 +393,12 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
 };
 
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
-  const currentRecordName = this.getRecordName(1);
+  let currentRecordName = "";
+  if (process.env.RUN_PARALLEL) {
+    currentRecordName = this.getRecordName(1);
+  } else {
+    currentRecordName = this.getOriginalRecordName(1);
+  }
   await filterRecords(this, resolvedType, recordType);
   expect(await this.browser.elementText("table.resultsTable")).toMatch(currentRecordName);
 };
@@ -399,7 +409,12 @@ const checkRecordNotResolved = async function (recordType, recordName, resolvedT
 };
 
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
-  const currentRecordName = this.getRecordName(1);
+  let currentRecordName = "";
+  if (process.env.RUN_PARALLEL) {
+    currentRecordName = this.getRecordName(1);
+  } else {
+    currentRecordName = this.getOriginalRecordName(1);
+  }
   await filterRecords(this, resolvedType, recordType);
   expect(await this.browser.elementText("table.resultsTable")).not.toMatch(currentRecordName);
 };

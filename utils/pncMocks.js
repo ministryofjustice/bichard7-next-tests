@@ -84,7 +84,11 @@ const extractAndReplaceTags = (world, message, tag, uniqueId) => {
       world.currentPTIURNValues.push([name, newName, uniqueId]);
     }
 
-    newMessage = `${newMessage}${tag}>${newName}</${tag}>${bits[i + 1]}`;
+    if (process.env.RUN_PARALLEL) {
+      newMessage = `${newMessage}${tag}>${newName}</${tag}>${bits[i + 1]}`;
+    } else {
+      newMessage = `${newMessage}${tag}>${name}</${tag}>${bits[i + 1]}`;
+    }
   }
   return newMessage;
 };
@@ -92,20 +96,16 @@ const extractAndReplaceTags = (world, message, tag, uniqueId) => {
 module.exports = {
   mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
     let xmlData = fs.readFileSync(ncmFile, "utf8").toString();
-    const getUniqueId = ncmFile.substring(ncmFile.length - 13 - 12, ncmFile.length - 13);
 
+    const getUniqueId = ncmFile.substring(ncmFile.length - 13 - 12, ncmFile.length - 13);
     // populate given names 1
     xmlData = extractAndReplaceTags(world, xmlData, "PTIURN", getUniqueId);
-
     // populate given names 1
     xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName1", getUniqueId);
-
     // populate given names 2
     xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName2", getUniqueId);
-
     // populate family names
     xmlData = extractAndReplaceTags(world, xmlData, "PersonFamilyName", getUniqueId);
-
     // populate prosecutor reference
     xmlData = extractAndReplaceTags(world, xmlData, "ProsecutorReference", getUniqueId);
 
