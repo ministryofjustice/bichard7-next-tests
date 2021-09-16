@@ -113,6 +113,8 @@ const sendMsg = async function (world, messagePath, externalCorrelationId, date)
     const pollingResult = await pollMessagesForEvent(world, externalCorrelationIdValue, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
+    const externalCorrelationIdValue = `CID-${uuid()}`;
+    messageData = messageData.replace("EXTERNAL_CORRELATION_ID", externalCorrelationIdValue);
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }
 };

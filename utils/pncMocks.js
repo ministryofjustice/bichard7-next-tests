@@ -37,6 +37,7 @@ const extractAndReplaceTags = (world, message, tag) => {
 
     if (tag === "PersonFamilyName") {
       world.currentTestFamilyNames.push([name, newName]);
+      console.log(name, newName, "Personal Family Name");
     } else if (tag === "PersonGivenName1") {
       world.currentTestGivenNames1.push([name, newName]);
     } else if (tag === "PersonGivenName2") {
