@@ -24,10 +24,10 @@ const reportDoesNotContain = async function (text) {
 };
 
 const fakeTriggerReportData = async function () {
-  await this.db.pg.none(
+  await this.db.query(
     "update br7own.error_list set msg_received_ts = msg_received_ts - INTERVAL '7 days' where trigger_reason = 'TRPR0003'"
   );
-  await this.db.pg.none(
+  await this.db.query(
     "update br7own.error_list set msg_received_ts = msg_received_ts - INTERVAL '8 days' where trigger_reason = 'TRPR0006'"
   );
 };
