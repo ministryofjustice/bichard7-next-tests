@@ -67,6 +67,10 @@ class PostgresHelper {
     const result = await global.postgresConnection.one(query, emailAddress);
     return result.email_verification_code;
   }
+
+  async query(sql) {
+    return this.pg.none(sql);
+  }
 }
 
 module.exports = PostgresHelper;
