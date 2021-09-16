@@ -522,6 +522,13 @@ const checkTableRows = async function (offenceCount) {
   expect(trPromises.length).toEqual(parseInt(offenceCount, 10));
 };
 
+const checkRecordRows = async function (recordCount) {
+  const trPromises = await this.browser.page.$$(
+    "#br7_exception_list_records .resultsTable tbody tr a.br7_exception_list_record_table_link"
+  );
+  expect(trPromises.length).toEqual(parseInt(recordCount, 10));
+};
+
 const selectTrigger = async function (triggerNo) {
   const checkBoxes = await this.browser.page.$$(
     "#br7_exception_details_court_data_table .resultsTable tbody tr input[type=checkbox]"
@@ -588,6 +595,7 @@ module.exports = {
   waitForRecordStep,
   checkOffence,
   checkTableRows,
+  checkRecordRows,
   checkNoteExists,
   selectTrigger
 };

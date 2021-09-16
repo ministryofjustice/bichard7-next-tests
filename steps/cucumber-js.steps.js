@@ -59,7 +59,8 @@ const {
   reallocateCaseToForce,
   checkNoteExists,
   selectTrigger,
-  checkCompleteTriggerforOffence
+  checkCompleteTriggerforOffence,
+  checkRecordRows
 } = require("./ui");
 const { checkAuditLogCondition } = require("./auditLogging");
 
@@ -214,6 +215,8 @@ Then("the PNC update includes {string}", pncUpdateIncludes);
 Then("I see {string} for offence {string}", checkOffence);
 
 Then("there should only be {string} offences", checkTableRows);
+
+Then("there should only be {string} records", checkRecordRows);
 
 Then("the audit log contains {string}", async function (message) {
   await checkAuditLogCondition.apply(this, [1, message, true]);

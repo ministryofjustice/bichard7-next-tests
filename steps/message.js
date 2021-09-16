@@ -5,12 +5,8 @@ const fs = require("fs");
 const isError = require("../utils/isError");
 const { pollMessagesForEvent } = require("./auditLogging");
 
-const uploadToS3 = async (context, message, externalCorrelationId, messageReceivedDate) => {
-  const fileName = await context.incomingMessageBucket.upload(
-    message.toString(),
-    externalCorrelationId,
-    messageReceivedDate
-  );
+const uploadToS3 = async (context, message, correlationId) => {
+  const fileName = await context.incomingMessageBucket.upload(message, correlationId);
 
   if (isError(fileName)) {
     throw fileName;
@@ -82,47 +78,46 @@ const extractAndReplaceTags = async (world, message, tag) => {
   return newMessage;
 };
 
-const sendMsg = async function (world, messagePath, externalCorrelationId, date) {
-  const message = await fs.promises.readFile(messagePath);
-  let messageData = message.toString();
+const sendMsg = async function (world, messagePath) {
+  const rawMessage = await fs.promises.readFile(messagePath);
+  const correlationId = `CID-${uuid()}`;
+  let messageData = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
   /*
   if (process.env.RUN_PARALLEL) {
     // Insert random name and PTIURN
     messageData = messageData.replace("<DC:PTIURN>.+</DC:PTIURN>", `<DC:PTIURN>${world.currentPTIURN}</DC:PTIURN>`); // find PTIURN and use world  - DC:PTIURN
   } */
-  // populate PTIURN
-  messageData = await extractAndReplaceTags(world, messageData, "DC:PTIURN");
-
-  // populate given names 1
-  messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
-
-  // populate given names 2
-  messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName2");
-
-  // populate family names
-  messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
-
-  // populate prosecutor reference
-  messageData = await extractAndReplaceTags(world, messageData, "DC:ProsecutorReference");
-
   if (world.shouldUploadMessagesToS3) {
-    const externalCorrelationIdValue = externalCorrelationId || `CID-${uuid()}`;
-    const dateValue = date || new Date();
-    const uploadResult = await uploadToS3(world, messageData, externalCorrelationIdValue, dateValue);
+    const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
-    const pollingResult = await pollMessagesForEvent(world, externalCorrelationIdValue, "Message Sent to Bichard");
+    const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
+    // populate PTIURN
+    messageData = await extractAndReplaceTags(world, messageData, "DC:PTIURN");
+
+    // populate given names 1
+    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName1");
+
+    // populate given names 2
+    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonGivenName2");
+
+    // populate family names
+    messageData = await extractAndReplaceTags(world, messageData, "DC:PersonFamilyName");
+
+    // populate prosecutor reference
+    messageData = await extractAndReplaceTags(world, messageData, "DC:ProsecutorReference");
+
     const externalCorrelationIdValue = `CID-${uuid()}`;
     messageData = messageData.replace("EXTERNAL_CORRELATION_ID", externalCorrelationIdValue);
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }
 };
 
-const sendMessage = async function (messageId, externalCorrelationId, date) {
+const sendMessage = async function (messageId) {
   const messageIdValue = messageId || "court_result_input_1_custom";
   const messagePath = `./fixtures/messages/${messageIdValue}.xml`;
-  return sendMsg(this, messagePath, externalCorrelationId, date);
+  return sendMsg(this, messagePath);
 };
 
 const sendMessageForTest = async function (messageFileName) {
