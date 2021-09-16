@@ -22,7 +22,7 @@ const extractDates = (offence) => {
   return { startDate, endDate };
 };
 
-const extractAndReplaceTags = (world, message, tag) => {
+const extractAndReplaceTags = (world, message, tag, uniqueId) => {
   const bits = message.split(`${tag}>`);
   if (bits.length < 2) {
     return message;
@@ -36,12 +36,11 @@ const extractAndReplaceTags = (world, message, tag) => {
     }
 
     if (tag === "PersonFamilyName") {
-      world.currentTestFamilyNames.push([name, newName]);
-      console.log(name, newName, "Personal Family Name");
+      world.currentTestFamilyNames.push([name, newName, uniqueId]);
     } else if (tag === "PersonGivenName1") {
-      world.currentTestGivenNames1.push([name, newName]);
+      world.currentTestGivenNames1.push([name, newName, uniqueId]);
     } else if (tag === "PersonGivenName2") {
-      world.currentTestGivenNames2.push([name, newName]);
+      world.currentTestGivenNames2.push([name, newName, uniqueId]);
     } else if (tag === "ProsecutorReference") {
       const possibleProsecutorRefences = [
         "1101ZD0100000410776E",
@@ -63,9 +62,7 @@ const extractAndReplaceTags = (world, message, tag) => {
         "1101ZD0100000410804K"
       ];
       newName = possibleProsecutorRefences[parseInt(Math.random() * possibleProsecutorRefences.length - 1, 10)];
-
-      console.log(name, newName, "Prosecutor Reference");
-      world.currentProsecutorReference.push([name, newName]);
+      world.currentProsecutorReference.push([name, newName, uniqueId]);
     } else if (tag === "PTIURN") {
       const possiblePIURNs = [
         "36FP0300108",
@@ -84,9 +81,7 @@ const extractAndReplaceTags = (world, message, tag) => {
         "01ZD0307208"
       ];
       newName = possiblePIURNs[parseInt(Math.random() * possiblePIURNs.length - 1, 10)];
-
-      console.log(name, newName, "PTIURN");
-      world.currentPTIURNValues.push([name, newName]);
+      world.currentPTIURNValues.push([name, newName, uniqueId]);
     }
 
     newMessage = `${newMessage}${tag}>${newName}</${tag}>${bits[i + 1]}`;
@@ -97,26 +92,22 @@ const extractAndReplaceTags = (world, message, tag) => {
 module.exports = {
   mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
     let xmlData = fs.readFileSync(ncmFile, "utf8").toString();
-    /*
-    if (process.env.RUN_PARALLEL) {
-      // change the PNC data
-      // Insert random name and PTIURN
-      xmlData = xmlData.replace("<PTIURN>.+</PTIURN>", `<PTIURN>${world.currentPTIURN}</PTIURN>`); // find PTIURN and use world  - DC:PTIURN
-    } */
-    // populate given names 1
-    xmlData = extractAndReplaceTags(world, xmlData, "PTIURN");
+    const getUniqueId = ncmFile.substring(ncmFile.length - 13 - 12, ncmFile.length - 13);
 
     // populate given names 1
-    xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName1");
+    xmlData = extractAndReplaceTags(world, xmlData, "PTIURN", getUniqueId);
+
+    // populate given names 1
+    xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName1", getUniqueId);
 
     // populate given names 2
-    xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName2");
+    xmlData = extractAndReplaceTags(world, xmlData, "PersonGivenName2", getUniqueId);
 
     // populate family names
-    xmlData = extractAndReplaceTags(world, xmlData, "PersonFamilyName");
+    xmlData = extractAndReplaceTags(world, xmlData, "PersonFamilyName", getUniqueId);
 
     // populate prosecutor reference
-    xmlData = extractAndReplaceTags(world, xmlData, "ProsecutorReference");
+    xmlData = extractAndReplaceTags(world, xmlData, "ProsecutorReference", getUniqueId);
 
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);
@@ -166,7 +157,9 @@ module.exports = {
   mockUpdate: (code, options = {}) => {
     const response = `<?XML VERSION="1.0" STANDALONE="YES"?>
     <${code}>
-      <GMH>073GENL000001RNEWREMPNCA05A73000017300000120210415154673000001                                             090001753</GMH>
+      <GMH>073GENL000001RNEWREMPNCA05A73000017300000120210415154673000001                                             09000${
+        parseInt(Math.random() * 8999, 10) + 1000
+      }</GMH>
       <TXT>A0031-REMAND REPORT HAS BEEN PROCESSED SUCCESSFULLY - ID: 00/263503N </TXT>
       <GMT>000003073GENL000001S</GMT>
     </${code}>`;

@@ -38,7 +38,6 @@ const extractAndReplaceTags = async (world, message, tag) => {
           newName = world.currentPTIURNValues[j][1];
           break;
         }
-        console.log(name, newName);
       }
     } else if (tag === "DC:PersonFamilyName") {
       for (let j = 0; j < world.currentTestFamilyNames.length; j += 1) {

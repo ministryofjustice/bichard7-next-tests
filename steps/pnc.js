@@ -8,6 +8,11 @@ const mockPNCDataForTest = async function () {
 
   /* eslint-disable no-restricted-syntax */
   for (const mock of this.mocks) {
+    if (process.env.RUN_PARALLEL) {
+      const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
+      mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
+    }
+
     /* eslint-disable no-await-in-loop */
     mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
   }
@@ -74,8 +79,12 @@ const checkMocks = async function () {
         }
       }
       if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
-      expect(mock.requests.length).toBe(1);
-      expect(mock.requests[0]).toMatch(expectedRequest);
+      if (process.env.RUN_PARALLEL) {
+        expect(mock.requests.length).toBeGreaterThanOrEqual(1);
+      } else {
+        expect(mock.requests.length).toBe(1);
+        expect(mock.requests[0]).toMatch(expectedRequest);
+      }
     }
     mockCount += 1;
   });

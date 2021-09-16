@@ -81,7 +81,6 @@ class PostgresHelper {
       WHERE email = $1
     `;
     const result = await global.postgresConnection.one(query, emailAddress);
-    console.log(result.email_verification_code, "Verifcaition code");
     return result.email_verification_code;
   }
 }
