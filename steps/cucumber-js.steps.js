@@ -8,7 +8,8 @@ const {
   reportContains,
   accessReport,
   reportDoesNotContain,
-  fakeTriggerReportData
+  fakeTriggerReportData,
+  checkUserSummaryReport
 } = require("./reports");
 const {
   findRecordFor,
@@ -232,3 +233,5 @@ When("I reallocate the case to {string}", reallocateCaseToForce);
 When("I select trigger {string} to resolve", selectTrigger);
 
 When("I fake the data for the operational trigger report", fakeTriggerReportData);
+
+Then("the user performance summary report is correct", checkUserSummaryReport);

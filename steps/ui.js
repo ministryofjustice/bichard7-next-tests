@@ -573,5 +573,6 @@ module.exports = {
   checkTableRows,
   checkRecordRows,
   checkNoteExists,
-  selectTrigger
+  selectTrigger,
+  getTableData
 };
