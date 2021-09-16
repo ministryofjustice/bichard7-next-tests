@@ -23,6 +23,10 @@ const extractDates = (offence) => {
 };
 
 const extractAndReplaceTags = (world, message, tag, uniqueId) => {
+  if (!world) {
+    return message;
+  }
+
   const bits = message.split(`${tag}>`);
   if (bits.length < 2) {
     return message;
