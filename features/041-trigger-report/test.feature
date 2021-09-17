@@ -14,14 +14,16 @@ Feature: {041} R3.3_BR7_Operational Trigger Report
 		Given the data for this test is in the PNC
 
 	@Could
-	@NeedsValidating
-	@Excluded
-	@NeedsRunningAgainstPNC
 	Scenario: Generating the operational trigger report
-		# Insert data for test 03
 		Given "input-message-1" is received
-			And I wait "20" seconds
-		# Insert data for test 14
-		Given "input-message-2" is received
-# When I am logged in as "supervisor"
-# 	And I view the list of exceptions
+			And "input-message-2" is received
+		When I am logged in as "supervisor"
+			And I view the list of exceptions
+		Then I see exception "PR03" in the exception list table
+			And I see trigger "PR06" in the exception list table
+		When I fake the data for the operational trigger report
+			And I click the "Reports" menu button
+			And I access the "Live Status Detail - Triggers" report
+			And I click the "Run report" button
+		Then I see "EXONEA EXCEPTION" in the report
+			And I see "TRTHREE TRPRTWELVE" in the report

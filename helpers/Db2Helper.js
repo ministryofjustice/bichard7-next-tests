@@ -45,6 +45,11 @@ class Db2Helper {
       return false;
     }
   }
+
+  async query(sql) {
+    await this.connect();
+    return this.conn.query(sql);
+  }
 }
 
 module.exports = Db2Helper;

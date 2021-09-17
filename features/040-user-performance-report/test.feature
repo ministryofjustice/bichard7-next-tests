@@ -13,13 +13,37 @@ Feature: {040} 04 MIS - User Performance Summary
 
 	Background:
 		Given the data for this test is in the PNC
-			And "input-message" is received
+			And "input-message-1" is received
 
 	@Could
 	@NeedsValidating
 	@Excluded
 	@NeedsRunningAgainstPNC
 	Scenario: Generating the user performance report
-		Given I am logged in as "supervisor"
+		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
-			And pending
+		When I open the record for "SEXOFFENCE TRPRFOUR"
+			And I click the "Triggers" tab
+			And I resolve all of the triggers
+		Given "input-message-2" is received
+			And I am logged in as "exceptionhandler"
+			And I view the list of exceptions
+		When I open the record for "Bass Barry"
+			And I click the "Offences" tab
+			And I view offence "1"
+			And I correct "Sequence Number" to "1"
+			And I click the "Offences" tab
+			And I view offence "2"
+			And I correct "Sequence Number" to "2"
+			And I click the "Offences" tab
+			And I submit the record
+			And I see exception "(Submitted)" in the exception list table
+			And I reload until I see "PS02 - Check address"
+		When I am logged in as "triggerhandler"
+			And I view the list of exceptions
+			And I open the record for "Bass Barry"
+		When I am logged in as "supervisor"
+			And I view the list of exceptions
+			And I click the "Reports" menu button
+			And I access the "User Performance Summary" report
+		Then the user performance summary report is correct

@@ -28,6 +28,15 @@ const getTableData = async function (world, selector) {
   return Promise.all(trPromises);
 };
 
+const getRawTableData = async function (world, selector) {
+  const trPromises = await world.browser.page
+    .$$(selector)
+    .then((els) =>
+      els.map((elHandle) => elHandle.evaluate((el) => [...el.querySelectorAll("td")].map((e) => e.innerHTML)))
+    );
+  return Promise.all(trPromises);
+};
+
 const checkDataTable = async function (world, values) {
   const tableData = await getTableData(world, "#br7_exception_details_court_data_table .resultsTable tbody tr");
   const check = tableData.filter((row) =>
@@ -594,5 +603,7 @@ module.exports = {
   checkTableRows,
   checkRecordRows,
   checkNoteExists,
-  selectTrigger
+  selectTrigger,
+  getTableData,
+  getRawTableData
 };

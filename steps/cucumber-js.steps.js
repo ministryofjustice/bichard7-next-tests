@@ -3,7 +3,17 @@ const { logInAs } = require("./auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./message");
 const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes, mockPNCDataForTest } = require("./pnc");
-const { generateTodaysReport, reportContains, accessReport, reportDoesNotContain } = require("./reports");
+const {
+  generateTodaysReport,
+  reportContains,
+  accessReport,
+  reportDoesNotContain,
+  fakeTriggerReportData,
+  fakeLiveStatusExceptionsReportData,
+  checkUserSummaryReport,
+  checkLiveStatusExceptionsReport,
+  checkResolvedExceptionsReport
+} = require("./reports");
 const {
   findRecordFor,
   goToExceptionList,
@@ -233,3 +243,13 @@ Then("{string} is not in the audit log", async function (message) {
 When("I reallocate the case to {string}", reallocateCaseToForce);
 
 When("I select trigger {string} to resolve", selectTrigger);
+
+When("I fake the data for the operational trigger report", fakeTriggerReportData);
+
+When("I fake the data for the Live Status Detail - Exceptions report", fakeLiveStatusExceptionsReportData);
+
+Then("the user performance summary report is correct", checkUserSummaryReport);
+
+Then("the Live Status Detail - Exceptions report is correct", checkLiveStatusExceptionsReport);
+
+Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport);
