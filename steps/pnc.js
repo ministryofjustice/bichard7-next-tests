@@ -1,5 +1,6 @@
 const expect = require("expect");
 const path = require("path");
+const { updateExpectedRequest } = require("../utils/tagProcessing");
 
 const mockPNCDataForTest = async function () {
   // mock a response in the PNC
@@ -45,43 +46,20 @@ const checkMocks = async function () {
   let mockCount = 0;
   this.mocks.forEach((mock) => {
     if (mock.expectedRequest !== "") {
-      let { expectedRequest } = mock;
-      if (process.env.RUN_PARALLEL) {
-        // names
-        for (let i = 0; i < this.currentTestFamilyNames.length; i += 1) {
-          let COU = `${this.currentTestFamilyNames[i][0]}/${this.currentTestGivenNames1[i][0]}`;
-          let newCOU = `${this.currentTestFamilyNames[i][1]}/${this.currentTestGivenNames1[i][1]}`.toUpperCase();
-          if (newCOU.length > COU.length) {
-            COU += " ".repeat(newCOU.length - COU.length);
-          } else {
-            newCOU += +" ".repeat(COU.length - newCOU.length);
-          }
-          expectedRequest = expectedRequest.replace(COU, newCOU);
-
-          let IDS = this.currentTestFamilyNames[i][0];
-          let newIDS = this.currentTestFamilyNames[i][1].toUpperCase();
-          if (newIDS.length > IDS.length) {
-            IDS += " ".repeat(newIDS.length - IDS.length);
-          } else {
-            newIDS += +" ".repeat(IDS.length - newIDS.length);
-          }
-          expectedRequest = expectedRequest.replace(IDS, newIDS);
-        }
-
-        // ASN number
-        for (let i = 0; i < this.currentProsecutorReference.length; i += 1) {
-          const ASN = this.currentProsecutorReference[i][0].substring(this.currentProsecutorReference[i][0].length - 7);
-          const newASN = this.currentProsecutorReference[i][1].substring(
-            this.currentProsecutorReference[i][1].length - 7
-          );
-
-          expectedRequest = expectedRequest.replace(ASN, newASN);
-        }
-      }
       if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
       if (process.env.RUN_PARALLEL) {
         expect(mock.requests.length).toBeGreaterThanOrEqual(1);
+        const expectedRequest = updateExpectedRequest(mock.expectedRequest, this);
+        let matchFound = "No request matched the expected request";
+        for (const request of mock.requests) {
+          if (request.includes(expectedRequest)) {
+            matchFound = "Yes";
+            break;
+          }
+        }
+        expect(matchFound).toBe("Yes");
       } else {
+        const { expectedRequest } = mock;
         expect(mock.requests.length).toBe(1);
         expect(mock.requests[0]).toMatch(expectedRequest);
       }

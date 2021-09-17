@@ -99,7 +99,7 @@ class Bichard extends World {
     return `${this.currentTestFamilyNames[index][0]} ${this.currentTestGivenNames1[index][0]}`;
   }
 
-  getRecordName(index) {
+  getUpdatedRecordName(index) {
     return `${this.currentTestFamilyNames[index][1]} ${this.currentTestGivenNames1[index][1]}`;
   }
 

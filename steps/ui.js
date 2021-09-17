@@ -69,7 +69,7 @@ const openRecordFor = async function (name) {
 const openRecordForCurrentTest = async function () {
   let currentRecordName = "";
   if (process.env.RUN_PARALLEL) {
-    currentRecordName = this.getRecordName(1);
+    currentRecordName = this.getUpdatedRecordName(1);
   } else {
     currentRecordName = this.getOriginalRecordName(1);
   }
@@ -395,7 +395,7 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
   let currentRecordName = "";
   if (process.env.RUN_PARALLEL) {
-    currentRecordName = this.getRecordName(1);
+    currentRecordName = this.getUpdatedRecordName(1);
   } else {
     currentRecordName = this.getOriginalRecordName(1);
   }
@@ -411,7 +411,7 @@ const checkRecordNotResolved = async function (recordType, recordName, resolvedT
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
   let currentRecordName = "";
   if (process.env.RUN_PARALLEL) {
-    currentRecordName = this.getRecordName(1);
+    currentRecordName = this.getUpdatedRecordName(1);
   } else {
     currentRecordName = this.getOriginalRecordName(1);
   }
