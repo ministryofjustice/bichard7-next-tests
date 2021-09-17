@@ -18,8 +18,7 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 			And "input-message" is received
 
 	@Should
-	@Problem
-	@Excluded
+	@ExcludedOnMaster
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Handling interim sexual order results
@@ -27,4 +26,4 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 			And I view the list of exceptions
 		Then I see trigger "PR04 - Sex offender" in the exception list table
 			And there are no exceptions raised for "SEXUALORDER Interim"
-			And the PNC record has not been updated
+			And the PNC updates the record
