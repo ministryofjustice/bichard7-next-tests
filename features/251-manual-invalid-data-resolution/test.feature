@@ -21,11 +21,22 @@ Feature: {251} BR7 R3.2-UAT-Wrong Offence or Court Code
 			And "input-message" is received
 
 	@Should
-	@Problem
+	@ExcludedOnMaster
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Manual invalid data resolution
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-			And pending
-		Then I see trigger "PR10 - Conditional bail" in the exception list table
+		Then I see trigger "PR06 - Imprisoned" in the exception list table
+		When I open the record for "Burnham Lester"
+		Then I see error "HO100300" in the "Court location" row of the results table
+		When I click the "Defendant" tab
+		Then I see error "HO100304" in the "ASN" row of the results table
+		When I click the "Offences" tab
+			And I view offence "1"
+		Then I see error "HO100306" in the "Offence Code" row of the results table
+		When I click the "Triggers" tab
+		Then I see trigger "TRPR0006"
+		When I resolve all of the triggers
+			And I return to the list
+		Then there are no triggers raised for "Burnham Lester"
+			And the PNC record has not been updated
