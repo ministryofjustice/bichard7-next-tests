@@ -62,43 +62,6 @@ commands:
             cd ~/bichard7-next
             bash ./scripts/wait_for_bichard.sh
 
-  run_warmup:
-    steps:
-      - run:
-          name: Warm-up login test
-          environment:
-            - TEST_TIMEOUT: 180000
-          command: |
-            cd ~/bichard7-next
-            make e2e-warmup
-      - run:
-          name: Remove warmup test container
-          command: docker rm $(docker ps -a -q --filter "name=e2e-tests" --filter "status=exited")
-
-  run_tests_baseline:
-    steps:
-      - run:
-          name: Pipe logs to the test container
-          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh was-baseline &> /tmp/logpipe.txt
-          background: true
-      - run:
-          name: Run E2E tests
-          command: |
-            cd ~/bichard7-next
-            make e2e-tests-record
-
-  run_tests_next:
-    steps:
-      - run:
-          name: Pipe logs to the test container
-          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
-          background: true
-      - run:
-          name: Run E2E tests
-          command: |
-            cd ~/bichard7-next
-            make e2e-tests-record
-
   run_test_baseline_chunk:
     steps:
       - run:
@@ -109,7 +72,7 @@ commands:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
-            make e2e-tests-record-chunk
+            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
 
   run_test_next_chunk:
     steps:
@@ -121,7 +84,7 @@ commands:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
-            make e2e-tests-record-chunk
+            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
 
   run-test-next:
     steps:
@@ -133,21 +96,6 @@ commands:
             cd ~/bichard7-next
             make run-all-no-bc -j 4
       - run_services_and_wait
-      - run_warmup
-      - run_tests_next
-      - save_artifacts
-
-  run-test-next-chunk:
-    steps:
-      - checkout
-      - pre_run_setup
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            make run-all-no-bc -j 4
-      - run_services_and_wait
-      - run_warmup
       - run_test_next_chunk
       - save_artifacts
 
@@ -166,26 +114,6 @@ commands:
           command: |
             cd ~/bichard7-next
             ./scripts/db/wait_for_db.sh
-      - run_warmup
-      - run_tests_baseline
-      - save_artifacts
-
-  run-test-baseline-chunk:
-    steps:
-      - checkout
-      - pre_run_setup
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            make run-all-baseline-no-bc -j 4
-      - run_services_and_wait
-      - run:
-          name: Wait for DB2
-          command: |
-            cd ~/bichard7-next
-            ./scripts/db/wait_for_db.sh
-      - run_warmup
       - run_test_baseline_chunk
       - save_artifacts
 
@@ -225,72 +153,9 @@ jobs:
       AUTH_TYPE: bichard-jwt
     steps:
       - run-test-next
+    parallelism: 4
 
-  test-next-chunk-0:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    resource_class: large
-    environment:
-      STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-next
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 4
-      CHUNK_NUMBER: 0
-    steps:
-      - run-test-next-chunk
-
-  test-next-chunk-1:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    resource_class: large
-    environment:
-      STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-next
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 4
-      CHUNK_NUMBER: 1
-    steps:
-      - run-test-next-chunk
-
-  test-next-chunk-2:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    resource_class: large
-    environment:
-      STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-next
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 4
-      CHUNK_NUMBER: 2
-    steps:
-      - run-test-next-chunk
-
-  test-next-chunk-3:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    resource_class: large
-    environment:
-      STACK_TYPE: next
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-next
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 4
-      CHUNK_NUMBER: 3
-    steps:
-      - run-test-next-chunk
-
-  test-baseline-chunk-0:
+  test-baseline:
     machine:
       image: ubuntu-2004:202104-01
       docker_layer_caching: true
@@ -301,74 +166,9 @@ jobs:
       WORKSPACE: local-baseline
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 5
-      CHUNK_NUMBER: 0
     steps:
-      - run-test-baseline-chunk
-
-  test-baseline-chunk-1:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 5
-      CHUNK_NUMBER: 1
-    steps:
-      - run-test-baseline-chunk
-
-  test-baseline-chunk-2:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 5
-      CHUNK_NUMBER: 2
-    steps:
-      - run-test-baseline-chunk
-
-  test-baseline-chunk-3:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 5
-      CHUNK_NUMBER: 3
-    steps:
-      - run-test-baseline-chunk
-
-  test-baseline-chunk-4:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-      TOTAL_CHUNKS: 5
-      CHUNK_NUMBER: 4
-    steps:
-      - run-test-baseline-chunk
+      - run-test-baseline
+    parallelism: 6
 
 workflows:
   version: 2
@@ -376,30 +176,9 @@ workflows:
   deploy:
     jobs:
       - build-ci
-      - test-next-chunk-0:
+      - test-next:
           requires:
             - build-ci
-      - test-next-chunk-1:
-          requires:
-            - build-ci
-      - test-next-chunk-2:
-          requires:
-            - build-ci
-      - test-next-chunk-3:
-          requires:
-            - build-ci
-      - test-baseline-chunk-0:
-          requires:
-            - build-ci
-      - test-baseline-chunk-1:
-          requires:
-            - build-ci
-      - test-baseline-chunk-2:
-          requires:
-            - build-ci
-      - test-baseline-chunk-3:
-          requires:
-            - build-ci
-      - test-baseline-chunk-4:
+      - test-baseline:
           requires:
             - build-ci
