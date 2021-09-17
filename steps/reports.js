@@ -1,5 +1,7 @@
 const expect = require("expect");
-const { getTableData } = require("./ui");
+const fs = require("fs");
+const parse = require("csv-parse/lib/sync");
+const { getTableData, getRawTableData } = require("./ui");
 
 const accessReport = async function (report) {
   const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
@@ -32,6 +34,12 @@ const fakeTriggerReportData = async function () {
   );
 };
 
+const fakeLiveStatusExceptionsReportData = async function () {
+  await this.db.query(
+    "update br7own.error_list set msg_received_ts = msg_received_ts - INTERVAL '7 days' where trigger_reason = 'TRPR0006'"
+  );
+};
+
 const checkUserSummaryReport = async function () {
   const now = new Date();
   const todayString = `${now.getUTCDate().toString().padStart(2, "0")} ${now
@@ -45,11 +53,33 @@ const checkUserSummaryReport = async function () {
   expect(tableData[5]).toEqual(["TOTAL", "1", "3", "3"]);
 };
 
+const checkLiveStatusExceptionsReport = async function () {
+  const tableData = await getRawTableData(this, "#br7_report_data .resultsTable tbody tr");
+  const notesField = tableData[2][8].trim().replace(/[\t\n ]/g, "");
+  expect(notesField).toMatch(/Errorcodes:1xHO100300,1xHO100304,1xHO100306.*<br><br>Triggercodes:1xTRPR0006.*/);
+};
+
+const checkResolvedExceptionsReport = async function () {
+  const csv = fs.readFileSync("./tmp/ResolvedExceptions.csv", "utf8");
+  const data = parse(csv, {
+    columns: false,
+    skip_empty_lines: true,
+    from_line: 3
+  });
+  const notesField = data[1][10];
+  expect(notesField).toMatch(
+    /Trigger codes: 1 x TRPR0006.*\n\nError codes: 1 x HO100300, 1 x HO100304, 1 x HO100306.*\n\nsupervisor: Portal Action: Record Manually Resolved. Reason: Updated disposal\(s\) manually on PNC.*\n\nsupervisor: Portal Action: Trigger Resolved. Code: TRPR0006/
+  );
+};
+
 module.exports = {
   generateTodaysReport,
   reportContains,
   reportDoesNotContain,
   accessReport,
   fakeTriggerReportData,
-  checkUserSummaryReport
+  fakeLiveStatusExceptionsReportData,
+  checkUserSummaryReport,
+  checkLiveStatusExceptionsReport,
+  checkResolvedExceptionsReport
 };
