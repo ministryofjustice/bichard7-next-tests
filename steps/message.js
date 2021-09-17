@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const isError = require("../utils/isError");
 const { pollMessagesForEvent } = require("./auditLogging");
-const { replaceTags } = require("../utils/tagProcessing");
+const { replaceAllTags } = require("../utils/tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
   const fileName = await context.incomingMessageBucket.upload(message, correlationId);
@@ -34,16 +34,7 @@ const sendMsg = async function (world, messagePath) {
     expect(isError(pollingResult)).toBeFalsy();
   } else {
     if (process.env.RUN_PARALLEL) {
-      const tags = [
-        "DC:PTIURN",
-        "DC:PersonGivenName1",
-        "DC:PersonGivenName2",
-        "DC:PersonFamilyName",
-        "DC:ProsecutorReference"
-      ];
-      for (let i = 0; i < tags.length; i += 1) {
-        messageData = replaceTags(world, messageData, tags[i]);
-      }
+      messageData = replaceAllTags(world, messageData, "DC:");
     }
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }

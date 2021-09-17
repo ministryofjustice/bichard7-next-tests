@@ -67,17 +67,7 @@ const openRecordFor = async function (name) {
 };
 
 const openRecordForCurrentTest = async function () {
-  let currentRecordName = "";
-  if (process.env.RUN_PARALLEL) {
-    currentRecordName = this.getUpdatedRecordName(1);
-  } else {
-    currentRecordName = this.getOriginalRecordName(1);
-  }
-  await waitForRecord(this.browser.page);
-  await Promise.all([
-    this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${currentRecordName}']`),
-    this.browser.page.waitForNavigation()
-  ]);
+  await openRecordFor(this.getRecordName());
 };
 
 const loadRecordTab = async function (page, selectorToClick, selectorToWaitFor) {
@@ -393,14 +383,7 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
 };
 
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
-  let currentRecordName = "";
-  if (process.env.RUN_PARALLEL) {
-    currentRecordName = this.getUpdatedRecordName(1);
-  } else {
-    currentRecordName = this.getOriginalRecordName(1);
-  }
-  await filterRecords(this, resolvedType, recordType);
-  expect(await this.browser.elementText("table.resultsTable")).toMatch(currentRecordName);
+  await checkRecordResolved(recordType, this.getRecordName(), resolvedType);
 };
 
 const checkRecordNotResolved = async function (recordType, recordName, resolvedType) {
@@ -409,14 +392,7 @@ const checkRecordNotResolved = async function (recordType, recordName, resolvedT
 };
 
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
-  let currentRecordName = "";
-  if (process.env.RUN_PARALLEL) {
-    currentRecordName = this.getUpdatedRecordName(1);
-  } else {
-    currentRecordName = this.getOriginalRecordName(1);
-  }
-  await filterRecords(this, resolvedType, recordType);
-  expect(await this.browser.elementText("table.resultsTable")).not.toMatch(currentRecordName);
+  await checkRecordNotResolved(recordType, this.getRecordName(), resolvedType);
 };
 
 const checkRecordNotExists = async function (recordName) {

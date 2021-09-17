@@ -95,11 +95,12 @@ class Bichard extends World {
     });
   }
 
-  getOriginalRecordName(index) {
-    return `${this.currentTestFamilyNames[index][0]} ${this.currentTestGivenNames1[index][0]}`;
-  }
-
-  getUpdatedRecordName(index) {
+  getRecordName(index) {
+    if (!process.env.RUN_PARALLEL) {
+      // original
+      return `${this.currentTestFamilyNames[index][0]} ${this.currentTestGivenNames1[index][0]}`;
+    }
+    // updated
     return `${this.currentTestFamilyNames[index][1]} ${this.currentTestGivenNames1[index][1]}`;
   }
 

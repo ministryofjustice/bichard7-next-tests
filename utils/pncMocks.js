@@ -1,6 +1,6 @@
 const fs = require("fs");
 const parser = require("fast-xml-parser");
-const { extractTags, replaceTags } = require("./tagProcessing");
+const { extractAllTags, replaceAllTags } = require("./tagProcessing");
 
 const reformatDate = (input) => {
   const res = input.match(/(\d{4})-(\d{2})-(\d{2})/);
@@ -25,14 +25,9 @@ const extractDates = (offence) => {
 module.exports = {
   mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
     let xmlData = fs.readFileSync(ncmFile, "utf8").toString();
-    const tags = ["PTIURN", "PersonGivenName1", "PersonGivenName2", "PersonFamilyName", "ProsecutorReference"];
-    for (let i = 0; i < tags.length; i += 1) {
-      extractTags(world, xmlData, tags[i]);
-    }
+    extractAllTags(world, xmlData);
     if (process.env.RUN_PARALLEL) {
-      for (let i = 0; i < tags.length; i += 1) {
-        xmlData = replaceTags(world, xmlData, tags[i]);
-      }
+      xmlData = replaceAllTags(world, xmlData);
     }
 
     const parsed = parser.parse(xmlData);

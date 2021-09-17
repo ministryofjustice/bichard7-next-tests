@@ -6,6 +6,8 @@ const unitPNC = "ZD";
 const systemPNC = "01";
 const sequencePNC = parseInt(Math.random() * 899999, 10) + 100000;
 
+const tags = ["PTIURN", "PersonGivenName1", "PersonGivenName2", "PersonFamilyName", "ProsecutorReference"];
+
 const getNewName = (list, oldName) => {
   for (let i = 0; i < list.length; i += 1) {
     if (list[i][0] === oldName) {
@@ -15,57 +17,37 @@ const getNewName = (list, oldName) => {
   return "";
 };
 
+const moduloTags = [
+  "Z",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "P",
+  "Q",
+  "R",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y"
+];
+
 const getTrailingCharacter = (num) => {
-  switch (num) {
-    case 1:
-      return "A";
-    case 2:
-      return "B";
-    case 3:
-      return "C";
-    case 4:
-      return "D";
-    case 5:
-      return "E";
-    case 6:
-      return "F";
-    case 7:
-      return "G";
-    case 8:
-      return "H";
-    case 9:
-      return "J";
-    case 10:
-      return "K";
-    case 11:
-      return "L";
-    case 12:
-      return "M";
-    case 13:
-      return "N";
-    case 14:
-      return "P";
-    case 15:
-      return "Q";
-    case 16:
-      return "R";
-    case 17:
-      return "T";
-    case 18:
-      return "U";
-    case 19:
-      return "V";
-    case 20:
-      return "W";
-    case 21:
-      return "X";
-    case 22:
-      return "Y";
-    case 0:
-      return "Z";
-    default:
-      throw new Error(`Modulo value not expected ${num}`);
+  if (num < 0 && num >= moduloTags.length) {
+    throw new Error(`Modulo value not expected ${num}`);
   }
+  return moduloTags[num];
 };
 
 const extractTags = function (world, message, tag) {
@@ -79,7 +61,7 @@ const extractTags = function (world, message, tag) {
   }
   for (let i = 1; i < bits.length; i += 2) {
     const name = bits[i].substring(0, bits[i].length - 2);
-    let newName = uuid().toString().substr(0, 8) + uuid().toString().substr(0, 4); // if string is too long, it fudges the PNC
+    let newName = uuid().toString().substr(0, 8).toUpperCase() + uuid().toString().substr(0, 4).toUpperCase(); // if string is too long, it fudges the PNC
 
     if (tag === "PersonFamilyName") {
       world.currentTestFamilyNames.push([name, newName]);
@@ -97,6 +79,12 @@ const extractTags = function (world, message, tag) {
       newName = forcePNC + unitPNC + sequenceNumber.toString();
       world.currentPTIURNValues.push([name, newName]);
     }
+  }
+};
+
+const extractAllTags = function (world, message) {
+  for (let i = 0; i < tags.length; i += 1) {
+    extractTags(world, message, tags[i]);
   }
 };
 
@@ -125,6 +113,14 @@ const replaceTags = (world, message, tag) => {
   return newMessage;
 };
 
+const replaceAllTags = (world, message, prefix = "") => {
+  let resultMessage = message;
+  for (let i = 0; i < tags.length; i += 1) {
+    resultMessage = replaceTags(world, resultMessage, prefix + tags[i]);
+  }
+  return resultMessage;
+};
+
 const updateExpectedRequest = function (expectedRequest, world) {
   let result = expectedRequest;
   for (let i = 0; i < world.currentTestFamilyNames.length; i += 1) {
@@ -133,7 +129,7 @@ const updateExpectedRequest = function (expectedRequest, world) {
     if (newCOU.length > COU.length) {
       COU += " ".repeat(newCOU.length - COU.length);
     } else {
-      newCOU += +" ".repeat(COU.length - newCOU.length);
+      newCOU += " ".repeat(COU.length - newCOU.length);
     }
     result = result.replace(COU, newCOU);
 
@@ -142,7 +138,7 @@ const updateExpectedRequest = function (expectedRequest, world) {
     if (newIDS.length > IDS.length) {
       IDS += " ".repeat(newIDS.length - IDS.length);
     } else {
-      newIDS += +" ".repeat(IDS.length - newIDS.length);
+      newIDS += " ".repeat(IDS.length - newIDS.length);
     }
     result = result.replace(IDS, newIDS);
   }
@@ -158,7 +154,7 @@ const updateExpectedRequest = function (expectedRequest, world) {
 };
 
 module.exports = {
-  replaceTags,
+  replaceAllTags,
   updateExpectedRequest,
-  extractTags
+  extractAllTags
 };
