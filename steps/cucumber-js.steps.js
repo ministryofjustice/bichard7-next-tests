@@ -9,7 +9,10 @@ const {
   accessReport,
   reportDoesNotContain,
   fakeTriggerReportData,
-  checkUserSummaryReport
+  fakeLiveStatusExceptionsReportData,
+  checkUserSummaryReport,
+  checkLiveStatusExceptionsReport,
+  checkResolvedExceptionsReport
 } = require("./reports");
 const {
   findRecordFor,
@@ -234,4 +237,10 @@ When("I select trigger {string} to resolve", selectTrigger);
 
 When("I fake the data for the operational trigger report", fakeTriggerReportData);
 
+When("I fake the data for the Live Status Detail - Exceptions report", fakeLiveStatusExceptionsReportData);
+
 Then("the user performance summary report is correct", checkUserSummaryReport);
+
+Then("the Live Status Detail - Exceptions report is correct", checkLiveStatusExceptionsReport);
+
+Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport);
