@@ -88,7 +88,7 @@ When("I view the list of exceptions", goToExceptionList);
 
 When("I visit the Team Management screen", visitTeamPage);
 
-When("I open the record for this test", openRecordForCurrentTest);
+When("I open this record", openRecordForCurrentTest);
 
 When("I open the record for {string}", openRecordFor);
 
@@ -182,11 +182,11 @@ Then("I see trigger {string}", checkTrigger);
 
 Then("the {string} for {string} is {string}", checkRecordResolved);
 
-Then("the {string} for this test is {string}", checkRecordForThisTestResolved);
+Then("this {string} is {string}", checkRecordForThisTestResolved);
 
 Then("the {string} for {string} is not {string}", checkRecordNotResolved);
 
-Then("the {string} for this test is not {string}", checkRecordForThisTestNotResolved);
+Then("this {string} is not {string}", checkRecordForThisTestNotResolved);
 
 Then("I manually resolve the record", manuallyResolveRecord);
 
