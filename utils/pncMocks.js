@@ -2,6 +2,12 @@ const fs = require("fs");
 const uuid = require("uuid").v4;
 const parser = require("fast-xml-parser");
 
+const yearPNC = "11";
+const forcePNC = "01";
+const unitPNC = "ZD";
+const systemPNC = "01";
+const sequencePNC = parseInt(Math.random() * 899999, 10) + 100000;
+
 const reformatDate = (input) => {
   const res = input.match(/(\d{4})-(\d{2})-(\d{2})/);
   return `${res[3]}${res[2]}${res[1]}`.padEnd(12, "0");
@@ -20,6 +26,59 @@ const extractDates = (offence) => {
     endDate = "            ";
   }
   return { startDate, endDate };
+};
+
+const getTrailingCharacter = (num) => {
+  switch (num) {
+    case 1:
+      return "A";
+    case 2:
+      return "B";
+    case 3:
+      return "C";
+    case 4:
+      return "D";
+    case 5:
+      return "E";
+    case 6:
+      return "F";
+    case 7:
+      return "G";
+    case 8:
+      return "H";
+    case 9:
+      return "J";
+    case 10:
+      return "K";
+    case 11:
+      return "L";
+    case 12:
+      return "M";
+    case 13:
+      return "N";
+    case 14:
+      return "P";
+    case 15:
+      return "Q";
+    case 16:
+      return "R";
+    case 17:
+      return "T";
+    case 18:
+      return "U";
+    case 19:
+      return "V";
+    case 20:
+      return "W";
+    case 21:
+      return "X";
+    case 22:
+      return "Y";
+    case 0:
+      return "Z";
+    default:
+      throw new Error(`Modulo value not expected ${num}`);
+  }
 };
 
 const extractAndReplaceTags = (world, message, tag, uniqueId) => {
@@ -46,45 +105,15 @@ const extractAndReplaceTags = (world, message, tag, uniqueId) => {
     } else if (tag === "PersonGivenName2") {
       world.currentTestGivenNames2.push([name, newName, uniqueId]);
     } else if (tag === "ProsecutorReference") {
-      const possibleProsecutorRefences = [
-        "1101ZD0100000410776E",
-        "1101ZD0100000448754K",
-        "1101ZD0100000410769X",
-        "1101ZD0100000410781K",
-        "1101ZD0100000410785P",
-        "1201ZD0100000448696W",
-        "1201ZD0100000448697X",
-        "1101ZD0100000410789U",
-        "1101ZD0100000410790V",
-        "1101ZD0100000410793Y",
-        "1101ZD0100000410795A",
-        "1101ZD0100000410796B",
-        "1101ZD0100000410798D",
-        "1101ZD0100000410799E",
-        "1101ZD0100000410800F",
-        "1101ZD0100000410801G",
-        "1101ZD0100000410804K"
-      ];
-      newName = possibleProsecutorRefences[parseInt(Math.random() * possibleProsecutorRefences.length - 1, 10)];
+      const ASNnumber = parseInt(`${forcePNC[1] + systemPNC + yearPNC}00000${sequencePNC.toString()}`, 10);
+      const characterCheck = getTrailingCharacter(ASNnumber % 23);
+      newName = `${yearPNC + forcePNC + unitPNC + systemPNC}00000${sequencePNC.toString()}${characterCheck}`;
+
       world.currentProsecutorReference.push([name, newName, uniqueId]);
     } else if (tag === "PTIURN") {
-      const possiblePIURNs = [
-        "36FP0300108",
-        "01ZD0300908",
-        "01VK0300208",
-        "01VK1600008",
-        "01ZD0300108",
-        "01ZD0302808",
-        "01ZD1600008",
-        "01VK0305808",
-        "01VK0303008",
-        "01ZD5100008",
-        "01VK1600008",
-        "01ZD0305408",
-        "01ZD0303408",
-        "01ZD0307208"
-      ];
-      newName = possiblePIURNs[parseInt(Math.random() * possiblePIURNs.length - 1, 10)];
+      const sequenceNumber = parseInt(Math.random() * 8999999, 10) + 1000000;
+      newName = forcePNC + unitPNC + sequenceNumber.toString();
+
       world.currentPTIURNValues.push([name, newName, uniqueId]);
     }
 
