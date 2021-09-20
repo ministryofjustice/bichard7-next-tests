@@ -18,6 +18,7 @@ const {
   findRecordFor,
   goToExceptionList,
   checkNoPncErrors,
+  openRecordForCurrentTest,
   openRecordFor,
   exceptionsAreVisible,
   triggersAreVisible,
@@ -50,7 +51,9 @@ const {
   checkTriggerforOffence,
   returnToList,
   checkRecordResolved,
+  checkRecordForThisTestResolved,
   checkRecordNotResolved,
+  checkRecordForThisTestNotResolved,
   checkRecordNotExists,
   correctOffenceException,
   correctOffenceFreeTextException,
@@ -94,6 +97,8 @@ When("{string} is received", sendMessageForTest);
 When("I view the list of exceptions", goToExceptionList);
 
 When("I visit the Team Management screen", visitTeamPage);
+
+When("I open this record", openRecordForCurrentTest);
 
 When("I open the record for {string}", openRecordFor);
 
@@ -187,7 +192,11 @@ Then("I see trigger {string}", checkTrigger);
 
 Then("the {string} for {string} is {string}", checkRecordResolved);
 
+Then("this {string} is {string}", checkRecordForThisTestResolved);
+
 Then("the {string} for {string} is not {string}", checkRecordNotResolved);
+
+Then("this {string} is not {string}", checkRecordForThisTestNotResolved);
 
 Then("I manually resolve the record", manuallyResolveRecord);
 

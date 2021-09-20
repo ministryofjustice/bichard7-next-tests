@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const isError = require("../utils/isError");
 const { pollMessagesForEvent } = require("./auditLogging");
+const { replaceAllTags } = require("../utils/tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
   const fileName = await context.incomingMessageBucket.upload(message, correlationId);
@@ -24,15 +25,18 @@ const uploadToS3 = async (context, message, correlationId) => {
 const sendMsg = async function (world, messagePath) {
   const rawMessage = await fs.promises.readFile(messagePath);
   const correlationId = `CID-${uuid()}`;
-  const message = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
+  let messageData = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
 
   if (world.shouldUploadMessagesToS3) {
-    const uploadResult = await uploadToS3(world, message.toString(), correlationId);
+    const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
     const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
-    await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", message);
+    if (process.env.RUN_PARALLEL) {
+      messageData = replaceAllTags(world, messageData, "DC:");
+    }
+    await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }
 };
 

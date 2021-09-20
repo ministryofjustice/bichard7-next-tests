@@ -75,6 +75,14 @@ const openRecordFor = async function (name) {
   ]);
 };
 
+const openRecordForCurrentTest = async function () {
+  await waitForRecord(this.browser.page);
+  await Promise.all([
+    this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`),
+    this.browser.page.waitForNavigation()
+  ]);
+};
+
 const loadRecordTab = async function (page, selectorToClick, selectorToWaitFor) {
   await page.waitForSelector(selectorToClick);
   await Promise.all([page.click(selectorToClick), page.waitForNavigation()]);
@@ -387,9 +395,19 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
   expect(await this.browser.elementText("table.resultsTable")).toMatch(recordName);
 };
 
+const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
+  await filterRecords(this, resolvedType, recordType);
+  expect(await this.browser.elementText("table.resultsTable")).toMatch(this.getRecordName());
+};
+
 const checkRecordNotResolved = async function (recordType, recordName, resolvedType) {
   await filterRecords(this, resolvedType, recordType);
   expect(await this.browser.elementText("table.resultsTable")).not.toMatch(recordName);
+};
+
+const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
+  await filterRecords(this, resolvedType, recordType);
+  expect(await this.browser.elementText("table.resultsTable")).not.toMatch(this.getRecordName());
 };
 
 const checkRecordNotExists = async function (recordName) {
@@ -533,6 +551,7 @@ module.exports = {
   isExceptionEditable,
   loadDefendantTab,
   loadTriggersTab,
+  openRecordForCurrentTest,
   openRecordFor,
   reallocateCase,
   cannotReallocateCase,
@@ -563,7 +582,9 @@ module.exports = {
   checkCompleteTriggerforOffence,
   resolveAllTriggers,
   checkRecordResolved,
+  checkRecordForThisTestResolved,
   checkRecordNotResolved,
+  checkRecordForThisTestNotResolved,
   manuallyResolveRecord,
   viewOffence,
   checkOffenceData,

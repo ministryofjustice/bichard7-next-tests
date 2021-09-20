@@ -1,13 +1,19 @@
 const expect = require("expect");
 const path = require("path");
+const { updateExpectedRequest } = require("../utils/tagProcessing");
 
 const mockPNCDataForTest = async function () {
   // mock a response in the PNC
   const specFolder = path.dirname(this.featureUri);
-  this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`);
+  this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
 
   /* eslint-disable no-restricted-syntax */
   for (const mock of this.mocks) {
+    if (process.env.RUN_PARALLEL) {
+      const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
+      mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
+    }
+
     /* eslint-disable no-await-in-loop */
     mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
   }
@@ -41,8 +47,22 @@ const checkMocks = async function () {
   this.mocks.forEach((mock) => {
     if (mock.expectedRequest !== "") {
       if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
-      expect(mock.requests.length).toBe(1);
-      expect(mock.requests[0]).toMatch(mock.expectedRequest);
+      if (process.env.RUN_PARALLEL) {
+        expect(mock.requests.length).toBeGreaterThanOrEqual(1);
+        const expectedRequest = updateExpectedRequest(mock.expectedRequest, this);
+        let matchFound = "No request matched the expected request";
+        for (const request of mock.requests) {
+          if (request.includes(expectedRequest)) {
+            matchFound = "Yes";
+            break;
+          }
+        }
+        expect(matchFound).toBe("Yes");
+      } else {
+        const { expectedRequest } = mock;
+        expect(mock.requests.length).toBe(1);
+        expect(mock.requests[0]).toMatch(expectedRequest);
+      }
     }
     mockCount += 1;
   });

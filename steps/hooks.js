@@ -37,8 +37,10 @@ Before(async function (context) {
     fs.mkdirSync(this.outputDir, { recursive: true });
   }
   await this.browser.setupDownloadFolder("./tmp");
-  await this.db.clearExceptions();
-  await this.pnc.clearMocks();
+  if (!process.env.RUN_PARALLEL) {
+    await this.db.clearExceptions();
+    await this.pnc.clearMocks();
+  }
 });
 
 After(async function () {
