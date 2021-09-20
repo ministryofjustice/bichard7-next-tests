@@ -28,5 +28,4 @@ Feature: {065} R3.5_BR7_Populate RCC with PTIURN-Offence Withdrawn
 			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
 			And there are no exceptions raised for "INNOCUOUS MISTER"
-			# This does not match what is in the test spec
 			And the PNC update includes "<RCC>I01ZD/5100008"
