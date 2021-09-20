@@ -15,7 +15,7 @@ class PostgresHelper {
 
   async createUser(name, groups, inclusionList, exclusionList) {
     const defaultPasswordHash =
-      "$shiro1$SHA-256$500000$sL5A3oRuVXTJCy36WP5Kyg==$ggXBhVWqFN35dRW/TXWO7Dm/zEwWxNu4CuwXNvEJ8Jw=";
+      "$argon2id$v=19$m=15360,t=2,p=1$CK/shCsqcAng1U81FDzAxA$UEPw1XKYaTjPwKtoiNUZGW64skCaXZgHrtNraZxwJPw";
     const existing = await this.pg.one("SELECT count(*) FROM br7own.users WHERE lower(username) = $1", [
       name.toLowerCase()
     ]);
