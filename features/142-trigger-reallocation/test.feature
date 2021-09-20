@@ -42,6 +42,7 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
     When I click the "Triggers" tab
       And I select trigger "1" to resolve
       And I click the "Mark Selected Complete" button
+      And I see complete trigger "TRPR0004" for offence "2"
       And I click the "Defendant" tab
       And I correct "ASN" to "0836FP0100000377244A"
       And I click the "Offences" tab
@@ -53,7 +54,7 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
       And I click the "Refresh" button
       And I click the "Return To List (Unlock)" button
     Then there are no exceptions or triggers
-    When I am logged in as "met.police"
+    When I am logged in as "norfolk.user"
       And I view the list of exceptions
     Then I see trigger "PS03 - Disposal text truncated" in the exception list table
     When I open the record for "Allocation Trigger"
@@ -68,7 +69,6 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
       And I see trigger "TRPR0006"
       And I see trigger "TRPS0003" for offence "4"
       And I see complete trigger "TRPR0004" for offence "2"
-      And I see trigger "TRPR0004" for offence "3"
       And the PNC updates the record
       And the audit log contains "Trigger generated"
       And the audit log contains "Trigger marked as resolved by user"
