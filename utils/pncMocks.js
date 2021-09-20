@@ -43,7 +43,7 @@ module.exports = {
       sequenceNo: offence.BaseOffenceDetails.OffenceSequenceNumber.toString().padStart(3, "0"),
       ...extractDates(offence)
     }));
-    const forceStationCode = parsed.NewCaseMessage.Case.InitialHearing.CourtHearingLocation.substr(1, 4);
+    const forceStationCode = parsed.NewCaseMessage.Case.PTIURN.substr(0, 4);
 
     const cofString = offences
       .map(

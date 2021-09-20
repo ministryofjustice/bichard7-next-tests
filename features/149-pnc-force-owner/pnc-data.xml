@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NewCaseMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Flow="NewCasesFromThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g" xmlns="http://www.dca.gov.uk/xmlschemas/libra">
 	<Case>
-		<PTIURN>01VK0300107</PTIURN>
+		<PTIURN>93VK0300107</PTIURN>
 		<OriginatingOrganisation>116BH00</OriginatingOrganisation>
 		<CaseInitiation>C</CaseInitiation>
 		<Informant>Superintendent John COPPERFIELD</Informant>
