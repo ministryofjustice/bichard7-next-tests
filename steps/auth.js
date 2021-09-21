@@ -67,7 +67,11 @@ const logInToBichardJwtAs = async function (world, username) {
     iss: "Bichard"
   };
   const token = jwt.sign(tokenData, tokenSecret());
-  const page = await world.browser.newPage(authenticateUrl(token));
+  const url = authenticateUrl(token);
+  if (process.env.PRINT_LOGIN_URL === "true") {
+    console.log(url);
+  }
+  const page = await world.browser.newPage(url);
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
