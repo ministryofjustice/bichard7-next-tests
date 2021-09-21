@@ -69,12 +69,15 @@ class PostgresHelper {
 
   // eslint-disable-next-line class-methods-use-this
   async getEmailVerificationCode(emailAddress) {
-    const updateQuery = `
-      UPDATE br7own.users
-      SET email_verification_code = $1
-      WHERE email = $2
-    `;
-    await global.postgresConnection.any(updateQuery, [process.env.VERIFICATION_CODE, emailAddress]);
+    if (process.env.RUN_PARALLEL) {
+      // only need this logic when running in parallel
+      const updateQuery = `
+        UPDATE br7own.users
+        SET email_verification_code = $1
+        WHERE email = $2
+      `;
+      await global.postgresConnection.any(updateQuery, [process.env.VERIFICATION_CODE, emailAddress]);
+    }
     const query = `
       SELECT email_verification_code
       FROM br7own.users
