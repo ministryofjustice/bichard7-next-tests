@@ -16,6 +16,7 @@ Feature: R3_BR7_TI_001 (Trigger Exclusion-ALL) - This needs a code
 			And "input-message" is received
 
 	@Must
+	@ExcludedOnMaster
 	@NeedsRunningAgainstPNC
 	Scenario: Testing trigger exclusion rules for a user
 		Given I am logged in as "supervisor"
