@@ -18,7 +18,6 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 			And "input-message" is received
 
 	@Should
-	@ExcludedOnMaster
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Handling interim sexual order results
