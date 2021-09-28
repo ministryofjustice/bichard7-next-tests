@@ -36,7 +36,7 @@
 			<Session>
 				<CourtHearing>
 					<Hearing>
-						<CourtHearingLocation>B01HA01</CourtHearingLocation>
+						<CourtHearingLocation>B01EF01</CourtHearingLocation>
 						<DateOfHearing>2009-03-20</DateOfHearing>
 						<TimeOfHearing>09:00:00</TimeOfHearing>
 					</Hearing>
@@ -89,7 +89,7 @@
 								<ResultCodeQualifier>GB</ResultCodeQualifier>
 								<NextHearing>
 									<NextHearingDetails>
-										<CourtHearingLocation>B01HA01</CourtHearingLocation>
+										<CourtHearingLocation>B01EF01</CourtHearingLocation>
 										<DateOfHearing>2009-09-30</DateOfHearing>
 										<TimeOfHearing>10:00:00</TimeOfHearing>
 									</NextHearingDetails>

@@ -20,7 +20,7 @@ module.exports = () => [
   },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K21/22T     SINEDIE                 </IDS><CCR>K21/2732/16Z                   </CCR><COU>I2732                                                                       SINEDIE/WITHDRAWN                                     260920110000</COU><CCH>K001              TH68006 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION260920110000 </ADJ><DIS>I2007                      00                                                                            </DIS><CCH>K002              TH68151 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION260920110000 </ADJ><DIS>I2007                      00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC><IDS>K21/22T     SINEDIE                 </IDS><CCR>K21/2732/16Z                   </CCR><COU>I2576                                                                       SINEDIE/WITHDRAWN                                     260920110000</COU><CCH>K001              TH68006 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION260920110000 </ADJ><DIS>I2007                      00                                                                            </DIS><CCH>K002              TH68151 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION260920110000 </ADJ><DIS>I2007                      00                                                                            </DIS>",
     count: 1
   }),
   {
@@ -46,7 +46,7 @@ module.exports = () => [
   },
   mockUpdate("CXU03", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K21/22T     SINEDIE                 </IDS><SUB>I2732                                                                       26102011V</SUB><CCR>K21/2732/16Z                   </CCR><CCH>K001              TH68006 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION261020110000 </ADJ><DIS>I2063                      00                                                                            </DIS><DIS>I3027    26092011          00                                                                            </DIS><CCH>K002              TH68151 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION261020110000 </ADJ><DIS>I2063                      00                                                                            </DIS><DIS>I3027    26092011          00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC><IDS>K21/22T     SINEDIE                 </IDS><SUB>I2576                                                                       26102011V</SUB><CCR>K21/2732/16Z                   </CCR><CCH>K001              TH68006 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION261020110000 </ADJ><DIS>I2063                      00                                                                            </DIS><DIS>I3027    26092011          00                                                                            </DIS><CCH>K002              TH68151 </CCH><ADJ>INO PLEA TAKENNON-CONVICTION261020110000 </ADJ><DIS>I2063                      00                                                                            </DIS><DIS>I3027    26092011          00                                                                            </DIS>",
     count: 1
   })
 ];
