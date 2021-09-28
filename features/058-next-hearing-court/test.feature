@@ -19,6 +19,7 @@ Feature: {058} R3.1_BR7_NH_001_Next Hearing Court
 			And "input-message" is received
 
 	@Should
+	@Excluded
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Test next hearing location is calculated and updated correctly

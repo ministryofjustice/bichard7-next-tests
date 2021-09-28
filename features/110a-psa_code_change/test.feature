@@ -20,6 +20,7 @@ Feature: {110} BR7 R5.0-RCD385-PSA Code Change - part 2
 			And "input-message" is received
 
 	@Should
+	@Excluded
 	Scenario: PSA code change handling
 		Given I am logged in as "met.police"
 			And I view the list of exceptions

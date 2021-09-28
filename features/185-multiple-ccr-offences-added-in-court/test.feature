@@ -28,7 +28,7 @@ Feature: {185} BR7 R5.3-RCD496 - Multiple CCR group NG Verdict -offence added in
 		Given I am logged in as "generalhandler"
 			And "input-message-1" is received
 		When I view the list of exceptions
-		Then there are no triggers raised for "Liverpool Martin"
+		Then there are no triggers raised for "Harmon Martin"
 		When "input-message-2" is received
 		Then the PNC updates the record
 			And I see trigger "PR06 - Imprisoned" in the exception list table
