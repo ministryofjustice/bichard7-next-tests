@@ -23,7 +23,6 @@ Feature: {177} BR7 R5.3-RCD497 - 100x Results Match - Different Order
 	Scenario: Matching 100 identical results
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
-		# Currently causing an error in Bichard
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And there are no exceptions raised for "Atwood Marcus"
 			And the PNC updates the record
