@@ -19,8 +19,6 @@ Feature: {115} BR7 R5.1-RCD-327-Handling of Withdrawn-Dismissed Offences
 		Given the data for this test is in the PNC
 
 	@Could
-	@Problem
-	@Excluded
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Handling of Withdrawn-Dismissed Offences
@@ -32,6 +30,5 @@ Feature: {115} BR7 R5.1-RCD-327-Handling of Withdrawn-Dismissed Offences
 		Then there are no exceptions raised for "OFFENCES DISMISSED"
 			And I see trigger "PR10 - Conditional bail" in the exception list table
 		When "input-message-3" is received
-			And I reload until I don't see "PR10 - Conditional bail"
-		Then there are no exceptions or triggers
+			And I see "1" record for "OFFENCES DISMISSED"
 			And the PNC updates the record

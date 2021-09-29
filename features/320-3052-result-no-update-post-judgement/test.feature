@@ -17,7 +17,6 @@ Feature: {320} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Pos
 		Given the data for this test is in the PNC
 
 	@Should
-	@Excluded
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: No PNC update for 3052 result (post-judgement)

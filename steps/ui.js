@@ -224,6 +224,22 @@ const noExceptionPresentForOffender = async function (name) {
   await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
 };
 
+const recordsForPerson = async function (count, name) {
+  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+
+  // Grab the current value of the exception type filter so that it can be restored after the test
+  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
+
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "All");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  const links = await this.browser.page.$$(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
+  expect(links.length).toEqual(Number(count));
+
+  // Restore the previous exception type filter setting
+  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+};
+
 const noTriggersPresentForOffender = async function (name) {
   await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
 
@@ -605,5 +621,6 @@ module.exports = {
   checkNoteExists,
   selectTrigger,
   getTableData,
-  getRawTableData
+  getRawTableData,
+  recordsForPerson
 };

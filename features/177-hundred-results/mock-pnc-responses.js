@@ -121,7 +121,7 @@ module.exports = () => [
       "<FSC>K01YZ</FSC>" +
       "<IDS>K21/4Y      ATWOOD                  </IDS>" +
       "<CCR>K21/2732/3K                    </CCR>" +
-      "<COU>I2732                                                                       ATWOOD/MARCUS                                         280920110000</COU>" +
+      "<COU>I2576                                                                       ATWOOD/MARCUS                                         280920110000</COU>" +
       "<CCH>K001              TH68020 </CCH>" +
       "<ADJ>INOT GUILTY   GUILTY        280920110000 </ADJ>" +
       "<DIS>I1002M12                   00                                                                            </DIS>" +

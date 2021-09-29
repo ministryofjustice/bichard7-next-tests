@@ -70,7 +70,8 @@ const {
   checkNoteExists,
   selectTrigger,
   checkCompleteTriggerforOffence,
-  checkRecordRows
+  checkRecordRows,
+  recordsForPerson
 } = require("./ui");
 const { checkAuditLogCondition } = require("./auditLogging");
 
@@ -153,6 +154,8 @@ Then("I see exception {string} in the exception list table", canSeeContentInTabl
 Then("I cannot see {string} in the exception list table", cannotSeeException);
 
 Then("there are no exceptions raised for {string}", noExceptionPresentForOffender);
+
+Then("I see {string} record for {string}", recordsForPerson);
 
 Then("there are no triggers raised for {string}", noTriggersPresentForOffender);
 

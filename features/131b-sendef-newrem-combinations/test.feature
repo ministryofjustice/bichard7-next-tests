@@ -24,8 +24,6 @@ Feature: {131} BR7 R5.1.3-RCD467-Single CCR-SENDEF-NEWREM - part 2
 		Given the data for this test is in the PNC
 
 	@Should
-	@Problem
-	@Excluded
 	Scenario: Verifying SENDEF and NEWREM combinations in PNC updates
 		Given "input-message-1" is received
 			And I am logged in as "generalhandler"
