@@ -21,12 +21,12 @@ module.exports = () => [
   },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K13/2Z      NOEXCEPTION             </IDS><CCR>K13/2732/1U                    </CCR><COU>I2732                                                                       NOEXCEPTION/ADDEDOFFENCE                              261020110000</COU><CCH>K001              TH68010 </CCH><ADJ>INOT GUILTY   GUILTY        261020110000 </ADJ><DIS>I1002M3                    00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC><IDS>K13/2Z      NOEXCEPTION             </IDS><CCR>K13/2732/1U                    </CCR><COU>I2576                                                                       NOEXCEPTION/ADDEDOFFENCE                              261020110000</COU><CCH>K001              TH68010 </CCH><ADJ>INOT GUILTY   GUILTY        261020110000 </ADJ><DIS>I1002M3                    00                                                                            </DIS>",
     count: 1
   }),
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K13/2Z      NOEXCEPTION             </IDS><CCR>K13/2732/2V                    </CCR><COU>I2732                                                                       NOEXCEPTION/ADDEDOFFENCE                              261020110000</COU><CCH>K001              TH68012 </CCH><ADJ>INOT GUILTY   GUILTY        261020110000 </ADJ><DIS>I1002M4                    00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC><IDS>K13/2Z      NOEXCEPTION             </IDS><CCR>K13/2732/2V                    </CCR><COU>I2576                                                                       NOEXCEPTION/ADDEDOFFENCE                              261020110000</COU><CCH>K001              TH68012 </CCH><ADJ>INOT GUILTY   GUILTY        261020110000 </ADJ><DIS>I1002M4                    00                                                                            </DIS>",
     count: 1
   })
 ];

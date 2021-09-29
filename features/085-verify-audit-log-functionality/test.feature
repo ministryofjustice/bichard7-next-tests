@@ -10,5 +10,5 @@ Feature: {085} R2_AD_001 (Audit Log)
 			Processes are identified and logged in the Audit Log
 			"""
 
-# Test requirements are covered by tests 013 and 142
-  Scenario: Verify audit log functionality
+	# Test requirements are covered by tests 013 and 142
+	Scenario: Verify audit log functionality

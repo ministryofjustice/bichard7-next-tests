@@ -25,3 +25,4 @@ Feature: {110} BR7 R5.0-RCD385-PSA Code Change - part 1
 			And I view the list of exceptions
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
 			And there are no exceptions raised for "CHANGES PSACODE"
+			And the PNC updates the record

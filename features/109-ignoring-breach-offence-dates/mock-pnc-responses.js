@@ -19,7 +19,7 @@ module.exports = () => [
   },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K21/8C      FOARDS                  </IDS><CCR>K21/2732/8Q                    </CCR><COU>I2732                                                                       FOARDS/LORNE                                          260920110000</COU><CCH>K001              CJ88116 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I1018M12                   00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC><IDS>K21/8C      FOARDS                  </IDS><CCR>K21/2732/8Q                    </CCR><COU>I2576                                                                       FOARDS/LORNE                                          260920110000</COU><CCH>K001              CJ88116 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I1018M12                   00                                                                            </DIS>",
     count: 1
   }),
   {
@@ -40,7 +40,7 @@ module.exports = () => [
   },
   mockUpdate("CXU02", {
     expectedRequest:
-      "<FSC>K01YZ</FSC><IDS>K21/7B      FOARDS                  </IDS><CCR>K21/2732/7P                    </CCR><COU>I2732                                                                       FOARDS/LORNE                                          010820110000</COU><CCH>K001              PC00525 </CCH><ADJ>INOT GUILTY   GUILTY        010820110000 </ADJ><DIS>I1040                      00                                                                            </DIS><DIS>I1087                      00                                                                            </DIS>",
+      "<FSC>K01YZ</FSC><IDS>K21/7B      FOARDS                  </IDS><CCR>K21/2732/7P                    </CCR><COU>I2576                                                                       FOARDS/LORNE                                          010820110000</COU><CCH>K001              PC00525 </CCH><ADJ>INOT GUILTY   GUILTY        010820110000 </ADJ><DIS>I1040                      00                                                                            </DIS><DIS>I1087                      00                                                                            </DIS>",
     count: 1
   })
 ];

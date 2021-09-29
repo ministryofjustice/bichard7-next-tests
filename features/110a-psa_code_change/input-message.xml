@@ -36,7 +36,7 @@
 			<DC:Session>
 				<DC:CourtHearing>
 					<DC:Hearing>
-						<DC:CourtHearingLocation>B53MP00</DC:CourtHearingLocation>
+						<DC:CourtHearingLocation>B53DT00</DC:CourtHearingLocation>
 						<DC:DateOfHearing>2008-09-26</DC:DateOfHearing>
 						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
 					</DC:Hearing>
