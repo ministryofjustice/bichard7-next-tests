@@ -17,7 +17,6 @@ Feature: {040} 04 MIS - User Performance Summary
 
 	@Could
 	@NeedsValidating
-	@Excluded
 	@NeedsRunningAgainstPNC
 	Scenario: Generating the user performance report
 		Given I am logged in as "generalhandler"
@@ -39,6 +38,7 @@ Feature: {040} 04 MIS - User Performance Summary
 			And I submit the record
 			And I see exception "(Submitted)" in the exception list table
 			And I reload until I see "PS02 - Check address"
+			And the PNC updates the record
 		When I am logged in as "triggerhandler"
 			And I view the list of exceptions
 			And I open the record for "Bass Barry"
