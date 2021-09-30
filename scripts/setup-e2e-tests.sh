@@ -43,6 +43,8 @@ then
   exit 0
 fi
 
+mkdir -p ./screenshots
+
 AWS_CLI_PATH="$(which aws)"
 PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pncemulator" | cut -c1-32)
 aws_credential_check
