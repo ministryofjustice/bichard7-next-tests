@@ -15,7 +15,6 @@ Feature: {313} BR7-R5.10-RCD667-Revise display of report content where multiple 
 			And "input-message" is received
 
 	@Could
-	@ExcludedOnMaster
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Displaying report with multiple items in a cell
