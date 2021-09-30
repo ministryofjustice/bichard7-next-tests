@@ -2,7 +2,10 @@ const expect = require("expect");
 const path = require("path");
 const { updateExpectedRequest } = require("../utils/tagProcessing");
 
+const realPNC = process.env.REAL_PNC && process.env.REAL_PNC === "true";
+
 const mockPNCDataForTest = async function () {
+  if (realPNC) return;
   // mock a response in the PNC
   const specFolder = path.dirname(this.featureUri);
   this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
@@ -20,6 +23,7 @@ const mockPNCDataForTest = async function () {
 };
 
 const createValidRecordInPNC = async function (record) {
+  if (realPNC) return;
   // mock a response in the PNC
   this.recordId = record;
   this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
@@ -41,6 +45,7 @@ const fetchMocks = async (world) => {
 };
 
 const checkMocks = async function () {
+  if (realPNC) return;
   await fetchMocks(this);
   expect(this.mocks.length).toBeGreaterThan(0);
   let mockCount = 0;
@@ -70,6 +75,7 @@ const checkMocks = async function () {
 };
 
 const pncNotUpdated = async function () {
+  if (realPNC) return;
   let mockCount = 0;
   const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
   // Wait a second to give the backend time to process
@@ -84,6 +90,7 @@ const pncNotUpdated = async function () {
 };
 
 const pncUpdateIncludes = async function (data) {
+  if (realPNC) return;
   await fetchMocks(this);
   const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
   const checkedMocks = updateMocks.filter((mock) => mock.requests.length > 0 && mock.requests[0].includes(data));
