@@ -19,8 +19,6 @@ Feature: {125} BR7 R5.1-RCD399-Force calculation-FFSS in PTIURN
 
 	@Should
 	@NeedsValidating
-	@Problem
-	@Excluded
 	@NeedsRunningAgainstPNC
 	Scenario: Force calculation from PTIURN
 		When I am logged in as "met.police"
@@ -29,3 +27,4 @@ Feature: {125} BR7 R5.1-RCD399-Force calculation-FFSS in PTIURN
 		When I am logged in as "west.yorkshire"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
+			And the PNC updates the record
