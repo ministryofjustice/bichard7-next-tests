@@ -112,7 +112,7 @@ echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_
 echo "export MESSAGE_ENTRY_POINT=\"${MESSAGE_ENTRY_POINT}\"" >> $TEST_ENV_FILE
 echo "export DB_SSL=\"true\"" >> $TEST_ENV_FILE
 echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
-if [[ "${WORKSPACE}" != "preprod" ]]; then
+if [[ "${WORKSPACE}" == "preprod" ]]; then
   echo "export PNC_PORT=\"102\"" >> $TEST_ENV_FILE
 fi
 echo 'Done'
