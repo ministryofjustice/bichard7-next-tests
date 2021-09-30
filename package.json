@@ -8,7 +8,7 @@
     "lint:js": "eslint --fix .",
     "lint:features": "gherkin-lint features",
     "test": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC' features",
-    "test:auditlogs": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@AuditLog' features",
+    "test:auditlogs": "./scripts/prepare-environment.sh && echo $PNC_HOST && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@AuditLog' features",
     "test:preprodauditlogs": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@AuditLog and @OnlyRunsOnPNC' features",
     "test:preprod": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@OnlyRunsOnPNC' features",
     "test:chunk": "./scripts/prepare-environment.sh && bash ./scripts/run_test_chunk.sh",
