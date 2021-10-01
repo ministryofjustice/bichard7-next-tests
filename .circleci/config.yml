@@ -62,18 +62,6 @@ commands:
             cd ~/bichard7-next
             bash ./scripts/wait_for_bichard.sh
 
-  run_test_baseline_chunk:
-    steps:
-      - run:
-          name: Pipe logs to the test container
-          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh was-baseline &> /tmp/logpipe.txt
-          background: true
-      - run:
-          name: Run E2E tests
-          command: |
-            cd ~/bichard7-next
-            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
-
   run_test_next_chunk:
     steps:
       - run:
@@ -86,7 +74,7 @@ commands:
             cd ~/bichard7-next
             TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
 
-  run-test-next:
+  run-tests:
     steps:
       - checkout
       - pre_run_setup
@@ -99,26 +87,8 @@ commands:
       - run_test_next_chunk
       - save_artifacts
 
-  run-test-baseline:
-    steps:
-      - checkout
-      - pre_run_setup
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            make run-all-baseline-no-bc -j 4
-      - run_services_and_wait
-      - run:
-          name: Wait for DB2
-          command: |
-            cd ~/bichard7-next
-            ./scripts/db/wait_for_db.sh
-      - run_test_baseline_chunk
-      - save_artifacts
-
 jobs:
-  build-ci:
+  build:
     machine:
       image: ubuntu-2004:202104-01
     steps:
@@ -140,7 +110,7 @@ jobs:
           root: ~/
           paths: bichard7-next
 
-  test-next:
+  test:
     machine:
       image: ubuntu-2004:202104-01
       docker_layer_caching: true
@@ -152,33 +122,15 @@ jobs:
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
     steps:
-      - run-test-next
+      - run-tests
     parallelism: 4
-
-  test-baseline:
-    machine:
-      image: ubuntu-2004:202104-01
-      docker_layer_caching: true
-    environment:
-      STACK_TYPE: baseline
-      MESSAGE_ENTRY_POINT: mq
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
-      WORKSPACE: local-baseline
-      RECORD: "true"
-      AUTH_TYPE: bichard-jwt
-    steps:
-      - run-test-baseline
-    parallelism: 6
 
 workflows:
   version: 2
 
   deploy:
     jobs:
-      - build-ci
-      - test-next:
+      - build
+      - test:
           requires:
-            - build-ci
-      - test-baseline:
-          requires:
-            - build-ci
+            - build
