@@ -46,7 +46,9 @@ const logInToUserServiceAs = async function (world, username) {
   await page.waitForSelector("#password");
 
   await page.type("#password", "password");
-  await page.click("button[type='submit']");
+  await world.browser.clickAndWait("button[type='submit']");
+
+  await world.browser.clickAndWait("a#bichard-link");
 
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
