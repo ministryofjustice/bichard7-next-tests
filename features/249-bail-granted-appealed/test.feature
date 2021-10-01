@@ -19,9 +19,7 @@ Feature: {249} BR7 R5.6-RCD581-Granted Bail-Prosecution Appealed Bail
 			And "input-message" is received
 
 	@Could
-	@Problem
 	@NeedsRunningAgainstPNC
-	@Excluded
 	Scenario: Bail granted but appealed by prosecution at the same court hearing
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
