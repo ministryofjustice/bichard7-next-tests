@@ -23,5 +23,5 @@ Feature: {269} BR7 R5.7-RCD464-TRPR0022 Extradition Order
 	Scenario: Creating extradition order triggers
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
-		Then I see trigger "PR22 - Extradition order" in the exception list table
+		Then I see trigger "PR22 - Extradition Proceedings" in the exception list table
 			And there are no exceptions
