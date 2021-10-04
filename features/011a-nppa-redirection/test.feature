@@ -25,7 +25,7 @@ Feature: {011} R2_Regression_NPPA_PP_002 - part 1
 			And I view the list of exceptions
 		Then I see exception "HO100321" in the exception list table
 		When I open the record for "DASWON CAO"
-			And I reallocate the case to "British Transport Police"
+			And I reallocate the case to "BTP"
 		Then there are no exceptions or triggers
 		When I am logged in as "br7.btp"
 			And I view the list of exceptions
