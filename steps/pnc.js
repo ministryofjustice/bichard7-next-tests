@@ -6,7 +6,9 @@ const realPNC = process.env.REAL_PNC && process.env.REAL_PNC === "true";
 console.log(realPNC);
 
 const mockPNCDataForTest = async function () {
+  console.log("Are you a potato? ${realPNC}")
   if (realPNC) return;
+  console.log("Why yes I am? ${realPNC}")
   // mock a response in the PNC
   const specFolder = path.dirname(this.featureUri);
   this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
