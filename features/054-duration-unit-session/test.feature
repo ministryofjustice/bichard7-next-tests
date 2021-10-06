@@ -18,10 +18,11 @@ Feature: {054} R3.4_BR7_Duration Unit_Session
 			And "input-message" is received
 
 	@Could
+	@LoadTestNoUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling messages with session duration
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions raised for "Ladyfish Larry"
-			And the PNC updates the record
+		Then the PNC updates the record
+			And there are no exceptions or triggers for this record

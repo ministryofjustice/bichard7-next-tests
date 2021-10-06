@@ -11,6 +11,7 @@
     "test:auditlogs": "./scripts/prepare-environment.sh && echo $PNC_HOST && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@AuditLog' features",
     "test:preprodauditlogs": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@AuditLog and not @FailsOnRealPNC' features",
     "test:preprod": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@OnlyRunsOnPNC and not @FailsOnRealPNC' features",
+    "test:loadtest-noui": "./scripts/prepare-environment.sh && RUN_PARALLEL=true NO_UI=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --tags '@LoadTestNoUI' features",
     "test:chunk": "./scripts/prepare-environment.sh && bash ./scripts/run_test_chunk.sh",
     "test:file": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet",
     "test:file-parallel": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet --parallel",

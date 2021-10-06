@@ -30,9 +30,10 @@ Feature: {073} R4.0_BR7_Convert No Conviction for 2050-2051 to Not Guilty
 			And "input-message" is received
 
 	@Should
+	@LoadTestNoUI
 	@NeedsRunningAgainstPNC
 	Scenario: Add a case to the PNC, no exceptions are flagged if certain properties are set
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions or triggers
-			And the PNC updates the record
+		Then the PNC updates the record
+			And there are no exceptions or triggers for this record

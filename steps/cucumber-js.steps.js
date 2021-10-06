@@ -71,7 +71,8 @@ const {
   selectTrigger,
   checkCompleteTriggerforOffence,
   checkRecordRows,
-  recordsForPerson
+  recordsForPerson,
+  checkNoRecordsForThis
 } = require("./ui");
 const { checkAuditLogCondition } = require("./auditLogging");
 
@@ -214,6 +215,8 @@ Then("the record for {string} does not exist", checkRecordNotExists);
 Then("there are no exceptions", checkNoExceptions);
 
 Then("there are no exceptions or triggers", checkNoRecords);
+
+Then("there are no exceptions or triggers for this record", checkNoRecordsForThis);
 
 Then("I see {string} in the Warrants report", reportContains);
 

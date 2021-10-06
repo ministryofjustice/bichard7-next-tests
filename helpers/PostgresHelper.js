@@ -77,6 +77,11 @@ class PostgresHelper {
     return result.email_verification_code;
   }
 
+  async getMatchingErrorRecords(name) {
+    const query = `SELECT * FROM br7own.error_list WHERE defendant_name = $1`;
+    return this.pg.any(query, [name]);
+  }
+
   async query(sql) {
     return this.pg.none(sql);
   }

@@ -78,6 +78,7 @@ const logInToBichardJwtAs = async function (world, username) {
 };
 
 const logInAs = async function (username) {
+  if (this.noUi) return;
   createUser(this, username);
 
   if (this.authType === authType.bichard) {

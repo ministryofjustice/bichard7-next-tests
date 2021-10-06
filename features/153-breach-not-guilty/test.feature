@@ -20,10 +20,11 @@ Feature: {153} BR7 R5.2.2-RCD518 - Verdict Not Guilty
 			And "input-message" is received
 
 	@Could
+	@LoadTestNoUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: No breach trigger is generated for not guilty updates
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions or triggers
-			And the PNC updates the record
+		Then the PNC updates the record
+			And there are no exceptions or triggers for this record

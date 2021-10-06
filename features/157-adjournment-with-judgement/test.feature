@@ -21,9 +21,11 @@ Feature: {157} BR7 R5.2.2-RCD518 - Result class Adjournment With Judgement
 			And "input-message" is received
 
 	@Could
+	@LoadTestNoUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Correctly processing adjournment with judgement
 		Given I am logged in as "supervisor"
+			And I view the list of exceptions
 		Then the PNC updates the record
-			And there are no exceptions or triggers
+			And there are no exceptions or triggers for this record

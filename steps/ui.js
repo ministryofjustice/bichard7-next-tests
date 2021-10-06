@@ -51,6 +51,7 @@ const checkDataTable = async function (world, values) {
 };
 
 const goToExceptionList = async function () {
+  if (this.noUi) return;
   await Promise.all([this.browser.page.goto(initialRefreshUrl()), this.browser.page.waitForNavigation()]);
 };
 
@@ -528,6 +529,20 @@ const checkNoRecords = async function () {
   expect(tableRows.length).toEqual(2);
 };
 
+const checkNoRecordsForThis = async function () {
+  const name = this.getRecordName();
+  if (this.noUi) {
+    // Read the records direct from the DB
+    const records = await this.db.getMatchingErrorRecords(name);
+    expect(records.length).toEqual(0);
+  } else {
+    // Check for no exceptions of triggers via the UI
+    await filterRecords(this, "unresolved", "record");
+    const links = await this.browser.page.$$(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
+    expect(links.length).toEqual(0);
+  }
+};
+
 const waitForRecordStep = async function (record) {
   await reloadUntilContent(this.browser.page, record);
 };
@@ -614,6 +629,7 @@ module.exports = {
   reloadUntilStringNotPresent,
   checkNoExceptions,
   checkNoRecords,
+  checkNoRecordsForThis,
   waitForRecordStep,
   checkOffence,
   checkTableRows,
