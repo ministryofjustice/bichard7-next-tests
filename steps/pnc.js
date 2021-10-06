@@ -3,6 +3,7 @@ const path = require("path");
 const { updateExpectedRequest } = require("../utils/tagProcessing");
 
 const realPNC = process.env.REAL_PNC && process.env.REAL_PNC === "true";
+console.log(realPNC);
 
 const mockPNCDataForTest = async function () {
   if (realPNC) return;
