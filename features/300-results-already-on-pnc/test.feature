@@ -21,6 +21,7 @@ Feature: {300} BR7-R5.9-RCD401-501-Subsequent Remand-Different Dates
 	@AuditLog
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
+	@FailsOnRealPNC
 	Scenario: Verifying 'Results already on PNC' processing
 		Given I am logged in as "supervisor"
 			And "input-message-1" is received
