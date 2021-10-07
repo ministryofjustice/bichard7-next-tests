@@ -51,10 +51,8 @@ aws_credential_check
 HOSTED_ZONE=$($AWS_CLI_PATH route53 list-hosted-zones-by-name --query "HostedZones[?contains(Name, 'justice.gov.uk') && contains(Name, '${WORKSPACE}')].Name" --output text | sed 's/\.$//')
 UI_HOST="app.${HOSTED_ZONE}"
 USERS_HOST="users.${HOSTED_ZONE}"
-if [[ "${WORKSPACE}" != "preprod" ]]; then
+if [[ "${REAL_PNC}x" != "truex" ]]; then
   PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names ${PNC_ELB_NAME} --query 'LoadBalancers[0].DNSName' --output text)
-else
-  PNC_HOST="10.129.1.74"
 fi
 BROKER_ID=$(aws mq list-brokers --query "BrokerSummaries[?BrokerName=='cjse-${WORKSPACE}-bichard-7-amq'].BrokerId" --output text)
 BROKER_ENDPOINTS=$(aws mq describe-broker --broker-id ${BROKER_ID} --query "join(',', BrokerInstances[*].Endpoints[2])" --output text)
@@ -100,7 +98,9 @@ echo "export UI_PORT=\"443\""  >> $TEST_ENV_FILE
 echo "export UI_SCHEME=\"https\""  >> $TEST_ENV_FILE
 echo "export USERS_HOST=\"${USERS_HOST}\""  >> $TEST_ENV_FILE
 echo "export USERS_PORT=\"443\""  >> $TEST_ENV_FILE
-echo "export PNC_HOST=\"${PNC_HOST}\""  >> $TEST_ENV_FILE
+if [[ "${REAL_PNC}x" != "truex" ]]; then
+  echo "export PNC_HOST=\"${PNC_HOST}\""  >> $TEST_ENV_FILE
+fi
 echo "export MQ_URL=\"${BROKER_URL}\"" >> $TEST_ENV_FILE
 fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/rds/db/password"
 fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/mq/password"
@@ -112,7 +112,7 @@ echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_
 echo "export MESSAGE_ENTRY_POINT=\"${MESSAGE_ENTRY_POINT}\"" >> $TEST_ENV_FILE
 echo "export DB_SSL=\"true\"" >> $TEST_ENV_FILE
 echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
-if [[ "${WORKSPACE}" == "preprod" ]]; then
+if [[ "${REAL_PNC}x" == "truex" ]]; then
   echo "export PNC_PORT=\"102\"" >> $TEST_ENV_FILE
 fi
 echo 'Done'
