@@ -7,6 +7,8 @@ phases:
   build:
     commands:
       - set -e
+      - TEST_COMMAND=${TEST_COMMAND:-"test"}
+      - AL_TEST_COMMAND=${AL_TEST_COMMAND:-"test:auditlogs"}
       - echo "Trying to acquire a build lock"
       - LOCK_PREFIX=${DEPLOY_ENV:-sandbox}
       - python3 ./scripts/build_locks.py acquire ${LOCK_PREFIX}-ci-codebuild-concurrency ${DEPLOY_ENV}-${WORKSPACE} 3600 7200 > /tmp/.lock_token
@@ -21,8 +23,8 @@ phases:
       - STACK_TYPE=next make setup-e2e-tests
       - npm i
       - source ./workspaces/${WORKSPACE}.env
-      - CI=true RECORD=true npm run test
-      - CI=true RECORD=true npm run test:auditlogs
+      - CI=true RECORD=true npm run ${TEST_COMMAND}
+      - CI=true RECORD=true npm run ${AL_TEST_COMMAND}
   post_build:
     commands:
       - unset AWS_SESSION_TOKEN
