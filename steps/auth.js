@@ -79,6 +79,7 @@ const logInToBichardJwtAs = async function (world, name) {
   if (process.env.PRINT_LOGIN_URL === "true") {
     console.log(url);
   }
+  await world.browser.setAuthCookie(token);
   const page = await world.browser.newPage(url);
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };

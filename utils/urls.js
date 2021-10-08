@@ -8,7 +8,7 @@ const authenticateUrl = (token) => url(`/bichard-ui/Authenticate?token=${token}`
 const logout = () => url("/bichard-ui/bichard-lo");
 
 const userService = () => getConfig().usersUrl;
-const userServiceVerification = (emailToken) => `${userService()}/login/verify?token=${emailToken}`;
+const userServiceVerification = (emailToken) => `${userService()}/users/login/verify?token=${emailToken}`;
 
 module.exports = {
   home,
