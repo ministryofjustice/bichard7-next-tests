@@ -19,10 +19,11 @@ Feature: {088} R4.1.1_BR7_Court Location from Text
 			And "input-message" is received
 
 	@Should
+	@LoadTestNoUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: PNC is updated with next hearing location from court results
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then the PNC updates the record
-			And there are no exceptions
+			And there are no exceptions or triggers for this record

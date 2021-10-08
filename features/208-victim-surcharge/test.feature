@@ -17,10 +17,11 @@ Feature: {208} 3.2 UAT - Victim Surcharge
 			And "input-message" is received
 
 	@Should
+	@LoadTestNoUI
 	@ReadyForValidation
 	@NeedsRunningAgainstPNC
 	Scenario: Testing automation for victim surcharge
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions or triggers
-			And the PNC updates the record
+		Then the PNC updates the record
+			And there are no exceptions or triggers for this record

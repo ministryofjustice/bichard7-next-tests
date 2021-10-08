@@ -5,3 +5,7 @@ build:
 .PHONY: setup-e2e-tests
 setup-e2e-tests:
 	bash ./scripts/setup-e2e-tests.sh
+
+.PHONY: loadtest
+loadtest: build
+	node loadtest/index.js

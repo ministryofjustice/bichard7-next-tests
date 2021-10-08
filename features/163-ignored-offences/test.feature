@@ -18,9 +18,11 @@ Feature: {163} BR7 R5.3-RCD505 - Ignored offence - Adj Pre Judgement
 			And "input-message" is received
 
 	@Could
+	@LoadTestNoUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Handling ignored offences when they are present on the PNC
 		Given I am logged in as "supervisor"
+			And I view the list of exceptions
 		Then the PNC updates the record
-			And there are no exceptions or triggers
+			And there are no exceptions or triggers for this record

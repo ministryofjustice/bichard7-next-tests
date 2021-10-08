@@ -19,10 +19,11 @@ Feature: {058} R3.1_BR7_NH_001_Next Hearing Court
 			And "input-message" is received
 
 	@Should
+	@LoadTestNoUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Test next hearing location is calculated and updated correctly
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions raised for "HearingCourt Next"
-			And the PNC updates the record
+		Then the PNC updates the record
+			And there are no exceptions or triggers for this record

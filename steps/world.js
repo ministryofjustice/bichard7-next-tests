@@ -19,6 +19,8 @@ class Bichard extends World {
 
     this.stackType = process.env.STACK_TYPE || stackType.next;
     this.authType = process.env.AUTH_TYPE || authType.userService;
+    this.noUi = process.env.NO_UI === "true";
+    this.parallel = process.env.RUN_PARALLEL === "true";
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
     this.currentTestGivenNames1 = [];
@@ -96,7 +98,7 @@ class Bichard extends World {
   }
 
   getRecordName() {
-    if (!process.env.RUN_PARALLEL) {
+    if (!this.parallel) {
       // original
       return `${this.currentTestFamilyNames[1][0]} ${this.currentTestGivenNames1[1][0]}`;
     }

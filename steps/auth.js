@@ -7,8 +7,11 @@ const dummyUsers = require("../utils/dummyUserData");
 const tokenIssuer = () => process.env.TOKEN_ISSUER || "Bichard";
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
-const createUser = async (world, username) => {
-  const user = dummyUsers[username];
+const parallelUserName = (world, name) => (world.parallel ? `${name}.${process.env.PARALLEL_ID}` : name);
+
+const createUser = async (world, name) => {
+  const user = dummyUsers[name.toLowerCase()];
+  const username = parallelUserName(world, name);
   if (!user) throw new Error(`User '${username}' not defined`);
   if (world.db.createUser) {
     world.db.createUser(username, user.groups, user.inclusionList, user.exclusionList);
@@ -26,7 +29,8 @@ const logInToBichardAs = async function (world, username) {
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
-const logInToUserServiceAs = async function (world, username) {
+const logInToUserServiceAs = async function (world, name) {
+  const username = parallelUserName(world, name);
   const emailAddress = `${username}@example.com`;
 
   let page = await world.browser.newPage(userService());
@@ -53,8 +57,10 @@ const logInToUserServiceAs = async function (world, username) {
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
-const logInToBichardJwtAs = async function (world, username) {
-  const user = dummyUsers[username.toLowerCase()];
+const logInToBichardJwtAs = async function (world, name) {
+  const user = dummyUsers[name.toLowerCase()];
+  const username = parallelUserName(world, name);
+
   if (!user) throw new Error(`Could not find user data for ${username}`);
   const tokenData = {
     username,
@@ -78,6 +84,7 @@ const logInToBichardJwtAs = async function (world, username) {
 };
 
 const logInAs = async function (username) {
+  if (this.noUi) return;
   createUser(this, username);
 
   if (this.authType === authType.bichard) {

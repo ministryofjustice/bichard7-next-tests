@@ -9,6 +9,14 @@ const {
 } = require("../utils/puppeteer-utils");
 const fsHelp = require("../helpers/fsHelper");
 
+const filterByRecordName = async function (world) {
+  const name = world.getRecordName();
+  // Triple click selects any existing text so we type over it
+  await world.browser.page.click("input[name='defendantSearch']", { clickCount: 3 });
+  await world.browser.page.type("input[name='defendantSearch']", name);
+  await Promise.all([world.browser.page.keyboard.press("Enter"), world.browser.page.waitForNavigation()]);
+};
+
 const containsValue = async function (page, selector, value) {
   await page.waitForSelector(selector);
 
@@ -51,6 +59,7 @@ const checkDataTable = async function (world, values) {
 };
 
 const goToExceptionList = async function () {
+  if (this.noUi) return;
   await Promise.all([this.browser.page.goto(initialRefreshUrl()), this.browser.page.waitForNavigation()]);
 };
 
@@ -76,6 +85,7 @@ const openRecordFor = async function (name) {
 };
 
 const openRecordForCurrentTest = async function () {
+  await filterByRecordName(this);
   await waitForRecord(this.browser.page);
   await Promise.all([
     this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`),
@@ -192,6 +202,12 @@ const reallocateCaseToForce = async function (force) {
 };
 
 const canSeeContentInTable = async function (value) {
+  const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
+  expect(found).toBeTruthy();
+};
+
+const canSeeContentInTableForThis = async function (value) {
+  await filterByRecordName(this);
   const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
   expect(found).toBeTruthy();
 };
@@ -522,10 +538,31 @@ const checkNoExceptions = async function () {
   expect(tableRows.length).toEqual(2);
 };
 
+const checkNoExceptionsForThis = async function () {
+  const name = this.getRecordName();
+  await filterRecords(this, "unresolved", "exception");
+  const links = await this.browser.page.$$(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
+  expect(links.length).toEqual(0);
+};
+
 const checkNoRecords = async function () {
   await filterRecords(this, "unresolved", "record");
   const tableRows = await this.browser.page.$$("table.resultsTable tr");
   expect(tableRows.length).toEqual(2);
+};
+
+const checkNoRecordsForThis = async function () {
+  const name = this.getRecordName();
+  if (this.noUi) {
+    // Read the records direct from the DB
+    const records = await this.db.getMatchingErrorRecords(name);
+    expect(records.length).toEqual(0);
+  } else {
+    // Check for no exceptions of triggers via the UI
+    await filterRecords(this, "unresolved", "record");
+    const links = await this.browser.page.$$(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
+    expect(links.length).toEqual(0);
+  }
 };
 
 const waitForRecordStep = async function (record) {
@@ -573,6 +610,7 @@ module.exports = {
   cannotReallocateCase,
   reallocateCaseToForce,
   canSeeContentInTable,
+  canSeeContentInTableForThis,
   cannotSeeTrigger,
   cannotSeeException,
   noExceptionPresentForOffender,
@@ -613,7 +651,9 @@ module.exports = {
   reloadUntilStringPresent,
   reloadUntilStringNotPresent,
   checkNoExceptions,
+  checkNoExceptionsForThis,
   checkNoRecords,
+  checkNoRecordsForThis,
   waitForRecordStep,
   checkOffence,
   checkTableRows,

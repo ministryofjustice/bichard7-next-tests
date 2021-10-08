@@ -20,8 +20,10 @@ Feature: {034} R3.3_BR7_SPI ASN Validation - 2
 			And "input-message" is received
 
 	@Should
+	@LoadTestNoUI
 	@NeedsRunningAgainstPNC
 	Scenario: Validating correct ASN format
 		Given I am logged in as "supervisor"
+			And I view the list of exceptions
 		Then the PNC updates the record
-			And there are no exceptions or triggers
+			And there are no exceptions or triggers for this record

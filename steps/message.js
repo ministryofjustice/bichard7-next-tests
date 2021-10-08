@@ -26,6 +26,9 @@ const sendMsg = async function (world, messagePath) {
   const rawMessage = await fs.promises.readFile(messagePath);
   const correlationId = `CID-${uuid()}`;
   let messageData = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
+  if (world.parallel) {
+    messageData = replaceAllTags(world, messageData, "DC:");
+  }
 
   if (world.shouldUploadMessagesToS3) {
     const uploadResult = await uploadToS3(world, messageData, correlationId);
@@ -33,9 +36,6 @@ const sendMsg = async function (world, messagePath) {
     const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
     expect(isError(pollingResult)).toBeFalsy();
   } else {
-    if (process.env.RUN_PARALLEL) {
-      messageData = replaceAllTags(world, messageData, "DC:");
-    }
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }
 };

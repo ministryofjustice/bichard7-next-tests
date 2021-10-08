@@ -113,3 +113,5 @@ tmp/
 screenshots/
 
 .DS_STORE
+
+loadtest/config.json

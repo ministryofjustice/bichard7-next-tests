@@ -24,13 +24,13 @@ Feature: {043} #151 - FTA Dated Warrant
 			And "input-message" is received
 
 	@Should
-	@Problem
+	@LoadTestUI
 	@NeedsRunningAgainstPNC
 	Scenario: Exceptions are triggered when a record is received with a dated warrant
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then I see trigger "PR02 - Warrant issued" in the exception list table
-		Then I open the record for "NEWTRPRTWO Trigger"
+		Then I see trigger "PR02 - Warrant issued" for this record in the exception list
+		Then I open this record
 			And I click the "Triggers" tab
 			And I resolve all of the triggers
 		Then the PNC updates the record

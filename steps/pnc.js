@@ -12,7 +12,7 @@ const mockPNCDataForTest = async function () {
 
   /* eslint-disable no-restricted-syntax */
   for (const mock of this.mocks) {
-    if (process.env.RUN_PARALLEL) {
+    if (this.parallel) {
       const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
       mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
     }
@@ -52,7 +52,7 @@ const checkMocks = async function () {
   this.mocks.forEach((mock) => {
     if (mock.expectedRequest !== "") {
       if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
-      if (process.env.RUN_PARALLEL) {
+      if (this.parallel) {
         expect(mock.requests.length).toBeGreaterThanOrEqual(1);
         const expectedRequest = updateExpectedRequest(mock.expectedRequest, this);
         let matchFound = "No request matched the expected request";

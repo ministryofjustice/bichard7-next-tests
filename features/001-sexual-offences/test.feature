@@ -19,6 +19,7 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 			And "input-message" is received
 
 	@Should
+	@LoadTestUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Updates and triggers are correctly generated for sexual offences
@@ -32,5 +33,5 @@ Feature: {001} R3_BR7_TR_003_TRPR0004
 			And the PNC updates the record
 		When I resolve all of the triggers
 		Then this "record" is "resolved"
-		Then this "record" is not "unresolved"
-			And there are no exceptions
+			And this "record" is not "unresolved"
+			And there are no exceptions for this record

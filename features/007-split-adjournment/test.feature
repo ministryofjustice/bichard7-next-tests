@@ -20,14 +20,15 @@ Feature: {007} R3_BR7_TR_002_Date
 			And "input-message" is received
 
 	@Should
+	@LoadTestUI
 	@NeedsRunningAgainstPNC
 	Scenario: Split adjournment court results automation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
-		Then I see trigger "PS04 - Split adjournment" in the exception list table
-		When I open the record for "TRTWODATE TRIGGER"
+		Then I see trigger "PS04 - Split adjournment" for this record in the exception list
+		When I open this record
 			And I click the "Triggers" tab
 			And I resolve all of the triggers
-		Then the "record" for "TRTWODATE TRIGGER" is "resolved"
-			And the "record" for "TRTWODATE TRIGGER" is not "unresolved"
+		Then this "record" is "resolved"
+			And this "record" is not "unresolved"

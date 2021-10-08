@@ -27,14 +27,15 @@ Feature: {049} #191 - TRPS0008 Required for curfew orders (1052) NOT TRPR0003
 			And "input-message" is received
 
 	@Should
+	@LoadTestUI
 	@NeedsValidating
 	@NeedsRunningAgainstPNC
 	Scenario: Ensure that a trigger is raised on Electronic Tagging and the qualifier is in the correct table
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
-		Then I see trigger "PS08 - Curfew order" in the exception list table
-		When I open the record for "TEARCE WALLACE"
+		Then I see trigger "PS08 - Curfew order" for this record in the exception list
+		When I open this record
 			And I click the "Offences" tab
 			And I view offence "1"
 		Then I see "1116" in the "CJS Code" row of the results table
