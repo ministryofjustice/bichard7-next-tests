@@ -9,6 +9,7 @@ class BrowserHelper {
     this.options = options;
     this.browser = null;
     this.page = null;
+    this.authTokenCookie = null;
   }
 
   async newPage(path) {
@@ -37,6 +38,10 @@ class BrowserHelper {
     return this.page;
   }
 
+  async setAuthCookie(value) {
+    this.authTokenCookie = value;
+  }
+
   async record() {
     if (this.options.record) {
       this.recorder = new PuppeteerMassScreenshots();
@@ -54,6 +59,17 @@ class BrowserHelper {
   }
 
   async visitUrl(path) {
+    if (this.authTokenCookie) {
+      const COOKS = [
+        {
+          name: ".AUTH",
+          value: this.authTokenCookie,
+          url: path,
+          path: "/"
+        }
+      ];
+      await this.page.setCookie(...COOKS);
+    }
     await this.page.goto(path);
     return this.page;
   }
