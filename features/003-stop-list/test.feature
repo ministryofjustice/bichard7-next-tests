@@ -19,13 +19,14 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
       And "input-message" is received
 
   @Must
+  @LoadTestUI
   @Validated
   @NeedsRunningAgainstPNC
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
-    Then I see exception "HO200212" in the exception list table
-    When I open the record for "TRTHREE TRPRTWELVE"
+    Then I see exception "HO200212" for this record in the exception list
+    When I open this record
       And I click the "Triggers" tab
     Then I see trigger "TRPR0001" for offence "1"
       And I see trigger "TRPR0001" for offence "3"

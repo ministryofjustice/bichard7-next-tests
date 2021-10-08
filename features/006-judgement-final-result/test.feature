@@ -19,16 +19,17 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 			And "input-message" is received
 
 	@Should
+	@LoadTestUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: I can resolve a trigger for check address
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
-		Then I see trigger "PS02 - Check address" in the exception list table
-		When I open the record for "TRTHREE TRPSTWO"
+		Then I see trigger "PS02 - Check address" for this record in the exception list
+		When I open this record
 			And I click the "Triggers" tab
 		When I resolve all of the triggers
-		Then the "record" for "TRTHREE TRPSTWO" is "resolved"
-		Then the "record" for "TRTHREE TRPSTWO" is not "unresolved"
-			And there are no exceptions
+		Then this "record" is "resolved"
+			And this "record" is not "unresolved"
+			And there are no exceptions for this record

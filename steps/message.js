@@ -26,7 +26,7 @@ const sendMsg = async function (world, messagePath) {
   const rawMessage = await fs.promises.readFile(messagePath);
   const correlationId = `CID-${uuid()}`;
   let messageData = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
-  if (process.env.RUN_PARALLEL) {
+  if (world.parallel) {
     messageData = replaceAllTags(world, messageData, "DC:");
   }
 

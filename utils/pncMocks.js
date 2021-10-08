@@ -26,7 +26,7 @@ module.exports = {
   mockEnquiryFromNCM: (ncmFile, world, options = {}) => {
     let xmlData = fs.readFileSync(ncmFile, "utf8").toString();
     extractAllTags(world, xmlData);
-    if (process.env.RUN_PARALLEL) {
+    if (world.parallel) {
       xmlData = replaceAllTags(world, xmlData);
     }
 

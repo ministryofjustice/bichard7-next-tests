@@ -9,6 +9,10 @@ const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
 const createUser = async (world, username) => {
   const user = dummyUsers[username];
+  if (world.parallel) {
+    // eslint-disable-next-line no-param-reassign
+    username += `.${process.env.PARALLEL_ID}`;
+  }
   if (!user) throw new Error(`User '${username}' not defined`);
   if (world.db.createUser) {
     world.db.createUser(username, user.groups, user.inclusionList, user.exclusionList);
@@ -27,6 +31,10 @@ const logInToBichardAs = async function (world, username) {
 };
 
 const logInToUserServiceAs = async function (world, username) {
+  if (world.parallel) {
+    // eslint-disable-next-line no-param-reassign
+    username += `.${process.env.PARALLEL_ID}`;
+  }
   const emailAddress = `${username}@example.com`;
 
   let page = await world.browser.newPage(userService());
@@ -55,6 +63,10 @@ const logInToUserServiceAs = async function (world, username) {
 
 const logInToBichardJwtAs = async function (world, username) {
   const user = dummyUsers[username.toLowerCase()];
+  if (world.parallel) {
+    // eslint-disable-next-line no-param-reassign
+    username += `.${process.env.PARALLEL_ID}`;
+  }
   if (!user) throw new Error(`Could not find user data for ${username}`);
   const tokenData = {
     username,

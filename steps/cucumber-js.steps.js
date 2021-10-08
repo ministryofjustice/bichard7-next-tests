@@ -72,7 +72,9 @@ const {
   checkCompleteTriggerforOffence,
   checkRecordRows,
   recordsForPerson,
-  checkNoRecordsForThis
+  checkNoRecordsForThis,
+  checkNoExceptionsForThis,
+  canSeeContentInTableForThis
 } = require("./ui");
 const { checkAuditLogCondition } = require("./auditLogging");
 
@@ -152,6 +154,8 @@ Then("I cannot make any changes", exceptionIsReadOnly);
 
 Then("I see exception {string} in the exception list table", canSeeContentInTable);
 
+Then("I see exception {string} for this record in the exception list", canSeeContentInTableForThis);
+
 Then("I cannot see {string} in the exception list table", cannotSeeException);
 
 Then("there are no exceptions raised for {string}", noExceptionPresentForOffender);
@@ -171,6 +175,8 @@ Then("I can reallocate the case to another force area", reallocateCase);
 Then("I cannot reallocate the case to another force area", cannotReallocateCase);
 
 Then("I see trigger {string} in the exception list table", canSeeContentInTable);
+
+Then("I see trigger {string} for this record in the exception list", canSeeContentInTableForThis);
 
 Then("I cannot see trigger {string} in the exception list table", cannotSeeTrigger);
 
@@ -213,6 +219,8 @@ Then("I see error {string} in the {string} row of the results table", checkOffen
 Then("the record for {string} does not exist", checkRecordNotExists);
 
 Then("there are no exceptions", checkNoExceptions);
+
+Then("there are no exceptions for this record", checkNoExceptionsForThis);
 
 Then("there are no exceptions or triggers", checkNoRecords);
 

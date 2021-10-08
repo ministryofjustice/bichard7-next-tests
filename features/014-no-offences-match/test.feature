@@ -20,13 +20,14 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 			And "input-message" is received
 
 	@Should
+	@LoadTestUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Test that PNC detects a mismatch on offences and they can be manually resolved
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "HO100304" in the exception list table
-		When I open the record for "EXONEA EXCEPTION"
+		When I open this record
 			And I click the "Offences" tab
 			And I view offence "1"
 		Then I see "3068" in the "CJS Code" row of the results table
@@ -34,5 +35,5 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 		Then I see trigger "TRPR0003" for offence "1"
 		When I manually resolve the record
 			And I view the list of exceptions
-		Then the "record" for "EXONEA EXCEPTION" is "Resolved"
+		Then this "record" is "resolved"
 			And the PNC record has not been updated

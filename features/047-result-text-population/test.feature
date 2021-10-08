@@ -19,12 +19,13 @@ Feature: {047} #186 - Result text population for Orders - 2nd variation
 			And "input-message" is received
 
 	@Could
+	@LoadTestUI
 	@ReadyToValidate
 	@NeedsRunningAgainstPNC
 	Scenario: Result text population for Orders - 2nd variation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
 			And the PNC updates the record
-		Then I see trigger "PR03 - Order issues" in the exception list table
-			And I see trigger "PS03 - Disposal text truncated" in the exception list table
-			And there are no exceptions raised for "RTTOO Update"
+		Then I see trigger "PR03 - Order issues" for this record in the exception list
+			And I see trigger "PS03 - Disposal text truncated" for this record in the exception list
+			And there are no exceptions for this record

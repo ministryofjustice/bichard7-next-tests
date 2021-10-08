@@ -19,9 +19,11 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
       And "input-message" is received
 
   @Must
+  @LoadTestNoUI
   @ReadyToValidate
   @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "supervisor"
+      And I view the list of exceptions
     Then the PNC updates the record
-      And the record for "PUFIVE UPDATE" does not exist
+      And there are no exceptions or triggers for this record
