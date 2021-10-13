@@ -64,8 +64,10 @@ class BrowserHelper {
         {
           name: ".AUTH",
           value: this.authTokenCookie,
-          url: path,
-          path: "/"
+          path: "/",
+          url: path.split("bichard-ui")[0],
+          httpOnly: true,
+          secure: true
         }
       ];
       await this.page.setCookie(...COOKS);
