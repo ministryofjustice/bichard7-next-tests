@@ -49,8 +49,8 @@ AWS_CLI_PATH="$(which aws)"
 PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pncemulator" | cut -c1-32)
 aws_credential_check
 HOSTED_ZONE=$($AWS_CLI_PATH route53 list-hosted-zones-by-name --query "HostedZones[?contains(Name, 'justice.gov.uk') && contains(Name, '${WORKSPACE}')].Name" --output text | sed 's/\.$//')
-UI_HOST="app.${HOSTED_ZONE}"
-USERS_HOST="users.${HOSTED_ZONE}"
+UI_HOST="proxy.${HOSTED_ZONE}"
+USERS_HOST="proxy.${HOSTED_ZONE}"
 if [[ "${REAL_PNC}x" != "truex" ]]; then
   PNC_HOST=$($AWS_CLI_PATH elbv2 describe-load-balancers --names ${PNC_ELB_NAME} --query 'LoadBalancers[0].DNSName' --output text)
 fi
