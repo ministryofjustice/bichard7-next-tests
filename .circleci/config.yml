@@ -35,6 +35,9 @@ commands:
       - run:
           name: Make a fake user-service image
           command: docker pull hello-world && docker tag hello-world user-service
+      - run:
+          name: Fetch the Nginx Auth Proxy image
+          command: bash scripts/fetch_nginx_auth_proxy_docker.sh
 
   run_services_and_wait:
     steps:
