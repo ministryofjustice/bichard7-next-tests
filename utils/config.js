@@ -5,7 +5,7 @@ const getConfig = () => {
 
   const usersScheme = process.env.USERS_SCHEME || "https";
   const usersHost = process.env.USERS_HOST || "localhost";
-  const usersPort = process.env.USERS_PORT || "3443";
+  const usersPort = process.env.USERS_PORT || "4443";
 
   const hostMachine = process.env.HOST_MACHINE || "localhost";
 
