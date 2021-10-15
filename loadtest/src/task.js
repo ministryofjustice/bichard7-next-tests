@@ -9,11 +9,13 @@ class Task {
     this.runs = 0;
   }
 
-  onComplete(err) {
+  onComplete(err, stdout, stderr) {
     if (err) {
       console.log(`${this.id} - error`);
     }
     console.log(`${this.id} - ${this.runs} runs completed`);
+    console.log(stdout);
+    console.log(stderr);
     if (new Date() < this.endTime) {
       this.runTask();
     }
