@@ -1,6 +1,5 @@
 const convertMessageToNewFormat = (message) => {
   const resultedCaseMessage = message.match(/(<DC:ResultedCaseMessage[\s\S]*<\/DC:ResultedCaseMessage>)/)[0];
-  const escapedResultedCaseMessage = resultedCaseMessage;
   const externalCorrelationId = message.match(/<msg:MessageIdentifier>([\s\S]*)<\/msg:MessageIdentifier>/)[1]?.trim();
 
   const result = `<?xml version="1.0" encoding="UTF-8"?>
@@ -60,7 +59,7 @@ const convertMessageToNewFormat = (message) => {
           text/plain
       </ContentType>
       <DataStreamContent>
-          ${escapedResultedCaseMessage}
+          ${resultedCaseMessage}
       </DataStreamContent>
     </DataStream>
     <Routes VersionNumber="1.0">
