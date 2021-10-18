@@ -51,6 +51,7 @@ const logInToUserServiceAs = async function (world, name) {
 
   await page.type("#password", "password");
   await world.browser.clickAndWait("button[type='submit']");
+  await page.waitForXPath('//*[contains(text(), "Welcome ")]');
 
   await world.browser.clickAndWait("a#bichard-link");
 
