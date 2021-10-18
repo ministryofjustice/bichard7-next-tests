@@ -3,6 +3,7 @@ const expect = require("expect");
 const path = require("path");
 const fs = require("fs");
 const isError = require("../utils/isError");
+const convertMessageToNewFormat = require("../utils/convertMessageToNewFormat");
 const { pollMessagesForEvent } = require("./auditLogging");
 const { replaceAllTags } = require("../utils/tagProcessing");
 
@@ -31,6 +32,7 @@ const sendMsg = async function (world, messagePath) {
   }
 
   if (world.shouldUploadMessagesToS3) {
+    messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
     const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
