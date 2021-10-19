@@ -36,8 +36,6 @@ phases:
       - echo "PNC_PORT=\"3000\"" >> ./loadtest/env/${WORKSPACE}.env
       - sed -i 's/"//g' ./loadtest/env/${WORKSPACE}.env
       - envsubst < loadtest/config.sample.json.tpl > loadtest/config.json
-      - cat loadtest/config.json
-      - cat loadtest/env/load-test.env
       - node loadtest/index.js
   post_build:
     commands:
