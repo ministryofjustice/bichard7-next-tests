@@ -4,12 +4,19 @@ version: 0.2
 phases:
   install:
     commands:
+      - export PYTHON=python2
       - /bin/bash scripts/configure_codebuild_image.sh
+      - /bin/bash scripts/get_e2etest_image.sh
+      - yum install -y gettext
+    runtime-versions:
+      nodejs: 12
   build:
     commands:
       - set -e
+      - export PARALLEL_CONTAINERS=${PARALLEL_CONTAINERS:-2}
+      - export RUN_DURATION=${RUN_DURATION:-90}
       - echo "Trying to acquire a build lock"
-      - LOCK_PREFIX=${DEPLOY_ENV:-sandbox}
+      - LOCK_PREFIX=${DEPLOY_ENV:-e2e-test}
       - python3 ./scripts/build_locks.py acquire ${LOCK_PREFIX}-ci-codebuild-concurrency ${DEPLOY_ENV}-${WORKSPACE} 3600 7200 > /tmp/.lock_token
       - echo "Build lock acquired"
       - export OLD_AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
@@ -20,14 +27,16 @@ phases:
       - export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
       - openvpn --config ~/cjse-${WORKSPACE}-config.ovpn --daemon
       - STACK_TYPE=next make setup-e2e-tests
-      - amazon-linux-extras install -y docker
+      - rm -rf node_modules || true
+      - rm -rf package-lock.json
+      - npm cache clean --force
       - npm i
       - sed 's/export //g' < ./workspaces/${WORKSPACE}.env > ./loadtest/env/${WORKSPACE}.env
-      - cp loadtest/config.sample.json loadtest/config.json
-      - sed -i 's/local-loadtest.env/${WORKSPACE}.env/g' loadtest/config.json
-      - sed -i 's/90/600/g' loadtest/config.json
-      - sed -i 's/2/5/g' loadtest/config.json
-      - make loadtest
+      - echo "AUTH_TYPE=\"bichard-jwt\"" >> ./loadtest/env/${WORKSPACE}.env
+      - echo "PNC_PORT=\"3000\"" >> ./loadtest/env/${WORKSPACE}.env
+      - sed -i 's/"//g' ./loadtest/env/${WORKSPACE}.env
+      - envsubst < loadtest/config.sample.json.tpl > loadtest/config.json
+      - node loadtest/index.js
   post_build:
     commands:
       - unset AWS_SESSION_TOKEN
