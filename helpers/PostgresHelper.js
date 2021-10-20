@@ -24,7 +24,7 @@ class PostgresHelper {
         id
       } = await this.pg.one(
         "insert into br7own.users (username, email, exclusion_list, inclusion_list, forenames, surname, password) values ($1, $2, $3, $4, $5, $6, $7) returning id",
-        [name, `${name}@example.com`, "", inclusionList.join(","), exclusionList.join(","), name, defaultPasswordHash]
+        [name, `${name}@example.com`, exclusionList.join(","), inclusionList.join(","), "", name, defaultPasswordHash]
       );
 
       const groupPromises = groups.map((group) =>
