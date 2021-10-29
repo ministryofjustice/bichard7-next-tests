@@ -1,13 +1,11 @@
 const { After, Before, BeforeAll, AfterAll } = require("@cucumber/cucumber");
 const fs = require("fs");
 const LogRecorder = require("../helpers/LogRecorder");
-const healthCheck = require("../utils/healthCheck");
 
 const recordLogs = process.env.RECORD === "true" && process.env.RECORD_LOGS === "true";
 let logRecorder;
 
 BeforeAll(async () => {
-  await healthCheck();
   const clearRecordings = process.env.CLEAR_RECORDINGS !== "false";
   if (clearRecordings) {
     try {
