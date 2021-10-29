@@ -20,7 +20,6 @@ Feature: {057} #192 - Result Date
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Validating judgement with final result automation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

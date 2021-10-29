@@ -19,8 +19,7 @@ Feature: {032} 3.2 UAT - TIC Change
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
+	@ReadyToValidate
 	Scenario: Offences Taken Into Consideration update PNC and raise a trigger
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
