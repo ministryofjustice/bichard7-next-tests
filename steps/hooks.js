@@ -39,15 +39,19 @@ Before(async function (context) {
   await this.browser.setupDownloadFolder("./tmp");
   if (!process.env.RUN_PARALLEL) {
     await this.db.clearExceptions();
-    await this.pnc.clearMocks();
+    if (!this.realPNC) {
+      await this.pnc.clearMocks();
+    }
   }
 });
 
 After(async function () {
   await this.browser.close();
   if (process.env.RECORD === "true") {
-    await this.pnc.recordMocks();
-    await this.pnc.recordRequests();
+    if (!this.realPNC) {
+      await this.pnc.recordMocks();
+      await this.pnc.recordRequests();
+    }
     await this.dumpData();
   }
   if (recordLogs) {
