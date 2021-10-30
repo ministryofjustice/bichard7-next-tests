@@ -19,7 +19,6 @@ Feature: {125} BR7 R5.1-RCD399-Force calculation-FFSS in PTIURN
 
 	@Should
 	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: Force calculation from PTIURN
 		When I am logged in as "met.police"
 			And I view the list of exceptions

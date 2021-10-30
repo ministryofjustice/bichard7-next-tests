@@ -25,7 +25,6 @@ Feature: {199} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Original offence is dismissed but new offence is added
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

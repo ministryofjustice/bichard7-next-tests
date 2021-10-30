@@ -22,7 +22,6 @@ Feature: {160} BR7 R5.3-RCD482 - Offence added in court - No HO200124
 
 	@Could
 	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: Handling offences added in court
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"
