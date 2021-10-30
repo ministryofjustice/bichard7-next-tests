@@ -3,6 +3,8 @@ const path = require("path");
 const fs = require("fs");
 const { updateExpectedRequest } = require("../utils/tagProcessing");
 const { extractAllTags } = require("../utils/tagProcessing");
+const Poller = require("../utils/Poller");
+const isError = require("../utils/isError");
 
 const mockPNCDataForTest = async function () {
   const specFolder = path.dirname(this.featureUri);
@@ -53,7 +55,28 @@ const fetchMocks = async (world) => {
 const checkMocks = async function () {
   const specFolder = path.dirname(this.featureUri);
   if (this.realPNC) {
-    const result = await this.pnc.checkRecord(`${specFolder}/pnc-data.xml`);
+    const action = async () => this.pnc.checkRecord(`${specFolder}/pnc-data.xml`);
+
+    const condition = (result) => {
+      if (result) {
+        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`);
+        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`);
+        if (before === after) return false;
+      }
+      return result;
+    };
+
+    const options = {
+      condition,
+      timeout: 10000,
+      delay: 250,
+      name: "Mock PNC request poller"
+    };
+    const result = await new Poller(action)
+      .poll(options)
+      .then((res) => res)
+      .catch((error) => error);
+    expect(isError(result)).toBeFalsy();
     expect(result).toBeTruthy();
   } else {
     await fetchMocks(this);
@@ -86,18 +109,18 @@ const checkMocks = async function () {
 };
 
 const pncNotUpdated = async function () {
+  // Wait 3 seconds to give the backend time to process
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const specFolder = path.dirname(this.featureUri);
   if (this.realPNC) {
+    const result = await this.pnc.checkRecord(`${specFolder}/pnc-data.xml`);
     const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`);
     const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`);
-    const result = await this.pnc.checkRecord(`${specFolder}/pnc-data.xml`);
     expect(result).toBeTruthy();
     expect(before).toEqual(after);
   } else {
     let mockCount = 0;
     const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
-    // Wait a second to give the backend time to process
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     const mockResponsePromises = updateMocks.map(({ id }) => this.pnc.getMock(id));
     const mockResponses = await Promise.all(mockResponsePromises);
     mockResponses.forEach((mock) => {
