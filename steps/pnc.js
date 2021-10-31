@@ -6,13 +6,29 @@ const { extractAllTags } = require("../utils/tagProcessing");
 const Poller = require("../utils/Poller");
 const isError = require("../utils/isError");
 
+/* eslint-disable consistent-return */
 const mockPNCDataForTest = async function () {
+  let xmlData;
   const specFolder = path.dirname(this.featureUri);
+
   if (this.realPNC) {
     const ncmFile = `${specFolder}/pnc-data.xml`;
-    const xmlData = fs.readFileSync(ncmFile, "utf8").toString();
+    if (fs.existsSync(ncmFile)) {
+      xmlData = fs.readFileSync(ncmFile, "utf8").toString();
+    } else {
+      xmlData = fs.readFileSync(`${specFolder}/input-message.xml`, "utf8").toString();
+    }
+
     extractAllTags(this, xmlData);
-    await this.pnc.insertRecord(ncmFile);
+    try {
+      await this.pnc.setupRecord(specFolder);
+    } catch (err) {
+      if (err.message === "PNC record does not match expected before state") {
+        return "pending";
+      }
+      console.log(err.message);
+      throw err;
+    }
   } else {
     // mock a response in the PNC
     this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
@@ -55,12 +71,12 @@ const fetchMocks = async (world) => {
 const checkMocks = async function () {
   const specFolder = path.dirname(this.featureUri);
   if (this.realPNC) {
-    const action = async () => this.pnc.checkRecord(`${specFolder}/pnc-data.xml`);
+    const action = async () => this.pnc.checkRecord(specFolder);
 
     const condition = (result) => {
       if (result) {
-        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`);
-        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`);
+        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
+        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
         if (before === after) return false;
       }
       return result;
@@ -113,9 +129,9 @@ const pncNotUpdated = async function () {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   const specFolder = path.dirname(this.featureUri);
   if (this.realPNC) {
-    const result = await this.pnc.checkRecord(`${specFolder}/pnc-data.xml`);
-    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`);
-    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`);
+    const result = await this.pnc.checkRecord(specFolder);
+    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
+    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
     expect(result).toBeTruthy();
     expect(before).toEqual(after);
   } else {

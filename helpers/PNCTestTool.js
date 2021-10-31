@@ -1,5 +1,9 @@
 const axiosClass = require("axios").default;
 const https = require("https");
+const fs = require("fs");
+const parser = require("fast-xml-parser");
+const Poller = require("../utils/Poller");
+const isError = require("../utils/isError");
 
 const axios = axiosClass.create({
   httpsAgent: new https.Agent({
@@ -7,13 +11,7 @@ const axios = axiosClass.create({
   })
 });
 const axiosConfig = { validateStatus: false };
-const fs = require("fs");
-const path = require("path");
-const parser = require("fast-xml-parser");
-const Poller = require("../utils/Poller");
-
 const updateExpectations = process.env.UPDATE_PNC_EXPECTATIONS === "true";
-const isError = require("../utils/isError");
 
 const extractNamesFromNCM = (ncmFile) => {
   const xmlData = fs.readFileSync(ncmFile, "utf8").toString();
@@ -28,7 +26,23 @@ const extractNamesFromNCM = (ncmFile) => {
   return { forename, surname };
 };
 
+const extractNamesFromMessage = (messageFile) => {
+  const xmlData = fs.readFileSync(messageFile, "utf8").toString();
+
+  const parsed = parser.parse(xmlData);
+  const surname =
+    parsed.DeliverRequest.Message["DC:ResultedCaseMessage"]["DC:Session"]["DC:Case"]["DC:Defendant"][
+      "DC:CourtIndividualDefendant"
+    ]["DC:PersonDefendant"]["DC:BasePersonDetails"]["DC:PersonName"]["DC:PersonFamilyName"];
+  const forename =
+    parsed.DeliverRequest.Message["DC:ResultedCaseMessage"]["DC:Session"]["DC:Case"]["DC:Defendant"][
+      "DC:CourtIndividualDefendant"
+    ]["DC:PersonDefendant"]["DC:BasePersonDetails"]["DC:PersonName"]["DC:PersonGivenName1"];
+  return { forename, surname };
+};
+
 const removeVariableData = (data, format) => {
+  // Remove the data that changes each time
   if (format === "html") {
     return data
       .replace(/Print of PNC Record: [^<]*</g, "Print of PNC Record: XXXX/XX<")
@@ -36,7 +50,9 @@ const removeVariableData = (data, format) => {
   }
   return data
     .replace(/PNCID="[^"]*"/g, 'PNCID="XXXX/XX"')
-    .replace(/COURT-CASE-REF="[^"]*"/g, 'COURT-CASE-REF="XX/XXXX/XX"');
+    .replace(/COURT-CASE-REF="[^"]*"/g, 'COURT-CASE-REF="XX/XXXX/XX"')
+    .replace(/\s+<GMH.*\/>/g, "")
+    .replace(/\s+<GMT.*\/>/g, "");
 };
 
 class PNCTestTool {
@@ -48,61 +64,63 @@ class PNCTestTool {
     this.baseUrl = options.baseUrl;
   }
 
-  async insertRecord(ncmFile) {
+  async setupRecord(specFolder) {
+    let name;
+    let existingRecord;
+    const ncmFile = `${specFolder}/pnc-data.xml`;
+    const messageFile = `${specFolder}/input-message.xml`;
+
     if (fs.existsSync(ncmFile)) {
-      // Record needs inserting
-      const name = extractNamesFromNCM(ncmFile);
-      // Check if it exists first
-      let existingRecord = await this.fetchRecord(name, "xml");
-      if (!existingRecord) {
-        console.log("Record does not exist");
-        // Insert the record
-        await this.createRecord(ncmFile);
-        existingRecord = await this.fetchRecord(name, "xml");
-      }
-      // Check it matches our expected start state
-      if (!existingRecord || isError(existingRecord)) throw new Error("Record does not exist in PNC");
-      // Remove the tags that change each time
-      try {
-        existingRecord = existingRecord.replace(/\s+<GMH.*\/>/g, "").replace(/\s+<GMT.*\/>/g, "");
-      } catch (err) {
-        console.log(existingRecord);
-        throw err;
-      }
-      const beforePath = `${path.dirname(ncmFile)}/pnc-data.before.xml`;
-      if (updateExpectations) {
-        fs.writeFileSync(beforePath, existingRecord);
-        // Fetch the HTML version too for easier comparison
-        const existingRecordHTML = await this.fetchRecord({ pncId: this.pncId }, "html");
-        fs.writeFileSync(beforePath.replace(".xml", ".html"), existingRecordHTML);
-      }
-      const beforeState = fs.readFileSync(beforePath).toString();
-      if (existingRecord !== beforeState) {
-        throw new Error("PNC record does not match expected before state");
-      }
+      name = extractNamesFromNCM(ncmFile);
     } else {
-      // Record already exists in PNC
+      name = extractNamesFromMessage(messageFile);
+    }
+
+    // Check if it exists first
+    existingRecord = await this.fetchRecord(name, "xml");
+
+    if (fs.existsSync(ncmFile) && !existingRecord) {
+      // Insert the record
+      await this.createRecord(ncmFile);
+      existingRecord = await this.fetchRecord(name, "xml");
+    }
+
+    // Check it matches our expected start state
+    if (!existingRecord || isError(existingRecord)) throw new Error("Could not fetch record from PNC");
+    // Remove the tags that change each time
+
+    const beforePath = `${specFolder}/pnc-data.before.xml`;
+    if (updateExpectations) {
+      fs.writeFileSync(beforePath, existingRecord);
+      // Fetch the HTML version too for easier comparison
+      const existingRecordHTML = await this.fetchRecord(name, "html");
+      fs.writeFileSync(beforePath.replace(".xml", ".html"), existingRecordHTML);
+    }
+    const beforeState = fs.readFileSync(beforePath).toString();
+    if (existingRecord !== beforeState) {
+      throw new Error("PNC record does not match expected before state");
     }
   }
 
-  async checkRecord(ncmFile) {
-    const name = extractNamesFromNCM(ncmFile);
-    // Retrieve the record
-    let record = await this.fetchRecord(name, "xml");
-    if (!record || isError(record)) throw new Error("Record does not exist in PNC");
-    // Remove the tags that change each time
-    try {
-      record = record.replace(/\s+<GMH.*\/>/g, "").replace(/\s+<GMT.*\/>/g, "");
-    } catch (err) {
-      console.log(record);
-      console.log(err.message);
-      throw new Error("Error fetching record");
+  async checkRecord(specFolder) {
+    let name;
+    const ncmFile = `${specFolder}/pnc-data.xml`;
+    const messageFile = `${specFolder}/input-message.xml`;
+    if (fs.existsSync(ncmFile)) {
+      name = extractNamesFromNCM(ncmFile);
+    } else {
+      name = extractNamesFromMessage(messageFile);
     }
-    const afterPath = `${path.dirname(ncmFile)}/pnc-data.after.xml`;
+
+    // Retrieve the record
+    const record = await this.fetchRecord(name, "xml");
+    if (!record || isError(record)) throw new Error("Could not fetch record from PNC");
+
+    const afterPath = `${specFolder}/pnc-data.after.xml`;
     if (updateExpectations) {
       fs.writeFileSync(afterPath, record);
       // Fetch the HTML version too for easier comparison
-      const recordHTML = await this.fetchRecord({ pncId: this.pncId }, "html");
+      const recordHTML = await this.fetchRecord(name, "html");
       fs.writeFileSync(afterPath.replace(".xml", ".html"), recordHTML);
     }
 
@@ -112,17 +130,12 @@ class PNCTestTool {
 
   async fetchRecord(options, format) {
     const action = async () => {
-      let url;
-      if (format === "xml") {
-        url = `${
-          this.baseUrl
-        }/query.php?forename=${options.forename.toUpperCase()}&surname=${options.surname.toUpperCase()}`;
-      } else if (format === "html") {
-        url = `${this.baseUrl}/PNCID_Request_Display.php?var1=${options.pncId}&var2=CDPP`;
-      }
+      const url = `${
+        this.baseUrl
+      }/query.php?forename=${options.forename.toUpperCase()}&surname=${options.surname.toUpperCase()}&format=${format}`;
+
       try {
-        const resp = await axios.get(url, { ...axiosConfig, timeout: 1000 });
-        return resp;
+        return await axios.get(url, { ...axiosConfig, timeout: 1000 });
       } catch (err) {
         return -100;
       }
@@ -139,10 +152,6 @@ class PNCTestTool {
       })
       .then(({ status, data }) => {
         if (status === 200) {
-          if (format === "xml") {
-            // eslint-disable-next-line prefer-destructuring
-            this.pncId = data.match(/PNCID="([^"]*)"/)[1];
-          }
           return removeVariableData(data, format);
         }
         return false;
