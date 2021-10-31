@@ -23,3 +23,4 @@ Feature: {285} BR7 R5.8-RCD638 - TRPR0029 - Offence Code plus Granted Text
 		When I view the list of exceptions
 		Then I see trigger "PR29 - Civil Proceedings" in the exception list table
 			And there are no exceptions raised for "CIVILCASE GRANTEDTEXT"
+			And no PNC requests have been made

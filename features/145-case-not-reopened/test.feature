@@ -24,3 +24,4 @@ Feature: {145} BR7 R5.2-RCD490-TRPR0025 case not reopened
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
+			And no PNC updates have been made

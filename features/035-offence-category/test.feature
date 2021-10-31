@@ -13,8 +13,7 @@ Feature: {035} R3.3_BR7_Remove HO Exception for No Results
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-			And "input-message" is received
+		Given "input-message" is received
 
 	@Should
 	@AuditLog
@@ -23,5 +22,5 @@ Feature: {035} R3.3_BR7_Remove HO Exception for No Results
 			And I view the list of exceptions
 		Then there are no exceptions raised for "PETARD HOIST"
 			And there are no triggers raised for "PETARD HOIST"
-			And the PNC record has not been updated
+			And no PNC requests have been made
 			And the audit log contains "Hearing Outcome ignored as no offences are recordable"

@@ -155,10 +155,25 @@ const pncUpdateIncludes = async function (data) {
   expect(checkedMocks.length).toEqual(1);
 };
 
+const noPncRequests = async function () {
+  if (this.realPNC) return;
+  const requests = await this.pnc.getRequests();
+  expect(requests.length).toEqual(0);
+};
+
+const noPncUpdates = async function () {
+  if (this.realPNC) return;
+  const requests = await this.pnc.getRequests();
+  const updates = requests.filter((req) => req.request.includes("<CXU"));
+  expect(updates.length).toEqual(0);
+};
+
 module.exports = {
   createValidRecordInPNC,
   checkMocks,
   pncNotUpdated,
   pncUpdateIncludes,
-  mockPNCDataForTest
+  mockPNCDataForTest,
+  noPncRequests,
+  noPncUpdates
 };

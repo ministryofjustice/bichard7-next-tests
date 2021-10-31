@@ -16,8 +16,7 @@ Feature: {011} R2_Regression_NPPA_PP_002 - part 1
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
-			And "input-message" is received
+		Given "input-message" is received
 
 	@Could
 	Scenario: NPPA exception generation and case redirection
@@ -30,4 +29,4 @@ Feature: {011} R2_Regression_NPPA_PP_002 - part 1
 		When I am logged in as "br7.btp"
 			And I view the list of exceptions
 		Then I see exception "HO100321" in the exception list table
-			And the PNC record has not been updated
+			And no PNC requests have been made

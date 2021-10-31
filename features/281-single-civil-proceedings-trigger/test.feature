@@ -30,3 +30,4 @@ Feature: {281} BR7 R5.8-RCD638 - TRPR0029 - Identical Civil Offences
 		Then I see trigger "TRPR0020" for offence "1"
 			And I see trigger "TRPR0020" for offence "2"
 			And I see trigger "TRPR0029"
+			And no PNC requests have been made
