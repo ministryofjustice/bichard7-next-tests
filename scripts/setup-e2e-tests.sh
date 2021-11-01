@@ -104,6 +104,7 @@ fi
 echo "export MQ_URL=\"${BROKER_URL}\"" >> $TEST_ENV_FILE
 fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/rds/db/password"
 fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/mq/password"
+fetchParam "TOKEN_SECRET" "/cjse-${WORKSPACE}-bichard-7/jwt-secret"
 echo "export MQ_USER=\"bichard\""  >> $TEST_ENV_FILE
 echo "export S3_INCOMING_MESSAGE_BUCKET=\"${S3_INCOMING_MESSAGE_BUCKET}\"" >> $TEST_ENV_FILE
 echo "export S3_REGION=\"${S3_REGION}\"" >> $TEST_ENV_FILE
