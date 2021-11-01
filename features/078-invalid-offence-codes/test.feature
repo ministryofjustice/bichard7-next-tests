@@ -24,8 +24,8 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 		Given "<messageId>" is received
 			And I am logged in as "generalhandler"
 			And I view the list of exceptions
-			# Then I see exception "HO100306" in the exception list table
-			And no PNC requests have been made
+		Then I see exception "HO100306" in the exception list table
+			And no PNC updates have been made
 
 		Examples:
 			| messageId       |
