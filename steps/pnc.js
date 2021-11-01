@@ -8,10 +8,9 @@ const isError = require("../utils/isError");
 
 /* eslint-disable consistent-return */
 const mockPNCDataForTest = async function () {
-  let xmlData;
   const specFolder = path.dirname(this.featureUri);
-
   if (this.realPNC) {
+    let xmlData;
     const ncmFile = `${specFolder}/pnc-data.xml`;
     if (fs.existsSync(ncmFile)) {
       xmlData = fs.readFileSync(ncmFile, "utf8").toString();
@@ -26,7 +25,7 @@ const mockPNCDataForTest = async function () {
       if (err.message === "PNC record does not match expected before state") {
         return "pending";
       }
-      console.log(err.message);
+      console.error(err.message);
       throw err;
     }
   } else {
@@ -69,8 +68,8 @@ const fetchMocks = async (world) => {
 };
 
 const checkMocks = async function () {
-  const specFolder = path.dirname(this.featureUri);
   if (this.realPNC) {
+    const specFolder = path.dirname(this.featureUri);
     const action = async () => this.pnc.checkRecord(specFolder);
 
     const condition = (result) => {
@@ -127,8 +126,8 @@ const checkMocks = async function () {
 const pncNotUpdated = async function () {
   // Wait 3 seconds to give the backend time to process
   await new Promise((resolve) => setTimeout(resolve, 3000));
-  const specFolder = path.dirname(this.featureUri);
   if (this.realPNC) {
+    const specFolder = path.dirname(this.featureUri);
     const result = await this.pnc.checkRecord(specFolder);
     const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
     const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
