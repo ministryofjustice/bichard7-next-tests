@@ -23,3 +23,4 @@ Feature: {284} BR7 R5.8-RCD638 - TRPR0029 - Offence Code Granted Text Missing
 			And I view the list of exceptions
 		Then there are no exceptions raised for "CIVILCASE GRANTEDTEXTMISSING"
 			And there are no triggers raised for "CIVILCASE GRANTEDTEXTMISSING"
+			And no PNC requests have been made

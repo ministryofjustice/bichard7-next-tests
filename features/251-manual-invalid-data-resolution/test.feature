@@ -21,7 +21,6 @@ Feature: {251} BR7 R3.2-UAT-Wrong Offence or Court Code
 			And "input-message" is received
 
 	@Should
-	@NeedsRunningAgainstPNC
 	Scenario: Manual invalid data resolution
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

@@ -1,29 +1,53 @@
 const expect = require("expect");
 const path = require("path");
+const fs = require("fs");
 const { updateExpectedRequest } = require("../utils/tagProcessing");
+const { extractAllTags } = require("../utils/tagProcessing");
+const Poller = require("../utils/Poller");
+const isError = require("../utils/isError");
 
-const realPNC = process.env.REAL_PNC && process.env.REAL_PNC === "true";
-
+/* eslint-disable consistent-return */
 const mockPNCDataForTest = async function () {
-  if (realPNC) return;
-  // mock a response in the PNC
+  let xmlData;
   const specFolder = path.dirname(this.featureUri);
-  this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
 
-  /* eslint-disable no-restricted-syntax */
-  for (const mock of this.mocks) {
-    if (this.parallel) {
-      const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
-      mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
+  if (this.realPNC) {
+    const ncmFile = `${specFolder}/pnc-data.xml`;
+    if (fs.existsSync(ncmFile)) {
+      xmlData = fs.readFileSync(ncmFile, "utf8").toString();
+    } else {
+      xmlData = fs.readFileSync(`${specFolder}/input-message.xml`, "utf8").toString();
     }
 
-    /* eslint-disable no-await-in-loop */
-    mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
+    extractAllTags(this, xmlData);
+    try {
+      await this.pnc.setupRecord(specFolder);
+    } catch (err) {
+      if (err.message === "PNC record does not match expected before state") {
+        return "pending";
+      }
+      console.log(err.message);
+      throw err;
+    }
+  } else {
+    // mock a response in the PNC
+    this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
+
+    /* eslint-disable no-restricted-syntax */
+    for (const mock of this.mocks) {
+      if (this.parallel) {
+        const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
+        mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
+      }
+
+      /* eslint-disable no-await-in-loop */
+      mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
+    }
   }
 };
 
 const createValidRecordInPNC = async function (record) {
-  if (realPNC) return;
+  if (this.realPNC) return;
   // mock a response in the PNC
   this.recordId = record;
   this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
@@ -45,56 +69,103 @@ const fetchMocks = async (world) => {
 };
 
 const checkMocks = async function () {
-  if (realPNC) return;
-  await fetchMocks(this);
-  expect(this.mocks.length).toBeGreaterThan(0);
-  let mockCount = 0;
-  this.mocks.forEach((mock) => {
-    if (mock.expectedRequest !== "") {
-      if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
-      if (this.parallel) {
-        expect(mock.requests.length).toBeGreaterThanOrEqual(1);
-        const expectedRequest = updateExpectedRequest(mock.expectedRequest, this);
-        let matchFound = "No request matched the expected request";
-        for (const request of mock.requests) {
-          if (request.includes(expectedRequest)) {
-            matchFound = "Yes";
-            break;
-          }
-        }
-        expect(matchFound).toBe("Yes");
-      } else {
-        const { expectedRequest } = mock;
-        expect(mock.requests.length).toBe(1);
-        expect(mock.requests[0]).toMatch(expectedRequest);
+  const specFolder = path.dirname(this.featureUri);
+  if (this.realPNC) {
+    const action = async () => this.pnc.checkRecord(specFolder);
+
+    const condition = (result) => {
+      if (result) {
+        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
+        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
+        if (before === after) return false;
       }
-    }
-    mockCount += 1;
-  });
-  expect(mockCount).toEqual(this.mocks.length);
+      return result;
+    };
+
+    const options = {
+      condition,
+      timeout: 10000,
+      delay: 250,
+      name: "Mock PNC request poller"
+    };
+    const result = await new Poller(action)
+      .poll(options)
+      .then((res) => res)
+      .catch((error) => error);
+    expect(isError(result)).toBeFalsy();
+    expect(result).toBeTruthy();
+  } else {
+    await fetchMocks(this);
+    expect(this.mocks.length).toBeGreaterThan(0);
+    let mockCount = 0;
+    this.mocks.forEach((mock) => {
+      if (mock.expectedRequest !== "") {
+        if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
+        if (this.parallel) {
+          expect(mock.requests.length).toBeGreaterThanOrEqual(1);
+          const expectedRequest = updateExpectedRequest(mock.expectedRequest, this);
+          let matchFound = "No request matched the expected request";
+          for (const request of mock.requests) {
+            if (request.includes(expectedRequest)) {
+              matchFound = "Yes";
+              break;
+            }
+          }
+          expect(matchFound).toBe("Yes");
+        } else {
+          const { expectedRequest } = mock;
+          expect(mock.requests.length).toBe(1);
+          expect(mock.requests[0]).toMatch(expectedRequest);
+        }
+      }
+      mockCount += 1;
+    });
+    expect(mockCount).toEqual(this.mocks.length);
+  }
 };
 
 const pncNotUpdated = async function () {
-  if (realPNC) return;
-  let mockCount = 0;
-  const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
-  // Wait a second to give the backend time to process
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const mockResponsePromises = updateMocks.map(({ id }) => this.pnc.getMock(id));
-  const mockResponses = await Promise.all(mockResponsePromises);
-  mockResponses.forEach((mock) => {
-    expect(mock.requests.length).toBe(0);
-    mockCount += 1;
-  });
-  expect(mockCount).toEqual(updateMocks.length);
+  // Wait 3 seconds to give the backend time to process
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  const specFolder = path.dirname(this.featureUri);
+  if (this.realPNC) {
+    const result = await this.pnc.checkRecord(specFolder);
+    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
+    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
+    expect(result).toBeTruthy();
+    expect(before).toEqual(after);
+  } else {
+    let mockCount = 0;
+    const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
+    const mockResponsePromises = updateMocks.map(({ id }) => this.pnc.getMock(id));
+    const mockResponses = await Promise.all(mockResponsePromises);
+    mockResponses.forEach((mock) => {
+      expect(mock.requests.length).toBe(0);
+      mockCount += 1;
+    });
+    expect(mockCount).toEqual(updateMocks.length);
+  }
 };
 
 const pncUpdateIncludes = async function (data) {
-  if (realPNC) return;
+  if (this.realPNC) return;
   await fetchMocks(this);
   const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
   const checkedMocks = updateMocks.filter((mock) => mock.requests.length > 0 && mock.requests[0].includes(data));
   expect(checkedMocks.length).toEqual(1);
+};
+
+const noPncRequests = async function () {
+  if (this.realPNC) return;
+  const requests = await this.pnc.getRequests();
+  expect(requests.length).toEqual(0);
+};
+
+const noPncUpdates = async function () {
+  if (this.realPNC) return;
+  const requests = await this.pnc.getRequests();
+  const updates = requests.filter((req) => req.request.includes("<CXU"));
+  expect(updates.length).toEqual(0);
 };
 
 module.exports = {
@@ -102,5 +173,7 @@ module.exports = {
   checkMocks,
   pncNotUpdated,
   pncUpdateIncludes,
-  mockPNCDataForTest
+  mockPNCDataForTest,
+  noPncRequests,
+  noPncUpdates
 };

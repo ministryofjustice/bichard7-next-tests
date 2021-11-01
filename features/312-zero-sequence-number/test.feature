@@ -23,7 +23,6 @@ Feature: {312} BR7-R5.10-RCD606-Permit Court Offence Sequence Number of 0
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Allowing court offence sequence number of zero
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

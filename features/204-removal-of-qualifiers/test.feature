@@ -27,3 +27,4 @@ Feature: {204} UAT_Removal of Qualifiers 4004
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
     Then I see trigger "PR10 - Conditional bail" in the exception list table
+      And the PNC updates the record

@@ -20,7 +20,6 @@ Feature: {128} BR7 R5.1-RCD411-No Offence End Dates-Start Dates do not match
 
 	@Should
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Exception is raised when start dates do not match
 		Given I am logged in as "supervisor"
 			And I see exception "HO100304" in the exception list table

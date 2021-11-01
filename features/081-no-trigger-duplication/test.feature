@@ -19,8 +19,7 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 			And "input-message" is received
 
 	@Should
-	@Problem
-	@NeedsRunningAgainstPNC
+	@NeedsValidating
 	Scenario: Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
@@ -35,3 +34,4 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 			And I view offence "2"
 		Then I see error "HO100307" in the "CJS Code" row of the results table
 			And I see error "HO100200" in the "Next Hearing location" row of the results table
+			And the PNC record has not been updated

@@ -28,3 +28,4 @@ Feature: {283} BR7 R5.8-RCD638 - TRPR0029 - Multiple Trigger-generating conditio
 		Then I see trigger "PR03 - Order issues" in the exception list table
 			And I see trigger "PR29 - Civil Proceedings" in the exception list table
 			And there are no exceptions raised for "CIVILCASE ALLOFFENCETYPES"
+			And no PNC requests have been made

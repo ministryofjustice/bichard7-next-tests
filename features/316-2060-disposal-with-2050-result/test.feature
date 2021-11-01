@@ -17,7 +17,6 @@ Feature: {316} BR7 R5.11-RCD528 - 2060_No PNC update for 2050 result with other 
 
 	@Should
 	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: 2060 No PNC update for 2050 result with other Non-Recordable result
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

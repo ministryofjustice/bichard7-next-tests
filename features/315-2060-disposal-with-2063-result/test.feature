@@ -17,7 +17,6 @@ Feature: {315} BR7 R5.11-RCD528 - 2060_No PNC update for 2063 result only
 
 	@Should
 	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: 2060 No PNC update for 2063 result
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

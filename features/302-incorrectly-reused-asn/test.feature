@@ -27,8 +27,6 @@ Feature: {302} BR7-R5.9-RCD607-Twice Breached-Same ASN incorrectly re-used
 	@Could
 	@AuditLog
 	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	@FailsOnRealPNC
 	Scenario: Handling incorrectly re-used ASN
 		Given I am logged in as "supervisor"
 			And "input-message-1" is received

@@ -21,7 +21,6 @@ Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Verifying AINT results generate no PNC update
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

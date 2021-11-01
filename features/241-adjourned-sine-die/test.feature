@@ -20,7 +20,6 @@ Feature: {241} BR7 R5.6-RCD469-Sine Die No Conviction Date from Court
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Adjourned Sine Die results with no conviction date
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
