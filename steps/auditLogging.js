@@ -79,7 +79,7 @@ const pollMessagesForEvent = async (context, externalCorrelationId, eventType) =
 
   const getMessages = async () =>
     axiosInstance
-      .get(`${apiUrl}/messages`)
+      .get(`${apiUrl}/messages`, { headers: { "X-API-KEY": context.auditLoggingApiKey } })
       .then((response) => response.data)
       .catch((error) => error);
 

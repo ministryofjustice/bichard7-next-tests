@@ -62,6 +62,7 @@ S3_INCOMING_MESSAGE_BUCKET=$(aws lambda list-functions --query "Functions[?conta
 S3_REGION="$AWS_REGION"
 INCOMING_MESSAGE_HANDLER_REGION="$AWS_REGION"
 AUDIT_LOGGING_API_REGION="$AWS_REGION"
+AUDIT_LOGGING_API_KEY=$(aws ssm get-parameter --name "/cjse-${WORKSPACE}-bichard-7/user-service/api-key" --with-decryption | jq -r '.Parameter.Value')
 MESSAGE_ENTRY_POINT=mq
 
 if [ "$UI_HOST" = 'null' ] || [ "$UI_HOST" = '' ]
@@ -110,6 +111,7 @@ echo "export S3_REGION=\"${S3_REGION}\"" >> $TEST_ENV_FILE
 echo "export INCOMING_MESSAGE_HANDLER_REGION=\"${INCOMING_MESSAGE_HANDLER_REGION}\"" >> $TEST_ENV_FILE
 echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_ENV_FILE
 echo "export MESSAGE_ENTRY_POINT=\"${MESSAGE_ENTRY_POINT}\"" >> $TEST_ENV_FILE
+echo "export AUDIT_LOGGING_API_KEY=\"${AUDIT_LOGGING_API_KEY}\"" >> $TEST_ENV_FILE
 echo "export DB_SSL=\"true\"" >> $TEST_ENV_FILE
 echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
 if [[ "${REAL_PNC}x" == "truex" ]]; then

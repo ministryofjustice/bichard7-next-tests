@@ -23,6 +23,7 @@ class Bichard extends World {
     this.parallel = process.env.RUN_PARALLEL === "true";
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
+    this.auditLoggingApiKey = process.env.AUDIT_LOGGING_API_KEY || "dummydummydummydummy";
     this.currentTestGivenNames1 = [];
     this.currentTestGivenNames2 = [];
     this.currentTestFamilyNames = [];
