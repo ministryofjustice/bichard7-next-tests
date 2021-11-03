@@ -15,7 +15,8 @@ Feature: {068} R3.5_BR7_CCR Group Matching-Offence Added In Court-Offence in CCR
 			"""
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is in the PNC
+			And "input-message" is received
 
 	@Should
 	@OnlyRunsOnPNC

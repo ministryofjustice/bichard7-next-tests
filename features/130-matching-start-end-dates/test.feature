@@ -19,7 +19,6 @@ Feature: {130} BR7 R5.1-RCD411-Offence Matching-Start-End-Dates Match
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Handling exceptions when start and end dates match
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

@@ -20,8 +20,6 @@ Feature: {219} BR7 R5.5 RCD571-1st Instance Warrant-Undated
 			And "input-message" is received
 
 	@Should
-	@Problem
-	@NeedsRunningAgainstPNC
 	Scenario: Pre-update triggers are created for warrants and appear in the warrants report
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

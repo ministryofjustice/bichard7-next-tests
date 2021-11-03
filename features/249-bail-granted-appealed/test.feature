@@ -19,12 +19,10 @@ Feature: {249} BR7 R5.6-RCD581-Granted Bail-Prosecution Appealed Bail
 			And "input-message" is received
 
 	@Could
-	@NeedsRunningAgainstPNC
 	Scenario: Bail granted but appealed by prosecution at the same court hearing
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR05 - Remand in custody" in the exception list table
 			And I see trigger "PR24 - Vulnerable victim" in the exception list table
-			# Currently seeing an exception raised that shouldn't be
 			And there are no exceptions raised for "APPEALEDBAIL Prosecution"
 			And the PNC updates the record

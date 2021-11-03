@@ -6,6 +6,7 @@ const Db2Helper = require("../helpers/Db2Helper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
 const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
+const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
 const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
 const AuditLoggingApi = require("../helpers/AuditLoggingApi");
@@ -30,6 +31,7 @@ class Bichard extends World {
     this.currentProsecutorReference = [];
     this.currentPTIURNValues = [];
     this.currentPTIURN = uuid();
+    this.realPNC = process.env.REAL_PNC === "true";
 
     if (this.stackType === stackType.next) {
       this.db = new PostgresHelper({
@@ -80,11 +82,17 @@ class Bichard extends World {
       });
     }
 
-    this.pnc = new MockPNCHelper({
-      host: process.env.PNC_HOST || defaults.pncHost,
-      port: process.env.PNC_PORT || defaults.pncPort,
-      world: this
-    });
+    if (this.realPNC) {
+      this.pnc = new PNCTestTool({
+        baseUrl: process.env.PNC_TEST_TOOL
+      });
+    } else {
+      this.pnc = new MockPNCHelper({
+        host: process.env.PNC_HOST || defaults.pncHost,
+        port: process.env.PNC_PORT || defaults.pncPort,
+        world: this
+      });
+    }
 
     const uiScheme = process.env.UI_SCHEME || "https";
     const uiHost = process.env.UI_HOST || "localhost";

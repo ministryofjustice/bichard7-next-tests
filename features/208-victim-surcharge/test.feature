@@ -19,7 +19,6 @@ Feature: {208} 3.2 UAT - Victim Surcharge
 	@Should
 	@LoadTestNoUI
 	@ReadyForValidation
-	@NeedsRunningAgainstPNC
 	Scenario: Testing automation for victim surcharge
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

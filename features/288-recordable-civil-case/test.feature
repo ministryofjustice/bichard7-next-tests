@@ -20,7 +20,6 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 
 	@Should
 	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: Handling a recordable civil case
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

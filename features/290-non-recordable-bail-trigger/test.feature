@@ -28,3 +28,4 @@ Feature: {290} BR7-R5.8-RCD641 - Police Bail Variation Granted
 			And I access the "Bail Conditions" report
 			And I generate today's report
 		Then I see "00PP0000008" in the report
+			And no PNC requests have been made

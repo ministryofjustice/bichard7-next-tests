@@ -24,7 +24,6 @@ Feature: {196} BR7-R5.3.2-RCD556-Breach Offence with Re-sentence for original of
 
 	@Could
 	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: re-sentencing of offence is adjourned to a new hearing
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

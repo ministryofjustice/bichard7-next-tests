@@ -15,12 +15,10 @@ Feature: {291} BR7-R5.8-RCD641 - Police Bail Variation Refused
 
 	@Could
 	@AuditLog
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
-	@FailsOnRealPNC
 	Scenario: Non-Police prosecution court hearing is ignored
 		Given "input-message" is received
 			And I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
 			And the audit log contains "Hearing Outcome ignored as no offences are recordable"
+			And no PNC requests have been made

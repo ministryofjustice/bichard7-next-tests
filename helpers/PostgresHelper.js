@@ -13,7 +13,7 @@ class PostgresHelper {
     return this.pg.none("delete from BR7OWN.ERROR_LIST");
   }
 
-  async createUser(name, groups, inclusionList, exclusionList) {
+  async createUser(name, groups, inclusionList, exclusionList, visibleCourts, visibleForces, excludedTriggers) {
     const defaultPasswordHash =
       "$argon2id$v=19$m=15360,t=2,p=1$CK/shCsqcAng1U81FDzAxA$UEPw1XKYaTjPwKtoiNUZGW64skCaXZgHrtNraZxwJPw";
     const existing = await this.pg.one("SELECT count(*) FROM br7own.users WHERE lower(username) = $1", [
@@ -23,8 +23,19 @@ class PostgresHelper {
       const {
         id
       } = await this.pg.one(
-        "insert into br7own.users (username, email, exclusion_list, inclusion_list, forenames, surname, password) values ($1, $2, $3, $4, $5, $6, $7) returning id",
-        [name, `${name}@example.com`, "", inclusionList.join(","), exclusionList.join(","), name, defaultPasswordHash]
+        "insert into br7own.users (username, email, exclusion_list, inclusion_list, visible_courts, visible_forces, excluded_triggers, forenames, surname, password) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id",
+        [
+          name,
+          `${name}@example.com`,
+          exclusionList.join(","),
+          inclusionList.join(","),
+          visibleCourts.join(","),
+          visibleForces.join(","),
+          excludedTriggers.join(","),
+          "",
+          name,
+          defaultPasswordHash
+        ]
       );
 
       const groupPromises = groups.map((group) =>

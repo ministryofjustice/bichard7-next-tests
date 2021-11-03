@@ -17,9 +17,6 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 
 			MadeTech Definition:
 			This tests that no exceptions but 1 trigger is created when driver disqualification is received from the court with duration value only.
-
-			As this has two messages and the second one is against a changed record in the PNC, we need to get the mocks from running against the PNC
-			to see how the enquiry response changes.
 			"""
 
 	Background:

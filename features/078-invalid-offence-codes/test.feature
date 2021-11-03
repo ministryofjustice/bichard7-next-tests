@@ -18,9 +18,6 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 			Testing invalid offence codes
 			"""
 
-	Background:
-		Given the data for this test is in the PNC
-
 	@Could
 	@OnlyRunsOnPNC
 	Scenario: Testing invalid offence codes
@@ -28,7 +25,7 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100306" in the exception list table
-			And the PNC record has not been updated
+			And no PNC updates have been made
 
 		Examples:
 			| messageId       |

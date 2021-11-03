@@ -14,7 +14,15 @@ const createUser = async (world, name) => {
   const username = parallelUserName(world, name);
   if (!user) throw new Error(`User '${username}' not defined`);
   if (world.db.createUser) {
-    world.db.createUser(username, user.groups, user.inclusionList, user.exclusionList);
+    world.db.createUser(
+      username,
+      user.groups,
+      user.inclusionList,
+      user.exclusionList,
+      user.visible_courts,
+      user.visible_forces,
+      user.excluded_triggers
+    );
   }
 };
 

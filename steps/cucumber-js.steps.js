@@ -2,7 +2,15 @@ const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { logInAs } = require("./auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./message");
-const { createValidRecordInPNC, checkMocks, pncNotUpdated, pncUpdateIncludes, mockPNCDataForTest } = require("./pnc");
+const {
+  createValidRecordInPNC,
+  checkMocks,
+  pncNotUpdated,
+  pncUpdateIncludes,
+  mockPNCDataForTest,
+  noPncRequests,
+  noPncUpdates
+} = require("./pnc");
 const {
   generateTodaysReport,
   reportContains,
@@ -267,3 +275,7 @@ Then("the user performance summary report is correct", checkUserSummaryReport);
 Then("the Live Status Detail - Exceptions report is correct", checkLiveStatusExceptionsReport);
 
 Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport);
+
+Then("no PNC requests have been made", noPncRequests);
+
+Then("no PNC updates have been made", noPncUpdates);
