@@ -47,7 +47,9 @@ const checkAuditLogCondition = async function (auditMessageNumber, message, cont
 
   const getMessages = async () =>
     axiosInstance
-      .get(`${apiUrl}/messages`)
+      .get(`${apiUrl}/messages?externalCorrelationId=${correlationId}`, {
+        headers: { "X-API-KEY": this.auditLoggingApiKey }
+      })
       .then((response) => response.data)
       .catch((error) => error);
 
@@ -79,7 +81,9 @@ const pollMessagesForEvent = async (context, externalCorrelationId, eventType) =
 
   const getMessages = async () =>
     axiosInstance
-      .get(`${apiUrl}/messages`, { headers: { "X-API-KEY": context.auditLoggingApiKey } })
+      .get(`${apiUrl}/messages?externalCorrelationId=${externalCorrelationId}`, {
+        headers: { "X-API-KEY": context.auditLoggingApiKey }
+      })
       .then((response) => response.data)
       .catch((error) => error);
 
