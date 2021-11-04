@@ -117,7 +117,7 @@ jobs:
     machine:
       image: ubuntu-2004:202104-01
       docker_layer_caching: true
-    resource_class: large
+    resource_class: xlarge
     environment:
       STACK_TYPE: next
       BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
