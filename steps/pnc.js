@@ -6,6 +6,8 @@ const { extractAllTags } = require("../utils/tagProcessing");
 const Poller = require("../utils/Poller");
 const isError = require("../utils/isError");
 
+const skipPNCValidation = process.env.SKIP_PNC_VALIDATION === "true";
+
 /* eslint-disable consistent-return */
 const mockPNCDataForTest = async function () {
   const specFolder = path.dirname(this.featureUri);
@@ -19,6 +21,8 @@ const mockPNCDataForTest = async function () {
     }
 
     extractAllTags(this, xmlData);
+    if (skipPNCValidation) return;
+
     try {
       await this.pnc.setupRecord(specFolder);
     } catch (err) {
@@ -69,6 +73,7 @@ const fetchMocks = async (world) => {
 
 const checkMocks = async function () {
   if (this.realPNC) {
+    if (skipPNCValidation) return;
     const specFolder = path.dirname(this.featureUri);
     const action = async () => this.pnc.checkRecord(specFolder);
 
@@ -127,6 +132,7 @@ const pncNotUpdated = async function () {
   // Wait 3 seconds to give the backend time to process
   await new Promise((resolve) => setTimeout(resolve, 3000));
   if (this.realPNC) {
+    if (skipPNCValidation) return;
     const specFolder = path.dirname(this.featureUri);
     const result = await this.pnc.checkRecord(specFolder);
     const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
