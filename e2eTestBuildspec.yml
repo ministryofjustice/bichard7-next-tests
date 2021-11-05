@@ -24,7 +24,7 @@ phases:
       - npm i
       - source ./workspaces/${WORKSPACE}.env
       - CI=true RECORD=true npm run ${TEST_COMMAND}
-      - CI=true RECORD=true npm run ${AL_TEST_COMMAND}
+      - CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run ${AL_TEST_COMMAND}
   post_build:
     commands:
       - unset AWS_SESSION_TOKEN

@@ -1,5 +1,9 @@
 const convertMessageToNewFormat = (message) => {
-  const resultedCaseMessage = message.match(/(<DC:ResultedCaseMessage[\s\S]*<\/DC:ResultedCaseMessage>)/)[0];
+  let resultedCaseMessage = message.match(/(<DC:ResultedCaseMessage[\s\S]*<\/DC:ResultedCaseMessage>)/)?.[0];
+  if (!resultedCaseMessage) {
+    resultedCaseMessage = message.match(/(<ResultedCaseMessage[\s\S]*<\/ResultedCaseMessage>)/)?.[0];
+  }
+
   const externalCorrelationId = message.match(/<msg:MessageIdentifier>([\s\S]*)<\/msg:MessageIdentifier>/)[1]?.trim();
 
   const result = `<?xml version="1.0" encoding="UTF-8"?>
