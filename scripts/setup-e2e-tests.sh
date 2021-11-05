@@ -62,7 +62,7 @@ S3_INCOMING_MESSAGE_BUCKET=$(aws lambda list-functions --query "Functions[?conta
 S3_REGION="$AWS_REGION"
 INCOMING_MESSAGE_HANDLER_REGION="$AWS_REGION"
 AUDIT_LOGGING_API_REGION="$AWS_REGION"
-AUDIT_LOGGING_API_KEY=$(aws ssm get-parameter --name "/cjse-${WORKSPACE}-bichard-7/user-service/api-key" --with-decryption | jq -r '.Parameter.Value')
+AUDIT_LOGGING_API_KEY=$(aws ssm get-parameter --name "/cjse-${WORKSPACE}-bichard-7/audit-logging/api-key" --with-decryption | jq -r '.Parameter.Value')
 MESSAGE_ENTRY_POINT=mq
 
 if [ "$UI_HOST" = 'null' ] || [ "$UI_HOST" = '' ]
