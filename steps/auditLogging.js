@@ -58,6 +58,10 @@ const checkAuditLogCondition = async function (auditMessageNumber, message, cont
     delay: 1000,
     name: "await for expected message",
     condition: (allMessages) => {
+      if (!Array.isArray(allMessages)) {
+        throw Error(`Invalid audit log API response (/messages): ${JSON.stringify(allMessages)}`);
+      }
+
       const noResults = allMessages
         .find((m) => m.externalCorrelationId === correlationId)
         .events.filter((event) => event.eventType === message).length;
@@ -92,6 +96,10 @@ const pollMessagesForEvent = async (context, externalCorrelationId, eventType) =
     delay: 1000,
     name: eventType,
     condition: (allMessages) => {
+      if (!Array.isArray(allMessages)) {
+        throw Error(`Invalid audit log API response (/messages): ${JSON.stringify(allMessages)}`);
+      }
+
       const messages = allMessages.filter((message) =>
         checkIfMessageHasEvent(message, externalCorrelationId, eventType)
       );
