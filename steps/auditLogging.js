@@ -4,7 +4,7 @@ const Poller = require("../utils/Poller");
 
 const checkEventByExternalCorreationId = async (context, externalCorrelationId, eventType, contains) => {
   const { auditLogDynamoDb } = context;
-  const getMessages = async () => auditLogDynamoDb.getMessageByExternalCorrelationId(context, externalCorrelationId);
+  const getMessages = () => auditLogDynamoDb.getMessageByExternalCorrelationId(externalCorrelationId);
 
   const options = {
     timeout: 20000,
@@ -29,21 +29,27 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
 };
 
 const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
-  const { shouldUploadMessagesToS3, incomingMessageBucket } = context;
+  const {
+    shouldUploadMessagesToS3,
+    incomingMessageBucket: { uploadedS3Files }
+  } = context;
+
   if (!shouldUploadMessagesToS3) {
     return undefined;
   }
 
-  if (incomingMessageBucket.uploadedS3Files.length < 1) {
-    throw new Error(`Unexpected number of uploaded S3 files. Expected to be more than 0`);
+  if (uploadedS3Files.length === 0) {
+    throw new Error(`No S3 files has been uploaded`);
   }
 
-  const externalCorrelationId = incomingMessageBucket.uploadedS3Files[parseInt(auditMessageNumber, 10) - 1]
-    .split("/")
-    .slice(-1)[0]
-    .split(".")[0];
+  const s3FileIndex = parseInt(auditMessageNumber, 10) - 1;
+  const externalCorrelationId = uploadedS3Files[s3FileIndex].split("/").slice(-1)?.[0]?.split(".")?.[0];
 
-  return checkEventByExternalCorreationId(context, externalCorrelationId, contains);
+  if (!externalCorrelationId) {
+    throw new Error(`Could not extract external correlation ID from the S3 file with index ${s3FileIndex}`);
+  }
+
+  return checkEventByExternalCorreationId(context, externalCorrelationId, eventType, contains);
 };
 
 module.exports = { checkEventByExternalCorreationId, checkEventByAuditMessageNumber };

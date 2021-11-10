@@ -19,7 +19,7 @@ class DynamoDbHelper {
     this.tableName = tableName;
   }
 
-  async getMessageByExternalCorrelationId(context, externalCorrelationId) {
+  async getMessageByExternalCorrelationId(externalCorrelationId) {
     const queryOptions = {
       TableName: this.tableName,
       IndexName: "externalCorrelationIdIndex",
