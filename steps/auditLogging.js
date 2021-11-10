@@ -1,74 +1,22 @@
-const axios = require("axios");
 const expect = require("expect");
 const isError = require("../utils/isError");
-const { getConfig } = require("../utils/config");
 const Poller = require("../utils/Poller");
 
-const getApiUrl = async (context) => {
-  const config = getConfig();
-  const { isLocalWorkspace } = context;
-
-  let apiUrl = await context.auditLoggingApi.getUrl(isLocalWorkspace);
-
-  if (isLocalWorkspace) {
-    apiUrl = apiUrl.replace("localstack_main", config.hostMachine);
-  }
-
-  return apiUrl;
-};
-
-const checkIfMessageHasEvent = (message, externalCorrelationId, eventType) => {
-  if (!message || message.externalCorrelationId !== externalCorrelationId) {
-    return false;
-  }
-
-  const events = message.events.filter((event) => event.eventType === eventType);
-
-  if (events.length === 0) {
-    return false;
-  }
-
-  return true;
-};
-
-const checkAuditLogCondition = async function (auditMessageNumber, message, contains) {
-  if (!this.shouldUploadMessagesToS3) return;
-  if (this.incomingMessageBucket.uploadedS3Files.length < 1) {
-    throw new Error(`Unexpected number of uploaded S3 files. Expected to be more than 0`);
-  }
-
-  const correlationId = this.incomingMessageBucket.uploadedS3Files[parseInt(auditMessageNumber, 10) - 1]
-    .split("/")
-    .slice(-1)[0]
-    .split(".")[0];
-
-  const axiosInstance = axios.create();
-  const apiUrl = await getApiUrl(this);
-
-  const getMessages = async () =>
-    axiosInstance
-      .get(`${apiUrl}/messages?externalCorrelationId=${correlationId}`, {
-        headers: { "X-API-KEY": this.auditLoggingApiKey }
-      })
-      .then((response) => response.data)
-      .catch((error) => error);
+const checkEventByExternalCorreationId = async (context, externalCorrelationId, eventType, contains) => {
+  const { auditLogDynamoDb } = context;
+  const getMessages = async () => auditLogDynamoDb.getMessageByExternalCorrelationId(context, externalCorrelationId);
 
   const options = {
     timeout: 20000,
     delay: 1000,
-    name: "await for expected message",
-    condition: (allMessages) => {
-      if (!Array.isArray(allMessages)) {
-        throw Error(`Invalid audit log API response (/messages): ${JSON.stringify(allMessages)}`);
+    name: eventType,
+    condition: (message) => {
+      if (!message) {
+        return false;
       }
+      const hasEvent = message.events.some((event) => event.eventType === eventType);
 
-      const noResults = allMessages
-        .find((m) => m.externalCorrelationId === correlationId)
-        .events.filter((event) => event.eventType === message).length;
-      if (contains) {
-        return noResults === 1;
-      }
-      return noResults === 0;
+      return !!contains === hasEvent;
     }
   };
 
@@ -76,46 +24,26 @@ const checkAuditLogCondition = async function (auditMessageNumber, message, cont
     .poll(options)
     .then((messages) => messages)
     .catch((error) => error);
-  expect(isError(result)).toBeFalsy();
+
+  expect(isError(result)).toBe(false);
 };
 
-const pollMessagesForEvent = async (context, externalCorrelationId, eventType) => {
-  const axiosInstance = axios.create();
-  const apiUrl = await getApiUrl(context);
+const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
+  const { shouldUploadMessagesToS3, incomingMessageBucket } = context;
+  if (!shouldUploadMessagesToS3) {
+    return undefined;
+  }
 
-  const getMessages = async () =>
-    axiosInstance
-      .get(`${apiUrl}/messages?externalCorrelationId=${externalCorrelationId}`, {
-        headers: { "X-API-KEY": context.auditLoggingApiKey }
-      })
-      .then((response) => response.data)
-      .catch((error) => error);
+  if (incomingMessageBucket.uploadedS3Files.length < 1) {
+    throw new Error(`Unexpected number of uploaded S3 files. Expected to be more than 0`);
+  }
 
-  const options = {
-    timeout: 40000,
-    delay: 1000,
-    name: eventType,
-    condition: (allMessages) => {
-      if (!Array.isArray(allMessages)) {
-        throw Error(`Invalid audit log API response (/messages): ${JSON.stringify(allMessages)}`);
-      }
+  const externalCorrelationId = incomingMessageBucket.uploadedS3Files[parseInt(auditMessageNumber, 10) - 1]
+    .split("/")
+    .slice(-1)[0]
+    .split(".")[0];
 
-      const messages = allMessages.filter((message) =>
-        checkIfMessageHasEvent(message, externalCorrelationId, eventType)
-      );
-
-      return messages.length === 1;
-    }
-  };
-
-  await new Poller(getMessages)
-    .poll(options)
-    .then((messages) => messages)
-    .catch((error) => error);
+  return checkEventByExternalCorreationId(context, externalCorrelationId, contains);
 };
 
-module.exports = {
-  pollMessagesForEvent,
-  checkIfMessageHasEvent,
-  checkAuditLogCondition
-};
+module.exports = { checkEventByExternalCorreationId, checkEventByAuditMessageNumber };
