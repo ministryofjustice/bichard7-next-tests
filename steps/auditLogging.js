@@ -39,6 +39,10 @@ const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, 
   }
 
   const s3FileIndex = parseInt(auditMessageNumber, 10) - 1;
+  if (s3FileIndex < 0 || s3FileIndex >= uploadedS3Files.length) {
+    throw new Error(`Index ${s3FileIndex} is out of range. There are ${uploadedS3Files.length} files uploaded to S3.`);
+  }
+
   const externalCorrelationId = uploadedS3Files[s3FileIndex].split("/").slice(-1)?.[0]?.split(".")?.[0];
 
   if (!externalCorrelationId) {
