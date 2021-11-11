@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const isError = require("../utils/isError");
 const convertMessageToNewFormat = require("../utils/convertMessageToNewFormat");
-const { pollMessagesForEvent } = require("./auditLogging");
+const { checkEventByExternalCorreationId } = require("./auditLogging");
 const { replaceAllTags } = require("../utils/tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
@@ -35,8 +35,13 @@ const sendMsg = async function (world, messagePath) {
     messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
-    const pollingResult = await pollMessagesForEvent(world, correlationId, "Message Sent to Bichard");
-    expect(isError(pollingResult)).toBeFalsy();
+    const checkEventResult = await checkEventByExternalCorreationId(
+      world,
+      correlationId,
+      "Message Sent to Bichard",
+      true
+    );
+    expect(isError(checkEventResult)).toBeFalsy();
   } else {
     await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }

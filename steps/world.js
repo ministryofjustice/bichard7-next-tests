@@ -4,12 +4,12 @@ const { setWorldConstructor, World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
 const Db2Helper = require("../helpers/Db2Helper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
+const AuditLogDynamoDbHelper = require("../helpers/AuditLogDynamoDbHelper");
 const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
 const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
-const AuditLoggingApi = require("../helpers/AuditLoggingApi");
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
 const { authType, stackType } = require("../utils/config");
@@ -24,7 +24,6 @@ class Bichard extends World {
     this.parallel = process.env.RUN_PARALLEL === "true";
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
     this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
-    this.auditLoggingApiKey = process.env.AUDIT_LOGGING_API_KEY || "dummydummydummydummy";
     this.currentTestGivenNames1 = [];
     this.currentTestGivenNames2 = [];
     this.currentTestFamilyNames = [];
@@ -61,9 +60,10 @@ class Bichard extends World {
         incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
       });
 
-      this.auditLoggingApi = new AuditLoggingApi({
-        url: process.env.AWS_URL,
-        region: process.env.AUDIT_LOGGING_API_REGION || defaults.awsRegion
+      this.auditLogDynamoDb = new AuditLogDynamoDbHelper({
+        region: process.env.AUDIT_LOGGING_DYNAMODB_REGION || defaults.awsRegion,
+        endpoint: process.env.AWS_URL,
+        tableName: process.env.AUDIT_LOGGING_DYNAMODB_TABLE || "audit-log"
       });
     } else if (this.stackType === stackType.baseline) {
       this.db = new Db2Helper({

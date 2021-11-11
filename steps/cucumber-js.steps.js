@@ -84,7 +84,7 @@ const {
   checkNoExceptionsForThis,
   canSeeContentInTableForThis
 } = require("./ui");
-const { checkAuditLogCondition } = require("./auditLogging");
+const { checkEventByAuditMessageNumber } = require("./auditLogging");
 
 setDefaultTimeout(timeout);
 
@@ -250,16 +250,16 @@ Then("there should only be {string} offences", checkTableRows);
 
 Then("there should only be {string} records", checkRecordRows);
 
-Then("the audit log contains {string}", async function (message) {
-  await checkAuditLogCondition.apply(this, [1, message, true]);
+Then("the audit log contains {string}", async function (eventType) {
+  await checkEventByAuditMessageNumber(this, 1, eventType, true);
 });
 
-Then("the audit log for message {string} contains {string}", async function (number, message) {
-  await checkAuditLogCondition.apply(this, [number, message, true]);
+Then("the audit log for message {string} contains {string}", async function (auditMessageNumber, eventType) {
+  await checkEventByAuditMessageNumber(this, auditMessageNumber, eventType, true);
 });
 
-Then("{string} is not in the audit log", async function (message) {
-  await checkAuditLogCondition.apply(this, [1, message, false]);
+Then("{string} is not in the audit log", async function (eventType) {
+  await checkEventByAuditMessageNumber(this, 1, eventType, false);
 });
 
 When("I reallocate the case to {string}", reallocateCaseToForce);

@@ -61,8 +61,8 @@ DB_HOST=$($AWS_CLI_PATH rds describe-db-clusters --region eu-west-2 --filters Na
 S3_INCOMING_MESSAGE_BUCKET=$(aws lambda list-functions --query "Functions[?contains(FunctionName, 'retrieve-from-s3')].Environment.Variables.INCOMING_MESSAGE_BUCKET_NAME" --output text)
 S3_REGION="$AWS_REGION"
 INCOMING_MESSAGE_HANDLER_REGION="$AWS_REGION"
-AUDIT_LOGGING_API_REGION="$AWS_REGION"
-AUDIT_LOGGING_API_KEY=$(aws ssm get-parameter --name "/cjse-${WORKSPACE}-bichard-7/audit-logging/api-key" --with-decryption | jq -r '.Parameter.Value')
+AUDIT_LOGGING_DYNAMODB_TABLE="bichard-7-${WORKSPACE}-audit-log"
+AUDIT_LOGGING_DYNAMODB_REGION="$AWS_REGION"
 MESSAGE_ENTRY_POINT=mq
 
 if [ "$UI_HOST" = 'null' ] || [ "$UI_HOST" = '' ]
@@ -110,9 +110,9 @@ echo "export MQ_USER=\"bichard\""  >> $TEST_ENV_FILE
 echo "export S3_INCOMING_MESSAGE_BUCKET=\"${S3_INCOMING_MESSAGE_BUCKET}\"" >> $TEST_ENV_FILE
 echo "export S3_REGION=\"${S3_REGION}\"" >> $TEST_ENV_FILE
 echo "export INCOMING_MESSAGE_HANDLER_REGION=\"${INCOMING_MESSAGE_HANDLER_REGION}\"" >> $TEST_ENV_FILE
-echo "export AUDIT_LOGGING_API_REGION=\"${AUDIT_LOGGING_API_REGION}\"" >> $TEST_ENV_FILE
+echo "export AUDIT_LOGGING_DYNAMODB_TABLE=\"${AUDIT_LOGGING_DYNAMODB_TABLE}\"" >> $TEST_ENV_FILE
+echo "export AUDIT_LOGGING_DYNAMODB_REGION=\"${AUDIT_LOGGING_DYNAMODB_REGION}\"" >> $TEST_ENV_FILE
 echo "export MESSAGE_ENTRY_POINT=\"${MESSAGE_ENTRY_POINT}\"" >> $TEST_ENV_FILE
-echo "export AUDIT_LOGGING_API_KEY=\"${AUDIT_LOGGING_API_KEY}\"" >> $TEST_ENV_FILE
 echo "export DB_SSL=\"true\"" >> $TEST_ENV_FILE
 echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
 if [[ "${REAL_PNC}x" == "truex" ]]; then
