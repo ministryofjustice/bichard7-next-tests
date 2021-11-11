@@ -1,4 +1,3 @@
-const expect = require("expect");
 const isError = require("../utils/isError");
 const Poller = require("../utils/Poller");
 
@@ -25,7 +24,9 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
     .then((messages) => messages)
     .catch((error) => error);
 
-  expect(isError(result)).toBe(false);
+  if (isError(result)) {
+    throw result;
+  }
 };
 
 const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
