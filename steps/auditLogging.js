@@ -30,13 +30,8 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
 
 const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
   const {
-    shouldUploadMessagesToS3,
     incomingMessageBucket: { uploadedS3Files }
   } = context;
-
-  if (!shouldUploadMessagesToS3) {
-    return undefined;
-  }
 
   if (uploadedS3Files.length === 0) {
     throw new Error(`No S3 files has been uploaded`);
