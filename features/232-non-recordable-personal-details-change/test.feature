@@ -18,8 +18,11 @@ Feature: {232} BR7 R5.5-RCD544-Non-Recordable-Personal Details Change and other 
 		Given "input-message" is received
 
 	@Could
+	@Excluded
 	Scenario: Non-recordable personal details change
-		Given I am logged in as "generalhandler"
+		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see trigger "PR01 - Disqualified driver" in the exception list table
 			And I see trigger "PR15 - Personal details changed" in the exception list table
+			And there are no exceptions
+			And no PNC requests have been made

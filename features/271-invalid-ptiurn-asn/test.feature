@@ -24,10 +24,6 @@ Feature: {271} BR7-R5.8-RCD502-503 - Remove extraneous ASN-MCR Exceptions
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100201" in the exception list table
-			And I cannot see "HO100204" in the exception list table
-			And I cannot see "HO100221" in the exception list table
-			And I cannot see "HO100222" in the exception list table
-			And I cannot see "HO100223" in the exception list table
 			And there are no triggers raised for "Filter Police"
 		When I open the record for "Filter Police"
 			And I click the "Case" tab
@@ -37,3 +33,4 @@ Feature: {271} BR7-R5.8-RCD502-503 - Remove extraneous ASN-MCR Exceptions
 		When I click the "Offences" tab
 			And I view offence "1"
 		Then I see error "HO100200 - Invalid Organisation Unit Code" in the "Defendant/Offender ASN Org Code" row of the results table
+			And no PNC requests have been made
