@@ -96,7 +96,7 @@ class PNCTestTool {
       const existingRecordHTML = await this.fetchRecord(name, "html");
       fs.writeFileSync(beforePath.replace(".xml", ".html"), existingRecordHTML);
     }
-    const beforeState = fs.readFileSync(beforePath).toString();
+    const beforeState = fs.readFileSync(beforePath).toString().trim();
     if (existingRecord !== beforeState) {
       throw new Error("PNC record does not match expected before state");
     }
@@ -124,7 +124,7 @@ class PNCTestTool {
       fs.writeFileSync(afterPath.replace(".xml", ".html"), recordHTML);
     }
 
-    const afterState = fs.readFileSync(afterPath).toString();
+    const afterState = fs.readFileSync(afterPath).toString().trim();
     return record === afterState;
   }
 
@@ -152,7 +152,7 @@ class PNCTestTool {
       })
       .then(({ status, data }) => {
         if (status === 200) {
-          return removeVariableData(data, format);
+          return removeVariableData(data, format).trim();
         }
         return false;
       })

@@ -79,8 +79,8 @@ const checkMocks = async function () {
 
     const condition = (result) => {
       if (result) {
-        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
-        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
+        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString().trim();
+        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString().trim();
         if (before === after) return false;
       }
       return result;
@@ -135,8 +135,8 @@ const pncNotUpdated = async function () {
     if (skipPNCValidation) return;
     const specFolder = path.dirname(this.featureUri);
     const result = await this.pnc.checkRecord(specFolder);
-    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
-    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
+    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString().trim();
+    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString().trim();
     expect(result).toBeTruthy();
     expect(before).toEqual(after);
   } else {
