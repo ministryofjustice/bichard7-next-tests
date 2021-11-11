@@ -14,10 +14,15 @@ const mockPNCDataForTest = async function () {
   if (this.realPNC) {
     let xmlData;
     const ncmFile = `${specFolder}/pnc-data.xml`;
+    const messageFile = `${specFolder}/input-message.xml`;
     if (fs.existsSync(ncmFile)) {
       xmlData = fs.readFileSync(ncmFile, "utf8").toString();
+    } else if (fs.existsSync(messageFile)) {
+      xmlData = fs.readFileSync(messageFile, "utf8").toString();
     } else {
-      xmlData = fs.readFileSync(`${specFolder}/input-message.xml`, "utf8").toString();
+      const messageFiles = fs.readdirSync(specFolder).filter((f) => f.match(/input-message-\d\.xml/));
+      if (messageFiles.length === 0) throw new Error("No input message files found");
+      xmlData = fs.readFileSync(`${specFolder}/${messageFiles[0]}`, "utf8").toString();
     }
 
     extractAllTags(this, xmlData);
