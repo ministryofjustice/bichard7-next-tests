@@ -21,12 +21,10 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 
 	@Should
 	@LoadTestUI
-	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Test that PNC detects a mismatch on offences and they can be manually resolved
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then I see trigger "HO100304" in the exception list table
+		Then I see exception "HO100304" in the exception list table
 		When I open this record
 			And I click the "Offences" tab
 			And I view offence "1"

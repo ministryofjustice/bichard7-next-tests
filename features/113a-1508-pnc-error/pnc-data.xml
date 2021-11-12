@@ -8,7 +8,7 @@
 		<CPSorganisation>A01AH00</CPSorganisation>
 		<InitialHearing>
 			<CourtHearingLocation>B01EF01</CourtHearingLocation>
-			<DateOfHearing>2011-08-01</DateOfHearing>
+			<DateOfHearing>2011-09-26</DateOfHearing>
 			<TimeOfHearing>10:00:00</TimeOfHearing>
 		</InitialHearing>
 		<OtherPartyOfficerInCase>
@@ -37,14 +37,14 @@
 			</EmailDetails>
 		</OtherPartyOfficerInCase>
 		<Defendant>
-			<ProsecutorReference>1101ZD0100000410857T</ProsecutorReference>
+			<ProsecutorReference>1101ZD0100000410759L</ProsecutorReference>
 			<PoliceIndividualDefendant>
 				<PersonDefendant>
 					<BasePersonDetails>
 						<PersonName>
 							<PersonTitle>Mr</PersonTitle>
-							<PersonGivenName1>LORNE</PersonGivenName1>
-							<PersonFamilyName>FOARDSXX</PersonFamilyName>
+							<PersonGivenName1>ORDER</PersonGivenName1>
+							<PersonFamilyName>TOCONTINUEA</PersonFamilyName>
 						</PersonName>
 						<TelephoneDetails>
 							<TelephoneNumberHome>01179378181</TelephoneNumberHome>
@@ -78,19 +78,16 @@
 			<Offence>
 				<BaseOffenceDetails>
 					<OffenceSequenceNumber>001</OffenceSequenceNumber>
-					<OffenceCode>PC00525</OffenceCode>
-					<OffenceWording>Fail to comply with Community Rehabilitation order</OffenceWording>
+					<OffenceCode>CJ88116</OffenceCode>
+					<OffenceWording>Section 39 - assault by beating (battery)</OffenceWording>
 					<OffenceTiming>
 						<OffenceDateCode>1</OffenceDateCode>
 						<OffenceStart>
-							<OffenceDateStartDate>2010-07-01</OffenceDateStartDate>
+							<OffenceDateStartDate>2010-11-28</OffenceDateStartDate>
 						</OffenceStart>
-						<OffenceEnd>
-							<OffenceEndDate>2010-07-02</OffenceEndDate>
-						</OffenceEnd>
 					</OffenceTiming>
-					<ChargeDate>2010-07-01</ChargeDate>
-					<ArrestDate>2010-07-01</ArrestDate>
+					<ChargeDate>2010-12-02</ChargeDate>
+					<ArrestDate>2010-12-01</ArrestDate>
 					<LocationOfOffence>Kingston High Street</LocationOfOffence>
 				</BaseOffenceDetails>
 			</Offence>

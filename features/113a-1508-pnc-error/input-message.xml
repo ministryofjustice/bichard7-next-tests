@@ -37,7 +37,7 @@
 				<DC:CourtHearing>
 					<DC:Hearing>
 						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-						<DC:DateOfHearing>2011-10-26</DC:DateOfHearing>
+						<DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
 						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
 					</DC:Hearing>
 					<DC:PSAcode>2576</DC:PSAcode>
@@ -45,14 +45,14 @@
 				<DC:Case>
 					<DC:PTIURN>01ZD1600008</DC:PTIURN>
 					<DC:Defendant>
-						<DC:ProsecutorReference>1101ZD0100000410753E</DC:ProsecutorReference>
+						<DC:ProsecutorReference>1101ZD0100000410759L</DC:ProsecutorReference>
 						<DC:CourtIndividualDefendant>
 							<DC:PersonDefendant>
 								<DC:BasePersonDetails>
 									<DC:PersonName>
 										<DC:PersonTitle>Mr</DC:PersonTitle>
 										<DC:PersonGivenName1>ORDER</DC:PersonGivenName1>
-										<DC:PersonFamilyName>TOCONTINUE</DC:PersonFamilyName>
+										<DC:PersonFamilyName>TOCONTINUEA</DC:PersonFamilyName>
 									</DC:PersonName>
 									<DC:Birthdate>1948-11-11</DC:Birthdate>
 									<DC:Gender>1</DC:Gender>
@@ -71,59 +71,32 @@
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>TH68010</DC:OffenceCode>
-								<DC:OffenceWording>Theft from shop</DC:OffenceWording>
+								<DC:OffenceCode>CJ88116</DC:OffenceCode>
+								<DC:OffenceWording>Section 39 - assault by beating (battery)</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2010-10-01</DC:OffenceDateStartDate>
+										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
 									</DC:OffenceStart>
 								</DC:OffenceTiming>
-								<DC:ChargeDate>2010-10-01</DC:ChargeDate>
-								<DC:ArrestDate>2010-10-01</DC:ArrestDate>
+								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
+								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
 								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
 							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2009-10-01</DC:InitiatedDate>
+							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
 							<DC:Plea>2</DC:Plea>
 							<DC:ModeOfTrial>01</DC:ModeOfTrial>
 							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-							<DC:ConvictionDate>2011-10-26</DC:ConvictionDate>
+							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
 							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>1015</DC:ResultCode>
-								<DC:ResultText>Fined 200.</DC:ResultText>
-								<DC:Outcome>
-									<DC:ResultAmountSterling>200.00</DC:ResultAmountSterling>
-								</DC:Outcome>
-							</DC:Result>
-						</DC:Offence>
-						<DC:Offence>
-							<DC:BaseOffenceDetails>
-								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>CJ03507</DC:OffenceCode>
-								<DC:OffenceWording>Commission of a further offence during the operational period of a suspended sentence order</DC:OffenceWording>
-								<DC:OffenceTiming>
-									<DC:OffenceDateCode>1</DC:OffenceDateCode>
-									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2010-10-01</DC:OffenceDateStartDate>
-									</DC:OffenceStart>
-								</DC:OffenceTiming>
-								<DC:ChargeDate>2010-10-01</DC:ChargeDate>
-								<DC:ArrestDate>2010-10-01</DC:ArrestDate>
-								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2009-10-01</DC:InitiatedDate>
-							<DC:Plea>7</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-							<DC:Result>
-								<DC:ResultCode>1508</DC:ResultCode>
-								<DC:ResultText>Suspended sentence order made by Kingston Magistrates' Court on 26/09/2011 varied as follows: operational period extended for a futher 3 months</DC:ResultText>
+								<DC:ResultCode>1115</DC:ResultCode>
+								<DC:ResultText>Committed to prison for 4 months suspended for 12 months</DC:ResultText>
 								<DC:Outcome>
 									<DC:Duration>
 										<DC:DurationValue>4</DC:DurationValue>
 										<DC:DurationUnit>M</DC:DurationUnit>
-										<DC:SecondaryDurationValue>15</DC:SecondaryDurationValue>
+										<DC:SecondaryDurationValue>12</DC:SecondaryDurationValue>
 										<DC:SecondaryDurationUnit>M</DC:SecondaryDurationUnit>
 									</DC:Duration>
 								</DC:Outcome>
