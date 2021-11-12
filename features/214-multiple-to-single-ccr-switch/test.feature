@@ -24,7 +24,7 @@ Feature: {214} BR7 R5.4-RCD471-Multiple CCR to Single CCR switch between PNC sub
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100209" in the exception list table
-		When I open the record for "TOSINGLECCR MULTIPLECCR"
+		When I open the record for "TOSINGLECCRX MULTIPLECCR"
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000445720M"
 			And I correct "Court PNCID" to "2012/0000029N"
