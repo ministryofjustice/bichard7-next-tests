@@ -45,14 +45,14 @@
 				<DC:Case>
 					<DC:PTIURN>01ZD0302108</DC:PTIURN>
 					<DC:Defendant>
-						<DC:ProsecutorReference>1101ZD0100000410777F</DC:ProsecutorReference>
+						<DC:ProsecutorReference>1101ZD0100000410782L</DC:ProsecutorReference>
 						<DC:CourtIndividualDefendant>
 							<DC:PersonDefendant>
 								<DC:BasePersonDetails>
 									<DC:PersonName>
 										<DC:PersonTitle>Mr</DC:PersonTitle>
 										<DC:PersonGivenName1>EXCEPTION</DC:PersonGivenName1>
-										<DC:PersonFamilyName>EXONEA</DC:PersonFamilyName>
+										<DC:PersonFamilyName>EXONEAXX</DC:PersonFamilyName>
 									</DC:PersonName>
 									<DC:Birthdate>1948-11-11</DC:Birthdate>
 									<DC:Gender>1</DC:Gender>

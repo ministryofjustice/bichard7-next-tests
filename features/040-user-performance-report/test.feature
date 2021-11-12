@@ -9,6 +9,8 @@ Feature: {040} 04 MIS - User Performance Summary
 
 			MadeTech Definition:
 			Generating the user performance report
+
+			Note: this test does not run against the Host 9 PNC because it uses the same records as other tests so would clash
 			"""
 
 	Background:
@@ -16,8 +18,7 @@ Feature: {040} 04 MIS - User Performance Summary
 			And "input-message-1" is received
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
+	@ExcludeOnPreProd
 	Scenario: Generating the user performance report
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
