@@ -8,12 +8,15 @@ Feature: {041} R3.3_BR7_Operational Trigger Report
 
 			MadeTech Definition:
 			Generating the operational trigger report
+
+			Note: this test does not run against the Host 9 PNC because it uses the same records as other tests so would clash
 			"""
 
 	Background:
 		Given the data for this test is in the PNC
 
 	@Could
+	@ExcludeOnPreProd
 	Scenario: Generating the operational trigger report
 		Given "input-message-1" is received
 			And "input-message-2" is received
