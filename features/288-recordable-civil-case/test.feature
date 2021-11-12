@@ -19,7 +19,6 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Handling a recordable civil case
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

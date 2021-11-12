@@ -17,7 +17,6 @@ Feature: {324} BR7 R5.11-RCD688 - Existing Offence Result_2060 with Offence adde
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Existing offence with 2060 result and 2059 result added in court
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

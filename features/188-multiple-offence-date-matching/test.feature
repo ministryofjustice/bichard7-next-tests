@@ -19,7 +19,6 @@ Feature: {188} BR7 R5.3-RCD494 - 2x Offence Date Match
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Matching multiple offences with approximate date matching
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

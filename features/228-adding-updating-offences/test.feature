@@ -20,7 +20,6 @@ Feature: {228} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Adding offences as well as updating existing offences
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

@@ -21,7 +21,6 @@ Feature: {176} BR7 R5.3-RCD497 - Partial Match - Date Duration
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: Manually resolving exceptions for date duration mismatches
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

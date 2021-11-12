@@ -21,8 +21,6 @@ Feature: {132} BR7 R5.1.3-RCD467-Single CCR-SENDEF-Offence Added In Court
 		Given the data for this test is in the PNC
 
 	@Could
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: Adding a single CCR SENDEF offence in court
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

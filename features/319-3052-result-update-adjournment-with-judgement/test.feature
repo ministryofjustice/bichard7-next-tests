@@ -17,7 +17,6 @@ Feature: {319} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Wit
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: No PNC update for 3052 result (judgement)
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

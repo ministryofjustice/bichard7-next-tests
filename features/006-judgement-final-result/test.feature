@@ -20,7 +20,6 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 
 	@Should
 	@LoadTestUI
-	@ReadyToValidate
 	Scenario: I can resolve a trigger for check address
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

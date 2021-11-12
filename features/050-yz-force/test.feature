@@ -20,7 +20,6 @@ Feature: {050} R3.4_BR7_YZ Force Code
       And "input-message" is received
 
   @Must
-  @ReadyToValidate
   Scenario: YZ Force code is used in logs
     Given I am logged in as "generalhandler"
       And I view the list of exceptions

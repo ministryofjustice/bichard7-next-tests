@@ -18,7 +18,6 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Handling interim sexual order results
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

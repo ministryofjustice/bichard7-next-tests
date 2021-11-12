@@ -20,7 +20,6 @@ Feature: {221} BR7-R5.5-RCD576-PNC_No_Adj-Existing_Offences_Adj_Pre_Judg-Offence
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: Offences added in court with no adjudication on the PNC
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

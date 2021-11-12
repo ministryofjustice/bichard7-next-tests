@@ -22,7 +22,6 @@ Feature: {139} BR7 R5.2-RCD456-Bail Conditions 200 Char
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Ensure invalid characters are removed before being sent to the PNC
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

@@ -17,7 +17,6 @@ Feature: {321} BR7 R5.11-RCD673 - PNC update for 3052 result_Judgement Final Res
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: PNC Update for 3052 result
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

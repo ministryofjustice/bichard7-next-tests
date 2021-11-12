@@ -20,8 +20,6 @@ Feature: {245} BR7 R5.6-RCD554-Existing Offence-Adj Post Judg-no PNC Adjudicatio
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Raise exception for adjournment post judgement
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

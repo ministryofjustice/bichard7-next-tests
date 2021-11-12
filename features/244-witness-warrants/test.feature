@@ -20,7 +20,6 @@ Feature: {244} BR7 R5.6-RCD592-Witness Warrant-4586
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: Handling witness warrants
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

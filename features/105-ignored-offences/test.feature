@@ -21,8 +21,6 @@ Feature: {105} BR7 R5.0-RCD334-4583-Some Offences Ignored
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
-	@NeedsRunningAgainstPNC
 	Scenario: Ensuring that ignored offences are not displayed
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

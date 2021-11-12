@@ -18,7 +18,6 @@ Feature: {125} BR7 R5.1-RCD399-Force calculation-FFSS in PTIURN
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Force calculation from PTIURN
 		When I am logged in as "met.police"
 			And I view the list of exceptions

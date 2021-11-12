@@ -19,7 +19,6 @@ Feature: {171} BR7 R5.3-RCD513 - Stop List Offence added in court - 4583
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: Stop List Offence added in court
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

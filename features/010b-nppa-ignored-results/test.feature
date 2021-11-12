@@ -21,5 +21,5 @@ Feature: {010} R2_Regression_NPPA_NPP_001 - part 2
 		Given I am logged in as "wilt.shire"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers
-			And no PNC requests have been made
+			And no PNC updates have been made
 			And the audit log contains "Hearing Outcome ignored as no offences are recordable"

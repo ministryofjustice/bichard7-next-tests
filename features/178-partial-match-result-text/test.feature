@@ -20,7 +20,6 @@ Feature: {178} BR7 R5.3-RCD497 - Partial Match - Result Text
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Verifying correct behaviour when the result text for each offence is different
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

@@ -19,7 +19,6 @@ Feature: {065} R3.5_BR7_Populate RCC with PTIURN-Offence Withdrawn
 			And "input-message" is received
 
 	@Could
-	@NeedsValidating
 	Scenario: Correctly adding RCC segment
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

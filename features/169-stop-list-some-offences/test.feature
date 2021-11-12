@@ -22,7 +22,6 @@ Feature: {169} BR7 R5.3-RCD513 - Some Offences Stop Listed
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: Ignored offence handling when some results are on the stop list
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
