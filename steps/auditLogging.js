@@ -1,4 +1,3 @@
-const expect = require("expect");
 const isError = require("../utils/isError");
 const Poller = require("../utils/Poller");
 
@@ -25,24 +24,25 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
     .then((messages) => messages)
     .catch((error) => error);
 
-  expect(isError(result)).toBe(false);
+  if (isError(result)) {
+    throw result;
+  }
 };
 
 const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
   const {
-    shouldUploadMessagesToS3,
     incomingMessageBucket: { uploadedS3Files }
   } = context;
 
-  if (!shouldUploadMessagesToS3) {
-    return undefined;
-  }
-
   if (uploadedS3Files.length === 0) {
-    throw new Error(`No S3 files has been uploaded`);
+    throw new Error(`No S3 file has been uploaded`);
   }
 
   const s3FileIndex = parseInt(auditMessageNumber, 10) - 1;
+  if (s3FileIndex < 0 || s3FileIndex >= uploadedS3Files.length) {
+    throw new Error(`Index ${s3FileIndex} is out of range. There are ${uploadedS3Files.length} files uploaded to S3.`);
+  }
+
   const externalCorrelationId = uploadedS3Files[s3FileIndex].split("/").slice(-1)?.[0]?.split(".")?.[0];
 
   if (!externalCorrelationId) {
