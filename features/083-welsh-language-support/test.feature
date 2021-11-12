@@ -26,22 +26,22 @@ Feature: {083} R4.1_BR7_Welsh Language Handling
   Scenario: Using characters from the Welsh Language raises an exception
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
-    Then I open the record for "language welsh"
+    When I open the record for "language welsh"
       And I click the "Defendant" tab
       And I correct "ASN" to "1101ZD010000410836V"
-    Then I click the "Offences" tab
+      And I click the "Offences" tab
       And I view offence "1"
       And I prepend "Text" with "**"
       And I click the "Offences" tab
       And I view offence "4"
       And I prepend "Text" with "**"
-    Then I submit the record
+      And I submit the record
     Then I see exception "(Submitted)" in the exception list table
-      And the PNC updates the record
-      And I reload until I see "PS10 - Offence added to PNC"
-    Then I open the record for "language welsh"
+    When I reload until I see "PS10 - Offence added to PNC"
+      And I open the record for "language welsh"
       And I click the "Triggers" tab
     Then I see trigger "TRPS0003" for offence "1"
-    Then I see trigger "TRPS0003" for offence "4"
-    Then I see trigger "TRPS0010" for offence "4"
-    Then I see trigger "TRPS0010" for offence "5"
+      And I see trigger "TRPS0003" for offence "4"
+      And I see trigger "TRPS0010" for offence "4"
+      And I see trigger "TRPS0010" for offence "5"
+      And the PNC updates the record

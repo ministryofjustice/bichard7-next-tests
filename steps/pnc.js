@@ -14,10 +14,15 @@ const mockPNCDataForTest = async function () {
   if (this.realPNC) {
     let xmlData;
     const ncmFile = `${specFolder}/pnc-data.xml`;
+    const messageFile = `${specFolder}/input-message.xml`;
     if (fs.existsSync(ncmFile)) {
       xmlData = fs.readFileSync(ncmFile, "utf8").toString();
+    } else if (fs.existsSync(messageFile)) {
+      xmlData = fs.readFileSync(messageFile, "utf8").toString();
     } else {
-      xmlData = fs.readFileSync(`${specFolder}/input-message.xml`, "utf8").toString();
+      const messageFiles = fs.readdirSync(specFolder).filter((f) => f.match(/input-message-\d\.xml/));
+      if (messageFiles.length === 0) throw new Error("No input message files found");
+      xmlData = fs.readFileSync(`${specFolder}/${messageFiles[0]}`, "utf8").toString();
     }
 
     extractAllTags(this, xmlData);
@@ -79,8 +84,8 @@ const checkMocks = async function () {
 
     const condition = (result) => {
       if (result) {
-        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
-        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
+        const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString().trim();
+        const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString().trim();
         if (before === after) return false;
       }
       return result;
@@ -135,8 +140,8 @@ const pncNotUpdated = async function () {
     if (skipPNCValidation) return;
     const specFolder = path.dirname(this.featureUri);
     const result = await this.pnc.checkRecord(specFolder);
-    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString();
-    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString();
+    const before = fs.readFileSync(`${specFolder}/pnc-data.before.xml`).toString().trim();
+    const after = fs.readFileSync(`${specFolder}/pnc-data.after.xml`).toString().trim();
     expect(result).toBeTruthy();
     expect(before).toEqual(after);
   } else {

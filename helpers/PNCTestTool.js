@@ -55,6 +55,25 @@ const removeVariableData = (data, format) => {
     .replace(/\s+<GMT.*\/>/g, "");
 };
 
+const extractNameFromFiles = (specFolder) => {
+  const ncmFile = `${specFolder}/pnc-data.xml`;
+  const messageFile = `${specFolder}/input-message.xml`;
+  if (fs.existsSync(ncmFile)) {
+    return extractNamesFromNCM(ncmFile);
+  }
+  if (fs.existsSync(messageFile)) {
+    return extractNamesFromMessage(messageFile);
+  }
+  const names = fs
+    .readdirSync(specFolder)
+    .filter((f) => f.match(/input-message-\d\.xml/))
+    .map((f) => `${specFolder}/${f}`)
+    .map(extractNamesFromMessage);
+  const uniqueNames = [...new Set(names.map((n) => `${n.forename}${n.surname}`))];
+  if (uniqueNames.length !== 1) throw new Error("Multiple input messages with multiple names not allowed");
+  return names[0];
+};
+
 class PNCTestTool {
   constructor(options) {
     this.options = options;
@@ -65,16 +84,9 @@ class PNCTestTool {
   }
 
   async setupRecord(specFolder) {
-    let name;
     let existingRecord;
     const ncmFile = `${specFolder}/pnc-data.xml`;
-    const messageFile = `${specFolder}/input-message.xml`;
-
-    if (fs.existsSync(ncmFile)) {
-      name = extractNamesFromNCM(ncmFile);
-    } else {
-      name = extractNamesFromMessage(messageFile);
-    }
+    const name = extractNameFromFiles(specFolder);
 
     // Check if it exists first
     existingRecord = await this.fetchRecord(name, "xml");
@@ -87,7 +99,6 @@ class PNCTestTool {
 
     // Check it matches our expected start state
     if (!existingRecord || isError(existingRecord)) throw new Error("Could not fetch record from PNC");
-    // Remove the tags that change each time
 
     const beforePath = `${specFolder}/pnc-data.before.xml`;
     if (updateExpectations) {
@@ -96,21 +107,14 @@ class PNCTestTool {
       const existingRecordHTML = await this.fetchRecord(name, "html");
       fs.writeFileSync(beforePath.replace(".xml", ".html"), existingRecordHTML);
     }
-    const beforeState = fs.readFileSync(beforePath).toString();
+    const beforeState = fs.readFileSync(beforePath).toString().trim();
     if (existingRecord !== beforeState) {
       throw new Error("PNC record does not match expected before state");
     }
   }
 
   async checkRecord(specFolder) {
-    let name;
-    const ncmFile = `${specFolder}/pnc-data.xml`;
-    const messageFile = `${specFolder}/input-message.xml`;
-    if (fs.existsSync(ncmFile)) {
-      name = extractNamesFromNCM(ncmFile);
-    } else {
-      name = extractNamesFromMessage(messageFile);
-    }
+    const name = extractNameFromFiles(specFolder);
 
     // Retrieve the record
     const record = await this.fetchRecord(name, "xml");
@@ -124,7 +128,7 @@ class PNCTestTool {
       fs.writeFileSync(afterPath.replace(".xml", ".html"), recordHTML);
     }
 
-    const afterState = fs.readFileSync(afterPath).toString();
+    const afterState = fs.readFileSync(afterPath).toString().trim();
     return record === afterState;
   }
 
@@ -152,7 +156,7 @@ class PNCTestTool {
       })
       .then(({ status, data }) => {
         if (status === 200) {
-          return removeVariableData(data, format);
+          return removeVariableData(data, format).trim();
         }
         return false;
       })
