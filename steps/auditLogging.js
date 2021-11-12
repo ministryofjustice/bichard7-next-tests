@@ -35,7 +35,7 @@ const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, 
   } = context;
 
   if (uploadedS3Files.length === 0) {
-    throw new Error(`No S3 files has been uploaded`);
+    throw new Error(`No S3 file has been uploaded`);
   }
 
   const s3FileIndex = parseInt(auditMessageNumber, 10) - 1;
