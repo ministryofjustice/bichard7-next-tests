@@ -25,3 +25,4 @@ Feature: {269} BR7 R5.7-RCD464-TRPR0022 Extradition Order
 		When I view the list of exceptions
 		Then I see trigger "PR22 - Extradition Proceedings" in the exception list table
 			And there are no exceptions
+			And no PNC requests have been made
