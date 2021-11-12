@@ -22,7 +22,6 @@ Feature: {083} R4.1_BR7_Welsh Language Handling
       And "input-message" is received
 
   @Should
-  @NeedsValidating
   Scenario: Using characters from the Welsh Language raises an exception
     Given I am logged in as "generalhandler"
       And I view the list of exceptions

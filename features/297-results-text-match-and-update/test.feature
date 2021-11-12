@@ -24,7 +24,6 @@ Feature: {297} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text ISNT use
 
 	@Should
 	@LoadTestNoUI
-	@ReadyToValidate
 	Scenario: No exceptions are generated when the result text is the same and PNC is updated
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

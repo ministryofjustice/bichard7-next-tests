@@ -20,7 +20,6 @@ Feature: {148} BR7 R5.2-RCD452-Extracting Remand Date-Group 1
 
 	@Could
 	@LoadTestNoUI
-	@ReadyToValidate
 	Scenario: Update PNC based on date time and location in result text
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

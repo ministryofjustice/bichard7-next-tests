@@ -19,7 +19,6 @@ Feature: {270} BR7 R5.7-RCD464-TRPR0026 Driving Disqualification Suspended
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Correctly handle disqualified driver triggers
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

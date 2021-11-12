@@ -17,7 +17,6 @@ Feature: {186} BR7 R5.3-RCD494 - No Date Match
 			And "input-message" is received
 
 	@Could
-	@NeedsValidating
 	Scenario: Exception is generated when the Court Offence data date range is outside of the Offence date range in PNC
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

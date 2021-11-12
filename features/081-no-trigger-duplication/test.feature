@@ -19,7 +19,6 @@ Feature: {081} R4.1-BR7_Bail Conditions Pre Trigger
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Trigger and exceptions are created and trigger is not duplicated by resubmitting the exception
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

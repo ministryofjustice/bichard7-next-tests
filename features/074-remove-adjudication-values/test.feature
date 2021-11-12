@@ -20,7 +20,6 @@ Feature: {074} R4.0_BR7_Stripout Conviction for 2058-2059-2060
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: Removing adjudication values for certain offences
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

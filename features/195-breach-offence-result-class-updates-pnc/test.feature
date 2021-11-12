@@ -21,7 +21,6 @@ Feature: {195} BR7-R5.3.2-RCD556-Breach Offence with Sentence
 			And "input-message" is received
 
 	@Could
-	@NeedsValidating
 	Scenario: PNC is updated for the provided Result Class in the Breach Offence/Result
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

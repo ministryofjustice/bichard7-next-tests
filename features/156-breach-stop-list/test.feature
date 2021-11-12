@@ -20,7 +20,6 @@ Feature: {156} BR7 R5.2.2-RCD518 - Offence Code Not in list
 			And "input-message" is received
 
 	@Could
-	@ReadyToValidate
 	Scenario: No breach triggers if offence is in stop list
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

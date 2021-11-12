@@ -20,7 +20,6 @@ Feature: {191} BR7-R5.3.2-RCD556-Guilty Verdict-No Conviction Date
 			And "input-message" is received
 
 	@Could
-	@NeedsValidating
 	Scenario: Exception is generated when no Conviction Date is provided
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

@@ -20,7 +20,6 @@ Feature: {089} R4.1.1_BR7_Court Location from Text Exception
       And "input-message" is received
 
   @Should
-  @NeedsValidating
   Scenario: Updating the PNC with the court location from Text Exception
     Given I am logged in as "supervisor"
       And I view the list of exceptions

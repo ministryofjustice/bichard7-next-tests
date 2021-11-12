@@ -21,8 +21,6 @@ Feature: {204} UAT_Removal of Qualifiers 4004
       And "input-message" is received
 
   @Must
-  @ReadyToValidate
-  @NeedsRunningAgainstPNC
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as "generalhandler"
       And I view the list of exceptions

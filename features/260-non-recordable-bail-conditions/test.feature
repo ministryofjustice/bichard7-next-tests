@@ -20,7 +20,6 @@ Feature: {260} BR7 R5.7-RCD611 - Bail Qualifier for Non Recordable & Ignored Off
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Handling non-recordable bail conditions
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

@@ -17,7 +17,6 @@ Feature: {320} BR7 R5.11-RCD673 -  No PNC update for 3052 result_Adjournment Pos
 		Given the data for this test is in the PNC
 
 	@Should
-	@NeedsValidating
 	Scenario: No PNC update for 3052 result (post-judgement)
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

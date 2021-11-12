@@ -20,7 +20,6 @@ Feature: {152} BR7 R5.2.2-RCD518 - 2xResult Code Only - NG - Final Result
 			And "input-message" is received
 
 	@Could
-	@NeedsValidating
 	Scenario: Breach trigger generation with exceptions
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

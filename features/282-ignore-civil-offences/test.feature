@@ -18,7 +18,6 @@ Feature: {282} BR7 R5.8-RCD638 - TRPR0029 - Ignored Offence
 			And "input-message" is received
 
 	@Should
-	@NeedsValidating
 	Scenario: Ignore civil offences
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

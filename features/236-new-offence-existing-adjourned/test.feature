@@ -18,7 +18,6 @@ Feature: {236} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Adj With Judg-Of
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Adding new offence in court where existing offences are adjourned
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

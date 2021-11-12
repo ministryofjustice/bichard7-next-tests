@@ -22,8 +22,6 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
       And "input-message" is received
 
   @Must
-  @NeedsValidating
-  @NeedsRunningAgainstPNC
   @MissingNCMFile
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "supervisor"

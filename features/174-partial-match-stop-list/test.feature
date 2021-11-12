@@ -19,7 +19,6 @@ Feature: {174} BR7 R5.3-RCD497 - Partial Match - Stop List
 			And "input-message" is received
 
 	@Should
-	@ReadyToValidate
 	Scenario: Ensure offences are correctly matched when there is a partial match in the stop list
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

@@ -20,8 +20,6 @@ Feature: {047} #186 - Result text population for Orders - 2nd variation
 
 	@Could
 	@LoadTestUI
-	@ReadyToValidate
-	@NeedsRunningAgainstPNC
 	Scenario: Result text population for Orders - 2nd variation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

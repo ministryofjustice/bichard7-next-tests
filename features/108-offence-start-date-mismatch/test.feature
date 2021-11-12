@@ -23,7 +23,6 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
       And "input-message" is received
 
   @Must
-  @ReadyToValidate
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "generalhandler"
       And I view the list of exceptions

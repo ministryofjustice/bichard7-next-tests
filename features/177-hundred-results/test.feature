@@ -19,7 +19,6 @@ Feature: {177} BR7 R5.3-RCD497 - 100x Results Match - Different Order
 			And "input-message" is received
 
 	@Could
-	@NeedsRunningAgainstPNC
 	Scenario: Matching 100 identical results
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
