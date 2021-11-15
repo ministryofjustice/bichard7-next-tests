@@ -14,6 +14,9 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
 
       MadeTech Definition:
       Trigger reallocation when a force owner changes
+
+      Note: this test can't be run against the PNC because it requires the force used to insert the record to be changed.
+      We can automate this in the future if we choose to.
       """
 
   Background:
@@ -22,7 +25,7 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
 
   @Must
   @AuditLog
-  @FailsOnRealPNC
+  @ExcludeOnPreProd
   Scenario: Trigger reallocation when a force owner changes
     Given I am logged in as "norfolk.user"
       And I view the list of exceptions

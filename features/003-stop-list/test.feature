@@ -20,7 +20,6 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
 
   @Must
   @LoadTestUI
-  @Validated
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as "generalhandler"
       And I view the list of exceptions

@@ -21,7 +21,6 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
   @Must
   @LoadTestUI
   @AuditLog
-  @FailsOnRealPNC
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as "supervisor"
       And I view the list of exceptions

@@ -13,8 +13,9 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
       The PNC response to the ASN query includes the information that this is a PND and the solution generates a PENHRG (the Arrest Summons Record on the PNC has a “PenaltyNoticeCaseReference” and so the Bichard7 solution must generate a PENHRG message in order to update the PNC).
       This result is classified as a “Judgement with Final Result” by the solution.
 
-      MadeTech Definition:
+      MadeTech Definition: PNC is updated when there are multiple identical results
 
+      Note: it is not possible to run this test on the PNC at the moment because there are multiple records for Peter Williams
       """
 
   Background:
@@ -22,7 +23,7 @@ Feature: {080} R4.1-BR7-Scenario AJ-Fixed Penalty Notice for Disorder (Dealt wit
       And "input-message" is received
 
   @Must
-  @MissingNCMFile
+  @ExcludeOnPreProd
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "supervisor"
       And I view the list of exceptions
