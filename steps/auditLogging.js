@@ -5,14 +5,19 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
   const { auditLogDynamoDb } = context;
   const getMessages = () => auditLogDynamoDb.getMessageByExternalCorrelationId(externalCorrelationId);
 
+  let events = null;
   const options = {
     timeout: 90000,
     delay: 1000,
     name: eventType,
     condition: (message) => {
       if (!message) {
+        events = null;
         return false;
       }
+
+      events = message.events || [];
+
       const hasEvent = message.events.some((event) => event.eventType === eventType);
 
       return !!contains === hasEvent;
@@ -24,9 +29,23 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
     .then((messages) => messages)
     .catch((error) => error);
 
-  if (isError(result)) {
-    throw result;
+  if (!isError(result)) {
+    return;
   }
+
+  let eventsFoundMessage = "";
+
+  if (!events) {
+    eventsFoundMessage = `Message with correlation ID ${externalCorrelationId} not found.`;
+  } else {
+    events = events.sort((eventA, eventB) => (eventA.timestamp > eventB.timestamp ? 1 : -1));
+    eventsFoundMessage = `
+    Following events found in the message with correlation ID ${externalCorrelationId}:
+    ${events.map((event) => `\t- ${event.timestamp}: ${event.eventType}\n`)}
+    `;
+  }
+
+  throw new Error(`${result.message}${eventsFoundMessage}`);
 };
 
 const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
