@@ -11,6 +11,7 @@ class Poller {
 
     return new Promise((resolve, reject) => {
       const processHandles = [];
+      const startTime = Date.now();
 
       const timeoutHandle = setTimeout(() => {
         if (isDone) {
@@ -18,7 +19,8 @@ class Poller {
         }
         isDone = true;
         clearTimeouts([timeoutHandle, ...processHandles]);
-        reject(new Error(`Failed polling due to exceeding the timeout. (${name})`));
+        const totalSeconds = (Date.now() - startTime) / 1000;
+        reject(new Error(`Failed polling due to exceeding the timeout after ${totalSeconds} seconds. (${name})`));
       }, timeout);
 
       const process = async () => {
