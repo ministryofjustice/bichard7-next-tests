@@ -6,7 +6,7 @@ const checkEventByExternalCorreationId = async (context, externalCorrelationId, 
   const getMessages = () => auditLogDynamoDb.getMessageByExternalCorrelationId(externalCorrelationId);
 
   const options = {
-    timeout: 60000,
+    timeout: 90000,
     delay: 1000,
     name: eventType,
     condition: (message) => {
