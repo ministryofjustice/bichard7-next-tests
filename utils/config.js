@@ -9,7 +9,8 @@ const getConfig = () => {
 
   const hostMachine = process.env.HOST_MACHINE || "localhost";
 
-  const timeout = parseInt(process.env.TEST_TIMEOUT, 10) || 30000;
+  const defaultTimeout = process.env.MESSAGE_ENTRY_POINT === "s3" ? 100000 : 60000;
+  const timeout = parseInt(process.env.TEST_TIMEOUT, 10) || defaultTimeout;
 
   return {
     baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
