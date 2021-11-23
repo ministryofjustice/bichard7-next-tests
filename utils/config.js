@@ -9,7 +9,7 @@ const getConfig = () => {
 
   const hostMachine = process.env.HOST_MACHINE || "localhost";
 
-  const defaultTimeout = process.env.MESSAGE_ENTRY_POINT === "s3" ? 100000 : 60000;
+  const defaultTimeout = process.env.MESSAGE_ENTRY_POINT === "s3" ? 100000 : 30000;
   const timeout = parseInt(process.env.TEST_TIMEOUT, 10) || defaultTimeout;
 
   return {
