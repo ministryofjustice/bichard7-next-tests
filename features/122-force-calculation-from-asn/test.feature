@@ -14,6 +14,7 @@ Feature: {122} BR7 R5.1-RCD399-Force calculation-FF in ASN
 			"""
 
 	@Should
+	@PreProdTest
 	@OnlyRunsOnPNC
 	Scenario: Deriving the force owner from the ASN
 		When I am logged in as "met.police"

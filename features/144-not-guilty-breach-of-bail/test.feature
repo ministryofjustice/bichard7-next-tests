@@ -17,6 +17,7 @@ Feature: {144} BR7 R5.2-RCD491-TRPR0008 BA76005 Not Guilty
 		Given "input-message" is received
 
 	@Could
+	@PreProdTest
 	@OnlyRunsOnPNC
 	Scenario: Handling breach of bail when not guilty
 		Given I am logged in as "generalhandler"
