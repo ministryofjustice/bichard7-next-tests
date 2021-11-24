@@ -19,9 +19,17 @@ console.log(`Sending messages every ${interval}ms for ${duration}s`);
 world.featureUri = path.resolve(__dirname, "../features/001-sexual-offences/test.feature");
 world.pnc.clearMocks();
 mockPNCDataForTest.call(world);
+
 const sendMessage = () => {
-  sendMessageForTest.call(world, "input-message");
-  sentMessages += 1;
+  sendMessageForTest
+    .call(world, "input-message")
+    .then(() => {
+      console.log("Message sent");
+      sentMessages += 1;
+    })
+    .catch(() => {
+      console.log("Error sending message");
+    });
 };
 
 const sender = setInterval(sendMessage, interval);
