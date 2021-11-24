@@ -1,0 +1,19 @@
+{
+  "name": "artillery-loadtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "artillery run -e test --insecure config.yml",
+    "test:dev": "artillery run -e dev -s --insecure config.yml",
+    "test:debug": "DEBUG=http artillery run -e dev -s --insecure config.yml",
+    "test:debug:all": "DEBUG=http* artillery run -e dev --insecure config.yml"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "artillery": "^2.0.0-5",
+    "jsonwebtoken": "^8.5.1",
+    "pg-promise": "^10.11.1"
+  }
+}
