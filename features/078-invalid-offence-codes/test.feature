@@ -19,6 +19,7 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 			"""
 
 	@Could
+	@PreProdTest
 	@OnlyRunsOnPNC
 	Scenario: Testing invalid offence codes
 		Given "<messageId>" is received

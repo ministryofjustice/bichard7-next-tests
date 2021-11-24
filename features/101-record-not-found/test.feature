@@ -19,6 +19,7 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 		Given "input-message" is received
 
 	@Should
+	@PreProdTest
 	@OnlyRunsOnPNC
 	Scenario: Trigger is still created when record is not found in PNC
 		Given I am logged in as "generalhandler"

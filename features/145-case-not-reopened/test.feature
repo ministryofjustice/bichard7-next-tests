@@ -19,6 +19,7 @@ Feature: {145} BR7 R5.2-RCD490-TRPR0025 case not reopened
 		Given "input-message" is received
 
 	@Could
+	@PreProdTest
 	@OnlyRunsOnPNC
 	Scenario: Not creating case reopened trigger if offence is not recordable
 		Given I am logged in as "supervisor"
