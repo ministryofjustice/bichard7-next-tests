@@ -121,4 +121,6 @@ class Bichard extends World {
   }
 }
 
+module.exports = Bichard;
+
 setWorldConstructor(Bichard);
