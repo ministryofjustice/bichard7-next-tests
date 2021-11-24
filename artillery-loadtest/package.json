@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "artillery run -e test --insecure config.yml",
+    "test": "artillery run -e test --insecure --output report.json config.yml",
     "test:dev": "artillery run -e dev -s --insecure config.yml",
     "test:debug": "DEBUG=http artillery run -e dev -s --insecure config.yml",
     "test:debug:all": "DEBUG=http* artillery run -e dev --insecure config.yml"

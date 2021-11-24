@@ -11,13 +11,15 @@ config:
         - duration: 60
           arrivalRate: 5
           name: Warm up
-          maxVusers: 1
-        - duration: 120
+          maxVusers: 10
+        - duration: 60
           arrivalRate: 5
           rampTo: 50
+          maxVusers: 300
           name: Ramp up load
         - duration: 600
           arrivalRate: 50
+          maxVusers: 300
           name: Sustained load
 before:
   flow:

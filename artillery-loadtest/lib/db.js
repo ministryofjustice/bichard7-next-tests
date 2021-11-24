@@ -19,18 +19,21 @@ async function createPostgresUser(userid) {
 
   const defaultPasswordHash =
     "$argon2id$v=19$m=15360,t=2,p=1$CK/shCsqcAng1U81FDzAxA$UEPw1XKYaTjPwKtoiNUZGW64skCaXZgHrtNraZxwJPw";
+  try {
+    const user = await db.one(
+      "insert into br7own.users (username, email, exclusion_list, inclusion_list, visible_courts, visible_forces, excluded_triggers, forenames, surname, password) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id, username, email",
+      [userid, `${userid}@artillery-user.com`, "", "01", "", "01", "", "", userid, defaultPasswordHash]
+    );
 
-  const user = await db.one(
-    "insert into br7own.users (username, email, exclusion_list, inclusion_list, visible_courts, visible_forces, excluded_triggers, forenames, surname, password) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id, username, email",
-    [userid, `${userid}@artillery-user.com`, "", "01", "", "01", "", "", userid, defaultPasswordHash]
-  );
-
-  await db.none(
-    "insert into br7own.users_groups (user_id, group_id) values ($1, (select id from br7own.groups where name = 'B7Supervisor_grp'))",
-    [user.id]
-  );
-
-  return user;
+    await db.none(
+      "insert into br7own.users_groups (user_id, group_id) values ($1, (select id from br7own.groups where name = 'B7Supervisor_grp'))",
+      [user.id]
+    );
+    return user;
+  } catch (e) {
+    console.log("Error quering postgres");
+    return { email: "unknown@example.com" };
+  }
 }
 
 async function cleanupPostgresUser(email) {
@@ -52,9 +55,13 @@ async function cleanupAllPostgresUsers() {
 
 async function getVerifyToken(email) {
   const db = await connect();
-
-  const result = await db.one("SELECT email_verification_code FROM br7own.users WHERE email = $1", [email]);
-  return result.email_verification_code;
+  try {
+    const result = await db.one("SELECT email_verification_code FROM br7own.users WHERE email = $1", [email]);
+    return result.email_verification_code;
+  } catch (e) {
+    console.log("Error quering postgres for verification code");
+    return "unknown";
+  }
 }
 
 module.exports = {

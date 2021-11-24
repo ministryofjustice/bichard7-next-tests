@@ -42,9 +42,9 @@ const sendMsg = async function (world, messagePath) {
       true
     );
     expect(isError(checkEventResult)).toBeFalsy();
-  } else {
-    await world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
+    return Promise.resolve();
   }
+  return world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
 };
 
 const sendMessage = async function (messageId) {
