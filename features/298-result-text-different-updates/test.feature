@@ -31,9 +31,11 @@ Feature: {298} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Results-Result Text 
 			And I click the "Offences" tab
 			And I view offence "1"
 			And I correct "Sequence Number" to "1"
+			And I prepend "Text" with "**"
 			And I click the "Offences" tab
 			And I view offence "2"
 			And I correct "Sequence Number" to "2"
+			And I prepend "Text" with "**"
 			And I click the "Offences" tab
 		When I submit the record
 		Then I see exception "(Submitted)" in the exception list table
