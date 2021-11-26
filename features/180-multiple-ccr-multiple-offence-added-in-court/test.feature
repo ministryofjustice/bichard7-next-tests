@@ -24,10 +24,12 @@ Feature: {180} BR7 R5.3-RCD496 - Multiple CCR group multiple offence added in co
 
 	@Could
 	Scenario: Multiple CCR groups and multiple offences added in court
-		Given I am logged in as "generalhandler"
+		Given I am logged in as "supervisor"
 			And "input-message-1" is received
 		When I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
+			And there are no exceptions raised for "Canberra Martin"
 		When "input-message-2" is received
 		Then the PNC updates the record
 			And I see trigger "PS10 - Offence added to PNC" in the exception list table
+			And there are no exceptions
