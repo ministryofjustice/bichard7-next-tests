@@ -20,7 +20,7 @@
     "test:must": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and not @AuditLog' features",
     "test:must:auditlogs": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and @AuditLog' features",
     "test:baseline": "STACK_TYPE=baseline npm run test",
-    "test:baseline:legacy": "STACK_TYPE=baseline AUTH_TYPE=bichard ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnBaseline and not @OnlyRunsOnPNC'",
+    "test:baseline:legacy": "STACK_TYPE=baseline AUTH_TYPE=bichard ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnBaseline and not @OnlyRunsOnPNC and not @AuditLog'",
     "test:browser": "HEADLESS=false npm run test",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",
     "prepare": "husky install"
