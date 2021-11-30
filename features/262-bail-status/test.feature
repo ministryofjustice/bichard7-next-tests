@@ -25,6 +25,7 @@ Feature: {262} BR7 R5.7-RCD602-No NEWREM Bail Conditions for Defendant on Pre Re
 			And I view the list of exceptions
 		Then I see trigger "PR19 - Bail direction" in the exception list table
 			And there are no exceptions raised for "PRERELEASECONDITIONS DefendantOn"
+			And the PNC updates the record
 		When I navigate to the list of reports
 			And I access the "Bail Conditions" report
 			And I generate today's report
