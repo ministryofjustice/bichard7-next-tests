@@ -95,11 +95,11 @@ rm -f $TEST_ENV_FILE
 echo "export STACK_TYPE=\"next\"" > $TEST_ENV_FILE
 echo "export DB_HOST=\"${DB_HOST}\"" >> $TEST_ENV_FILE
 echo "export UI_HOST=\"${UI_HOST}\""  >> $TEST_ENV_FILE
-echo "export UI_PORT=\"443\""  >> $TEST_ENV_FILE
-echo "export UI_SCHEME=\"https\""  >> $TEST_ENV_FILE
-echo "export USERS_SCHEME=\"https\""  >> $TEST_ENV_FILE
+echo "export UI_PORT=\"80\""  >> $TEST_ENV_FILE
+echo "export UI_SCHEME=\"http\""  >> $TEST_ENV_FILE
+echo "export USERS_SCHEME=\"http\""  >> $TEST_ENV_FILE
 echo "export USERS_HOST=\"${USERS_HOST}\""  >> $TEST_ENV_FILE
-echo "export USERS_PORT=\"443\""  >> $TEST_ENV_FILE
+echo "export USERS_PORT=\"80\""  >> $TEST_ENV_FILE
 if [[ "${REAL_PNC}x" != "truex" ]]; then
   echo "export PNC_HOST=\"${PNC_HOST}\""  >> $TEST_ENV_FILE
 fi
