@@ -1,10 +1,9 @@
 const expect = require("expect");
 const jwt = require("jsonwebtoken");
 const { authType, timeout } = require("../utils/config");
-const { home, authenticateUrl, userService, userServiceVerification } = require("../utils/urls");
+const { home, authenticateUrl, userService } = require("../utils/urls");
 const dummyUsers = require("../utils/dummyUserData");
 
-const tokenIssuer = () => process.env.TOKEN_ISSUER || "Bichard";
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
 const parallelUserName = (world, name) => (world.parallel ? `${name}.${process.env.PARALLEL_ID}` : name);
@@ -41,22 +40,19 @@ const logInToUserServiceAs = async function (world, name) {
   const username = parallelUserName(world, name);
   const emailAddress = `${username}@example.com`;
 
-  let page = await world.browser.newPage(userService());
+  const page = await world.browser.newPage(userService());
   await page.waitForSelector("#email");
 
   await page.type("#email", emailAddress);
-  await page.click("button[type='submit']");
+  await world.browser.clickAndWait("button[type='submit']");
 
   // Grab verification code from the database and generate the email verification token
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const verificationCode = await world.db.getEmailVerificationCode(emailAddress);
-  const tokenData = { emailAddress, verificationCode };
-  const verificationToken = jwt.sign(tokenData, tokenSecret(), { issuer: tokenIssuer() });
 
-  // Visit page linked to from verification email
-  page = await world.browser.newPage(userServiceVerification(verificationToken));
   await page.waitForSelector("#password");
 
+  await page.type("#validationCode", verificationCode);
   await page.type("#password", "password");
   await world.browser.clickAndWait("button[type='submit']");
   await page.waitForXPath('//*[contains(text(), "Welcome ")]');
