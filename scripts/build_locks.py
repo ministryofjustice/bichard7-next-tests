@@ -91,10 +91,8 @@ def acquire(table, project, duration, timeout):
                     ':expire_at': {'N': _epoch_str(expire_at)},
                     ':token': {'S': token},
                 })
-            print(token)
             sys.exit(0)
         except dynamodb.exceptions.ConditionalCheckFailedException:
-            # Sleep below
             pass
 
         time.sleep(5)
