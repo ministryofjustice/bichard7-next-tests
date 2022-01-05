@@ -3,3 +3,4 @@ paths-ignore:
   - helpers
   - utils
   - steps
+  - scripts/build_locks.py
