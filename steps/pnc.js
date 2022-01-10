@@ -39,7 +39,7 @@ const mockPNCDataForTest = async function () {
     }
   } else {
     // mock a response in the PNC
-    this.mocks = require(`${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
+    this.mocks = require(`../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
 
     /* eslint-disable no-restricted-syntax */
     for (const mock of this.mocks) {
