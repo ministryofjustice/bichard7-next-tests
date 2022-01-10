@@ -1,7 +1,9 @@
 const axiosClass = require("axios").default;
 const https = require("https");
 const fs = require("fs");
-const parser = require("fast-xml-parser");
+const { XMLParser } = require("fast-xml-parser");
+
+const parser = new XMLParser();
 const Poller = require("../utils/Poller");
 const isError = require("../utils/isError");
 
