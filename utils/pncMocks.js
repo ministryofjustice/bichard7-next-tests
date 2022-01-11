@@ -1,5 +1,7 @@
 const fs = require("fs");
-const parser = require("fast-xml-parser");
+const { XMLParser } = require("fast-xml-parser");
+
+const parser = new XMLParser();
 const { extractAllTags, replaceAllTags } = require("./tagProcessing");
 
 const reformatDate = (input) => {
@@ -32,10 +34,11 @@ module.exports = {
 
     const parsed = parser.parse(xmlData);
     const prosecutorRef = parsed.NewCaseMessage.Case.Defendant.ProsecutorReference.slice(-7);
-    const personFamilyName = parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(
-      0,
-      12
-    ).padEnd(12, " ");
+    const personFamilyName =
+      parsed.NewCaseMessage.Case.Defendant.PoliceIndividualDefendant.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(
+        0,
+        12
+      ).padEnd(12, " ");
     const offenceEl = parsed.NewCaseMessage.Case.Defendant.Offence;
     const offenceData = Object.prototype.hasOwnProperty.call(offenceEl, "length") ? offenceEl : [offenceEl];
     const offences = offenceData.map((offence) => ({

@@ -1,6 +1,6 @@
 const expect = require("expect");
 const fs = require("fs");
-const parse = require("csv-parse/lib/sync");
+const { parse } = require("csv-parse/sync");
 const { getTableData, getRawTableData } = require("./ui");
 
 const accessReport = async function (report) {
