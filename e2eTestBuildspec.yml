@@ -7,6 +7,7 @@ phases:
   build:
     commands:
       - set -e
+      - bash scripts/pipeline-test-command.sh
       - TEST_COMMAND=${TEST_COMMAND:-"test"}
       - AL_TEST_COMMAND=${AL_TEST_COMMAND:-"test:auditlogs"}
       - echo "Trying to acquire a build lock"
