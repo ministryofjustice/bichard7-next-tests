@@ -9,10 +9,7 @@ aws ecr get-login-password --region eu-west-2 | docker login \
   --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com
 
 # Get our latest staged puppeteer image
-IMAGE_HASH=$(aws ecr describe-images \
-  --repository-name puppeteer \
-  --query 'to_string(sort_by(imageDetails,& imagePushedAt)[-1].imageDigest)'
-)
+IMAGE_HASH=$(aws ecr describe-images --repository-name puppeteer | jq '.imageDetails|sort_by(.imagePushedAt)[-1].imageDigest' | tr -d '"')
 
 IMAGE_HASH=$(echo $IMAGE_HASH | tr -d '"')
 DOCKER_IMAGE_HASH="${AWS_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/puppeteer@${IMAGE_HASH}"
