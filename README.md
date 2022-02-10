@@ -33,7 +33,13 @@ HEADLESS=false npm run test:local
 
 If you want to take screenshots of the browser as the tests run, you can add `RECORD=true` as an environment variable. The screenshots go in a unique folder within the `screenshots` directory. If your tests fail it will print out which folder the screenshots for that specific test are in.
 
-##Environment Variables
+### Running the tests remotely (on the actual e2e environment)
+
+Connect to the e2e vpn
+
+Then run the codebuild job `apply-dev-sgs-to-e2e-test` in `bichard7-shared`, then run your tests and remember to run `remove-dev-sgs-from-e2e-test` when you are finished.
+
+## Environment Variables
 
 - `WORKSPACE`: If set to `local-next`, it is assumed that tests are running on local environment. This will simulate processes that are not supported on local infrastructure. Running `npm run test:local` will set this variable to `local-next`.
 - `STACK_TYPE`: It defines the stack type used for testing. Values can be `next` or `baseline`. The default value is `next`.
