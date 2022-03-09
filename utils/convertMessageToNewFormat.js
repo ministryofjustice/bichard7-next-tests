@@ -1,3 +1,5 @@
+const uuidv4 = require("uuid").v4;
+
 const convertMessageToNewFormat = (message) => {
   let resultedCaseMessage = message.match(/(<DC:ResultedCaseMessage[\s\S]*<\/DC:ResultedCaseMessage>)/)?.[0];
   if (!resultedCaseMessage) {
@@ -63,6 +65,7 @@ const convertMessageToNewFormat = (message) => {
           text/plain
       </ContentType>
       <DataStreamContent>
+          <!-- To avoid duplicate message hash: ${uuidv4()} -->
           ${resultedCaseMessage}
       </DataStreamContent>
     </DataStream>
