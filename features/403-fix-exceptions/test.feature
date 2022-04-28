@@ -1,4 +1,4 @@
-Feature: {403} Fixing exceptions and resubmitting
+Feature: 403 - Fixing exceptions and resubmitting
 
 			"""
 			There is an exception on the incoming message which, when fixed, is resubmitted successfully to the PNC

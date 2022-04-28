@@ -11,4 +11,5 @@ Feature: {085} R2_AD_001 (Audit Log)
 			"""
 
 	# Test requirements are covered by tests 013 and 142
+	@Excluded
 	Scenario: Verify audit log functionality

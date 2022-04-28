@@ -1,4 +1,4 @@
-Feature: {404} Fixing exceptions and triggers and resubmitting
+Feature: 404 - Fixing exceptions and triggers and resubmitting
 
 			"""
 			There is an exception on the incoming message which, when fixed, is resubmitted successfully to the PNC
