@@ -7,6 +7,11 @@ const recordComparisons = process.env.RECORD_COMPARISONS === "true";
 const comparisonOutDir = "comparisons";
 let logRecorder;
 
+const extractTestId = (featureUri) => {
+  const match = featureUri.match(/features\/([^-]*)-.*/);
+  return match ? match[1] : undefined;
+};
+
 BeforeAll(async () => {
   const clearRecordings = process.env.CLEAR_RECORDINGS !== "false";
   if (clearRecordings) {
@@ -35,7 +40,7 @@ AfterAll(() => {
 Before(async function (context) {
   this.featureUri = context.gherkinDocument.uri;
   // eslint-disable-next-line prefer-destructuring
-  this.testId = this.featureUri.match(/features\/([^-]*)-.*/)[1];
+  this.testId = extractTestId(this.featureUri);
   if (recordComparisons) {
     if (
       fs.existsSync(`${comparisonOutDir}/test-${this.testId}.json`) ||
