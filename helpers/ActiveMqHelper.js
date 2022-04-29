@@ -1,5 +1,38 @@
 const { ConnectFailover } = require("stompit");
 
+const getMessage = (client, queueName) =>
+  new Promise((resolve, reject) => {
+    let subscription;
+    let timeout;
+    const callback = (error1, message) => {
+      if (error1) {
+        reject(error1);
+      } else {
+        clearTimeout(timeout);
+        message.readString("utf-8", (error2, buffer) => {
+          if (error2) {
+            reject(error2);
+          } else if (!buffer) {
+            reject(new Error("No buffer returned for message"));
+          } else {
+            client.ack(message);
+            try {
+              subscription.unsubscribe();
+            } catch (e) {
+              console.error(e);
+            }
+            resolve(buffer.toString());
+          }
+        });
+      }
+    };
+    subscription = client.subscribe({ destination: queueName, ack: "client" }, callback);
+    timeout = setTimeout(() => {
+      subscription.unsubscribe();
+      resolve(null);
+    }, 500);
+  });
+
 class ActiveMqHelper {
   constructor(config) {
     this.url = config.url;
@@ -66,6 +99,23 @@ class ActiveMqHelper {
         }
       });
     });
+  }
+
+  async getMessages(queueName) {
+    const messages = [];
+    const client = await this.connectIfRequired();
+    let waiting = true;
+
+    while (waiting) {
+      // eslint-disable-next-line no-await-in-loop
+      const message = await getMessage(client, queueName);
+      if (message) {
+        messages.push(message);
+      } else {
+        waiting = false;
+      }
+    }
+    return messages;
   }
 }
 
