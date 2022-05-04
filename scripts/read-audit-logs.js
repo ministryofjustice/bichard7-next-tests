@@ -12,13 +12,12 @@ const processLog = (log) => {
   return {
     componentId: event.componentId,
     eventType: event.eventType,
-    receivedAt: event.eventDateTime,
+    receivedAt: new Date(event.eventDateTime),
     nameValuePairs: processNameValuePairs(event.nameValuePairs)
   };
 };
 
-// eslint-disable-next-line no-nested-ternary
-const dateSort = (a, b) => (a.receivedAt > b.receivedAt ? 1 : b.receivedAt > a.receivedAt ? -1 : 0);
+const dateSort = (a, b) => a.receivedAt.getTime() - b.receivedAt.getTime();
 
 const processLogs = (logs) => logs.map(processLog).sort(dateSort);
 
