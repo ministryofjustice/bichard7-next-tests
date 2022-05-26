@@ -23,6 +23,7 @@
     "test:baseline:legacy": "STACK_TYPE=baseline AUTH_TYPE=bichard ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnBaseline and not @OnlyRunsOnPNC and not @AuditLog'",
     "test:browser": "HEADLESS=false npm run test",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",
+    "test:characterisation": "cd ./functional/integration/characterisation && jest && cd -",
     "prepare": "husky install"
   },
   "repository": {
@@ -39,6 +40,7 @@
     "@babel/preset-env": "^7.16.7",
     "@cucumber/cucumber": "^7.3.2",
     "@cucumber/pretty-formatter": "^1.0.0-alpha.1",
+    "@types/jest": "^27.5.1",
     "aws-sdk": "^2.1053.0",
     "axios": "^0.24.0",
     "csv-parse": "^5.0.4",
@@ -51,6 +53,8 @@
     "puppeteer": "^13.0.1",
     "puppeteer-mass-screenshots": "^1.0.15",
     "stompit": "^1.0.0",
+    "ts-jest": "^28.0.3",
+    "typescript": "^4.7.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
