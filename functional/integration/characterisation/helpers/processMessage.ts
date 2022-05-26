@@ -2,28 +2,16 @@ import promisePoller from "promise-poller"
 import type BichardResultType from "../types/BichardResultType"
 import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
 import { v4 as uuid } from "uuid"
-import ActiveMqHelper from "./ActiveMqHelper"
-import defaults from "./defaults"
+import type ActiveMqHelper from "../../../../helpers/ActiveMqHelper"
 import extractExceptionsFromAho from "./extractExceptionsFromAho"
-import generateMockPncQueryResult from "./generateMockPncQueryResult"
-import MockPncGateway from "./MockPncGateway"
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc"
 import World from "../../../../steps/world"
 import type PostgresHelper from "../../../../helpers/PostgresHelper"
 
 const world = new World({})
 const { pg } = world.db as PostgresHelper
+const mq = world.mq as ActiveMqHelper
 const realPnc = process.env.REAL_PNC === "true"
-
-const processMessageCore = (
-  messageXml: string,
-  { recordable = true, pncOverrides = {} }: ProcessMessageOptions
-): BichardResultType => {
-  const response = recordable ? generateMockPncQueryResult(messageXml, pncOverrides) : undefined
-  const pncGateway = new MockPncGateway(response)
-  // return CoreHandler(messageXml, pncGateway)
-  return {} as any
-}
 
 type ProcessMessageOptions = {
   expectRecord?: boolean
@@ -52,11 +40,6 @@ const processMessageBichard = async (
   }
 
   // Push the message to MQ
-  const mq = new ActiveMqHelper({
-    url: process.env.MQ_URL || defaults.mqUrl,
-    login: process.env.MQ_USER || defaults.mqUser,
-    password: process.env.MQ_PASSWORD || defaults.mqPassword
-  })
   await mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageXmlWithUuid)
 
   // Wait for the record to appear in Postgres
@@ -99,10 +82,4 @@ const processMessageBichard = async (
   return { triggers, exceptions }
 }
 
-export default (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardResultType> => {
-  if (process.env.USE_BICHARD === "true") {
-    return processMessageBichard(messageXml, options)
-  }
-
-  return Promise.resolve(processMessageCore(messageXml, options))
-}
+export default (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardResultType> => processMessageBichard(messageXml, options)
