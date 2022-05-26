@@ -23,7 +23,7 @@
     "test:baseline:legacy": "STACK_TYPE=baseline AUTH_TYPE=bichard ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnBaseline and not @OnlyRunsOnPNC and not @AuditLog'",
     "test:browser": "HEADLESS=false npm run test",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",
-    "test:characterisation": "cd ./functional/integration/characterisation && jest && cd -",
+    "test:characterisation": "cd ./functional/integration/characterisation && jest --runInBand && cd -",
     "prepare": "husky install"
   },
   "repository": {
