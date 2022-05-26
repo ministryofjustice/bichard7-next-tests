@@ -2,8 +2,10 @@ import axios from "axios"
 import merge from "lodash.merge"
 import type { OffenceParsedXml, ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
 import parseSpiResult from "./parseSpiResult"
-import defaults from "./defaults"
+import getConfig from "./config"
 import reformatDate from "./reformatDate"
+
+const config = getConfig()
 
 const extractDates = (offence: OffenceParsedXml) => {
   const startDate = reformatDate(offence.BaseOffenceDetails.OffenceTiming.OffenceStart.OffenceDateStartDate)
@@ -68,7 +70,7 @@ const mockEnquiryError = (): string => {
 
 const addMock = async (matchRegex: string, response: string, count: number | null = null): Promise<string> => {
   const data = { matchRegex, response, count }
-  const resp = await axios.post(`http://${defaults.pncHost}:${defaults.pncPort}/mocks`, data)
+  const resp = await axios.post(`http://${config.pncHost}:${config.pncPort}/mocks`, data)
   if (resp.status < 200 || resp.status >= 300) {
     throw new Error("Error setting mock in PNC Emulator")
   }
@@ -76,7 +78,7 @@ const addMock = async (matchRegex: string, response: string, count: number | nul
 }
 
 const clearMocks = async (): Promise<void> => {
-  const response = await axios.delete(`http://${defaults.pncHost}:${defaults.pncPort}/mocks`)
+  const response = await axios.delete(`http://${config.pncHost}:${config.pncPort}/mocks`)
   if (response.status !== 204) {
     throw new Error("Error clearing mocks in PNC Emulator")
   }
