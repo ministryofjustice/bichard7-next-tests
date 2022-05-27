@@ -94,8 +94,8 @@ commands:
             make run-all-no-bc -j 4
       - run_services_and_wait
       - run_test_next_chunk
-      - run_test_characterisation
       - save_artifacts
+      - run_test_characterisation
 
 jobs:
   build:
