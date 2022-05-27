@@ -80,8 +80,8 @@ commands:
   run_test_characterisation:
     steps:
       - run:
-        name: Run characterisation tests
-        command: cd ~/bichard7-next && make e2e-characterisation
+          name: Run characterisation tests
+          command: cd ~/bichard7-next && make e2e-characterisation
 
   run-tests:
     steps:
@@ -94,6 +94,7 @@ commands:
             make run-all-no-bc -j 4
       - run_services_and_wait
       - run_test_next_chunk
+      - run_test_characterisation
       - save_artifacts
 
 jobs:
