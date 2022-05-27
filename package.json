@@ -49,6 +49,7 @@
     "expect": "^27.4.6",
     "fast-xml-parser": "^4.0.1",
     "ibm_db": "^2.8.1",
+    "jest": "^28.1.0",
     "jsonwebtoken": "^8.5.1",
     "nunjucks": "^3.2.3",
     "pg-promise": "^10.11.1",
