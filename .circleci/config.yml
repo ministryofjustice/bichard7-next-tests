@@ -95,7 +95,6 @@ commands:
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
-      - run_test_characterisation
 
 jobs:
   build:
@@ -120,7 +119,7 @@ jobs:
           root: ~/
           paths: bichard7-next
 
-  test:
+  test-e2e:
     machine:
       image: ubuntu-2004:202104-01
       docker_layer_caching: true
@@ -134,6 +133,14 @@ jobs:
     steps:
       - run-tests
     parallelism: 4
+  
+  test-characterisation:
+    machine:
+        image: ubuntu-2004:202104-01
+        docker_layer_caching: true
+    resource_class: large
+    steps:
+        - run_test_characterisation
 
 workflows:
   version: 2
@@ -141,6 +148,10 @@ workflows:
   deploy:
     jobs:
       - build
-      - test:
+      - test-e2e:
           requires:
             - build
+      - test-characterisation:
+          requires:
+            - build
+      
