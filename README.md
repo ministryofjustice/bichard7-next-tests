@@ -8,8 +8,8 @@ This repository contains the end-to-end tests to run against Bichard in order to
 
 Before running the tests locally, you need to make sure that the environment is up and running. Follow the instructions below to prepare the environment for testing:
 
-- Bichard7 vNext - [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next#quickstart-next-stack)
-- Bichard7 vNext Audit Logging - [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next-audit-logging#quickstart)
+- Bichard7 Next - [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next#quickstart-next-stack)
+- Bichard7 Next Audit Logging - [Quickstart instructions](https://github.com/ministryofjustice/bichard7-next-audit-logging#quickstart)
 
 Once the stack is up and running, you can run the following commands to run the tests:
 
