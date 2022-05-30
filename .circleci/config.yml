@@ -154,7 +154,7 @@ jobs:
         - run-tests-characterisation
 
 workflows:
-  version: 2
+  version: 3
 
   deploy:
     jobs:
