@@ -13,7 +13,7 @@ RUN npm i
 
 COPY ./features/ /src/features
 COPY ./fixtures/ /src/fixtures
-COPY ./functional /src/functional
+COPY ./characterisation /src/characterisation
 COPY ./helpers/ /src/helpers
 COPY ./steps/ /src/steps
 COPY ./utils/ /src/utils
