@@ -21,5 +21,6 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-dynamic-require": "off",
     "global-require": "off"
-  }
+  },
+  ignorePatterns: ["jest.setup.ts"]
 };

@@ -77,7 +77,7 @@ commands:
             cd ~/bichard7-next
             TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
 
-  run-tests:
+  run-tests-e2e:
     steps:
       - checkout
       - pre_run_setup
@@ -89,6 +89,20 @@ commands:
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
+
+  run-tests-characterisation:
+      steps:
+        - checkout
+        - pre_run_setup
+        - run:
+            name: Run docker services (except BeanConnect)
+            command: |
+              cd ~/bichard7-next
+              make run-all-no-bc -j 4
+        - run_services_and_wait
+        - run:
+            name: Run characterisation tests
+            command: cd ~/bichard7-next && make e2e-characterisation
 
 jobs:
   build:
@@ -113,7 +127,7 @@ jobs:
           root: ~/
           paths: bichard7-next
 
-  test:
+  test-e2e:
     machine:
       image: ubuntu-2004:202104-01
       docker_layer_caching: true
@@ -125,15 +139,30 @@ jobs:
       RECORD: "true"
       AUTH_TYPE: bichard-jwt
     steps:
-      - run-tests
+      - run-tests-e2e
     parallelism: 4
+  
+  test-characterisation:
+    machine:
+        image: ubuntu-2004:202104-01
+        docker_layer_caching: true
+    resource_class: large
+    environment:
+      STACK_TYPE: next
+      WORKSPACE: local-next
+    steps:
+        - run-tests-characterisation
 
 workflows:
-  version: 2
+  version: 3
 
   deploy:
     jobs:
       - build
-      - test:
+      - test-e2e:
           requires:
             - build
+      - test-characterisation:
+          requires:
+            - build
+      
