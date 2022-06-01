@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -xe
 
 if [ $WORKSPACE = "e2e-test" ]
 then
