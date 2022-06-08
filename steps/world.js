@@ -2,27 +2,24 @@ const fs = require("fs").promises;
 const uuid = require("uuid").v4;
 const { setWorldConstructor, World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
-const Db2Helper = require("../helpers/Db2Helper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
 const AuditLogDynamoDbHelper = require("../helpers/AuditLogDynamoDbHelper");
-const IbmMqHelper = require("../helpers/IbmMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
 const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
-const { authType, stackType } = require("../utils/config");
+const { authType } = require("../utils/config");
 
 class Bichard extends World {
   constructor(options) {
     super(options);
 
-    this.stackType = process.env.STACK_TYPE || stackType.next;
     this.authType = process.env.AUTH_TYPE || authType.userService;
     this.noUi = process.env.NO_UI === "true";
     this.parallel = process.env.RUN_PARALLEL === "true";
-    this.isLocalWorkspace = process.env.WORKSPACE === "local-next" || process.env.WORKSPACE === "local-baseline";
+    this.isLocalWorkspace = process.env.WORKSPACE === "local-next";
     this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
     this.currentTestGivenNames1 = [];
     this.currentTestGivenNames2 = [];
@@ -32,55 +29,38 @@ class Bichard extends World {
     this.currentPTIURN = uuid();
     this.realPNC = process.env.REAL_PNC === "true";
 
-    if (this.stackType === stackType.next) {
-      this.db = new PostgresHelper({
-        host: process.env.DB_HOST || defaults.postgresHost,
-        port: process.env.DB_PORT || defaults.postgresPort,
-        database: "bichard",
-        user: process.env.DB_USER || defaults.postgresUser,
-        password: process.env.DB_PASSWORD || defaults.postgresPassword,
-        ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false
-      });
+    this.db = new PostgresHelper({
+      host: process.env.DB_HOST || defaults.postgresHost,
+      port: process.env.DB_PORT || defaults.postgresPort,
+      database: "bichard",
+      user: process.env.DB_USER || defaults.postgresUser,
+      password: process.env.DB_PASSWORD || defaults.postgresPassword,
+      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false
+    });
 
-      this.mq = new ActiveMqHelper({
-        url: process.env.MQ_URL || defaults.mqUrl,
-        login: process.env.MQ_USER || defaults.mqUser,
-        password: process.env.MQ_PASSWORD || defaults.mqPassword
-      });
+    this.mq = new ActiveMqHelper({
+      url: process.env.MQ_URL || defaults.mqUrl,
+      login: process.env.MQ_USER || defaults.mqUser,
+      password: process.env.MQ_PASSWORD || defaults.mqPassword
+    });
 
-      this.incomingMessageBucket = new IncomingMessageBucket({
-        url: process.env.AWS_URL,
-        region: process.env.S3_REGION || defaults.awsRegion,
-        incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
-      });
+    this.incomingMessageBucket = new IncomingMessageBucket({
+      url: process.env.AWS_URL,
+      region: process.env.S3_REGION || defaults.awsRegion,
+      incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
+    });
 
-      this.incomingMessageHandlerStateMachine = new IncomingMessageHandlerStateMachine({
-        url: process.env.AWS_URL,
-        region: process.env.INCOMING_MESSAGE_HANDLER_REGION || defaults.awsRegion,
-        incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
-      });
+    this.incomingMessageHandlerStateMachine = new IncomingMessageHandlerStateMachine({
+      url: process.env.AWS_URL,
+      region: process.env.INCOMING_MESSAGE_HANDLER_REGION || defaults.awsRegion,
+      incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
+    });
 
-      this.auditLogDynamoDb = new AuditLogDynamoDbHelper({
-        region: process.env.AUDIT_LOGGING_DYNAMODB_REGION || defaults.awsRegion,
-        endpoint: process.env.AWS_URL,
-        tableName: process.env.AUDIT_LOGGING_DYNAMODB_TABLE || "audit-log"
-      });
-    } else if (this.stackType === stackType.baseline) {
-      this.db = new Db2Helper({
-        host: process.env.DB_HOST || defaults.db2Host,
-        port: process.env.DB_PORT || defaults.db2Port,
-        database: "br7own",
-        user: process.env.DB_USER || defaults.db2User,
-        password: process.env.DB_PASSWORD || defaults.db2Password
-      });
-
-      this.mq = new IbmMqHelper({
-        url: process.env.MQ_URL || defaults.ibmMqUrl,
-        user: process.env.MQ_USER || defaults.ibmMqUser,
-        password: process.env.MQ_PASSWORD || defaults.ibmMqPassword,
-        queueManager: process.env.MQ_QMGR || defaults.ibmMqQmgr
-      });
-    }
+    this.auditLogDynamoDb = new AuditLogDynamoDbHelper({
+      region: process.env.AUDIT_LOGGING_DYNAMODB_REGION || defaults.awsRegion,
+      endpoint: process.env.AWS_URL,
+      tableName: process.env.AUDIT_LOGGING_DYNAMODB_TABLE || "audit-log"
+    });
 
     if (this.realPNC) {
       this.pnc = new PNCTestTool({

@@ -26,13 +26,7 @@ const authType = {
   bichardJwt: "bichard-jwt"
 };
 
-const stackType = {
-  baseline: "baseline",
-  next: "next"
-};
-
 module.exports = {
   getConfig,
-  authType,
-  stackType
+  authType
 };

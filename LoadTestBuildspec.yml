@@ -26,7 +26,7 @@ phases:
       - export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq -r .Credentials.SecretAccessKey)
       - export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
       - openvpn --config ~/cjse-${WORKSPACE}-config.ovpn --daemon
-      - STACK_TYPE=next make setup-e2e-tests
+      - make setup-e2e-tests
       - rm -rf node_modules || true
       - rm -rf package-lock.json
       - npm cache clean --force

@@ -42,7 +42,6 @@ Then run the codebuild job `apply-dev-sgs-to-e2e-test` in `bichard7-shared`, the
 ## Environment Variables
 
 - `WORKSPACE`: If set to `local-next`, it is assumed that tests are running on local environment. This will simulate processes that are not supported on local infrastructure. Running `npm run test:local` will set this variable to `local-next`.
-- `STACK_TYPE`: It defines the stack type used for testing. Values can be `next` or `baseline`. The default value is `next`.
 - `MESSAGE_ENTRY_POINT`: Determines whether messages should be uploaded to S3 or pushed to MQ. Values can be `s3` or `mq`. The default value is `mq`.
 
 ## Running tests against Pre-Production

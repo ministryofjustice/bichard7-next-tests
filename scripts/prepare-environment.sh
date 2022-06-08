@@ -25,7 +25,7 @@ EOM
 }
 
 # Configure aws for local testing
-if [ "$WORKSPACE" == "local-next" ] || [ "$WORKSPACE" == "local-baseline" ]; then
+if [ "$WORKSPACE" == "local-next" ]; then
     configure_aws_local
     echo "Configured AWS for local testing."
 fi

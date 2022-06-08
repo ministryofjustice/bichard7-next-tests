@@ -92,7 +92,6 @@ fi
 mkdir -p workspaces
 rm -f $TEST_ENV_FILE
 
-echo "export STACK_TYPE=\"next\"" > $TEST_ENV_FILE
 echo "export DB_HOST=\"${DB_HOST}\"" >> $TEST_ENV_FILE
 echo "export UI_HOST=\"${UI_HOST}\""  >> $TEST_ENV_FILE
 echo "export UI_PORT=\"80\""  >> $TEST_ENV_FILE
