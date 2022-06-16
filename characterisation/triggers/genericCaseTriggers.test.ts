@@ -46,20 +46,16 @@ describe("Generic case triggers", () => {
 
   describe.each(offenceTests)("Testing generic trigger $code", ({ code, resultCode }) => {
     it("should generate a trigger correctly with single offences", async () => {
-      // Generate a mock message
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode }] }]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage)
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
 
     it("should generate multiple triggers correctly with multiple offences", async () => {
-      // Generate a mock message
       const inputMessage = generateMessage({
         offences: [
           { results: [{ code: resultCode }] },
@@ -68,23 +64,18 @@ describe("Generic case triggers", () => {
         ]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage)
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
 
     it("should generate a trigger when record is recordable", async () => {
-      // Generate a mock message
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode }] }]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage)
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
   })

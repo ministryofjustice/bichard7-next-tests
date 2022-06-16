@@ -50,17 +50,14 @@ describe("HO100233", () => {
       resultHalfLifeHours: null
     })
 
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100233",
@@ -80,17 +77,15 @@ describe("HO100233", () => {
       notifiableToHo: true,
       resultHalfLifeHours: null
     }))
-    // Generate a mock message
+
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100233",

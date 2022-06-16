@@ -16,7 +16,6 @@ describe("TRPR0020", () => {
   })
 
   it("should generate a single case trigger for a single offence with the triggers's result code", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -25,15 +24,12 @@ describe("TRPR0020", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 
   it("should generate a single case trigger for a single offence with the triggers's offence code", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -44,15 +40,12 @@ describe("TRPR0020", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 
   it("should generate triggers for multiple matching offences", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -78,10 +71,8 @@ describe("TRPR0020", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([
       { code, offenceSequenceNumber: 1 },
       { code, offenceSequenceNumber: 3 },
@@ -90,7 +81,6 @@ describe("TRPR0020", () => {
   })
 
   it("should not generate trigger for matching offence code when not guilty", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -101,15 +91,12 @@ describe("TRPR0020", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should not generate trigger for matching offence code when result is not final", async () => {
-    // Generate a mock message (1085 is a non-final result code)
     const inputMessage = generateMessage({
       offences: [
         {
@@ -120,15 +107,12 @@ describe("TRPR0020", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -138,10 +122,8 @@ describe("TRPR0020", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 })

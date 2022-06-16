@@ -19,10 +19,8 @@ describe("TRPR0027", () => {
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0027 }])
   })
 
@@ -33,10 +31,8 @@ describe("TRPR0027", () => {
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0005 }])
   })
 })

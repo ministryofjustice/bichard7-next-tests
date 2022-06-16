@@ -19,10 +19,8 @@ describe("Trigger force configuration", () => {
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0005 }])
   })
 
@@ -34,10 +32,8 @@ describe("Trigger force configuration", () => {
       offences: [{ results: [{ code: trigger1ResultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0001, offenceSequenceNumber: 1 }])
   })
 
@@ -48,10 +44,8 @@ describe("Trigger force configuration", () => {
       offences: [{ results: [{ code: trigger1ResultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0001, offenceSequenceNumber: 1 }])
   })
 
@@ -64,10 +58,8 @@ describe("Trigger force configuration", () => {
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0027 }])
   })
 })

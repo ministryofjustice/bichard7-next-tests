@@ -41,33 +41,27 @@ describe("HO100240 and HO100246", () => {
   })
 
   it("should create exceptions if the result code is too low", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 123 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual(expectedExceptions)
   })
 
   // Masked by XML parsing error
   it.ifNewBichard("should create exceptions if the result code is too high", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 10000 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual(expectedExceptions)
   })
 })

@@ -15,7 +15,7 @@ describe("TRPR0002", () => {
   })
 
   it("should generate a trigger for a single offence without the EO result qualifier", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -24,15 +24,13 @@ describe("TRPR0002", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should not generate a trigger for a single offence with the EO result qualifier", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -41,28 +39,24 @@ describe("TRPR0002", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should generate a single case trigger for multiple offences without the EO result qualifier", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: resultCode }] }, { results: [{ code: resultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should not generate a trigger for multiple offences with the EO result qualifier", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         { results: [{ code: resultCode, qualifier: resultQualifier }] },
@@ -70,15 +64,13 @@ describe("TRPR0002", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should generate a trigger for multiple offences with one EO result qualifier and one without", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -88,36 +80,30 @@ describe("TRPR0002", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: resultCode }], recordable: false }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should generate a trigger when record is recordable", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: resultCode }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 })
