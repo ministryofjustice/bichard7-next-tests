@@ -9,24 +9,49 @@ describe("HO100200", () => {
     await new World({}).db.closeConnection()
   })
 
-  // Won't pass when running against Bichard as HO100200 is overridden by HO100300 "OU Code is not recognised" exception
-  it.skip("should create an exception if the Court Hearing Location value is invalid", async () => {
-    // Generate a mock message
+  it("should create an exception if the Court Hearing Location value is invalid", async () => {
     const inputMessage = generateMessage({
-      courtHearingLocation: "invalid",
+      courtHearingLocation: "inval!d",
       offences: [{ results: [{ code: 1015 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100200",
         path: ["AnnotatedHearingOutcome", "HearingOutcome", "Hearing", "CourtHearingLocation", "OrganisationUnitCode"]
+      },
+      {
+        code: "HO100200",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "Offence",
+          0,
+          "Result",
+          0,
+          "SourceOrganisation", // SourceOrganisation is generated from CourtHearingLocation
+          "OrganisationUnitCode"
+        ]
+      },
+      {
+        code: "HO100300",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "Offence",
+          0,
+          "Result",
+          0,
+          "CourtType"
+        ]
       }
     ])
   })
