@@ -10,17 +10,14 @@ describe("HO100307", () => {
   })
 
   it("should create an exception if the result code is invalid", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1001 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100307",

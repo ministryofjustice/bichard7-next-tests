@@ -14,20 +14,18 @@ describe("TRPR0030", () => {
   })
 
   it("should generate a trigger correctly with single non-recordable offences", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [{ code: offenceCode, results: [{ code: 1015 }], recordable: false }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should generate a single case level trigger with multiple non-recordable offences", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         { code: offenceCode, results: [{ code: 1015 }], recordable: false },
@@ -36,26 +34,22 @@ describe("TRPR0030", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should not generate a trigger when record is recordable", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [{ code: offenceCode, results: [{ code: 1015 }] }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, {
       expectTriggers: false,
       expectRecord: false
     })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 })

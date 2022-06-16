@@ -15,7 +15,7 @@ describe("TRPR0029", () => {
   })
 
   it("should generate a trigger for offence with the correct offence code", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -25,15 +25,13 @@ describe("TRPR0029", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should generate a trigger for offence with the correct offence code and 'granted' result text", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -43,15 +41,13 @@ describe("TRPR0029", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should generate one trigger for multiple offences", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -65,15 +61,13 @@ describe("TRPR0029", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code }])
   })
 
   it("should not generate trigger for offence when result text does not contain 'granted'", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -83,19 +77,17 @@ describe("TRPR0029", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, {
       expectTriggers: false,
       expectRecord: false,
       recordable: false
     })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should not generate a trigger when record is recordable", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -105,14 +97,12 @@ describe("TRPR0029", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, {
       recordable: true,
       expectTriggers: false,
       expectRecord: false
     })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 })

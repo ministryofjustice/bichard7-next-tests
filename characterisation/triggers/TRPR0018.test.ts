@@ -52,7 +52,7 @@ describe("TRPR0018", () => {
     ${"2022-02-28"} | ${undefined}    | ${"2022-02-28"} | ${"2022-03-02"} | ${"offence end date is missing and offence start date is the same as PNC start date"}
     ${"2022-02-28"} | ${"2022-03-01"} | ${"2022-02-27"} | ${undefined}    | ${"PNC end date is missing and offence start date is after the PNC start date"}
   `("should generate trigger when $description", async ({ offenceStart, offenceEnd, pncStart, pncEnd }) => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -63,18 +63,16 @@ describe("TRPR0018", () => {
       ]
     })
 
-    // Process the mock message
     const result = await processMessage(
       inputMessage,
       pncOffenceDateOverrides([{ startDate: pncStart, endDate: pncEnd }])
     )
 
-    // Check the right triggers are generated
     expect(result).toStrictEqual({ exceptions: [], triggers: [{ code, offenceSequenceNumber: 1 }] })
   })
 
   it("should generate multiple triggers for multiple matching offences", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -90,7 +88,6 @@ describe("TRPR0018", () => {
       ]
     })
 
-    // Process the mock message
     const result = await processMessage(
       inputMessage,
       pncOffenceDateOverrides([
@@ -99,7 +96,6 @@ describe("TRPR0018", () => {
       ])
     )
 
-    // Check the right triggers are generated
     expect(result).toStrictEqual({
       exceptions: [],
       triggers: [

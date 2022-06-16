@@ -22,17 +22,14 @@ describe("validate hearing outcome", () => {
   })
 
   it("should throw an exception for an offence wording less than min length", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }], offenceWording: "" }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100234",
@@ -50,17 +47,14 @@ describe("validate hearing outcome", () => {
   })
 
   it.ifNewBichard("should throw an exception for an offence wording greater than max length", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }], offenceWording: "x".repeat(3000) }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100234",

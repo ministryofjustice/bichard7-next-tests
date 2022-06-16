@@ -25,17 +25,14 @@ describe("HO100239", () => {
   it.ifNewBichard(
     "should create an exception if the CourtOffenceSequenceNumber is less than the min length",
     async () => {
-      // Generate a mock message
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: 1015 }], offenceSequenceNumber: -1 }]
       })
 
-      // Process the mock message
       const { exceptions } = await processMessage(inputMessage, {
         expectTriggers: false
       })
 
-      // Check the right triggers are generated
       expect(exceptions).toStrictEqual([
         {
           code: "HO100239",
@@ -56,17 +53,14 @@ describe("HO100239", () => {
   it.ifNewBichard(
     "should create an exception if the CourtOffenceSequenceNumber is greater than the max length",
     async () => {
-      // Generate a mock message
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: 1015 }], offenceSequenceNumber: 1000 }]
       })
 
-      // Process the mock message
       const { exceptions } = await processMessage(inputMessage, {
         expectTriggers: false
       })
 
-      // Check the right triggers are generated
       expect(exceptions).toStrictEqual([
         {
           code: "HO100239",

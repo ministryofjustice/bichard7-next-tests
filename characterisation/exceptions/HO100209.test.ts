@@ -10,18 +10,15 @@ describe("HO100209", () => {
   })
 
   it("should create an exception if the Court PNC Identifier value is invalid", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       courtPncIdentifier: "invalid",
       offences: [{ results: [{ code: 1015 }] }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100209",

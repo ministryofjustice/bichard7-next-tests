@@ -22,17 +22,14 @@ describe("HO100232", () => {
   })
 
   it("should create an exception if the offence location is less than the min length", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }], location: "" }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100232",
@@ -50,17 +47,14 @@ describe("HO100232", () => {
   })
 
   it.ifNewBichard("should create an exception if the offence location is greater than the max length", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }], location: "x".repeat(100) }]
     })
 
-    // Process the mock message
     const { exceptions } = await processMessage(inputMessage, {
       expectTriggers: false
     })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100232",

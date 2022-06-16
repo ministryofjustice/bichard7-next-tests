@@ -16,7 +16,7 @@ describe("TRPR0003", () => {
   })
 
   it("should generate a trigger for a single offence with a main result code", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -25,15 +25,13 @@ describe("TRPR0003", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 
   it("should generate a trigger for a single offence with a combination of YRO result codes", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -42,15 +40,13 @@ describe("TRPR0003", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 
   it("should not generate a trigger for a single offence with only one YRO result code", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -59,15 +55,13 @@ describe("TRPR0003", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should not generate a trigger for a single offence with only one YRO Specific Requirement result code", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -76,15 +70,13 @@ describe("TRPR0003", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
 
-    // Check the right triggers are generated
     expect(triggers).toHaveLength(0)
   })
 
   it("should generate a trigger for a single offence with main result code and a combination of YRO result codes", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -93,15 +85,13 @@ describe("TRPR0003", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 
   it("should generate multiple triggers for multiple matching offences", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -117,10 +107,8 @@ describe("TRPR0003", () => {
       ]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage)
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([
       { code, offenceSequenceNumber: 1 },
       { code, offenceSequenceNumber: 2 },
@@ -129,15 +117,13 @@ describe("TRPR0003", () => {
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    // Generate a mock message
+    
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: mainResultCode }], recordable: false }]
     })
 
-    // Process the mock message
     const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-    // Check the right triggers are generated
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
 })

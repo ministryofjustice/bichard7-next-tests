@@ -28,7 +28,7 @@ describe("Generic offence triggers", () => {
 
   describe.each(offenceTests)("Testing result qualifier trigger $code", ({ code, resultCode, resultQualifier }) => {
     it("should generate a trigger correctly with single offences", async () => {
-      // Generate a mock message
+      
       const inputMessage = generateMessage({
         offences: [
           {
@@ -37,15 +37,13 @@ describe("Generic offence triggers", () => {
         ]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage)
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
 
     it("should generate multiple triggers correctly with multiple offences", async () => {
-      // Generate a mock message
+      
       const inputMessage = generateMessage({
         offences: [
           {
@@ -56,36 +54,30 @@ describe("Generic offence triggers", () => {
         ]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage)
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
 
     it("should generate a trigger when record is not recordable", async () => {
-      // Generate a mock message
+      
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode, qualifier: resultQualifier }], recordable: false }]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
 
     it("should generate a trigger when record is recordable", async () => {
-      // Generate a mock message
+      
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode, qualifier: resultQualifier }] }]
       })
 
-      // Process the mock message
       const { triggers } = await processMessage(inputMessage)
 
-      // Check the right triggers are generated
       expect(triggers).toStrictEqual([{ code }])
     })
   })
