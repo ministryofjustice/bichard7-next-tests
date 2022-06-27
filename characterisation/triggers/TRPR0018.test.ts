@@ -1,18 +1,18 @@
-jest.setTimeout(30000)
+jest.setTimeout(30000);
 
-import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
-import { TriggerCode } from "../types/TriggerCode"
-import generateMessage from "../helpers/generateMessage"
-import World from "../../steps/world"
-import processMessage from "../helpers/processMessage"
+import World from "../../steps/world";
+import generateMessage from "../helpers/generateMessage";
+import processMessage from "../helpers/processMessage";
+import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage";
+import { TriggerCode } from "../types/TriggerCode";
 
-const code = TriggerCode.TRPR0018
-const resultCode = 1015
+const code = TriggerCode.TRPR0018;
+const resultCode = 1015;
 
 type PncOffenceDateOverride = {
-  startDate: string
-  endDate?: string
-}
+  startDate: string;
+  endDate?: string;
+};
 
 const pncOffenceDateOverrides = (dates: PncOffenceDateOverride[]) => ({
   pncOverrides: {
@@ -36,12 +36,12 @@ const pncOffenceDateOverrides = (dates: PncOffenceDateOverride[]) => ({
       }
     }
   } as Partial<ResultedCaseMessageParsedXml>
-})
+});
 
 describe("TRPR0018", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
-  })
+    await new World({}).db.closeConnection();
+  });
 
   it.each`
     offenceStart    | offenceEnd      | pncStart        | pncEnd          | description
@@ -52,7 +52,6 @@ describe("TRPR0018", () => {
     ${"2022-02-28"} | ${undefined}    | ${"2022-02-28"} | ${"2022-03-02"} | ${"offence end date is missing and offence start date is the same as PNC start date"}
     ${"2022-02-28"} | ${"2022-03-01"} | ${"2022-02-27"} | ${undefined}    | ${"PNC end date is missing and offence start date is after the PNC start date"}
   `("should generate trigger when $description", async ({ offenceStart, offenceEnd, pncStart, pncEnd }) => {
-    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -61,18 +60,18 @@ describe("TRPR0018", () => {
           results: [{ code: resultCode }]
         }
       ]
-    })
+    });
 
-    const result = await processMessage(
-      inputMessage,
-      pncOffenceDateOverrides([{ startDate: pncStart, endDate: pncEnd }])
-    )
+    const {
+      triggers,
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, pncOffenceDateOverrides([{ startDate: pncStart, endDate: pncEnd }]));
 
-    expect(result).toStrictEqual({ exceptions: [], triggers: [{ code, offenceSequenceNumber: 1 }] })
-  })
+    expect(exceptions).toHaveLength(0);
+    expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }]);
+  });
 
   it("should generate multiple triggers for multiple matching offences", async () => {
-    
     const inputMessage = generateMessage({
       offences: [
         {
@@ -86,24 +85,25 @@ describe("TRPR0018", () => {
           results: [{ code: resultCode }]
         }
       ]
-    })
+    });
 
-    const result = await processMessage(
+    const {
+      triggers,
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(
       inputMessage,
       pncOffenceDateOverrides([
         { startDate: "2021-02-27", endDate: "2021-03-03" },
         { startDate: "2022-02-27", endDate: "2022-03-03" }
       ])
-    )
+    );
 
-    expect(result).toStrictEqual({
-      exceptions: [],
-      triggers: [
-        { code, offenceSequenceNumber: 1 },
-        { code, offenceSequenceNumber: 2 }
-      ]
-    })
-  })
+    expect(exceptions).toHaveLength(0);
+    expect(triggers).toStrictEqual([
+      { code, offenceSequenceNumber: 1 },
+      { code, offenceSequenceNumber: 2 }
+    ]);
+  });
 
   it("should not generate triggers when the start dates match and offence end date and pnc end date is missing", async () => {
     const inputMessage = generateMessage({
@@ -114,19 +114,20 @@ describe("TRPR0018", () => {
           results: [{ code: resultCode }]
         }
       ]
-    })
+    });
 
-    const result = await processMessage(inputMessage, {
+    const {
+      triggers,
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
       expectRecord: false,
       expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-02-28" }])
-    })
+    });
 
-    expect(result).toStrictEqual({
-      exceptions: [],
-      triggers: []
-    })
-  })
+    expect(exceptions).toHaveLength(0);
+    expect(triggers).toHaveLength(0);
+  });
 
   it("should not generate triggers when all of the dates match", async () => {
     const inputMessage = generateMessage({
@@ -137,19 +138,20 @@ describe("TRPR0018", () => {
           results: [{ code: resultCode }]
         }
       ]
-    })
+    });
 
-    const result = await processMessage(inputMessage, {
+    const {
+      triggers,
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
       expectRecord: false,
       expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-01-28", endDate: "2021-02-28" }])
-    })
+    });
 
-    expect(result).toStrictEqual({
-      exceptions: [],
-      triggers: []
-    })
-  })
+    expect(exceptions).toHaveLength(0);
+    expect(triggers).toHaveLength(0);
+  });
 
   it("should not generate triggers when all of the dates are the same", async () => {
     const inputMessage = generateMessage({
@@ -160,17 +162,18 @@ describe("TRPR0018", () => {
           results: [{ code: resultCode }]
         }
       ]
-    })
+    });
 
-    const result = await processMessage(inputMessage, {
+    const {
+      triggers,
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
       expectRecord: false,
       expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-02-28", endDate: "2021-02-28" }])
-    })
+    });
 
-    expect(result).toStrictEqual({
-      exceptions: [],
-      triggers: []
-    })
-  })
-})
+    expect(exceptions).toHaveLength(0);
+    expect(triggers).toHaveLength(0);
+  });
+});

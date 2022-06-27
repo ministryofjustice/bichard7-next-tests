@@ -4,30 +4,30 @@ import World from "../../steps/world";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
 
-describe("HO100220", () => {
+describe("HO100331", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection();
   });
 
-  // This should be raised but is currently masked by a parse error
-  it.skip("should be raised if the bail conditions are empty", async () => {
+  it("should create an exception when there are more than 100 offences", async () => {
+    // Generate a mock message
     const inputMessage = generateMessage({
-      bailConditions: "X".repeat(2501),
-      // ASN: "ABCDEFGHXXXXXX",
-      offences: [{ results: [{}] }]
+      offences: Array(101).fill({ results: [{}], recordable: true })
     });
-    console.log(inputMessage);
 
+    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
-      expectTriggers: false
+      expectTriggers: false,
+      recordable: true
     });
 
+    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100220",
-        path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ArrestSummonsNumber"]
+        code: "HO100331",
+        path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "CourtReference", "MagistratesCourtReference"]
       }
     ]);
   });

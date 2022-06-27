@@ -1,22 +1,24 @@
-jest.setTimeout(30000)
+jest.setTimeout(30000);
 
-import generateMessage from "../helpers/generateMessage"
-import World from "../../steps/world"
-import processMessage from "../helpers/processMessage"
+import World from "../../steps/world";
+import generateMessage from "../helpers/generateMessage";
+import processMessage from "../helpers/processMessage";
 
 describe("HO100307", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
-  })
+    await new World({}).db.closeConnection();
+  });
 
   it("should create an exception if the result code is invalid", async () => {
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1001 }] }]
-    })
+    });
 
-    const { exceptions } = await processMessage(inputMessage, {
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
       expectTriggers: false
-    })
+    });
 
     expect(exceptions).toStrictEqual([
       {
@@ -33,6 +35,6 @@ describe("HO100307", () => {
           "CJSresultCode"
         ]
       }
-    ])
-  })
-})
+    ]);
+  });
+});

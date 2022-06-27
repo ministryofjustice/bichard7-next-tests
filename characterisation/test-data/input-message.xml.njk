@@ -49,9 +49,9 @@
           <DC:PSAcode>2576</DC:PSAcode>
         </DC:CourtHearing>
         <DC:Case>
-          <DC:PTIURN>{{ PTIURN if PTIURN else "01ZD0303908" }}</DC:PTIURN>
+          <DC:PTIURN>{{ PTIURN if PTIURN === "" or PTIURN else "01ZD0303908" }}</DC:PTIURN>
           <DC:Defendant>
-            <DC:ProsecutorReference>{{ ASN if ASN else "1101ZD0100000448754K" }}</DC:ProsecutorReference>
+            <DC:ProsecutorReference>{{ ASN if ASN === "" or ASN else "1101ZD0100000448754K" }}</DC:ProsecutorReference>
             <DC:CourtIndividualDefendant>
               <DC:PersonDefendant>
                 <DC:BasePersonDetails>
@@ -108,8 +108,8 @@
                 <DC:Plea>{{ offence.plea if offence.plea else "2" }}</DC:Plea>
                 <DC:ModeOfTrial>{{ offence.modeOfTrial if offence.modeOfTrial else "01" }}</DC:ModeOfTrial>
                 <DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-                <DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
-                <DC:Finding>{{ offence.finding if offence.finding else "G" }}</DC:Finding>
+                {% if offence.convictionDate !== null %}<DC:ConvictionDate>{{ offence.convictionDate if offence.convictionDate else "2011-09-26" }}</DC:ConvictionDate>{% endif %}
+                {% if offence.finding !== null %}<DC:Finding>{{ offence.finding if offence.finding else "G" }}</DC:Finding>{% endif %}
                 {% for result in offence.results %}
                   <DC:Result>
                     <DC:ResultCode>{{ result.code if result.code else "1015" }}</DC:ResultCode>
@@ -121,7 +121,7 @@
                       <DC:NextHearing>
                         {% if result.nextHearing.nextHearingDetails %}
                           <DC:NextHearingDetails>
-                            <DC:CourtHearingLocation>{{ result.nextHearing.nextHearingDetails.courtHearingLocation if result.nextHearing.nextHearingDetails.courtHearingLocation else "B01NI01" }}</DC:CourtHearingLocation>
+                            <DC:CourtHearingLocation>{{ result.nextHearing.nextHearingDetails.courtHearingLocation if result.nextHearing.nextHearingDetails.courtHearingLocation else "B01EF01" }}</DC:CourtHearingLocation>
                             <DC:DateOfHearing>{{ result.nextHearing.nextHearingDetails.dateOfHearing if result.nextHearing.nextHearingDetails.dateOfHearing else "2011-10-08" }}</DC:DateOfHearing>
                             <DC:TimeOfHearing>{{ result.nextHearing.nextHearingDetails.timeOfHearing if result.nextHearing.nextHearingDetails.timeOfHearing else "14:00:00" }}</DC:TimeOfHearing>
                           </DC:NextHearingDetails>

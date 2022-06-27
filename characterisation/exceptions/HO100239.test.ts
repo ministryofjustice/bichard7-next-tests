@@ -1,37 +1,41 @@
-jest.setTimeout(30000)
+jest.setTimeout(30000);
 
-import generateMessage from "../helpers/generateMessage"
-import World from "../../steps/world"
-import processMessage from "../helpers/processMessage"
+import World from "../../steps/world";
+import generateMessage from "../helpers/generateMessage";
+import processMessage from "../helpers/processMessage";
 
 describe("HO100239", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
-  })
+    await new World({}).db.closeConnection();
+  });
 
   // legacy bichard throws runtime exception Caused by: uk.gov.ocjr.mtu.br7.common.xmlconverter.UnmarshalFailedException: javax.xml.bind.UnmarshalException: the value is out of the range (minInclusive specifies 0).\n - with linked exception:
   it.ifNewBichard("should not throw an exception for a valid CourtOffenceSequenceNumber", async () => {
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 4584 }], offenceSequenceNumber: 1 }]
-    })
+    });
 
-    const { exceptions } = await processMessage(inputMessage, {
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
       expectTriggers: false
-    })
+    });
 
-    expect(exceptions).toHaveLength(0)
-  })
+    expect(exceptions).toHaveLength(0);
+  });
 
   it.ifNewBichard(
     "should create an exception if the CourtOffenceSequenceNumber is less than the min length",
     async () => {
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: 1015 }], offenceSequenceNumber: -1 }]
-      })
+      });
 
-      const { exceptions } = await processMessage(inputMessage, {
+      const {
+        hearingOutcome: { Exceptions: exceptions }
+      } = await processMessage(inputMessage, {
         expectTriggers: false
-      })
+      });
 
       expect(exceptions).toStrictEqual([
         {
@@ -46,20 +50,22 @@ describe("HO100239", () => {
             "CourtOffenceSequenceNumber"
           ]
         }
-      ])
+      ]);
     }
-  )
+  );
 
   it.ifNewBichard(
     "should create an exception if the CourtOffenceSequenceNumber is greater than the max length",
     async () => {
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: 1015 }], offenceSequenceNumber: 1000 }]
-      })
+      });
 
-      const { exceptions } = await processMessage(inputMessage, {
+      const {
+        hearingOutcome: { Exceptions: exceptions }
+      } = await processMessage(inputMessage, {
         expectTriggers: false
-      })
+      });
 
       expect(exceptions).toStrictEqual([
         {
@@ -74,7 +80,7 @@ describe("HO100239", () => {
             "CourtOffenceSequenceNumber"
           ]
         }
-      ])
+      ]);
     }
-  )
-})
+  );
+});
