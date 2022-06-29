@@ -1,17 +1,18 @@
 jest.setTimeout(30000);
 
 import World from "../../steps/world";
+import { offenceResultClassPath } from "../helpers/errorPaths";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
 
-describe("HO100206", () => {
+describe("HO100305", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection();
   });
-  it("should be raised if the ASN is in an incorrect format", async () => {
+
+  it("should create an exception if the case has no conviction date", async () => {
     const inputMessage = generateMessage({
-      ASN: "ABCDEFG1234567Q",
-      offences: [{ results: [{}] }]
+      offences: [{ results: [{}], convictionDate: null }]
     });
 
     const {
@@ -22,16 +23,17 @@ describe("HO100206", () => {
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100206",
-        path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ArrestSummonsNumber"]
+        code: "HO100305",
+        path: offenceResultClassPath(0, 0)
       }
     ]);
   });
 
-  it("should be raised if the ASN has an incorrect check character", async () => {
+  it("should create an exception if the case has no conviction date and is adjourned", async () => {
     const inputMessage = generateMessage({
-      ASN: "1101ZD0100000448754Z",
-      offences: [{ results: [{}] }]
+      offences: [
+        { results: [{ code: 4001, nextHearing: { nextHearingDetails: {} } }, { code: 2050 }], convictionDate: null }
+      ]
     });
 
     const {
@@ -42,8 +44,8 @@ describe("HO100206", () => {
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100206",
-        path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ArrestSummonsNumber"]
+        code: "HO100305",
+        path: offenceResultClassPath(0, 0)
       }
     ]);
   });

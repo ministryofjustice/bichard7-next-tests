@@ -40,30 +40,39 @@ commands:
           command: bash scripts/fetch_nginx_auth_proxy_docker.sh
 
   run_services_and_wait:
+    parameters:
+      ENABLE_PHASE_2:
+        default: "true"
+        type: string
     steps:
       - run:
-          name: Fetch the PNC Emulator image
+          name: Run docker services (except BeanConnect)
           command: |
             cd ~/bichard7-next
-            bash scripts/fetch_pncemulator_docker.sh
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
+      - run:
+          name: Fetch the PNC Emulator image
+          command: bash ~/bichard7-next/scripts/fetch_pncemulator_docker.sh
       - run:
           name: Fetch the BeanConnect image
-          command: |
-            cd ~/bichard7-next
-            bash scripts/fetch_beanconnect_docker.sh
+          command: bash ~/bichard7-next/scripts/fetch_beanconnect_docker.sh
       - run:
           name: Run BeanConnect and PNC Emulator docker services
-          command: |
-            cd ~/bichard7-next
-            make run-beanconnect
+          command: cd ~/bichard7-next && make run-beanconnect
       - run:
           name: Build E2E tests
           command: cd ~/project && make build
       - run:
           name: Wait for Bichard
+          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 30
+      - run:
+          name: Retry running Docker services
           command: |
             cd ~/bichard7-next
-            bash ./scripts/wait_for_bichard.sh
+            make destroy
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
+            bash ~/bichard7-next/scripts/wait_for_bichard.sh 30
+          when: on_fail
 
   run_test_next_chunk:
     steps:
@@ -77,32 +86,55 @@ commands:
             cd ~/bichard7-next
             TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
 
+  checkout-core:
+    steps:
+      - run:
+          name: Git clone Core
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
+
+  run-core:
+    steps:
+      - run:
+          name: NPM Install
+          command: nvm use v16 && cd ~/bichard7-next-core && npm install
+      - run:
+          name: Start the test server in the background
+          command: nvm use v16 && cd ~/bichard7-next-core && npm run test:server
+          background: true
+      - run:
+          name: Wait for Core
+          command: nvm use v16 && npm install -g wait-port && wait-port 6000
+
+  test-core:
+    steps:
+      - run: nvm use v16 && npm i && npm run test:characterisation
+
+  test-bichard:
+    steps:
+      - run: nvm use v16 && npm i && npm run test:characterisation:bichard
+
   run-tests-e2e:
     steps:
       - checkout
       - pre_run_setup
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            make run-all-no-bc -j 4
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
 
-  run-tests-characterisation:
+  run-tests-characterisation-bichard:
       steps:
         - checkout
         - pre_run_setup
-        - run:
-            name: Run docker services (except BeanConnect)
-            command: |
-              cd ~/bichard7-next
-              make run-all-no-bc -j 4
-        - run_services_and_wait
-        - run:
-            name: Run characterisation tests
-            command: cd ~/bichard7-next && make e2e-characterisation
+        - run_services_and_wait:
+            ENABLE_PHASE_2: "false"
+        - test-bichard
+
+  run-tests-characterisation-core:
+    steps:
+      - checkout
+      - checkout-core
+      - run-core
+      - test-core
 
 jobs:
   build:
@@ -141,7 +173,7 @@ jobs:
       - run-tests-e2e
     parallelism: 4
   
-  test-characterisation:
+  test-characterisation-bichard:
     machine:
         image: ubuntu-2004:202104-01
         docker_layer_caching: true
@@ -149,7 +181,15 @@ jobs:
     environment:
       WORKSPACE: local-next
     steps:
-        - run-tests-characterisation
+        - run-tests-characterisation-bichard
+  
+  test-characterisation-core:
+    machine:
+        image: ubuntu-2004:202104-01
+        docker_layer_caching: true
+    resource_class: large
+    steps:
+        - run-tests-characterisation-core
 
 workflows:
   version: 3
@@ -160,7 +200,10 @@ workflows:
       - test-e2e:
           requires:
             - build
-      - test-characterisation:
+      - test-characterisation-bichard:
+          requires:
+            - build
+      - test-characterisation-core:
           requires:
             - build
       

@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: "node",
   // Run these files after jest has been
   // installed in the environment
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: ["./jest.setup.ts"],
   verbose: true
 };

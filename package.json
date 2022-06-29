@@ -14,14 +14,15 @@
     "test:loadtest-ui": "./scripts/prepare-environment.sh && PRINT_ENV=true RUN_PARALLEL=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --tags '@LoadTestUI' features",
     "test:loadtest-noui": "./scripts/prepare-environment.sh && PRINT_ENV=true RUN_PARALLEL=true NO_UI=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --tags '@LoadTestNoUI' features",
     "test:chunk": "./scripts/prepare-environment.sh && bash ./scripts/run_test_chunk.sh",
-    "test:file": "./scripts/prepare-environment.sh && node --tls-min-v1.0 ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
+    "test:file": "./scripts/prepare-environment.sh && node --tls-min-v1.0 ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet  --tags 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC'",
     "test:file-parallel": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet --parallel",
     "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next npm run test",
     "test:must": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and not @AuditLog' features",
     "test:must:auditlogs": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and @AuditLog' features",
     "test:browser": "HEADLESS=false npm run test",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",
-    "test:characterisation": "cd characterisation && jest --runInBand && cd -",
+    "test:characterisation": "cd characterisation && jest",
+    "test:characterisation:bichard": "cd characterisation && USE_BICHARD=true  jest --runInBand",
     "prepare": "husky install"
   },
   "repository": {
@@ -41,7 +42,6 @@
     "@moj-bichard7-developers/bichard7-next-data": "^2.0.10",
     "@types/jest": "^27.5.1",
     "aws-sdk": "^2.1053.0",
-    "axios": "^0.24.0",
     "csv-parse": "^5.0.4",
     "date-fns": "^2.28.0",
     "expect": "^27.4.6",
@@ -60,6 +60,7 @@
     "zod": "^3.17.3"
   },
   "devDependencies": {
+    "axios": "^0.27.2",
     "eslint": "^8.6.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",

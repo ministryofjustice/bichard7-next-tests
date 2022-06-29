@@ -1,9 +1,9 @@
-import type Exception from "./Exception"
-import type { Trigger } from "./Trigger"
+import { AnnotatedHearingOutcome } from "./AnnotatedHearingOutcome";
+import type { Trigger } from "./Trigger";
 
 type BichardResultType = {
-  triggers: Trigger[]
-  exceptions: Exception[]
-}
+  triggers: Trigger[];
+  hearingOutcome: AnnotatedHearingOutcome;
+};
 
-export default BichardResultType
+export default BichardResultType;
