@@ -9,14 +9,11 @@ describe("HO100220", () => {
     await new World({}).db.closeConnection();
   });
 
-  // This should be raised but is currently masked by a parse error
-  it.skip("should be raised if the bail conditions are empty", async () => {
+  it.ifNewBichard("should create an exception if the reasonForOffenceBailConditions is too long", async () => {
     const inputMessage = generateMessage({
-      bailConditions: "X".repeat(2501),
-      // ASN: "ABCDEFGHXXXXXX",
+      reasonForBailConditionsOrCustody: "X".repeat(2501),
       offences: [{ results: [{}] }]
     });
-    console.log(inputMessage);
 
     const {
       hearingOutcome: { Exceptions: exceptions }
@@ -24,11 +21,27 @@ describe("HO100220", () => {
       expectTriggers: false
     });
 
-    expect(exceptions).toStrictEqual([
-      {
-        code: "HO100220",
-        path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ArrestSummonsNumber"]
-      }
-    ]);
+    expect(exceptions).toContainEqual({
+      code: "HO100220",
+      path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ReasonForBailConditions"]
+    });
+  });
+
+  it.ifNewBichard("should create an exception if the reasonForOffenceBailConditions is too long", async () => {
+    const inputMessage = generateMessage({
+      reasonForBailConditionsOrCustody: "",
+      offences: [{ results: [{}] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toContainEqual({
+      code: "HO100220",
+      path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ReasonForBailConditions"]
+    });
   });
 });

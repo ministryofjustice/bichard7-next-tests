@@ -44,21 +44,37 @@
           <DC:Hearing>
             <DC:CourtHearingLocation>{{ courtHearingLocation if courtHearingLocation else "B01EF01" }}</DC:CourtHearingLocation>
             <DC:DateOfHearing>2011-09-26</DC:DateOfHearing>
-            <DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
+            <DC:TimeOfHearing>{{ timeOfHearing if timeOfHearing else "10:00:00" }}</DC:TimeOfHearing>
           </DC:Hearing>
-          <DC:PSAcode>2576</DC:PSAcode>
+          <DC:PSAcode>{{ psaCode if psaCode else 2576 }}</DC:PSAcode>
         </DC:CourtHearing>
         <DC:Case>
           <DC:PTIURN>{{ PTIURN if PTIURN === "" or PTIURN else "01ZD0303908" }}</DC:PTIURN>
           <DC:Defendant>
             <DC:ProsecutorReference>{{ ASN if ASN === "" or ASN else "1101ZD0100000448754K" }}</DC:ProsecutorReference>
+            {% if organisation %}
+            <DC:CourtCorporateDefendant>
+              <DC:PresentAtHearing>A</DC:PresentAtHearing>
+              <DC:BailStatus>U</DC:BailStatus>
+              <DC:OrganisationName>
+                <DC:OrganisationName>{{ organisation.name if organisation.name else "ORGANISATION"}}</DC:OrganisationName>
+              </DC:OrganisationName>
+              <DC:Address>
+                <DC:SimpleAddress>
+                  <DC:AddressLine1>Address Line 1</DC:AddressLine1>
+                </DC:SimpleAddress>
+              </DC:Address>
+            </DC:CourtCorporateDefendant>
+            {% else %}
             <DC:CourtIndividualDefendant>
               <DC:PersonDefendant>
                 <DC:BasePersonDetails>
                   <DC:PersonName>
-                    <DC:PersonTitle>{{ person.title if person and person.title else "Mr" }}</DC:PersonTitle>
-                    <DC:PersonGivenName1>TRPRTWELVE</DC:PersonGivenName1>
-                    <DC:PersonFamilyName>TRTHREE</DC:PersonFamilyName>
+                    <DC:PersonTitle>{{ person.title if person and (person.title or person.title === "") else "Mr" }}</DC:PersonTitle>
+                    <DC:PersonGivenName1>{{ person.givenName1 if person and (person.givenName1 or person.givenName1 === "") else "TRPRTWELVE" }}</DC:PersonGivenName1>
+                    <DC:PersonGivenName2>{{ person.givenName2 if person and (person.givenName2 or person.givenName2 === "") else "TWO" }}</DC:PersonGivenName2>
+                    <DC:PersonGivenName3>{{ person.givenName3 if person and (person.givenName3 or person.givenName3 === "") else "THREE" }}</DC:PersonGivenName3>
+                    <DC:PersonFamilyName>{{ person.familyName if person and (person.familyName or person.familyName === "") else "TRTHREE" }}</DC:PersonFamilyName>
                   </DC:PersonName>
                   <DC:Birthdate>1948-11-11</DC:Birthdate>
                   <DC:Gender>1</DC:Gender>
@@ -71,15 +87,19 @@
                 {% endif %}
               </DC:PersonDefendant>
               <DC:BailStatus>{{ bailStatus if bailStatus else "U" }}</DC:BailStatus>
+              {% if reasonForBailConditionsOrCustody or reasonForBailConditionsOrCustody === "" %}<ReasonForBailConditionsOrCustody>{{ reasonForBailConditionsOrCustody }}</ReasonForBailConditionsOrCustody>{% endif %}
               <DC:Address>
                 <DC:SimpleAddress>
-                  <DC:AddressLine1>ScenarioD Address Line 1</DC:AddressLine1>
-                  <DC:AddressLine2>ScenarioD Address Line 2</DC:AddressLine2>
-                  <DC:AddressLine3>ScenarioD Address Line 3</DC:AddressLine3>
+                  <DC:AddressLine1>{{ person.address.addressLine1 if person and (person.address.addressLine1 or person.address.addressLine1 === "") else "Address Line 1" }}</DC:AddressLine1>
+                  <DC:AddressLine2>{{ person.address.addressLine2 if person and (person.address.addressLine2 or person.address.addressLine2 === "") else "Address Line 2" }}</DC:AddressLine2>
+                  <DC:AddressLine3>{{ person.address.addressLine3 if person and (person.address.addressLine3 or person.address.addressLine3 === "") else "Address Line 3" }}</DC:AddressLine3>
+                  <DC:AddressLine4>{{ person.address.addressLine4 if person and (person.address.addressLine4 or person.address.addressLine4 === "") else "Address Line 4" }}</DC:AddressLine4>
+                  <DC:AddressLine5>{{ person.address.addressLine5 if person and (person.address.addressLine5 or person.address.addressLine5 === "") else "Address Line 5" }}</DC:AddressLine5>
                 </DC:SimpleAddress>
               </DC:Address>
               <DC:PresentAtHearing>A</DC:PresentAtHearing>
             </DC:CourtIndividualDefendant>
+            {% endif %}
             {% for offence in offences %}
               <DC:Offence>
                 <DC:BaseOffenceDetails>
@@ -87,12 +107,14 @@
                   <DC:OffenceCode>{{ offence.code if offence.code else ( "TH68006" if offence.recordable else "TH68046C" ) }}</DC:OffenceCode>
                   <DC:OffenceWording>{{ offence.offenceWording if offence.offenceWording === "" or offence.offenceWording else "Theft of pedal cycle." }}</DC:OffenceWording>
                   <DC:OffenceTiming>
-                    <DC:OffenceDateCode>1</DC:OffenceDateCode>
+                    <DC:OffenceDateCode>{{ offence.offenceDateCode if offence.offenceDateCode else "1" }}</DC:OffenceDateCode>
                     <DC:OffenceStart>
+                      {% if offence.startTime %}<DC:OffenceStartTime>{{ offence.startTime }}</DC:OffenceStartTime>{% endif %}
                       <DC:OffenceDateStartDate>{{ offence.startDate | formatDate if offence.startDate else "2010-11-28" }}</DC:OffenceDateStartDate>
                     </DC:OffenceStart>
                     {% if offence.endDate %}
                       <DC:OffenceEnd>
+                        {% if offence.endTime %}<DC:OffenceEndTime>{{ offence.endTime }}</DC:OffenceEndTime>{% endif %}
                         <DC:OffenceEndDate>{{ offence.endDate | formatDate }}</DC:OffenceEndDate>
                       </DC:OffenceEnd>
                     {% endif %}
@@ -103,6 +125,12 @@
                   <DC:OffenceTitle>{{ offence.offenceTitle }}</DC:OffenceTitle>
                   {% endif %}
                   <DC:LocationOfOffence>{{ offence.location if offence.location === "" or offence.location else "Kingston High Street" }}</DC:LocationOfOffence>
+                  {% if offence.alcoholLevel %}
+                    <DC:AlcoholRelatedOffence>
+                      <DC:AlcoholLevelAmount>{{ offence.alcoholLevel.amount if offence.alcoholLevel.amount else "800" }}</DC:AlcoholLevelAmount>
+                      <DC:AlcoholLevelMethod>{{ offence.alcoholLevel.method if offence.alcoholLevel.method else "V" }}</DC:AlcoholLevelMethod>
+                    </DC:AlcoholRelatedOffence>
+                  {% endif %}
                 </DC:BaseOffenceDetails>
                 <DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
                 <DC:Plea>{{ offence.plea if offence.plea else "2" }}</DC:Plea>
@@ -114,7 +142,7 @@
                   <DC:Result>
                     <DC:ResultCode>{{ result.code if result.code else "1015" }}</DC:ResultCode>
                     <DC:ResultText>{{ result.text if result.text else "RESULT_TEXT" }}</DC:ResultText>
-                    {% if result.qualifier %}
+                    {% if result.qualifier or result.qualifier === "" %}
                       <DC:ResultCodeQualifier>{{ result.qualifier }}</DC:ResultCodeQualifier>
                     {% endif %}
                     {% if result.nextHearing %}
@@ -145,13 +173,15 @@
                     <DC:Outcome>
                       {% if result.outcome.duration %}
                       <DC:Duration>
-                        {% if result.outcome.duration.value %}
-                        <DC:DurationValue>2</DC:DurationValue>
-                        {% endif %}
-                        {% if result.outcome.duration.unit %}
-                        <DC:DurationUnit>Y</DC:DurationUnit>
-                        {% endif %}
+                        <DC:DurationValue>{{ result.outcome.duration.value if result.outcome.duration.value !== undefined else "2" }}</DC:DurationValue>
+                        <DC:DurationUnit>{{ result.outcome.duration.unit if result.outcome.duration.unit else "Y" }}</DC:DurationUnit>
                       </DC:Duration>
+                      {% endif %}
+                      {% if result.outcome.amountSterling !== undefined %}
+                      <DC:ResultAmountSterling>{{ result.outcome.amountSterling }}</DC:ResultAmountSterling>
+                      {% endif %}
+                      {% if result.outcome.penaltyPoints !== undefined %}
+                      <DC:PenaltyPoints>{{ result.outcome.penaltyPoints }}</DC:PenaltyPoints>
                       {% endif %}
                     </DC:Outcome>
                     {% endif %}

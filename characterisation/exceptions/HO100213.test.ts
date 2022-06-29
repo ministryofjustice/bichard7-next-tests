@@ -1,0 +1,185 @@
+jest.setTimeout(30000);
+
+import World from "../../steps/world";
+import generateMessage from "../helpers/generateMessage";
+import processMessage from "../helpers/processMessage";
+
+describe("HO100213", () => {
+  afterAll(async () => {
+    await new World({}).db.closeConnection();
+  });
+
+  it.ifNewBichard("should create an exception if the Person's given name 1 is too many characters", async () => {
+    const inputMessage = generateMessage({
+      person: { givenName1: "X".repeat(36) },
+      offences: [{ results: [] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO100213",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "DefendantDetail",
+          "PersonName",
+          "GivenName",
+          0
+        ]
+      }
+    ]);
+  });
+
+  it.ifNewBichard("should create an exception if the Person's given name 1 is too short", async () => {
+    const inputMessage = generateMessage({
+      person: { givenName1: "" },
+      offences: [{ results: [] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO100213",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "DefendantDetail",
+          "PersonName",
+          "GivenName",
+          0
+        ]
+      }
+    ]);
+  });
+
+  it.ifNewBichard("should create an exception if the Person's given name 2 is too many characters", async () => {
+    const inputMessage = generateMessage({
+      person: { givenName1: "one", givenName2: "X".repeat(36) },
+      offences: [{ results: [] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO100213",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "DefendantDetail",
+          "PersonName",
+          "GivenName",
+          1
+        ]
+      }
+    ]);
+  });
+
+  it.ifNewBichard("should create an exception if the Person's given name 2 is too short", async () => {
+    const inputMessage = generateMessage({
+      person: { givenName1: "One", givenName2: "" },
+      offences: [{ results: [] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO100213",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "DefendantDetail",
+          "PersonName",
+          "GivenName",
+          1
+        ]
+      }
+    ]);
+  });
+
+  it.ifNewBichard("should create an exception if the Person's given name 2 is too many characters", async () => {
+    const inputMessage = generateMessage({
+      person: { givenName1: "one", givenName2: "Two", givenName3: "X".repeat(36) },
+      offences: [{ results: [] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO100213",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "DefendantDetail",
+          "PersonName",
+          "GivenName",
+          2
+        ]
+      }
+    ]);
+  });
+
+  it.ifNewBichard("should create an exception if the Person's given name 2 is too short", async () => {
+    const inputMessage = generateMessage({
+      person: { givenName1: "One", givenName2: "Two", givenName3: "" },
+      offences: [{ results: [] }]
+    });
+
+    const {
+      hearingOutcome: { Exceptions: exceptions }
+    } = await processMessage(inputMessage, {
+      expectTriggers: false
+    });
+
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO100213",
+        path: [
+          "AnnotatedHearingOutcome",
+          "HearingOutcome",
+          "Case",
+          "HearingDefendant",
+          "DefendantDetail",
+          "PersonName",
+          "GivenName",
+          2
+        ]
+      }
+    ]);
+  });
+});

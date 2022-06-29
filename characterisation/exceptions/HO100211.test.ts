@@ -4,14 +4,15 @@ import World from "../../steps/world";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
 
-describe("HO100212", () => {
+describe("HO100211", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection();
   });
 
-  it.ifNewBichard("should create an exception if the Person's title is too many characters", async () => {
+  // TODO: We haven't implemented organisations yet
+  it.skip("should create an exception if the Organisation Name is too many characters", async () => {
     const inputMessage = generateMessage({
-      person: { title: "X".repeat(36) },
+      organisation: { name: "X".repeat(256) },
       offences: [{ results: [] }]
     });
 
@@ -23,7 +24,7 @@ describe("HO100212", () => {
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100212",
+        code: "HO100211",
         path: [
           "AnnotatedHearingOutcome",
           "HearingOutcome",
@@ -37,9 +38,9 @@ describe("HO100212", () => {
     ]);
   });
 
-  it.ifNewBichard("should create an exception if the Person's title is too short", async () => {
+  it.skip("should create an exception if the Organisation Name is too few characters", async () => {
     const inputMessage = generateMessage({
-      person: { title: "" },
+      organisation: { name: "" },
       offences: [{ results: [] }]
     });
 
@@ -51,7 +52,7 @@ describe("HO100212", () => {
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100212",
+        code: "HO100211",
         path: [
           "AnnotatedHearingOutcome",
           "HearingOutcome",
