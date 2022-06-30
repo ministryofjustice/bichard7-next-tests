@@ -16,7 +16,7 @@ then
     CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:must:auditlogs
   fi
   echo "Running characterisation tests"
-  npm run test:characterisation
+  npm run test:characterisation:bichard
 elif [ $WORKSPACE = "preprod" ]
 then
   echo "Running preprod tests"
