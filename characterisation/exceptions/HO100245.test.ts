@@ -9,7 +9,6 @@ describe("HO100245", () => {
     await new World({}).db.closeConnection();
   });
 
-  // This should be raised but is currently masked by a parse error
   it.ifNewBichard("should be raised if the result text is too long", async () => {
     const inputMessage = generateMessage({
       offences: [{ results: [{ text: "X".repeat(2501) }] }]

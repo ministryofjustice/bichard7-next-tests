@@ -29,10 +29,10 @@ export default (
 
   const spiCase = spi.Session.Case;
   const checkName =
-    spiCase.Defendant.CourtIndividualDefendant!.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(
+    spiCase.Defendant.CourtIndividualDefendant?.PersonDefendant.BasePersonDetails.PersonName.PersonFamilyName.substr(
       0,
       12
-    );
+    ) ?? "CHECKNAME";
   const prosecutorRef = spiCase.Defendant.ProsecutorReference.slice(-8);
   const offences = spiCase.Defendant.Offence.map((offence: OffenceParsedXml): PncOffence => {
     const dates = extractDates(offence);

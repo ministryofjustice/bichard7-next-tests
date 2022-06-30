@@ -4,14 +4,14 @@ import World from "../../steps/world";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
 
-describe("HO100212", () => {
+describe("HO100215", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection();
   });
 
-  it.ifNewBichard("should create an exception if the Person's title is too many characters", async () => {
+  it.ifNewBichard("should create an exception if the Person's family name is too many characters", async () => {
     const inputMessage = generateMessage({
-      person: { title: "X".repeat(36) },
+      person: { familyName: "X".repeat(36) },
       offences: [{ results: [] }]
     });
 
@@ -23,7 +23,7 @@ describe("HO100212", () => {
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100212",
+        code: "HO100215",
         path: [
           "AnnotatedHearingOutcome",
           "HearingOutcome",
@@ -31,15 +31,15 @@ describe("HO100212", () => {
           "HearingDefendant",
           "DefendantDetail",
           "PersonName",
-          "Title"
+          "FamilyName"
         ]
       }
     ]);
   });
 
-  it.ifNewBichard("should create an exception if the Person's title is too short", async () => {
+  it.ifNewBichard("should create an exception if the Person's family name is too short", async () => {
     const inputMessage = generateMessage({
-      person: { title: "" },
+      person: { familyName: "" },
       offences: [{ results: [] }]
     });
 
@@ -51,7 +51,7 @@ describe("HO100212", () => {
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO100212",
+        code: "HO100215",
         path: [
           "AnnotatedHearingOutcome",
           "HearingOutcome",
@@ -59,7 +59,7 @@ describe("HO100212", () => {
           "HearingDefendant",
           "DefendantDetail",
           "PersonName",
-          "Title"
+          "FamilyName"
         ]
       }
     ]);

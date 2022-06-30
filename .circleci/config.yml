@@ -95,23 +95,51 @@ commands:
   run-core:
     steps:
       - run:
-          name: NPM Install
-          command: nvm use v16 && cd ~/bichard7-next-core && npm install
+          name: Create a hash of the package lock
+          command: md5sum ~/bichard7-next-core/package-lock.json > ~/bichard7-next-core/package-lock.json.md5
+      - restore_cache:
+          name: Load node_modules from the cache if they haven't changed
+          keys:
+            - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json.md5" }}
+      - run:
+          name: NPM install the core repo
+          command: cd ~/bichard7-next-core && nvm use v16 && npm i
+      - save_cache:
+          key: core-deps-{{ checksum "~/bichard7-next-core/package-lock.json.md5" }}
+          paths: ~/bichard7-next-core/node_modules
       - run:
           name: Start the test server in the background
           command: nvm use v16 && cd ~/bichard7-next-core && npm run test:server
           background: true
       - run:
           name: Wait for Core
-          command: nvm use v16 && npm install -g wait-port && wait-port 6000
+          command: nvm use v16 && npx -y wait-port 6000
+
+  install-tests:
+    steps:
+      - run:
+          name: Create a hash of the package lock
+          command: md5sum package-lock.json > package-lock.json.md5
+      - restore_cache:
+          name: Load node_modules from the cache if they haven't changed
+          keys:
+            - test-deps-{{ checksum "package-lock.json.md5" }}
+      - run:
+          name: NPM install the core repo
+          command: nvm use v16 && npm i
+      - save_cache:
+          key: test-deps-{{ checksum "package-lock.json.md5" }}
+          paths: node_modules
 
   test-core:
     steps:
-      - run: nvm use v16 && npm i && npm run test:characterisation
+      - install-tests
+      - run: nvm use v16 && npm run test:characterisation
 
   test-bichard:
     steps:
-      - run: nvm use v16 && npm i && npm run test:characterisation:bichard
+      - install-tests
+      - run: nvm use v16 && npm run test:characterisation:bichard
 
   run-tests-e2e:
     steps:
