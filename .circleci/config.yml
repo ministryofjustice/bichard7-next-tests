@@ -64,14 +64,14 @@ commands:
           command: cd ~/project && make build
       - run:
           name: Wait for Bichard
-          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 30
+          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
       - run:
           name: Retry running Docker services
           command: |
             cd ~/bichard7-next
             make destroy
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
-            bash ~/bichard7-next/scripts/wait_for_bichard.sh 30
+            bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
 
   run_test_next_chunk:
