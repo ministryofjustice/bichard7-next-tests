@@ -17,8 +17,7 @@ const expectedExceptions = [
       "Result",
       0,
       "NumberSpecifiedInResult",
-      0,
-      "Number"
+      0
     ]
   }
 ];
