@@ -2,8 +2,15 @@
 version: 0.2
 phases:
   install:
+    runtime-versions:
+      python: 3.9
+      nodejs: 16
     commands:
       - /bin/bash scripts/configure_codebuild_image.sh
+      - yum groupinstall -y "Development tools"
+      - yum -y install jq gzip tar unzip openssl shadow-utils xz wget gnupg curl openvpn which chromium deltarpm
+      - pip3 install --upgrade pip
+      - pip3 install click botocore requests
   build:
     commands:
       - set -e
