@@ -190,7 +190,7 @@ jobs:
   test-e2e:
     machine:
       image: ubuntu-2004:202104-01
-      docker_layer_caching: true
+      docker_layer_caching: false
     resource_class: large
     environment:
       BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
@@ -204,7 +204,7 @@ jobs:
   test-characterisation-bichard:
     machine:
         image: ubuntu-2004:202104-01
-        docker_layer_caching: true
+        docker_layer_caching: false
     resource_class: large
     environment:
       WORKSPACE: local-next
@@ -214,7 +214,7 @@ jobs:
   test-characterisation-core:
     machine:
         image: ubuntu-2004:202104-01
-        docker_layer_caching: true
+        docker_layer_caching: false
     resource_class: large
     steps:
         - run-tests-characterisation-core
