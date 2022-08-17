@@ -36,32 +36,4 @@ describe("HO100212", () => {
       }
     ]);
   });
-
-  it.ifNewBichard("should create an exception if the Person's title is too short", async () => {
-    const inputMessage = generateMessage({
-      person: { title: "" },
-      offences: [{ results: [] }]
-    });
-
-    const {
-      hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
-      expectTriggers: false
-    });
-
-    expect(exceptions).toStrictEqual([
-      {
-        code: "HO100212",
-        path: [
-          "AnnotatedHearingOutcome",
-          "HearingOutcome",
-          "Case",
-          "HearingDefendant",
-          "DefendantDetail",
-          "PersonName",
-          "Title"
-        ]
-      }
-    ]);
-  });
 });
