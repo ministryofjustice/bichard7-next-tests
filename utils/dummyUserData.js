@@ -6,7 +6,7 @@ module.exports = {
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
     excluded_triggers: [],
-    groups: ["B7Supervisor"]
+    groups: ["B7Supervisor", "B7NewUI"]
   },
   generalhandler: {
     inclusionList: ["B01", "B41ME00"],
