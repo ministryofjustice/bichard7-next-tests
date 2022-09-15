@@ -85,12 +85,16 @@ const openRecordFor = async function (name) {
 };
 
 const openRecordForCurrentTest = async function () {
-  await filterByRecordName(this);
-  await waitForRecord(this.browser.page);
-  await Promise.all([
-    this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`),
-    this.browser.page.waitForNavigation()
-  ]);
+  if (process.env.nextUI) {
+    expect(await this.browser.pageText()).toContain("I open this record NOT IMPLEMENTED!");
+  } else {
+    await filterByRecordName(this);
+    await waitForRecord(this.browser.page);
+    await Promise.all([
+      this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`),
+      this.browser.page.waitForNavigation()
+    ]);
+  }
 };
 
 const loadRecordTab = async function (page, selectorToClick, selectorToWaitFor) {
