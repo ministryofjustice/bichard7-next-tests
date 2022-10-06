@@ -168,6 +168,7 @@ jobs:
   build:
     machine:
       image: ubuntu-2004:202104-01
+    resource_class: large
     steps:
       - add_ssh_keys:
           fingerprints:
