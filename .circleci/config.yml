@@ -148,6 +148,15 @@ commands:
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
+  
+  run-tests-e2e-new-ui:
+    steps:
+      - checkout
+      - pre_run_setup
+      - run_services_and_wait
+      - install-tests
+      - run: ./scripts/prepare-environment.sh && nvm use v16 && npm run test:nextUI
+      - save_artifacts
 
   run-tests-characterisation-bichard:
       steps:
@@ -201,6 +210,18 @@ jobs:
     steps:
       - run-tests-e2e
     parallelism: 4
+
+  tests-e2e-new-ui:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: false
+    resource_class: large
+    environment:
+      WORKSPACE: local-next
+      RECORD: "true"
+    steps:
+      - run-tests-e2e-new-ui
+    parallelism: 4
   
   test-characterisation-bichard:
     machine:
@@ -226,13 +247,16 @@ workflows:
   deploy:
     jobs:
       - build
-      - test-e2e:
+      # - test-e2e:
+      #     requires:
+      #       - build
+      # - test-characterisation-bichard:
+      #     requires:
+      #       - build
+      # - test-characterisation-core:
+      #     requires:
+      #       - build
+      - tests-e2e-new-ui:
           requires:
-            - build
-      - test-characterisation-bichard:
-          requires:
-            - build
-      - test-characterisation-core:
-          requires:
-            - build
+            - build      
       
