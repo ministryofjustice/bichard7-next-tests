@@ -167,7 +167,8 @@ commands:
 jobs:
   build:
     machine:
-      image: ubuntu-2004:202104-01
+      image: ubuntu-2004:2022.07.1
+    resource_class: xlarge
     steps:
       - add_ssh_keys:
           fingerprints:
