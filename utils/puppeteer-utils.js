@@ -67,7 +67,11 @@ const reloadUntilNotContent = async (page, content) => {
 };
 
 const waitForRecord = async (page, reloadAttempts) => {
-  await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link", reloadAttempts);
+  const selector = process.env.nextUI
+  ? `.src__StyledTable-sc-16s660v-0 .TableBody-sc-1qqarm8-0 a.src__Link-sc-1loawqx-0`
+  : ".resultsTable a.br7_exception_list_record_table_link";
+
+  await reloadUntilSelector(page, selector, reloadAttempts);
 };
 
 const delay = (seconds) =>
