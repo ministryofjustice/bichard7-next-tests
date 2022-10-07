@@ -86,6 +86,18 @@ commands:
             cd ~/bichard7-next
             TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
 
+  run_test_new_ui:
+    steps:
+      - run:
+          name: Pipe logs to the test container
+          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
+          background: true
+      - run:
+          name: Run E2E tests
+          command: |
+            cd ~/bichard7-next
+            bash -c ". ./scripts/e2e-tests/e2e-tests-env.sh && docker-compose run --service-ports e2e-tests-record npm run test:nextUI"
+
   checkout-core:
     steps:
       - run:
@@ -155,7 +167,7 @@ commands:
       - pre_run_setup
       - run_services_and_wait
       - install-tests
-      - run: ./scripts/prepare-environment.sh && nvm use v16 && npm run test:nextUI
+      - run_test_new_ui
       - save_artifacts
 
   run-tests-characterisation-bichard:
