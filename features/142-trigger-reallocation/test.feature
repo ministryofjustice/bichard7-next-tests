@@ -72,5 +72,5 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
       And I see trigger "TRPS0003" for offence "4"
       And I see complete trigger "TRPR0004" for offence "2"
       And the PNC updates the record
-      And the audit log contains "Trigger generated"
+      And the audit log contains "Triggers generated"
       And the audit log contains "Trigger marked as resolved by user"
