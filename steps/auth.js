@@ -110,7 +110,6 @@ const logInAs = async function (username) {
   }
 
   if (process.env.nextUI) {
-    // Todo: fix new UI content for You are logged in as username
     expect(await this.browser.pageText()).toContain(username);
   } else {
     expect(await this.browser.pageText()).toMatch(new RegExp(`You are logged in as: ${username}`, "i"));
