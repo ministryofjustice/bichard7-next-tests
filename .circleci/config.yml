@@ -49,10 +49,6 @@ commands:
           command: bash scripts/fetch_nginx_auth_proxy_docker.sh
 
   pre_run_setup_new_ui:
-    parameters:
-      ENABLE_PHASE_2:
-        default: "true"
-        type: string
     steps:
       - attach_workspace:
           at: ~/
@@ -69,6 +65,13 @@ commands:
           image: nginx-auth-proxy
       - fetch_docker_image:
           image: ui
+
+  run_services_with_new_ui_and_wait:
+    parameters:
+      ENABLE_PHASE_2:
+        default: "true"
+        type: string
+    steps:
       - run:
           name: Run docker services
           command: |
@@ -215,6 +218,7 @@ commands:
     steps:
       - checkout
       - pre_run_setup_new_ui
+      - run_services_with_new_ui_and_wait
       - run_test_new_ui
       - save_artifacts
 
@@ -318,5 +322,5 @@ workflows:
       #       - build
       - tests-e2e-new-ui:
           requires:
-            - build      
+            - build
       
