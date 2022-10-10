@@ -55,7 +55,7 @@ commands:
         type: string
     steps:
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           command: docker network prune -f
           name: Clear out the networks before we start our Docker services
@@ -72,7 +72,7 @@ commands:
       - run:
           name: Run docker services
           command: |
-            cd bichard7-next
+            cd ~/bichard7-next
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all && make run-ui
       - run:
           name: Build E2E tests
