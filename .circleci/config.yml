@@ -33,27 +33,62 @@ commands:
       - run:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
+  
+  clear_docker_networks:
+    steps:
+      - run:
+          command: docker network prune -f
+          name: Clear out the networks before we start our Docker services
 
   pre_run_setup:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          name: Clear out the networks before we start our Docker services
-          command: docker network prune -f
+      - clear_docker_networks
       - run:
           name: Make a fake user-service image
           command: docker pull hello-world && docker tag hello-world user-service
       - fetch_docker_image:
           image: nginx-auth-proxy
 
+  run_services_and_wait:
+    parameters:
+      ENABLE_PHASE_2:
+        default: "true"
+        type: string
+    steps:
+      - run:
+          name: Run docker services (except BeanConnect)
+          command: |
+            cd ~/bichard7-next
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
+      - fetch_docker_image:
+          image: pncemulator
+      - fetch_docker_image:
+          image: beanconnect
+      - run:
+          name: Run BeanConnect and PNC Emulator docker services
+          command: cd ~/bichard7-next && make run-beanconnect
+      - run:
+          name: Build E2E tests
+          command: cd ~/project && make build
+      - run:
+          name: Wait for Bichard
+          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
+      - run:
+          name: Retry running Docker services
+          command: |
+            cd ~/bichard7-next
+            make destroy
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
+            bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
+          when: on_fail
+  
   pre_run_setup_new_ui:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          command: docker network prune -f
-          name: Clear out the networks before we start our Docker services
+      - clear_docker_networks
       - fetch_docker_image:
           image: pncemulator
       - fetch_docker_image:
@@ -91,45 +126,16 @@ commands:
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
 
-  run_services_and_wait:
-    parameters:
-      ENABLE_PHASE_2:
-        default: "true"
-        type: string
-    steps:
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
-      - fetch_docker_image:
-          image: pncemulator
-      - fetch_docker_image:
-          image: beanconnect
-      - run:
-          name: Run BeanConnect and PNC Emulator docker services
-          command: cd ~/bichard7-next && make run-beanconnect
-      - run:
-          name: Build E2E tests
-          command: cd ~/project && make build
-      - run:
-          name: Wait for Bichard
-          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
-      - run:
-          name: Retry running Docker services
-          command: |
-            cd ~/bichard7-next
-            make destroy
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
-            bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
-          when: on_fail
-
-  run_test_next_chunk:
+  pipe_logs_to_test_container:
     steps:
       - run:
           name: Pipe logs to the test container
           command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
           background: true
+
+  run_test_next_chunk:
+    steps:
+      - pipe_logs_to_test_container
       - run:
           name: Run E2E tests
           command: |
@@ -138,10 +144,7 @@ commands:
 
   run_test_new_ui:
     steps:
-      - run:
-          name: Pipe logs to the test container
-          command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
-          background: true
+      - pipe_logs_to_test_container
       - run:
           name: Run E2E tests with next UI
           command: |
