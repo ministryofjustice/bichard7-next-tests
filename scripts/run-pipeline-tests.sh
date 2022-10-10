@@ -5,6 +5,9 @@ set -xe
 if [ $WORKSPACE = "e2e-test" ]
 then
   echo "Build was triggered by $TRIGGER"
+
+  echo "Running new UI tests"
+  CI=true RECORD=true npm run test:nextUI
   if [ $TRIGGER = "application-semaphore" ]
   then
     echo "Running all tests"
