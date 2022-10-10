@@ -282,7 +282,6 @@ jobs:
       RECORD: "true"
     steps:
       - run-tests-e2e-new-ui
-    parallelism: 4
   
   test-characterisation-bichard:
     machine:
