@@ -44,9 +44,8 @@ commands:
       - run:
           name: Make a fake user-service image
           command: docker pull hello-world && docker tag hello-world user-service
-      - run:
-          name: Fetch the Nginx Auth Proxy image
-          command: bash scripts/fetch_nginx_auth_proxy_docker.sh
+      - fetch_docker_image:
+          image: nginx-auth-proxy
 
   pre_run_setup_new_ui:
     steps:
@@ -103,12 +102,10 @@ commands:
           command: |
             cd ~/bichard7-next
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
-      - run:
-          name: Fetch the PNC Emulator image
-          command: bash ~/bichard7-next/scripts/fetch_pncemulator_docker.sh
-      - run:
-          name: Fetch the BeanConnect image
-          command: bash ~/bichard7-next/scripts/fetch_beanconnect_docker.sh
+      - fetch_docker_image:
+          image: pncemulator
+      - fetch_docker_image:
+          image: beanconnect
       - run:
           name: Run BeanConnect and PNC Emulator docker services
           command: cd ~/bichard7-next && make run-beanconnect
@@ -311,16 +308,15 @@ workflows:
   deploy:
     jobs:
       - build
-      # - test-e2e:
-      #     requires:
-      #       - build
-      # - test-characterisation-bichard:
-      #     requires:
-      #       - build
-      # - test-characterisation-core:
-      #     requires:
-      #       - build
+      - test-e2e:
+          requires:
+            - build
       - tests-e2e-new-ui:
           requires:
             - build
-      
+      - test-characterisation-bichard:
+          requires:
+            - build
+      - test-characterisation-core:
+          requires:
+            - build
