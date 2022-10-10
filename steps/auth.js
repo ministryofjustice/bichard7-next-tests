@@ -47,6 +47,7 @@ const logInToUserServiceAs = async function (world, name) {
   await world.browser.clickAndWait("button[type='submit']");
 
   // Grab verification code from the database and generate the email verification token
+  /* eslint-disable no-promise-executor-return */
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const verificationCode = await world.db.getEmailVerificationCode(emailAddress);
 
@@ -57,9 +58,16 @@ const logInToUserServiceAs = async function (world, name) {
   await world.browser.clickAndWait("button[type='submit']");
   await page.waitForXPath('//*[contains(text(), "Welcome ")]');
 
-  await world.browser.clickAndWait("a#bichard-link");
-
-  await page.waitForSelector(".wpsToolBarUserName", { timeout });
+  if (process.env.nextUI) {
+    const [button] = await page.$x("//a[contains(., 'Access New Bichard')]");
+    if (button) {
+      await button.click();
+      await page.waitForSelector(".govuk-template__body", { timeout });
+    }
+  } else {
+    await world.browser.clickAndWait("a#bichard-link");
+    await page.waitForSelector(".wpsToolBarUserName", { timeout });
+  }
 };
 
 const logInToBichardJwtAs = async function (world, name) {
@@ -91,7 +99,7 @@ const logInToBichardJwtAs = async function (world, name) {
 
 const logInAs = async function (username) {
   if (this.noUi) return;
-  createUser(this, username);
+  await createUser(this, username);
 
   if (this.authType === authType.bichard) {
     await logInToBichardAs(this, username);
@@ -101,7 +109,11 @@ const logInAs = async function (username) {
     await logInToUserServiceAs(this, username);
   }
 
-  expect(await this.browser.pageText()).toMatch(new RegExp(`You are logged in as: ${username}`, "i"));
+  if (process.env.nextUI) {
+    expect(await this.browser.pageText()).toContain(username);
+  } else {
+    expect(await this.browser.pageText()).toMatch(new RegExp(`You are logged in as: ${username}`, "i"));
+  }
 };
 
 module.exports = { logInAs };

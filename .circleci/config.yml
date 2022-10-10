@@ -25,19 +25,31 @@ commands:
       - store_artifacts:
           path: /home/circleci/project/saved_artifacts
 
+  fetch_docker_image:
+    parameters:
+      image:
+        type: string
+    steps:
+      - run:
+          name: Fetch the <<parameters.image>> image
+          command: bash scripts/fetch_docker_image.sh <<parameters.image>>
+  
+  clear_docker_networks:
+    steps:
+      - run:
+          command: docker network prune -f
+          name: Clear out the networks before we start our Docker services
+
   pre_run_setup:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          name: Clear out the networks before we start our Docker services
-          command: docker network prune -f
+      - clear_docker_networks
       - run:
           name: Make a fake user-service image
           command: docker pull hello-world && docker tag hello-world user-service
-      - run:
-          name: Fetch the Nginx Auth Proxy image
-          command: bash scripts/fetch_nginx_auth_proxy_docker.sh
+      - fetch_docker_image:
+          image: nginx-auth-proxy
 
   run_services_and_wait:
     parameters:
@@ -50,12 +62,10 @@ commands:
           command: |
             cd ~/bichard7-next
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
-      - run:
-          name: Fetch the PNC Emulator image
-          command: bash ~/bichard7-next/scripts/fetch_pncemulator_docker.sh
-      - run:
-          name: Fetch the BeanConnect image
-          command: bash ~/bichard7-next/scripts/fetch_beanconnect_docker.sh
+      - fetch_docker_image:
+          image: pncemulator
+      - fetch_docker_image:
+          image: beanconnect
       - run:
           name: Run BeanConnect and PNC Emulator docker services
           command: cd ~/bichard7-next && make run-beanconnect
@@ -73,18 +83,73 @@ commands:
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
+  
+  pre_run_setup_new_ui:
+    steps:
+      - attach_workspace:
+          at: ~/
+      - clear_docker_networks
+      - fetch_docker_image:
+          image: pncemulator
+      - fetch_docker_image:
+          image: beanconnect
+      - fetch_docker_image:
+          image: user-service
+      - fetch_docker_image:
+          image: nginx-auth-proxy
+      - fetch_docker_image:
+          image: ui
 
-  run_test_next_chunk:
+  run_services_with_new_ui_and_wait:
+    parameters:
+      ENABLE_PHASE_2:
+        default: "true"
+        type: string
+    steps:
+      - run:
+          name: Run docker services
+          command: |
+            cd ~/bichard7-next
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all && make run-ui
+      - run:
+          name: Build E2E tests
+          command: cd ~/project && make build
+      - run:
+          name: Wait for Bichard
+          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
+      - run:
+          name: Retry running Docker services
+          command: |
+            cd ~/bichard7-next
+            make destroy
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
+            bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
+          when: on_fail
+
+  pipe_logs_to_test_container:
     steps:
       - run:
           name: Pipe logs to the test container
           command: cd ~/bichard7-next && bash ./scripts/pipe_logs.sh liberty-next &> /tmp/logpipe.txt
           background: true
+
+  run_test_next_chunk:
+    steps:
+      - pipe_logs_to_test_container
       - run:
           name: Run E2E tests
           command: |
             cd ~/bichard7-next
             TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX make e2e-tests-record-chunk
+
+  run_test_new_ui:
+    steps:
+      - pipe_logs_to_test_container
+      - run:
+          name: Run E2E tests with next UI
+          command: |
+            cd ~/bichard7-next
+            bash -c ". ./scripts/e2e-tests/e2e-tests-env.sh && docker-compose run --service-ports e2e-tests-record npm run test:nextUI"
 
   checkout-core:
     steps:
@@ -148,6 +213,14 @@ commands:
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
+  
+  run-tests-e2e-new-ui:
+    steps:
+      - checkout
+      - pre_run_setup_new_ui
+      - run_services_with_new_ui_and_wait
+      - run_test_new_ui
+      - save_artifacts
 
   run-tests-characterisation-bichard:
       steps:
@@ -167,7 +240,8 @@ commands:
 jobs:
   build:
     machine:
-      image: ubuntu-2004:202104-01
+      image: ubuntu-2004:2022.07.1
+    resource_class: xlarge
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -200,6 +274,17 @@ jobs:
     steps:
       - run-tests-e2e
     parallelism: 4
+
+  tests-e2e-new-ui:
+    machine:
+      image: ubuntu-2004:202104-01
+      docker_layer_caching: false
+    resource_class: large
+    environment:
+      WORKSPACE: local-next
+      RECORD: "true"
+    steps:
+      - run-tests-e2e-new-ui
   
   test-characterisation-bichard:
     machine:
@@ -228,10 +313,12 @@ workflows:
       - test-e2e:
           requires:
             - build
+      - tests-e2e-new-ui:
+          requires:
+            - build
       - test-characterisation-bichard:
           requires:
             - build
       - test-characterisation-core:
           requires:
             - build
-      
