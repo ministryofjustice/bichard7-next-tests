@@ -70,7 +70,8 @@ module.exports = {
     return {
       matchRegex: options.matchRegex || "CXE01",
       response,
-      expectedRequest: options.expectedRequest || ""
+      expectedRequest: options.expectedRequest || "",
+      count: options.count || null
     };
   },
   dummyUpdate: {
