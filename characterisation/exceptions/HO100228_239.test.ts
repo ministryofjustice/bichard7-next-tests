@@ -4,7 +4,7 @@ import World from "../../steps/world";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
 
-describe("HO100239", () => {
+describe("HO100228 and HO100239", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection();
   });
@@ -39,6 +39,19 @@ describe("HO100239", () => {
 
       expect(exceptions).toStrictEqual([
         {
+          code: "HO100228",
+          path: [
+            "AnnotatedHearingOutcome",
+            "HearingOutcome",
+            "Case",
+            "HearingDefendant",
+            "Offence",
+            0,
+            "CriminalProsecutionReference",
+            "OffenceReasonSequence"
+          ]
+        },
+        {
           code: "HO100239",
           path: [
             "AnnotatedHearingOutcome",
@@ -68,6 +81,19 @@ describe("HO100239", () => {
       });
 
       expect(exceptions).toStrictEqual([
+        {
+          code: "HO100228",
+          path: [
+            "AnnotatedHearingOutcome",
+            "HearingOutcome",
+            "Case",
+            "HearingDefendant",
+            "Offence",
+            0,
+            "CriminalProsecutionReference",
+            "OffenceReasonSequence"
+          ]
+        },
         {
           code: "HO100239",
           path: [
