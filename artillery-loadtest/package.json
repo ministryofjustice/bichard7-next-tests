@@ -12,8 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "artillery": "^2.0.0-5",
+    "artillery": "^2.0.0-26",
     "jsonwebtoken": "^8.5.1",
-    "pg-promise": "^10.11.1"
+    "pg-promise": "^10.12.1"
   }
 }

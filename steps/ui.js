@@ -1,4 +1,4 @@
-const expect = require("expect");
+const { expect } = require("expect");
 const { initialRefreshUrl } = require("../utils/urls");
 const {
   reloadUntilSelector,
@@ -464,7 +464,7 @@ const checkRecordForThisTestResolved = async function (recordType, resolvedType)
       "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
     );
 
-    expect(resolveTriggersButtons.length).toEqual(0)
+    expect(resolveTriggersButtons.length).toEqual(0);
   } else {
     await filterRecords(this, resolvedType, recordType);
     expect(await this.browser.elementText("table.resultsTable")).toMatch(this.getRecordName());
@@ -483,7 +483,7 @@ const checkRecordForThisTestNotResolved = async function (recordType, resolvedTy
       "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
     );
 
-    expect(resolveTriggersButtons.length).toEqual(0)
+    expect(resolveTriggersButtons.length).toEqual(0);
   } else {
     await filterRecords(this, resolvedType, recordType);
     expect(await this.browser.elementText("table.resultsTable")).not.toMatch(this.getRecordName());

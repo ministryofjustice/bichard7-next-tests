@@ -1,4 +1,4 @@
-const expect = require("expect");
+const { expect } = require("expect");
 const fs = require("fs");
 const { parse } = require("csv-parse/sync");
 const { getTableData, getRawTableData } = require("./ui");

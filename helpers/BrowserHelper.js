@@ -117,7 +117,7 @@ class BrowserHelper {
     }
     if (this.page) {
       // eslint-disable-next-line no-underscore-dangle
-      await this.page._client.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder });
+      await this.page._client().send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder });
     }
   }
 

@@ -1,4 +1,5 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
+const { setWorldConstructor } = require("@cucumber/cucumber");
 const { logInAs } = require("./auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./message");
@@ -85,6 +86,9 @@ const {
   canSeeContentInTableForThis
 } = require("./ui");
 const { checkEventByAuditMessageNumber } = require("./auditLogging");
+const Bichard = require("./world");
+
+setWorldConstructor(Bichard);
 
 setDefaultTimeout(timeout);
 

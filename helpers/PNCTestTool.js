@@ -1,4 +1,4 @@
-const axiosClass = require("axios").default;
+const axiosClass = require("axios");
 const https = require("https");
 const fs = require("fs");
 const { XMLParser } = require("fast-xml-parser");
