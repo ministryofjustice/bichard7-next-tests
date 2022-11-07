@@ -1,4 +1,4 @@
-const axios = require("axios").default;
+const axios = require("axios");
 const fs = require("fs").promises;
 const Poller = require("../utils/Poller");
 

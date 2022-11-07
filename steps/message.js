@@ -1,5 +1,5 @@
 const uuid = require("uuid").v4;
-const expect = require("expect");
+const { expect } = require("expect");
 const path = require("path");
 const fs = require("fs");
 const isError = require("../utils/isError");

@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 const uuid = require("uuid").v4;
-const { setWorldConstructor, World } = require("@cucumber/cucumber");
+const { World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
 const AuditLogDynamoDbHelper = require("../helpers/AuditLogDynamoDbHelper");
@@ -102,5 +102,3 @@ class Bichard extends World {
 }
 
 module.exports = Bichard;
-
-setWorldConstructor(Bichard);

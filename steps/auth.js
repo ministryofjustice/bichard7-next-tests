@@ -1,4 +1,4 @@
-const expect = require("expect");
+const { expect } = require("expect");
 const jwt = require("jsonwebtoken");
 const { authType, timeout } = require("../utils/config");
 const { home, authenticateUrl, userService } = require("../utils/urls");
