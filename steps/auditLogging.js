@@ -1,9 +1,9 @@
 const isError = require("../utils/isError");
 const Poller = require("../utils/Poller");
 
-const checkEventByExternalCorreationId = async (context, externalCorrelationId, eventType, contains) => {
-  const { auditLogDynamoDb } = context;
-  const getMessages = () => auditLogDynamoDb.getMessageByExternalCorrelationId(externalCorrelationId);
+const checkEventByExternalCorrelationId = async (context, externalCorrelationId, eventType, contains) => {
+  const { auditLogApiClient } = context;
+  const getMessages = () => auditLogApiClient.getMessageByExternalCorrelationId(externalCorrelationId);
 
   let events = null;
   const options = {
@@ -68,7 +68,7 @@ const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, 
     throw new Error(`Could not extract external correlation ID from the S3 file with index ${s3FileIndex}`);
   }
 
-  return checkEventByExternalCorreationId(context, externalCorrelationId, eventType, contains);
+  return checkEventByExternalCorrelationId(context, externalCorrelationId, eventType, contains);
 };
 
-module.exports = { checkEventByExternalCorreationId, checkEventByAuditMessageNumber };
+module.exports = { checkEventByExternalCorrelationId, checkEventByAuditMessageNumber };
