@@ -13,4 +13,4 @@ Feature: {408} Handling unexpected PNC enquiry errors
 	Scenario: Handling unexpected errors for PNC update
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-			Then I see exception "HO100402" in the exception list table
+			Then I see exception "HO100404" in the exception list table
