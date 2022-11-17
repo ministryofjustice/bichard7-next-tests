@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const isError = require("../utils/isError");
 const convertMessageToNewFormat = require("../utils/convertMessageToNewFormat");
-const { checkEventByExternalCorreationId } = require("./auditLogging");
+const { checkEventByExternalCorrelationId } = require("./auditLogging");
 const { replaceAllTags } = require("../utils/tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
@@ -35,7 +35,7 @@ const sendMsg = async function (world, messagePath) {
     messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
-    const checkEventResult = await checkEventByExternalCorreationId(
+    const checkEventResult = await checkEventByExternalCorrelationId(
       world,
       correlationId,
       "Message Sent to Bichard",

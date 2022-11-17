@@ -3,7 +3,7 @@ const uuid = require("uuid").v4;
 const { World } = require("@cucumber/cucumber");
 const PostgresHelper = require("../helpers/PostgresHelper");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
-const AuditLogDynamoDbHelper = require("../helpers/AuditLogDynamoDbHelper");
+const AuditLogApiHelper = require("../helpers/AuditLogApiHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
@@ -56,10 +56,9 @@ class Bichard extends World {
       incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
     });
 
-    this.auditLogDynamoDb = new AuditLogDynamoDbHelper({
-      region: process.env.AUDIT_LOGGING_DYNAMODB_REGION || defaults.awsRegion,
-      endpoint: process.env.AWS_URL,
-      tableName: process.env.AUDIT_LOGGING_DYNAMODB_TABLE || "audit-log"
+    this.auditLogApiClient = new AuditLogApiHelper({
+      apiUrl: process.env.AUDIT_LOGGING_API_URL,
+      apiKey: process.env.AUDIT_LOGGING_API_KEY
     });
 
     if (this.realPNC) {
