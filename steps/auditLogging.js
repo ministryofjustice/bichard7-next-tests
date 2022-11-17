@@ -2,8 +2,8 @@ const isError = require("../utils/isError");
 const Poller = require("../utils/Poller");
 
 const checkEventByExternalCorrelationId = async (context, externalCorrelationId, eventType, contains) => {
-  const { auditLogApiClient } = context;
-  const getMessages = () => auditLogApiClient.getMessageByExternalCorrelationId(externalCorrelationId);
+  const { auditLogClient } = context;
+  const getMessages = () => auditLogClient.getMessageByExternalCorrelationId(externalCorrelationId);
 
   let events = null;
   const options = {
