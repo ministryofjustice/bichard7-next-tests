@@ -11,6 +11,9 @@ const fsHelp = require("../helpers/fsHelper");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
+  if (process.env.nextUI) {
+    await world.browser.page.click("button#filter-button")
+  }
   const searchField = process.env.nextUI ? "input[name='keywords']" : "input[name='defendantSearch']";
 
   // Triple click selects any existing text so we type over it
