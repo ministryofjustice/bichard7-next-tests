@@ -71,8 +71,8 @@
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>PC00010</DC:OffenceCode>
-								<DC:OffenceWording>Breach of Supervision Order</DC:OffenceWording>
+								<DC:OffenceCode>CD98021</DC:OffenceCode>
+								<DC:OffenceWording>BREACH OF ACTION PLAN ORDER</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>

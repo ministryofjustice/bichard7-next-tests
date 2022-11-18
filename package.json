@@ -14,7 +14,7 @@
     "test:loadtest-ui": "./scripts/prepare-environment.sh && PRINT_ENV=true RUN_PARALLEL=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --tags '@LoadTestUI' features",
     "test:loadtest-noui": "./scripts/prepare-environment.sh && PRINT_ENV=true RUN_PARALLEL=true NO_UI=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --tags '@LoadTestNoUI' features",
     "test:chunk": "./scripts/prepare-environment.sh && bash ./scripts/run_test_chunk.sh",
-    "test:file": "./scripts/prepare-environment.sh && node --tls-min-v1.0 ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet  --tags 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC'",
+    "test:file": "./scripts/prepare-environment.sh && node --tls-min-v1.0 ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
     "test:file-parallel": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet --parallel",
     "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next npm run test",
     "test:must": "./scripts/prepare-environment.sh && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and not @AuditLog' features",
