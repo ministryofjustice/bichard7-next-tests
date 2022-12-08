@@ -263,7 +263,7 @@ jobs:
 
   test-e2e:
     machine:
-      image: ubuntu-2004:202104-01
+      image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
     resource_class: large
     environment:
@@ -277,7 +277,7 @@ jobs:
 
   tests-e2e-new-ui:
     machine:
-      image: ubuntu-2004:202104-01
+      image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
     resource_class: large
     environment:
@@ -288,7 +288,7 @@ jobs:
   
   test-characterisation-bichard:
     machine:
-        image: ubuntu-2004:202104-01
+        image: ubuntu-2004:2022.07.1
         docker_layer_caching: false
     resource_class: large
     environment:
@@ -298,7 +298,7 @@ jobs:
   
   test-characterisation-core:
     machine:
-        image: ubuntu-2004:202104-01
+        image: ubuntu-2004:2022.07.1
         docker_layer_caching: false
     resource_class: large
     steps:
