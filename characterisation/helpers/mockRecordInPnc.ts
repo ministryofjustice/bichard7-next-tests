@@ -118,4 +118,4 @@ const mockEnquiryErrorInPnc = async (): Promise<void> => {
   await addMock("CXE01", enquiryError);
 };
 
-export { mockRecordInPnc, mockEnquiryErrorInPnc, mockEnquiry };
+export { mockRecordInPnc, mockEnquiryErrorInPnc, mockEnquiry, addMock };

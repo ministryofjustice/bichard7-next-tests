@@ -1,5 +1,7 @@
 const pgp = require("pg-promise")();
 
+pgp.pg.types.setTypeParser(1082, (stringValue) => stringValue);
+
 class PostgresHelper {
   constructor(options) {
     if (!global.postgresConnection) {
@@ -20,9 +22,7 @@ class PostgresHelper {
       name.toLowerCase()
     ]);
     if (existing.count !== "1") {
-      const {
-        id
-      } = await this.pg.one(
+      const { id } = await this.pg.one(
         "insert into br7own.users (username, email, exclusion_list, inclusion_list, visible_courts, visible_forces, excluded_triggers, forenames, surname, password) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning id",
         [
           name,
@@ -55,7 +55,9 @@ class PostgresHelper {
 
   // eslint-disable-next-line class-methods-use-this
   async dumpData() {
-    return global.postgresConnection.any("select * from BR7OWN.ERROR_LIST");
+    const errorList = await global.postgresConnection.any("select * from BR7OWN.ERROR_LIST");
+    const errorListTriggers = await global.postgresConnection.any("select * from BR7OWN.ERROR_LIST_TRIGGERS");
+    return { errorList, errorListTriggers };
   }
 
   // eslint-disable-next-line class-methods-use-this
