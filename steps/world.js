@@ -7,6 +7,7 @@ const AuditLogDynamoDbHelper = require("../helpers/AuditLogDynamoDbHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
+const Phase1Bucket = require("../helpers/Phase1Bucket");
 const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
@@ -20,7 +21,7 @@ class Bichard extends World {
     this.noUi = process.env.NO_UI === "true";
     this.parallel = process.env.RUN_PARALLEL === "true";
     this.isLocalWorkspace = process.env.WORKSPACE === "local-next";
-    this.shouldUploadMessagesToS3 = process.env.MESSAGE_ENTRY_POINT === "s3";
+    this.messageEntryPoint = process.env.MESSAGE_ENTRY_POINT;
     this.currentTestGivenNames1 = [];
     this.currentTestGivenNames2 = [];
     this.currentTestFamilyNames = [];
@@ -48,6 +49,12 @@ class Bichard extends World {
       url: process.env.AWS_URL,
       region: process.env.S3_REGION || defaults.awsRegion,
       incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
+    });
+
+    this.phase1Bucket = new Phase1Bucket({
+      url: process.env.AWS_URL,
+      region: process.env.S3_REGION || defaults.awsRegion,
+      phase1BucketName: process.env.S3_PHASE_1_BUCKET || defaults.phase1Bucket
     });
 
     this.incomingMessageHandlerStateMachine = new IncomingMessageHandlerStateMachine({

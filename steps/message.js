@@ -23,6 +23,14 @@ const uploadToS3 = async (context, message, correlationId) => {
   }
 };
 
+const uploadToS3Phase1 = async (context, message, correlationId) => {
+  const fileName = await context.phase1Bucket.upload(message, correlationId);
+
+  if (isError(fileName)) {
+    throw fileName;
+  }
+};
+
 const sendMsg = async function (world, messagePath) {
   const rawMessage = await fs.promises.readFile(messagePath);
   const correlationId = `CID-${uuid()}`;
@@ -31,7 +39,7 @@ const sendMsg = async function (world, messagePath) {
     messageData = replaceAllTags(world, messageData, "DC:");
   }
 
-  if (world.shouldUploadMessagesToS3) {
+  if (world.messageEntryPoint === "s3") {
     messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
@@ -42,6 +50,12 @@ const sendMsg = async function (world, messagePath) {
       true
     );
     expect(isError(checkEventResult)).toBeFalsy();
+    return Promise.resolve();
+  }
+
+  if (world.messageEntryPoint === "s3phase1") {
+    const uploadResult = await uploadToS3Phase1(world, messageData, correlationId);
+    expect(isError(uploadResult)).toBeFalsy();
     return Promise.resolve();
   }
   return world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
@@ -59,4 +73,4 @@ const sendMessageForTest = async function (messageFileName) {
   return sendMsg(this, messagePath);
 };
 
-module.exports = { sendMessage, sendMessageForTest };
+module.exports = { sendMsg, sendMessage, sendMessageForTest };
