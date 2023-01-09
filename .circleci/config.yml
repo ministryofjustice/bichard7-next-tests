@@ -33,7 +33,7 @@ commands:
       - run:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
-  
+
   clear_docker_networks:
     steps:
       - run:
@@ -83,7 +83,7 @@ commands:
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
-  
+
   pre_run_setup_new_ui:
     steps:
       - attach_workspace:
@@ -213,7 +213,7 @@ commands:
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
-  
+
   run-tests-e2e-new-ui:
     steps:
       - checkout
@@ -245,12 +245,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - 3d:e6:7f:cd:d1:2b:35:a5:71:da:87:12:c2:0b:0b:44
-            - ef:ec:5d:99:f7:ec:d8:35:ff:f6:2b:8b:23:a1:fa:f4
-      - run:
-          command: ssh-add -D
-      - run:
-          command: ssh-add ~/.ssh/id_rsa_3de67fcdd12b35a571da8712c20b0b44
+            - 15:7c:72:90:e7:44:01:0e:3d:a3:fc:b5:ca:c0:c2:f3
       - run:
           name: Clone Bichard7 Next
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
@@ -285,7 +280,7 @@ jobs:
       RECORD: "true"
     steps:
       - run-tests-e2e-new-ui
-  
+
   test-characterisation-bichard:
     machine:
         image: ubuntu-2004:2022.07.1
@@ -295,7 +290,7 @@ jobs:
       WORKSPACE: local-next
     steps:
         - run-tests-characterisation-bichard
-  
+
   test-characterisation-core:
     machine:
         image: ubuntu-2004:2022.07.1
