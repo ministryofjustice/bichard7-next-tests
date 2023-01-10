@@ -12,7 +12,7 @@ const fsHelp = require("../helpers/fsHelper");
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
   if (process.env.nextUI) {
-    await world.browser.page.click("button#filter-button")
+    await world.browser.page.click("button#filter-button");
   }
   const searchField = process.env.nextUI ? "input[name='keywords']" : "input[name='defendantSearch']";
 
@@ -239,7 +239,9 @@ const cannotSeeException = async function (exception) {
 };
 
 const noExceptionPresentForOffender = async function (name) {
-  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3 * 1000);
+  });
 
   // Grab the current value of the exception type filter so that it can be restored after the test
   const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
@@ -255,7 +257,9 @@ const noExceptionPresentForOffender = async function (name) {
 };
 
 const recordsForPerson = async function (count, name) {
-  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3 * 1000);
+  });
 
   // Grab the current value of the exception type filter so that it can be restored after the test
   const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
@@ -271,7 +275,9 @@ const recordsForPerson = async function (count, name) {
 };
 
 const noTriggersPresentForOffender = async function (name) {
-  await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3 * 1000);
+  });
 
   // Grab the current value of the exception type filter so that it can be restored after the test
   const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
@@ -444,7 +450,7 @@ const filterRecords = async function (world, resolvedType, recordType) {
   if (!recordSelectId) {
     throw new Error(`Record type '${recordType}' is unknown`);
   }
-  await world.browser.page.waitForSelector("select#exceptionTypeFilter")
+  await world.browser.page.waitForSelector("select#exceptionTypeFilter");
   await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
 
   const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
@@ -464,7 +470,7 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
   if (process.env.nextUI) {
     // TODO: Currently there is no way of filtering for resolved cases, we need to update next UI and update this test
-    let resolveTriggersButtons = await this.browser.page.$$(
+    const resolveTriggersButtons = await this.browser.page.$$(
       "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
     );
 
@@ -483,7 +489,7 @@ const checkRecordNotResolved = async function (recordType, recordName, resolvedT
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
   if (process.env.nextUI) {
     // TODO: Currently there is no way of filtering for resolved cases, we need to update next UI and update this test
-    let resolveTriggersButtons = await this.browser.page.$$(
+    const resolveTriggersButtons = await this.browser.page.$$(
       "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
     );
 
@@ -495,6 +501,7 @@ const checkRecordForThisTestNotResolved = async function (recordType, resolvedTy
 };
 
 const checkRecordNotExists = async function (recordName) {
+  await this.browser.page.waitForSelector("input[value='Refresh']");
   await this.browser.clickAndWait("input[value='Refresh']");
   expect(await this.browser.pageText()).not.toMatch(recordName);
 };
