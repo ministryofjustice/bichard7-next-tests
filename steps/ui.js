@@ -444,6 +444,7 @@ const filterRecords = async function (world, resolvedType, recordType) {
   if (!recordSelectId) {
     throw new Error(`Record type '${recordType}' is unknown`);
   }
+  await world.browser.page.waitForSelector("select#exceptionTypeFilter")
   await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
 
   const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
