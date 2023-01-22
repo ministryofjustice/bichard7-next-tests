@@ -19,7 +19,11 @@ const filterByRecordName = async function (world) {
   // Triple click selects any existing text so we type over it
   await world.browser.page.click(searchField, { clickCount: 3 });
   await world.browser.page.type(searchField, name);
-  await Promise.all([world.browser.page.keyboard.press("Enter"), world.browser.page.waitForNavigation()]);
+  if (process.env.nextUI) {
+    await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
+  } else {
+    await Promise.all([world.browser.page.keyboard.press("Enter"), world.browser.page.waitForNavigation()]);
+  }
 };
 
 const containsValue = async function (page, selector, value) {
