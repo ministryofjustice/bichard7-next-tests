@@ -73,7 +73,7 @@
     "gherkin-lint": "^4.2.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "npm-check-updates": "^16.6.2",
+    "npm-check-updates": "^16.6.3",
     "prettier": "^2.8.3"
   },
   "lint-staged": {
