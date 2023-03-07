@@ -13,7 +13,6 @@ describe("HO100242", () => {
     const inputMessage = generateMessage({
       offences: [{ results: [{ outcome: { duration: { value: 1000 } } }] }]
     });
-    console.log(inputMessage);
 
     const {
       hearingOutcome: { Exceptions: exceptions }
@@ -43,7 +42,6 @@ describe("HO100242", () => {
     const inputMessage = generateMessage({
       offences: [{ results: [{ outcome: { duration: { value: 0 } } }] }]
     });
-    console.log(inputMessage);
 
     const {
       hearingOutcome: { Exceptions: exceptions }
