@@ -12,6 +12,7 @@ const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHa
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
 const { authType } = require("../utils/config");
+const AuditLogApiHelper = require("../helpers/AuditLogApiHelper");
 
 class Bichard extends World {
   constructor(options) {
@@ -91,6 +92,11 @@ class Bichard extends World {
       headless: process.env.HEADLESS !== "false",
       record: process.env.RECORD === "true",
       world: this
+    });
+
+    this.auditLogApi = new AuditLogApiHelper({
+      apiUrl: process.env.AUDIT_LOG_API_URL ?? "http://localhost:3010",
+      apiKey: process.env.AUDIT_LOG_API_KEY ?? "xxx"
     });
   }
 

@@ -54,6 +54,7 @@ const sendMsg = async function (world, messagePath) {
   }
 
   if (world.messageEntryPoint === "s3phase1") {
+    await world.auditLogApi.createAuditLogMessage(correlationId);
     const uploadResult = await uploadToS3Phase1(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
     return Promise.resolve();
