@@ -149,7 +149,7 @@ commands:
           name: Run E2E tests with next UI
           command: |
             cd ~/bichard7-next
-            bash -c ". ./scripts/e2e-tests/e2e-tests-env.sh && docker-compose run --service-ports e2e-tests-record npm run test:nextUI"
+            bash -c ". ./scripts/e2e-tests/e2e-tests-env.sh && COMPOSE_PROJECT_NAME="bichard7" docker-compose run --service-ports e2e-tests-record npm run test:nextUI"
 
   checkout-core:
     steps:

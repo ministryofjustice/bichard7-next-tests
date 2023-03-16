@@ -411,7 +411,7 @@ const resolveAllTriggers = async function () {
     /* eslint-disable no-await-in-loop */
     while (resolveTriggersButtons.length > 0) {
       await Promise.all([
-        this.browser.page.click("#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled]"),
+        this.browser.page.click("#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"),
         this.browser.page.waitForNavigation()
       ]);
 
