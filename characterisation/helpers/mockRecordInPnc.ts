@@ -1,7 +1,7 @@
 import axios from "axios";
 import merge from "lodash.merge";
 import type { OffenceParsedXml, ResultedCaseMessageParsedXml } from "../types/IncomingMessage";
-import { config } from "./config";
+import config from "./config";
 import parseSpiResult from "./parseSpiResult";
 import reformatDate from "./reformatDate";
 
