@@ -1,11 +1,9 @@
 import axios from "axios";
 import merge from "lodash.merge";
 import type { OffenceParsedXml, ResultedCaseMessageParsedXml } from "../types/IncomingMessage";
-import getConfig from "./config";
+import { config } from "./config";
 import parseSpiResult from "./parseSpiResult";
 import reformatDate from "./reformatDate";
-
-const config = getConfig();
 
 const extractDates = (offence: OffenceParsedXml) => {
   const startDate = reformatDate(offence.BaseOffenceDetails.OffenceTiming.OffenceStart.OffenceDateStartDate);

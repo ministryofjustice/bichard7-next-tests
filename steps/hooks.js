@@ -56,9 +56,9 @@ Before(async function (context) {
     fs.mkdirSync(this.outputDir, { recursive: true });
   }
   await this.browser.setupDownloadFolder("./tmp");
-  if (!process.env.RUN_PARALLEL) {
+  if (!this.config.parallel) {
     await this.db.clearExceptions();
-    if (!this.realPNC) {
+    if (!this.config.realPNC) {
       await this.pnc.clearMocks();
     }
   }
@@ -67,7 +67,7 @@ Before(async function (context) {
 After(async function ({ result: { status } }) {
   await this.browser.close();
   if (process.env.RECORD === "true") {
-    if (!this.realPNC) {
+    if (!this.config.realPNC) {
       await this.pnc.recordMocks();
       await this.pnc.recordRequests();
     }

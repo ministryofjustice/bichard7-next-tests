@@ -1,24 +1,20 @@
-const { getConfig } = require("./utils/config");
+const { config } = require("./utils/config");
 
-const puppeteerConfig = () => {
-  const { uiHost, uiPort, uiScheme } = getConfig();
-
-  return {
-    browserContext: "incognito",
-    launch: {
-      baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
-      headless: process.env.HEADLESS !== "false",
-      args: [
-        // Required for Docker version of Puppeteer
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        // This will write shared memory files into /tmp instead of /dev/shm,
-        // because Docker’s default for /dev/shm is 64MB
-        "--disable-dev-shm-usage",
-        "--ignore-certificate-errors"
-      ]
-    }
-  };
+const puppeteerConfig = {
+  browserContext: "incognito",
+  launch: {
+    baseUrl: config.baseUrl,
+    headless: process.env.HEADLESS !== "false",
+    args: [
+      // Required for Docker version of Puppeteer
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      // This will write shared memory files into /tmp instead of /dev/shm,
+      // because Docker’s default for /dev/shm is 64MB
+      "--disable-dev-shm-usage",
+      "--ignore-certificate-errors"
+    ]
+  }
 };
 
-module.exports = puppeteerConfig();
+module.exports = puppeteerConfig;

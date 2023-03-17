@@ -58,19 +58,16 @@ class BrowserHelper {
     return this.page;
   }
 
-  async visitUrl(path) {
+  async visitUrl(url) {
     if (this.authTokenCookie) {
-      const COOKS = [
-        {
-          name: ".AUTH",
-          value: this.authTokenCookie,
-          url: path,
-          path: "/"
-        }
-      ];
-      await this.page.setCookie(...COOKS);
+      await this.page.setCookie({
+        name: ".AUTH",
+        value: this.authTokenCookie,
+        url,
+        path: "/"
+      });
     }
-    await this.page.goto(path);
+    await this.page.goto(url);
     return this.page;
   }
 
@@ -80,7 +77,7 @@ class BrowserHelper {
       await this.page.waitForSelector("input[type=submit][value=OK]");
       await this.page.click("input[type=submit][value=OK]");
 
-      const selector = this.options.world.authType === authType.bichard ? "#username" : ".infoMessage";
+      const selector = this.options.world.config.authType === authType.bichard ? "#username" : ".infoMessage";
       await this.page.waitForSelector(selector);
     }
   }

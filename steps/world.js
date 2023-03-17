@@ -8,28 +8,23 @@ const MockPNCHelper = require("../helpers/MockPNCHelper");
 const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
 const Phase1Bucket = require("../helpers/Phase1Bucket");
-const IncomingMessageHandlerStateMachine = require("../helpers/IncomingMessageHandlerStateMachine");
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
-const { authType } = require("../utils/config");
 const AuditLogApiHelper = require("../helpers/AuditLogApiHelper");
+const { config } = require("../utils/config");
 
 class Bichard extends World {
   constructor(options) {
     super(options);
 
-    this.authType = process.env.AUTH_TYPE || authType.userService;
-    this.noUi = process.env.NO_UI === "true";
-    this.parallel = process.env.RUN_PARALLEL === "true";
-    this.isLocalWorkspace = process.env.WORKSPACE === "local-next";
-    this.messageEntryPoint = process.env.MESSAGE_ENTRY_POINT;
+    this.config = config;
+
     this.currentTestGivenNames1 = [];
     this.currentTestGivenNames2 = [];
     this.currentTestFamilyNames = [];
     this.currentProsecutorReference = [];
     this.currentPTIURNValues = [];
     this.currentPTIURN = uuid();
-    this.realPNC = process.env.REAL_PNC === "true";
 
     this.db = new PostgresHelper({
       host: process.env.DB_HOST || defaults.postgresHost,
@@ -58,12 +53,6 @@ class Bichard extends World {
       phase1BucketName: process.env.S3_PHASE_1_BUCKET || defaults.phase1Bucket
     });
 
-    this.incomingMessageHandlerStateMachine = new IncomingMessageHandlerStateMachine({
-      url: process.env.AWS_URL,
-      region: process.env.INCOMING_MESSAGE_HANDLER_REGION || defaults.awsRegion,
-      incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
-    });
-
     this.auditLogClient = new AuditLogDynamoDbHelper({
       region: process.env.AUDIT_LOGGING_DYNAMODB_REGION || defaults.awsRegion,
       endpoint: process.env.AWS_URL,
@@ -71,7 +60,7 @@ class Bichard extends World {
       eventsTableName: process.env.AUDIT_LOGGING_DYNAMODB_EVENTS_TABLE || "audit-log-events"
     });
 
-    if (this.realPNC) {
+    if (this.config.realPNC) {
       this.pnc = new PNCTestTool({
         baseUrl: process.env.PNC_TEST_TOOL
       });
@@ -83,12 +72,8 @@ class Bichard extends World {
       });
     }
 
-    const uiScheme = process.env.UI_SCHEME || "https";
-    const uiHost = process.env.UI_HOST || "localhost";
-    const uiPort = process.env.UI_PORT || "9443";
-
     this.browser = new BrowserHelper({
-      baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
+      baseUrl: config.baseUrl,
       headless: process.env.HEADLESS !== "false",
       record: process.env.RECORD === "true",
       world: this
@@ -101,7 +86,7 @@ class Bichard extends World {
   }
 
   getRecordName() {
-    if (!this.parallel) {
+    if (!this.config.parallel) {
       // original
       return `${this.currentTestFamilyNames[1][0]} ${this.currentTestGivenNames1[1][0]}`;
     }

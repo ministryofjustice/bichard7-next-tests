@@ -1,5 +1,5 @@
 const { expect } = require("expect");
-const { initialRefreshUrl } = require("../utils/urls");
+const { caseListPage } = require("../utils/urls");
 const {
   reloadUntilSelector,
   waitForRecord,
@@ -71,8 +71,8 @@ const checkDataTable = async function (world, values) {
 };
 
 const goToExceptionList = async function () {
-  if (this.noUi) return;
-  await Promise.all([this.browser.page.goto(initialRefreshUrl()), this.browser.page.waitForNavigation()]);
+  if (this.config.noUi) return;
+  await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
 };
 
 const findRecordFor = async function (name) {
@@ -620,7 +620,7 @@ const checkNoRecords = async function () {
 
 const checkNoRecordsForThis = async function () {
   const name = this.getRecordName();
-  if (this.noUi) {
+  if (this.config.noUi) {
     // Read the records direct from the DB
     const records = await this.db.getMatchingErrorRecords(name);
     expect(records.length).toEqual(0);

@@ -1,12 +1,12 @@
 const { expect } = require("expect");
 const jwt = require("jsonwebtoken");
 const { authType, timeout } = require("../utils/config");
-const { home, authenticateUrl, userService } = require("../utils/urls");
+const { login, authenticateUrl } = require("../utils/urls");
 const dummyUsers = require("../utils/dummyUserData");
 
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
-const parallelUserName = (world, name) => (world.parallel ? `${name}.${process.env.PARALLEL_ID}` : name);
+const parallelUserName = (world, name) => (world.config.parallel ? `${name}.${process.env.PARALLEL_ID}` : name);
 
 const createUser = async (world, name) => {
   const user = dummyUsers[name.toLowerCase()];
@@ -25,33 +25,20 @@ const createUser = async (world, name) => {
   }
 };
 
-const logInToBichardAs = async function (world, username) {
-  const page = await world.browser.newPage(home());
-  await page.waitForSelector("#username");
-
-  await page.type("#username", username);
-  await page.type("#password", "password");
-  await page.click("input[type='submit']");
-
-  await page.waitForSelector(".wpsToolBarUserName", { timeout });
-};
-
-const logInToUserServiceAs = async function (world, name) {
+const logInNormallyAs = async function (world, name) {
   const username = parallelUserName(world, name);
   const emailAddress = `${username}@example.com`;
 
-  const page = await world.browser.newPage(userService());
+  const page = await world.browser.newPage(login());
   await page.waitForSelector("#email");
 
   await page.type("#email", emailAddress);
   await world.browser.clickAndWait("button[type='submit']");
 
-  // Grab verification code from the database and generate the email verification token
-  /* eslint-disable no-promise-executor-return */
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const verificationCode = await world.db.getEmailVerificationCode(emailAddress);
+  await page.waitForSelector("#validationCode");
 
-  await page.waitForSelector("#password");
+  // Grab verification code from the database
+  const verificationCode = await world.db.getEmailVerificationCode(emailAddress);
 
   await page.type("#validationCode", verificationCode);
   await page.type("#password", "password");
@@ -70,7 +57,7 @@ const logInToUserServiceAs = async function (world, name) {
   }
 };
 
-const logInToBichardJwtAs = async function (world, name) {
+const logInDirectToBichardWithJwtAs = async function (world, name) {
   const user = dummyUsers[name.toLowerCase()];
   const username = parallelUserName(world, name);
 
@@ -89,24 +76,19 @@ const logInToBichardJwtAs = async function (world, name) {
   };
   const token = jwt.sign(tokenData, tokenSecret());
   const url = authenticateUrl(token);
-  if (process.env.PRINT_LOGIN_URL === "true") {
-    console.log(url);
-  }
   await world.browser.setAuthCookie(token);
   const page = await world.browser.newPage(url);
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
 
 const logInAs = async function (username) {
-  if (this.noUi) return;
+  if (this.config.noUi) return;
   await createUser(this, username);
 
-  if (this.authType === authType.bichard) {
-    await logInToBichardAs(this, username);
-  } else if (this.authType === authType.bichardJwt) {
-    await logInToBichardJwtAs(this, username);
+  if (this.authType === authType.bichardJwt) {
+    await logInDirectToBichardWithJwtAs(this, username);
   } else {
-    await logInToUserServiceAs(this, username);
+    await logInNormallyAs(this, username);
   }
 
   if (process.env.nextUI) {

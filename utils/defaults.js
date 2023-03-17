@@ -18,7 +18,10 @@ const defaults = {
   ibmMqPassword: "passw0rd",
   ibmMqQmgr: "BR7_QM",
   pncHost: "localhost",
-  pncPort: "3000"
+  pncPort: "3000",
+  uiScheme: "https",
+  uiPort: "4443",
+  uiHost: "localhost"
 };
 
 module.exports = defaults;
