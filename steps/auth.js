@@ -85,7 +85,7 @@ const logInAs = async function (username) {
   if (this.config.noUi) return;
   await createUser(this, username);
 
-  if (this.authType === authType.bichardJwt) {
+  if (this.config.authType === authType.bichardJwt) {
     await logInDirectToBichardWithJwtAs(this, username);
   } else {
     await logInNormallyAs(this, username);

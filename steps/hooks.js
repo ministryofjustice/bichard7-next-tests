@@ -1,11 +1,8 @@
-const { After, Before, BeforeAll, AfterAll } = require("@cucumber/cucumber");
+const { After, Before, BeforeAll } = require("@cucumber/cucumber");
 const fs = require("fs");
-const LogRecorder = require("../helpers/LogRecorder");
 
-const recordLogs = process.env.RECORD === "true" && process.env.RECORD_LOGS === "true";
 const recordComparisons = process.env.RECORD_COMPARISONS === "true";
 const comparisonOutDir = "comparisons";
-let logRecorder;
 
 const extractTestId = (featureUri) => {
   const match = featureUri.match(/features\/([^-]*)-.*/);
@@ -22,18 +19,6 @@ BeforeAll(async () => {
       console.log("Screenshots directory did not exist");
     }
   }
-  if (recordLogs) {
-    // eslint-disable-next-line no-console
-    console.log("Recording Bichard logs");
-    logRecorder = new LogRecorder({
-      fifo: process.env.LOG_FIFO || "/tmp/docker_logs"
-    });
-    await logRecorder.flush();
-  }
-});
-
-AfterAll(() => {
-  if (recordLogs) logRecorder.close();
 });
 
 // eslint-disable-next-line consistent-return
@@ -72,9 +57,6 @@ After(async function ({ result: { status } }) {
       await this.pnc.recordRequests();
     }
     await this.dumpData();
-  }
-  if (recordLogs) {
-    await logRecorder.save(this);
   }
 
   if (recordComparisons && status === "PASSED") {

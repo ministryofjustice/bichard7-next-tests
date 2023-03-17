@@ -17,7 +17,6 @@
     "test:chunk:conductor": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and not @AuditLog and not @ExcludedOnConductor'",
     "test:file": "node --tls-min-v1.0 ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
     "test:file-parallel": "./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet --parallel",
-    "test:local-next": "AWS_URL=\"http://localhost:4566\" WORKSPACE=local-next npm run test",
     "test:must": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and not @AuditLog' features",
     "test:must:auditlogs": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and @AuditLog' features",
     "test:browser": "HEADLESS=false npm run test",
