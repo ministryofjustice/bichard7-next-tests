@@ -1,24 +1,9 @@
-const getConfig = () => {
-  const uiScheme = process.env.UI_SCHEME || "https";
-  const uiHost = process.env.UI_HOST || "localhost";
-  const uiPort = process.env.UI_PORT || "9443";
+const defaults = require("./defaults");
 
-  const usersScheme = process.env.USERS_SCHEME || "https";
-  const usersHost = process.env.USERS_HOST || "localhost";
-  const usersPort = process.env.USERS_PORT || "4443";
-
-  const hostMachine = process.env.HOST_MACHINE || "localhost";
-
-  const defaultTimeout = process.env.MESSAGE_ENTRY_POINT === "s3" ? 100000 : 30000;
-  const timeout = parseInt(process.env.TEST_TIMEOUT, 10) || defaultTimeout;
-
-  return {
-    baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
-    hostMachine,
-    timeout,
-    usersUrl: `${usersScheme}://${usersHost}:${usersPort}`
-  };
-};
+const defaultTimeout = process.env.MESSAGE_ENTRY_POINT === "s3" ? 100000 : 30000;
+const uiScheme = process.env.UI_SCHEME || defaults.uiScheme;
+const uiHost = process.env.UI_HOST || defaults.uiHost;
+const uiPort = process.env.UI_PORT || defaults.uiPort;
 
 const authType = {
   bichard: "bichard",
@@ -26,7 +11,17 @@ const authType = {
   bichardJwt: "bichard-jwt"
 };
 
+const config = {
+  timeout: parseInt(process.env.TEST_TIMEOUT, 10) || defaultTimeout,
+  baseUrl: `${uiScheme}://${uiHost}:${uiPort}`,
+  parallel: process.env.RUN_PARALLEL === "true",
+  authType: process.env.AUTH_TYPE || authType.userService,
+  noUi: process.env.NO_UI === "true",
+  messageEntryPoint: process.env.MESSAGE_ENTRY_POINT,
+  realPNC: process.env.REAL_PNC === "true"
+};
+
 module.exports = {
-  getConfig,
+  config,
   authType
 };

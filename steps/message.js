@@ -13,14 +13,6 @@ const uploadToS3 = async (context, message, correlationId) => {
   if (isError(fileName)) {
     throw fileName;
   }
-
-  if (context.isLocalWorkspace) {
-    const stateMachineResult = await context.incomingMessageHandlerStateMachine.execute(fileName);
-
-    if (isError(stateMachineResult)) {
-      throw stateMachineResult;
-    }
-  }
 };
 
 const uploadToS3Phase1 = async (context, message, correlationId) => {
@@ -35,11 +27,11 @@ const sendMsg = async function (world, messagePath) {
   const rawMessage = await fs.promises.readFile(messagePath);
   const correlationId = `CID-${uuid()}`;
   let messageData = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
-  if (world.parallel) {
+  if (world.config.parallel) {
     messageData = replaceAllTags(world, messageData, "DC:");
   }
 
-  if (world.messageEntryPoint === "s3") {
+  if (world.config.messageEntryPoint === "s3") {
     messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
@@ -53,7 +45,8 @@ const sendMsg = async function (world, messagePath) {
     return Promise.resolve();
   }
 
-  if (world.messageEntryPoint === "s3phase1") {
+  if (world.config.messageEntryPoint === "s3phase1") {
+    await world.auditLogApi.createAuditLogMessage(correlationId);
     const uploadResult = await uploadToS3Phase1(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
     return Promise.resolve();

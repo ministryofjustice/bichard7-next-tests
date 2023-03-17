@@ -1,11 +1,8 @@
-const { After, Before, BeforeAll, AfterAll } = require("@cucumber/cucumber");
+const { After, Before, BeforeAll } = require("@cucumber/cucumber");
 const fs = require("fs");
-const LogRecorder = require("../helpers/LogRecorder");
 
-const recordLogs = process.env.RECORD === "true" && process.env.RECORD_LOGS === "true";
 const recordComparisons = process.env.RECORD_COMPARISONS === "true";
 const comparisonOutDir = "comparisons";
-let logRecorder;
 
 const extractTestId = (featureUri) => {
   const match = featureUri.match(/features\/([^-]*)-.*/);
@@ -22,18 +19,6 @@ BeforeAll(async () => {
       console.log("Screenshots directory did not exist");
     }
   }
-  if (recordLogs) {
-    // eslint-disable-next-line no-console
-    console.log("Recording Bichard logs");
-    logRecorder = new LogRecorder({
-      fifo: process.env.LOG_FIFO || "/tmp/docker_logs"
-    });
-    await logRecorder.flush();
-  }
-});
-
-AfterAll(() => {
-  if (recordLogs) logRecorder.close();
 });
 
 // eslint-disable-next-line consistent-return
@@ -56,9 +41,9 @@ Before(async function (context) {
     fs.mkdirSync(this.outputDir, { recursive: true });
   }
   await this.browser.setupDownloadFolder("./tmp");
-  if (!process.env.RUN_PARALLEL) {
+  if (!this.config.parallel) {
     await this.db.clearExceptions();
-    if (!this.realPNC) {
+    if (!this.config.realPNC) {
       await this.pnc.clearMocks();
     }
   }
@@ -67,14 +52,11 @@ Before(async function (context) {
 After(async function ({ result: { status } }) {
   await this.browser.close();
   if (process.env.RECORD === "true") {
-    if (!this.realPNC) {
+    if (!this.config.realPNC) {
       await this.pnc.recordMocks();
       await this.pnc.recordRequests();
     }
     await this.dumpData();
-  }
-  if (recordLogs) {
-    await logRecorder.save(this);
   }
 
   if (recordComparisons && status === "PASSED") {

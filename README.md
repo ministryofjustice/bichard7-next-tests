@@ -15,13 +15,61 @@ Once the stack is up and running, you can run the following commands to run the 
 
 ```
 npm install
-npm run test:local-next
+npm run test
 ```
 
 If you get an error which looks like:
 Error: Could not find expected browser (chrome) locally. Run `npm install` to download the correct Chromium revision (856583)
 
 then run node node_modules/puppeteer/install.js
+
+## Configuration parameters
+
+The most commonly used parameters are:
+
+| Parameter                           | Description                                                                                                                                                                                                                                                                                  | Default                            |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| AUDIT_LOG_API_KEY                   | The API key for the audit log                                                                                                                                                                                                                                                                | xxx                                |
+| AUDIT_LOG_API_URL                   | The URL for the audit log                                                                                                                                                                                                                                                                    | http://localhost:3010              |
+| AUDIT_LOGGING_DYNAMODB_EVENTS_TABLE | The table name for audit logging events                                                                                                                                                                                                                                                      | audit-log                          |
+| AUDIT_LOGGING_DYNAMODB_REGION       | The region to use for Dynamo audit log table                                                                                                                                                                                                                                                 | eu-west-2                          |
+| AUDIT_LOGGING_DYNAMODB_TABLE        | The table name for audit logging                                                                                                                                                                                                                                                             | audit-log                          |
+| AUTH_TYPE                           | How the tests authenticate against Bichard.<br>If set to `user-service` they will log in as normal.<br>If set to `bichard-jwt` they will set the JWT token and go directly to Bichard                                                                                                        | user-service                       |
+| AWS_URL                             | The endpoint to use for the S3 buckets and the Dynamo connection                                                                                                                                                                                                                             |                                    |
+| CLEAR_RECORDINGS                    | Whether to clear the screenshots of the tests                                                                                                                                                                                                                                                | false                              |
+| DB_HOST                             | The host to use for the database connection                                                                                                                                                                                                                                                  | localhost                          |
+| DB_PASSWORD                         | The password to use for the database connection                                                                                                                                                                                                                                              | password                           |
+| DB_PORT                             | The port to use for the database connection                                                                                                                                                                                                                                                  | 5432                               |
+| DB_SSL                              | Whether to use SSL for the database connection                                                                                                                                                                                                                                               | false                              |
+| DB_USER                             | The user name to use for the database connection                                                                                                                                                                                                                                             | bichard                            |
+| HEADLESS                            | Whether to run puppeteer in headless mode                                                                                                                                                                                                                                                    | true                               |
+| MESSAGE_ENTRY_POINT                 | If set to `activemq` it will send directly to the Bichard message queue.<br>If set to `s3` it will write to the incoming messages buket and go through the incoming message handler step function <br>If set to `s3phase1` it will write the the phase 1 bucket to be picked up by Conductor | activemq                           |
+| MQ_PASSWORD                         | The password to use for the ActiveMQ connection                                                                                                                                                                                                                                              | failover:(stomp://localhost:61613) |
+| MQ_URL                              | The URL to use for the ActiveMQ connection                                                                                                                                                                                                                                                   | failover:(stomp://localhost:61613) |
+| MQ_USER                             | The user name to use for the ActiveMQ connection                                                                                                                                                                                                                                             | failover:(stomp://localhost:61613) |
+| PNC_HOST                            | The host name of the PNC emulator                                                                                                                                                                                                                                                            | localhost                          |
+| PNC_PORT                            | The port of the PNC emulator                                                                                                                                                                                                                                                                 | 3000                               |
+| RECORD                              | Whether to record the UI operations as screenshots in the `screenshots` folder                                                                                                                                                                                                               | false                              |
+| S3_INCOMING_MESSAGE_BUCKET          | The bucket to use to write to the incoming message handler                                                                                                                                                                                                                                   | incoming-messages                  |
+| S3_PHASE_1_BUCKET                   | The bucket to use to write to phase 1 Conductor                                                                                                                                                                                                                                              | phase1                             |
+| S3_REGION                           | The region to use for S3                                                                                                                                                                                                                                                                     | eu-west-2                          |
+| TEST_TIMEOUT                        | How long the tests should wait before failing                                                                                                                                                                                                                                                | 30 (seconds)                       |
+| TOKEN_SECRET                        | The secret to use for the JWT token                                                                                                                                                                                                                                                          | OliverTwist                        |
+| UI_HOST                             | Which host to use to access the UI.                                                                                                                                                                                                                                                          | localhost                          |
+| UI_PORT                             | Which port to use to access the UI.                                                                                                                                                                                                                                                          | 4443                               |
+| UI_SCHEME                           | Which scheme to use to access the UI.                                                                                                                                                                                                                                                        | https                              |
+
+There are other, lesser used parameters:
+
+| Parameter               | Description                                                                              | Default |
+| ----------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| NO_UI                   | Performs checks directly against the database iinstead of using the UI                   | false   |
+| PNC_TEST_TOOL           | The URL for the PNC test tool on pre-prod                                                |         |
+| REAL_PNC                | Used to indicate that the tests are running against a real PNC instead of the emulator   | false   |
+| RECORD_COMPARISONS      | Whether to save the comparison files for the test                                        | false   |
+| RUN_PARALLEL            | Whether the tests are running in parallel (experimental)                                 | false   |
+| SKIP_PNC_VALIDATION     | Whether the tests should validate their operations against the PNC test tool (see below) | false   |
+| UPDATE_PNC_EXPECTATIONS | Whether to update the before and after files with the PNC contents                       | false   |
 
 ## Debugging
 
@@ -38,11 +86,6 @@ If you want to take screenshots of the browser as the tests run, you can add `RE
 Connect to the e2e vpn
 
 Then run the codebuild job `apply-dev-sgs-to-e2e-test` in `bichard7-shared`, then run your tests and remember to run `remove-dev-sgs-from-e2e-test` when you are finished.
-
-## Environment Variables
-
-- `WORKSPACE`: If set to `local-next`, it is assumed that tests are running on local environment. This will simulate processes that are not supported on local infrastructure. Running `npm run test:local` will set this variable to `local-next`.
-- `MESSAGE_ENTRY_POINT`: Determines whether messages should be uploaded to S3 or pushed to MQ. Values can be `s3` or `mq`. The default value is `mq`.
 
 ## Running tests against Pre-Production
 

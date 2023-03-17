@@ -10,6 +10,7 @@ Feature: General handler permissions
       And I am logged in as "generalhandler"
     When I view the list of exceptions
 
+  @ExcludedOnConductor
   Scenario: General handler can see triggers
     Then I see trigger "PR10 - Conditional bail" in the exception list table
       And I see exception "HO100300" in the exception list table

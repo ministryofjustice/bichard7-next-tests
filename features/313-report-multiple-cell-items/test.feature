@@ -15,6 +15,7 @@ Feature: {313} BR7-R5.10-RCD667-Revise display of report content where multiple 
 			And "input-message" is received
 
 	@Could
+	@ExcludedOnConductor
 	Scenario: Displaying report with multiple items in a cell
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

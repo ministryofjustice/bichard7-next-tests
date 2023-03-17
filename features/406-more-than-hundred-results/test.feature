@@ -9,6 +9,7 @@ Feature: 406 - 100+ Offences and Triggers
 			And "input-message" is received
 
 	@Could
+	@ExcludedOnConductor
 	Scenario: Matching 104 identical triggers
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

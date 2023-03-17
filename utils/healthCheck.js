@@ -5,7 +5,7 @@ const Poller = require("./Poller");
 module.exports = async () => {
   const uiScheme = process.env.UI_SCHEME || "https";
   const uiHost = process.env.UI_HOST || "localhost";
-  const uiPort = process.env.UI_PORT || "9443";
+  const uiPort = process.env.UI_PORT || "4443";
 
   const fetchHealthcheck = async () => {
     const axiosOptions = { validateStatus: () => true };

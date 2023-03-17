@@ -11,7 +11,7 @@ const skipPNCValidation = process.env.SKIP_PNC_VALIDATION === "true";
 /* eslint-disable consistent-return */
 const mockPNCDataForTest = async function () {
   const specFolder = path.dirname(this.featureUri);
-  if (this.realPNC) {
+  if (this.config.realPNC) {
     let xmlData;
     const ncmFile = `${specFolder}/pnc-data.xml`;
     const messageFile = `${specFolder}/input-message.xml`;
@@ -43,7 +43,7 @@ const mockPNCDataForTest = async function () {
 
     /* eslint-disable no-restricted-syntax */
     for (const mock of this.mocks) {
-      if (this.parallel) {
+      if (this.config.parallel) {
         const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
         mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
       }
@@ -55,7 +55,7 @@ const mockPNCDataForTest = async function () {
 };
 
 const createValidRecordInPNC = async function (record) {
-  if (this.realPNC) return;
+  if (this.config.realPNC) return;
   // mock a response in the PNC
   this.recordId = record;
   this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
@@ -77,7 +77,7 @@ const fetchMocks = async (world) => {
 };
 
 const checkMocks = async function () {
-  if (this.realPNC) {
+  if (this.config.realPNC) {
     if (skipPNCValidation) return;
     const specFolder = path.dirname(this.featureUri);
     const action = async () => this.pnc.checkRecord(specFolder);
@@ -110,7 +110,7 @@ const checkMocks = async function () {
     this.mocks.forEach((mock) => {
       if (mock.expectedRequest !== "") {
         if (mock.requests.length === 0) throw new Error(`Mock not called for ${mock.matchRegex}`);
-        if (this.parallel) {
+        if (this.config.parallel) {
           expect(mock.requests.length).toBeGreaterThanOrEqual(1);
           const expectedRequest = updateExpectedRequest(mock.expectedRequest, this);
           let matchFound = "No request matched the expected request";
@@ -135,8 +135,9 @@ const checkMocks = async function () {
 
 const pncNotUpdated = async function () {
   // Wait 3 seconds to give the backend time to process
+  // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 3000));
-  if (this.realPNC) {
+  if (this.config.realPNC) {
     if (skipPNCValidation) return;
     const specFolder = path.dirname(this.featureUri);
     const result = await this.pnc.checkRecord(specFolder);
@@ -158,7 +159,7 @@ const pncNotUpdated = async function () {
 };
 
 const pncUpdateIncludes = async function (data) {
-  if (this.realPNC) return;
+  if (this.config.realPNC) return;
   await fetchMocks(this);
   const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
   const checkedMocks = updateMocks.filter((mock) => mock.requests.length > 0 && mock.requests[0].includes(data));
@@ -166,13 +167,13 @@ const pncUpdateIncludes = async function (data) {
 };
 
 const noPncRequests = async function () {
-  if (this.realPNC) return;
+  if (this.config.realPNC) return;
   const requests = await this.pnc.getRequests();
   expect(requests.length).toEqual(0);
 };
 
 const noPncUpdates = async function () {
-  if (this.realPNC) return;
+  if (this.config.realPNC) return;
   const requests = await this.pnc.getRequests();
   const updates = requests.filter((req) => req.request.includes("<CXU"));
   expect(updates.length).toEqual(0);

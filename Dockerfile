@@ -18,7 +18,6 @@ COPY ./characterisation /src/characterisation
 COPY ./helpers/ /src/helpers
 COPY ./steps/ /src/steps
 COPY ./utils/ /src/utils
-COPY ./scripts/prepare-environment.sh /src/scripts/prepare-environment.sh
 COPY ./scripts/run_test_chunk.sh /src/scripts/run_test_chunk.sh
 COPY ./tsconfig.json /src
 

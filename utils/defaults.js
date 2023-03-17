@@ -1,5 +1,5 @@
 const defaults = {
-  awsRegion: "us-east-1",
+  awsRegion: "eu-west-2",
   phase1Bucket: "phase1",
   incomingMessageBucket: "incoming-messages",
   postgresHost: "localhost",
@@ -18,7 +18,10 @@ const defaults = {
   ibmMqPassword: "passw0rd",
   ibmMqQmgr: "BR7_QM",
   pncHost: "localhost",
-  pncPort: "3000"
+  pncPort: "3000",
+  uiScheme: "https",
+  uiPort: "4443",
+  uiHost: "localhost"
 };
 
 module.exports = defaults;
