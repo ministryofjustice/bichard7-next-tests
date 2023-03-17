@@ -24,6 +24,7 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 		Given the data for this test is in the PNC
 
 	@Should
+	@ExcludedOnConductor
 	Scenario: Correcting invalid ASN codes
 		Given "input-message-1" is received
 			And I am logged in as "generalhandler"

@@ -10,6 +10,7 @@ Feature: Exception handler permissions
       And I am logged in as "exceptionhandler"
     When I view the list of exceptions
 
+  @ExcludedOnConductor
   Scenario: Exception handler can see exceptions
     Then I see exception "HO100300" in the exception list table
       And I cannot see "TRPR0010" in the exception list table
