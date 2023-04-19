@@ -2,7 +2,7 @@ Feature: {330} Result code 3324 (Serious Violence Reduction Order) should raise 
 
 			"""
 			Determining the behaviour when the result code 3324 appears in an offence
-			- Record exists in PNC with one offence with offence code: SX03001A
+			- Record exists in PNC with one offence with offence code: CD71041
 			- CP sends resulted case message with result code 3324 for offence
 
 			Result:
@@ -15,18 +15,18 @@ Feature: {330} Result code 3324 (Serious Violence Reduction Order) should raise 
 			And "input-message" is received
 
 	@Should
-	@LoadTestUI
-	@NextUI
-	Scenario: trigger is correctly generated for sexual offences (Serious Violence Reduction Order)
+	@OnlyRunsOnPNC
+	Scenario: trigger is correctly generated for Serious Violence Reduction Order
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
+    Then I see exception "HO100402" for this record in the exception list
 		When I open this record
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0003" for offence "1"
-			And I see trigger "TRPR0004" for offence "1"
-			And I see trigger "TRPR0004" for offence "2"
-			And the PNC updates the record
-		When I resolve all of the triggers
-		Then this "record" is "resolved"
-			And this "record" is not "unresolved"
-			And there are no exceptions for this record
+    When I click the "Offences" tab
+      And I view offence "1"
+    Then I see "3324" in the "CJS Code" row of the results table
+			And I see "Serious Violence Reduction Order" in the "Text" row of the results table
+    When I click the "Defendant" tab
+    Then I see error "HO100402" in the "ASN" row of the results table
+      And no PNC updates have been made

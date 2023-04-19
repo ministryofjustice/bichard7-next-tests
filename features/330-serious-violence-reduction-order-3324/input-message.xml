@@ -45,14 +45,14 @@
 				<DC:Case>
 					<DC:PTIURN>01ZD0303208</DC:PTIURN>
 					<DC:Defendant>
-						<DC:ProsecutorReference>1101ZD0100000448754K</DC:ProsecutorReference>
+						<DC:ProsecutorReference>1101ZD0100000410769X</DC:ProsecutorReference>
 						<DC:CourtIndividualDefendant>
 							<DC:PersonDefendant>
 								<DC:BasePersonDetails>
 									<DC:PersonName>
 										<DC:PersonTitle>Mr</DC:PersonTitle>
-										<DC:PersonGivenName1>TRPRFOUR</DC:PersonGivenName1>
-										<DC:PersonFamilyName>SEXOFFENCE</DC:PersonFamilyName>
+										<DC:PersonGivenName1>TRPRTHREE</DC:PersonGivenName1>
+										<DC:PersonFamilyName>SVRO</DC:PersonFamilyName>
 									</DC:PersonName>
 									<DC:Birthdate>1948-11-11</DC:Birthdate>
 									<DC:Gender>1</DC:Gender>
@@ -71,8 +71,8 @@
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>SX03001A</DC:OffenceCode>
-								<DC:OffenceWording>Attempt to rape a girl aged 13 / 14 / 15 / years of age - SOA 2003.</DC:OffenceWording>
+								<DC:OffenceCode>CD71041</DC:OffenceCode>
+								<DC:OffenceWording>Damage / destroy property with intent to endanger life</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>
@@ -92,61 +92,6 @@
 							<DC:Result>
 								<DC:ResultCode>3324</DC:ResultCode>
 								<DC:ResultText>Serious Violence Reduction Order</DC:ResultText>
-							</DC:Result>
-						</DC:Offence>
-						<DC:Offence>
-							<DC:BaseOffenceDetails>
-								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>SX03001</DC:OffenceCode>
-								<DC:OffenceWording>Rape of a Female</DC:OffenceWording>
-								<DC:OffenceTiming>
-									<DC:OffenceDateCode>1</DC:OffenceDateCode>
-									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
-									</DC:OffenceStart>
-								</DC:OffenceTiming>
-								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
-							<DC:Finding>G</DC:Finding>
-							<DC:Result>
-								<DC:ResultCode>3052</DC:ResultCode>
-								<DC:ResultText>defendant must never be allowed out</DC:ResultText>
-							</DC:Result>
-						</DC:Offence>
-						<DC:Offence>
-							<DC:BaseOffenceDetails>
-								<DC:OffenceSequenceNumber>003</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>RT88191</DC:OffenceCode>
-								<DC:OffenceWording>Use a motor vehicle without third party insurance.</DC:OffenceWording>
-								<DC:OffenceTiming>
-									<DC:OffenceDateCode>1</DC:OffenceDateCode>
-									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
-									</DC:OffenceStart>
-								</DC:OffenceTiming>
-								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
-							<DC:Finding>G</DC:Finding>
-							<DC:Result>
-								<DC:ResultCode>1015</DC:ResultCode>
-								<DC:ResultText>Fined 100.</DC:ResultText>
-								<DC:Outcome>
-									<DC:ResultAmountSterling>100.00</DC:ResultAmountSterling>
-								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 					</DC:Defendant>
