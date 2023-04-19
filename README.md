@@ -93,6 +93,19 @@ The PNC Test Tool is a legacy tool that is running unreliably in an EC2 instance
 
 You will need to restart the OpenUTM service that runs it. To do this, SSH into the instance using the `ansible` user. The password is in SSM: `/cjse-preprod-bichard-7/pnc_tool/ssh_password`. To restart the OpenUTM service:
 
+To SSH into the instance you need to first install `mssh`:
+
+```
+pip3 install ec2instanceconnectcli
+```
+
+You can then SSH into the instance by running the following command:
+
+```
+aws-vault exec <preprod profile> -- mssh ansible@10.129.3.16 -t <ec2 instance id> -oHostKeyAlgorithms=+ssh-dss
+```
+
+To restart the OpenUTM service, run the following commands:
 ```
 # Sudo to the utm user
 sudo su utm
