@@ -29,4 +29,6 @@ Feature: {330} Result code 3324 (Serious Violence Reduction Order) should raise 
 			And I see "Serious Violence Reduction Order" in the "Text" row of the results table
     When I click the "Defendant" tab
     Then I see error "HO100402" in the "ASN" row of the results table
+		When I click the "PNC Errors" tab
+		Then I see "I0001 - THE FOLLOWING ELEMENT(S) IN THE DIS SEGMENT CONTAIN INVALID DATA: DISPOSAL TYPE" in the "Error" row of the results table
       And no PNC updates have been made
