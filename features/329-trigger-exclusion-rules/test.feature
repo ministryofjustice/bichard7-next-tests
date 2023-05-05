@@ -15,7 +15,7 @@ Feature: R3_BR7_TI_001 (Trigger Exclusion-ALL) - This needs a code
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Must
+	@Must @NextUI
 	Scenario: Testing trigger exclusion rules for a user
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

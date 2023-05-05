@@ -237,7 +237,8 @@ const reallocateCaseToForce = async function (force) {
 
 const canSeeContentInTable = async function (value) {
   if (process.env.nextUI) {
-    expect(await this.browser.pageText()).toContain(value);
+    const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+    expect(await this.browser.pageText()).toContain(newValue);
   } else {
     const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
     expect(found).toBeTruthy();
@@ -252,8 +253,14 @@ const canSeeContentInTableForThis = async function (value) {
 
 const cannotSeeTrigger = async function (value) {
   await waitForRecord(this.browser.page, 2);
-  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
-  expect(isVisible).toBe(false);
+  if (process.env.nextUI) {
+    const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(),"${newValue}")]`);
+    expect(noCasesMessageMatch.length).toEqual(0);
+  } else {
+    const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
+    expect(isVisible).toBe(false);
+  }
 };
 
 const cannotSeeException = async function (exception) {
