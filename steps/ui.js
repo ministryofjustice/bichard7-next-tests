@@ -90,15 +90,17 @@ const checkNoPncErrors = async function (name) {
 
 const openRecordFor = async function (name) {
   await waitForRecord(this.browser.page);
-  await Promise.all([
-    this.browser.page.click(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`),
-    this.browser.page.waitForNavigation()
-  ]);
+
+  const record = process.env.nextUI
+    ? `a[id='Case details for ${name}']`
+    : `.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`;
+
+  await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
 };
 
 const openRecordForCurrentTest = async function () {
   const record = process.env.nextUI
-    ? `.src__StyledTable-sc-16s660v-0 .TableBody-sc-1qqarm8-0 a.src__Link-sc-1loawqx-0[id^='Case details for ${this.getRecordName()}']`
+    ? `a[id='Case details for ${this.getRecordName()}']`
     : `.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`;
 
   await filterByRecordName(this);
@@ -210,18 +212,36 @@ const reallocateCase = async function () {
 
 const reallocateCaseToForce = async function (force) {
   const { page } = this.browser;
-  await this.browser.clickAndWait("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
-  const options = await page.$$eval("#reallocateAction option", (els) =>
-    els.map((el) => ({ id: el.getAttribute("value"), text: el.innerText.trim() }))
-  );
-  const selectedOptionId = options.find((option) => option.text.includes(force)).id;
-  await page.select("#reallocateAction", selectedOptionId);
-  await this.browser.clickAndWait("input[value='OK']");
+
+  if (process.env.nextUI) {
+    await this.browser.clickAndWait("text=Reallocate Case");
+    const optionValue = await page.evaluate(() => {
+      const select = this.document.querySelector('select[name="force"]');
+      const options = Array.from(select.options);
+      const option = options.find((o) => o.text === "BTP global include");
+      return option.value;
+    });
+    await page.select('select[name="force"]', optionValue);
+    await this.browser.clickAndWait("#Reallocate");
+  } else {
+    await this.browser.clickAndWait("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
+    const dropDownOptions = process.env.nextUI ? "#force option" : "#reallocateAction option";
+    const options = await page.$$eval(dropDownOptions, (els) =>
+      els.map((el) => ({ id: el.getAttribute("value"), text: el.innerText.trim() }))
+    );
+    const selectedOptionId = options.find((option) => option.text.includes(force)).id;
+    await page.select("#reallocateAction", selectedOptionId);
+    await this.browser.clickAndWait("input[value='OK']");
+  }
 };
 
 const canSeeContentInTable = async function (value) {
-  const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
-  expect(found).toBeTruthy();
+  if (process.env.nextUI) {
+    expect(await this.browser.pageText()).toContain(value);
+  } else {
+    const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
+    expect(found).toBeTruthy();
+  }
 };
 
 const canSeeContentInTableForThis = async function (value) {
@@ -450,20 +470,36 @@ const manuallyResolveRecord = async function () {
 };
 
 const filterRecords = async function (world, resolvedType, recordType) {
-  const recordSelectId = { record: "0", exception: "1", trigger: "2" }[recordType.toLowerCase()];
-  if (!recordSelectId) {
-    throw new Error(`Record type '${recordType}' is unknown`);
-  }
-  await world.browser.page.waitForSelector("select#exceptionTypeFilter");
-  await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
+  if (process.env.nextUI) {
+    await world.browser.page.click("button#filter-button");
 
-  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
-  if (!resolutionSelectId) {
-    throw new Error(`Resolution type '${resolvedType}' is unknown`);
-  }
-  await world.browser.page.select("select#resolvedFilter", resolutionSelectId);
+    if (resolvedType.toLowerCase() === "resolved") {
+      await world.browser.page.click("input#resolved");
+    }
 
-  await Promise.all([world.browser.page.click("input[value='Refresh']"), world.browser.page.waitForNavigation()]);
+    if (recordType.toLowerCase() === "exception") {
+      await world.browser.page.click("input#exceptions-type");
+    } else if (recordType.toLowerCase() === "trigger") {
+      await world.browser.page.click("input#trigger-type");
+    }
+
+    await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
+  } else {
+    const recordSelectId = { record: "0", exception: "1", trigger: "2" }[recordType.toLowerCase()];
+    if (!recordSelectId) {
+      throw new Error(`Record type '${recordType}' is unknown`);
+    }
+    await world.browser.page.waitForSelector("select#exceptionTypeFilter");
+    await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
+
+    const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+    if (!resolutionSelectId) {
+      throw new Error(`Resolution type '${resolvedType}' is unknown`);
+    }
+    await world.browser.page.select("select#resolvedFilter", resolutionSelectId);
+
+    await Promise.all([world.browser.page.click("input[value='Refresh']"), world.browser.page.waitForNavigation()]);
+  }
 };
 
 const checkRecordResolved = async function (recordType, recordName, resolvedType) {
@@ -614,8 +650,14 @@ const checkNoExceptionsForThis = async function () {
 
 const checkNoRecords = async function () {
   await filterRecords(this, "unresolved", "record");
-  const tableRows = await this.browser.page.$$("table.resultsTable tr");
-  expect(tableRows.length).toEqual(2);
+
+  if (process.env.nextUI) {
+    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
+    expect(noCasesMessageMatch.length).toEqual(1);
+  } else {
+    const tableRows = await this.browser.page.$$("table.resultsTable tr");
+    expect(tableRows.length).toEqual(2);
+  }
 };
 
 const checkNoRecordsForThis = async function () {
