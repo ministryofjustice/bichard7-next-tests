@@ -280,21 +280,41 @@ const cannotSeeException = async function (exception) {
 };
 
 const noExceptionPresentForOffender = async function (name) {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 3 * 1000);
-  });
+  if (process.env.nextUI) {
+    // Filter for exceptions
+    await this.browser.page.waitForSelector("#filter-button");
+    await this.browser.page.click("#filter-button");
 
-  // Grab the current value of the exception type filter so that it can be restored after the test
-  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
+    await this.browser.page.waitForSelector("#exceptions-type");
+    await this.browser.page.click("#exceptions-type");
 
-  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
-  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
-  expect(isVisible).toBe(false);
+    await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
 
-  // Restore the previous exception type filter setting
-  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
+    expect(noCasesMessageMatch.length).toEqual(1);
+
+    // Reset filters
+    await this.browser.clickAndWait("#clear-filters-applied");
+  } else {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 3 * 1000);
+    });
+
+    // Grab the current value of the exception type filter so that it can be restored after the test
+    const filterValue = await this.browser.page.$eval(
+      "#exceptionTypeFilter > option[selected]",
+      (el) => el.textContent
+    );
+
+    await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
+    await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+    const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
+    expect(isVisible).toBe(false);
+
+    // Restore the previous exception type filter setting
+    await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+    await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  }
 };
 
 const recordsForPerson = async function (count, name) {
