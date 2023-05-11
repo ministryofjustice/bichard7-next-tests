@@ -19,7 +19,7 @@ Feature: {027} R3.2_Orphaned Non-Recordable Offence
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
+	@Should @NextUI
 	Scenario: No exceptions are created for orphaned non-recordable offence
 		When "input-message-1" is received
 			And I am logged in as "supervisor"
