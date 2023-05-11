@@ -2,6 +2,7 @@ Feature: Basic end-to-end test
   In order to make sure the system is working
   I want to make sure the message is displayed in the Bichard UI
 
+  @NextUI
   Scenario: Raising an exception message
     Given there is a valid record for "Rigout Dean" in the PNC
       And a message is received

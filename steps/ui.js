@@ -76,16 +76,26 @@ const goToExceptionList = async function () {
 };
 
 const findRecordFor = async function (name) {
-  await reloadUntilSelector(this.browser.page, ".resultsTable a.br7_exception_list_record_table_link");
-  await this.browser.page.waitForFunction(
-    `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${name}')`
-  );
+  if (process.env.nextUI) {
+    expect(await this.browser.pageText()).toContain(name);
+  } else {
+    await reloadUntilSelector(this.browser.page, ".resultsTable a.br7_exception_list_record_table_link");
+    await this.browser.page.waitForFunction(
+      `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${name}')`
+    );
+  }
 };
 
 const checkNoPncErrors = async function (name) {
-  expect(await this.browser.elementText(".resultsTable a.br7_exception_list_record_table_link")).toBe(name);
-  await this.browser.page.click(".resultsTable a.br7_exception_list_record_table_link");
-  await containsValue(this.browser.page, "#br7_exception_details_pnc_data_table", "Theft of pedal cycle");
+  if (process.env.nextUI) {
+    await this.browser.page.click(`a[id="Case details for ${name}"]`);
+    await this.browser.clickAndWait("text=PNC errors");
+    // TODO: assert no PNC errors once we have the table
+  } else {
+    expect(await this.browser.elementText(".resultsTable a.br7_exception_list_record_table_link")).toBe(name);
+    await this.browser.page.click(".resultsTable a.br7_exception_list_record_table_link");
+    await containsValue(this.browser.page, "#br7_exception_details_pnc_data_table", "Theft of pedal cycle");
+  }
 };
 
 const openRecordFor = async function (name) {
