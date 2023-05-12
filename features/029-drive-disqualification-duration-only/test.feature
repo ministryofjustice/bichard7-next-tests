@@ -22,7 +22,7 @@ Feature: {029} R5.6_BR7 Driver Disqualification - Duration-only values
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
+	@Should @NextUI
 	Scenario: No exceptions and one trigger when driver disqualification - duration only
 		Given I am logged in as "supervisor"
 		When "input-message-1" is received

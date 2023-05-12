@@ -76,16 +76,26 @@ const goToExceptionList = async function () {
 };
 
 const findRecordFor = async function (name) {
-  await reloadUntilSelector(this.browser.page, ".resultsTable a.br7_exception_list_record_table_link");
-  await this.browser.page.waitForFunction(
-    `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${name}')`
-  );
+  if (process.env.nextUI) {
+    expect(await this.browser.pageText()).toContain(name);
+  } else {
+    await reloadUntilSelector(this.browser.page, ".resultsTable a.br7_exception_list_record_table_link");
+    await this.browser.page.waitForFunction(
+      `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${name}')`
+    );
+  }
 };
 
 const checkNoPncErrors = async function (name) {
-  expect(await this.browser.elementText(".resultsTable a.br7_exception_list_record_table_link")).toBe(name);
-  await this.browser.page.click(".resultsTable a.br7_exception_list_record_table_link");
-  await containsValue(this.browser.page, "#br7_exception_details_pnc_data_table", "Theft of pedal cycle");
+  if (process.env.nextUI) {
+    await this.browser.page.click(`a[id="Case details for ${name}"]`);
+    await this.browser.clickAndWait("text=PNC errors");
+    // TODO: assert no PNC errors once we have the table
+  } else {
+    expect(await this.browser.elementText(".resultsTable a.br7_exception_list_record_table_link")).toBe(name);
+    await this.browser.page.click(".resultsTable a.br7_exception_list_record_table_link");
+    await containsValue(this.browser.page, "#br7_exception_details_pnc_data_table", "Theft of pedal cycle");
+  }
 };
 
 const openRecordFor = async function (name) {
@@ -236,13 +246,18 @@ const reallocateCaseToForce = async function (force) {
 };
 
 const canSeeContentInTable = async function (value) {
+  let found = false;
   if (process.env.nextUI) {
     const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-    expect(await this.browser.pageText()).toContain(newValue);
+    found = await reloadUntilContentInSelector(
+      this.browser.page,
+      newValue,
+      "#main-content > div.top-padding-0-2-5.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
+    );
   } else {
-    const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
-    expect(found).toBeTruthy();
+    found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
   }
+  expect(found).toBeTruthy();
 };
 
 const canSeeContentInTableForThis = async function (value) {
@@ -270,21 +285,41 @@ const cannotSeeException = async function (exception) {
 };
 
 const noExceptionPresentForOffender = async function (name) {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 3 * 1000);
-  });
+  if (process.env.nextUI) {
+    // Filter for exceptions
+    await this.browser.page.waitForSelector("#filter-button");
+    await this.browser.page.click("#filter-button");
 
-  // Grab the current value of the exception type filter so that it can be restored after the test
-  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
+    await this.browser.page.waitForSelector("#exceptions-type");
+    await this.browser.page.click("#exceptions-type");
 
-  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
-  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
-  expect(isVisible).toBe(false);
+    await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
 
-  // Restore the previous exception type filter setting
-  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
-  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
+    expect(noCasesMessageMatch.length).toEqual(1);
+
+    // Reset filters
+    await this.browser.clickAndWait("#clear-filters-applied");
+  } else {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 3 * 1000);
+    });
+
+    // Grab the current value of the exception type filter so that it can be restored after the test
+    const filterValue = await this.browser.page.$eval(
+      "#exceptionTypeFilter > option[selected]",
+      (el) => el.textContent
+    );
+
+    await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
+    await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+    const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
+    expect(isVisible).toBe(false);
+
+    // Restore the previous exception type filter setting
+    await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+    await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  }
 };
 
 const recordsForPerson = async function (count, name) {

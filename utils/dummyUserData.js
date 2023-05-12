@@ -30,7 +30,7 @@ module.exports = {
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
     excluded_triggers: [],
-    groups: ["B7ExceptionHandler"]
+    groups: ["B7ExceptionHandler", "B7NewUI"]
   },
   auditor: {
     inclusionList: ["B01", "B41ME00"],
