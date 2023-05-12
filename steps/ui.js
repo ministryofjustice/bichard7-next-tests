@@ -246,13 +246,18 @@ const reallocateCaseToForce = async function (force) {
 };
 
 const canSeeContentInTable = async function (value) {
+  let found = false;
   if (process.env.nextUI) {
     const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-    expect(await this.browser.pageText()).toContain(newValue);
+    found = await reloadUntilContentInSelector(
+      this.browser.page,
+      newValue,
+      "#main-content > div.top-padding-0-2-5.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
+    );
   } else {
-    const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
-    expect(found).toBeTruthy();
+    found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
   }
+  expect(found).toBeTruthy();
 };
 
 const canSeeContentInTableForThis = async function (value) {
