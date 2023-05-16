@@ -55,7 +55,7 @@
     "nunjucks": "^3.2.4",
     "pg-promise": "^11.4.3",
     "promise-poller": "^1.9.1",
-    "puppeteer": "^20.2.0",
+    "puppeteer": "^19.11.0",
     "puppeteer-mass-screenshots": "^1.0.15",
     "stompit": "^1.0.0",
     "ts-jest": "^29.1.0",
