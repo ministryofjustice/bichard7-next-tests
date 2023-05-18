@@ -3,7 +3,7 @@ const fs = require("fs");
 const uuid = require("uuid").v4;
 const defaults = require("../utils/defaults");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
-const PostgresHelper = require("../helpers/PostgresHelper");
+const PostgresHelper = require("../");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 
 const testNumber = process.env.TEST_NUMBER;

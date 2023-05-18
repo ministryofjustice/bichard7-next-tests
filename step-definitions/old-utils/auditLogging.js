@@ -1,5 +1,5 @@
-const isError = require("../utils/isError");
-const Poller = require("../utils/Poller");
+const isError = require("../../utils/isError");
+const Poller = require("../../utils/Poller");
 
 const checkEventByExternalCorrelationId = async (context, externalCorrelationId, eventType, contains) => {
   const { auditLogClient } = context;

@@ -1,6 +1,6 @@
 jest.setTimeout(30000);
 
-import World from "../../steps/world";
+import World from "../../step-definitions/world";
 import type { GenerateMessageOptions } from "../helpers/generateMessage";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";

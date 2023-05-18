@@ -1,13 +1,13 @@
 const { expect } = require("expect");
-const { caseListPage } = require("../utils/urls");
+const { caseListPage } = require("../../utils/urls");
 const {
   reloadUntilSelector,
   waitForRecord,
   reloadUntilContent,
   reloadUntilNotContent,
   reloadUntilContentInSelector
-} = require("../utils/puppeteer-utils");
-const fsHelp = require("../helpers/fsHelper");
+} = require("../../utils/puppeteer-utils");
+const fsHelp = require("../../helpers/fsHelper");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
@@ -675,8 +675,15 @@ const reloadUntilStringNotPresent = async function (content) {
 
 const checkNoExceptions = async function () {
   await filterRecords(this, "unresolved", "exception");
-  const tableRows = await this.browser.page.$$("table.resultsTable tr");
-  expect(tableRows.length).toEqual(2);
+
+  if (!process.env.nextUI) {
+    const tableRows = await this.browser.page.$$("table.resultsTable tr");
+    expect(tableRows.length).toEqual(2);
+    return;
+  }
+
+  const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
+  expect(noCasesMessageMatch.length).toEqual(1);
 };
 
 const checkNoExceptionsForThis = async function () {

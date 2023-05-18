@@ -1,8 +1,8 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
-const { logInAs } = require("./auth");
+const { logInAs } = require("./old-utils/auth");
 const { timeout } = require("../utils/config");
-const { sendMessage, sendMessageForTest } = require("./message");
+const { sendMessage, sendMessageForTest } = require("./old-utils/message");
 const {
   createValidRecordInPNC,
   checkMocks,
@@ -11,7 +11,7 @@ const {
   mockPNCDataForTest,
   noPncRequests,
   noPncUpdates
-} = require("./pnc");
+} = require("./old-utils/pnc");
 const {
   generateTodaysReport,
   reportContains,
@@ -22,7 +22,7 @@ const {
   checkUserSummaryReport,
   checkLiveStatusExceptionsReport,
   checkResolvedExceptionsReport
-} = require("./reports");
+} = require("./old-utils/reports");
 const {
   findRecordFor,
   goToExceptionList,
@@ -84,9 +84,9 @@ const {
   checkNoRecordsForThis,
   checkNoExceptionsForThis,
   canSeeContentInTableForThis
-} = require("./ui");
-const { checkEventByAuditMessageNumber } = require("./auditLogging");
-const Bichard = require("./world");
+} = require("./old-utils/ui");
+const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
+const Bichard = require("./old-utils/world");
 
 setWorldConstructor(Bichard);
 

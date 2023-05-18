@@ -1,8 +1,8 @@
 const { expect } = require("expect");
 const jwt = require("jsonwebtoken");
-const { authType, timeout } = require("../utils/config");
-const { login, authenticateUrl } = require("../utils/urls");
-const dummyUsers = require("../utils/dummyUserData");
+const { authType, timeout } = require("../../utils/config");
+const { login, authenticateUrl } = require("../../utils/urls");
+const dummyUsers = require("../../utils/dummyUserData");
 
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
