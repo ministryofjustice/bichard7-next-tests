@@ -286,7 +286,7 @@ const cannotSeeException = async function (exception) {
 
 const noExceptionPresentForOffender = async function (name) {
   if (process.env.nextUI) {
-    // Filter for exceptions ///
+    // Filter for exceptions
     await this.browser.page.waitForSelector("#filter-button");
     await this.browser.page.click("#filter-button");
 

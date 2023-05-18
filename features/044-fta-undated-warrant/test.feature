@@ -20,6 +20,7 @@ Feature: {044} #151 - FTA Undated Warrant
 
 	@Could
 	@LoadTestUI
+	@NextUI
 	Scenario: Handling FTA results with undated warrant
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
