@@ -23,6 +23,7 @@ Feature: {196} BR7-R5.3.2-RCD556-Breach Offence with Re-sentence for original of
 			And "input-message" is received
 
 	@Could
+	@NextUI
 	Scenario: re-sentencing of offence is adjourned to a new hearing
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
