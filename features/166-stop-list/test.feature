@@ -20,6 +20,7 @@ Feature: {166} BR7 R5.3-RCD505 - Ignored offence - Stop List Result
 			And "input-message" is received
 
 	@Could
+	@NextUI
 	Scenario: Results in the stop list are not processed
 		Given I am logged in as "supervisor"
 		Then the PNC record has not been updated
