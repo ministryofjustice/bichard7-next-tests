@@ -20,6 +20,7 @@ Feature: {162} BR7 R5.3-RCD505 - Ignored offence - Result Class
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Ignored Offences handling where the Offences are present on the PNC
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

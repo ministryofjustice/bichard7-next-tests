@@ -481,6 +481,8 @@ const resolveAllTriggers = async function () {
         "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
       );
     }
+    await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
+
     /* eslint-enable no-await-in-loop */
   } else {
     await this.browser.page.$$eval("input[name='triggerMarkedAsCompleteList']", (elHandle) =>
