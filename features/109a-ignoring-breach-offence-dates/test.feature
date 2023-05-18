@@ -20,6 +20,7 @@ Feature: {109a} BR7 R5.0-RCD382-Order to Continue-HO-PNC Offence Dates different
 			And "input-message" is received
 
 	@Should
+	@NextUI
 	Scenario: Ignoring breach offence dates
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
