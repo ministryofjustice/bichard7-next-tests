@@ -286,7 +286,7 @@ const cannotSeeException = async function (exception) {
 
 const noExceptionPresentForOffender = async function (name) {
   if (process.env.nextUI) {
-    // Filter for exceptions
+    // Filter for exceptions ///
     await this.browser.page.waitForSelector("#filter-button");
     await this.browser.page.click("#filter-button");
 
@@ -708,6 +708,9 @@ const checkNoRecordsForThis = async function () {
     // Read the records direct from the DB
     const records = await this.db.getMatchingErrorRecords(name);
     expect(records.length).toEqual(0);
+  } else if (process.env.nextUI) {
+    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
+    expect(noCasesMessageMatch.length).toEqual(1);
   } else {
     // Check for no exceptions of triggers via the UI
     await filterRecords(this, "unresolved", "record");
