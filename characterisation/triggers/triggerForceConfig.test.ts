@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import { TriggerCode } from "../types/TriggerCode"
 import generateMessage from "../helpers/generateMessage"
-import World from "../../step-definitions/world"
+import World from "../../step-definitions/old-utils/world"
 import processMessage from "../helpers/processMessage"
 
 const trigger1ResultCode = 3070

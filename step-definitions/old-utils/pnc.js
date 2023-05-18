@@ -58,7 +58,7 @@ const createValidRecordInPNC = async function (record) {
   if (this.config.realPNC) return;
   // mock a response in the PNC
   this.recordId = record;
-  this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
+  this.mocks = require(`../../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
 
   const mockPromises = this.mocks.map((mock) => this.pnc.addMock(mock.matchRegex, mock.response));
   const mockIds = await Promise.all(mockPromises);

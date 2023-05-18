@@ -1,6 +1,6 @@
 jest.setTimeout(30000);
 
-import World from "../../step-definitions/world";
+import World from "../../step-definitions/old-utils/world";
 import { offenceResultClassPath } from "../helpers/errorPaths";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
