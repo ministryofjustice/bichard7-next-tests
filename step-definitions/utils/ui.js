@@ -102,7 +102,7 @@ const openRecordForCurrentTest = async function () {
   await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
 };
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 const loadTab = async function (tabName) {
   // TODO add options here as we implement new UI
   // Triggers displayed on the case details page on the new UI
@@ -194,7 +194,7 @@ const filterRecords = async function (world, resolvedType, recordType) {
   await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
 };
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
   // TODO: Currently there is no way of filtering for resolved cases, we need to update next UI and update this test
   const resolveTriggersButtons = await this.browser.page.$$(
@@ -204,7 +204,7 @@ const checkRecordForThisTestResolved = async function (recordType, resolvedType)
   expect(resolveTriggersButtons.length).toEqual(0);
 };
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
   // TODO: Currently there is no way of filtering for resolved cases, we need to update next UI and update this test
   const resolveTriggersButtons = await this.browser.page.$$(
