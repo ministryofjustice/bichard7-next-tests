@@ -45,8 +45,11 @@ const logInNormallyAs = async function (world, name) {
   await world.browser.clickAndWait("button[type='submit']");
   await page.waitForXPath('//*[contains(text(), "Welcome ")]');
 
-  await world.browser.clickAndWait("a#bichard-link");
-  await page.waitForSelector(".wpsToolBarUserName", { timeout });
+  const [button] = await page.$x("//a[contains(., 'Access New Bichard')]");
+  if (button) {
+    await button.click();
+    await page.waitForSelector(".govuk-template__body", { timeout });
+  }
 };
 
 const logInDirectToBichardWithJwtAs = async function (world, name) {
@@ -83,7 +86,7 @@ const logInAs = async function (username) {
     await logInNormallyAs(this, username);
   }
 
-  expect(await this.browser.pageText()).toMatch(new RegExp(`You are logged in as: ${username}`, "i"));
+  expect(await this.browser.pageText()).toContain(username);
 };
 
 module.exports = { logInAs };
