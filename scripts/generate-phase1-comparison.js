@@ -3,7 +3,7 @@ const fs = require("fs");
 const uuid = require("uuid").v4;
 const defaults = require("../utils/defaults");
 const ActiveMqHelper = require("../helpers/ActiveMqHelper");
-const PostgresHelper = require("../");
+const PostgresHelper = require("../helpers/PostgresHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 
 const testNumber = process.env.TEST_NUMBER;
@@ -46,7 +46,7 @@ if (testNumber) {
       .filter((f) => f.includes("input-message"))
       .map((f) => `${testDir}/${f}`);
     if (inputFiles.length === 1) {
-      inputMessages[testNumber] = inputFiles[0];
+      [inputMessages[testNumber]] = inputFiles;
     } else if (inputFiles.length > 1) {
       inputFiles.forEach((f, index) => {
         inputMessages[`${testNumber}-${index}`] = f;
@@ -74,7 +74,9 @@ const mockPncResponses = async (testPath) => {
       /* eslint-disable no-await-in-loop */
       await pnc.addMock(mock.matchRegex, mock.response, mock.count);
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const processFile = async (fileName) => {
