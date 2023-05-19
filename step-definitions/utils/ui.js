@@ -1,6 +1,7 @@
 const { expect } = require("expect");
 const { caseListPage } = require("../../utils/urls");
-const { waitForRecord, reloadUntilContentInSelector } = require("../../utils/puppeteer-utils");
+const { waitForRecord } = require("../utils/waitForRecord");
+const { reloadUntilContentInSelector } = require("../../utils/puppeteer-utils");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
