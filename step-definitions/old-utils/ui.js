@@ -542,6 +542,7 @@ const reloadUntilStringNotPresent = async function (content) {
 };
 
 const checkNoExceptions = async function () {
+  await filterRecords(this, "unresolved", "exception");
   const tableRows = await this.browser.page.$$("table.resultsTable tr");
   expect(tableRows.length).toEqual(2);
 };
