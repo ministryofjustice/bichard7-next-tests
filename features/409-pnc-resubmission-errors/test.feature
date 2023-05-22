@@ -1,7 +1,7 @@
-Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
+Feature: {409} BR7-R5.7-RCD603-AINT Result-Exception generation
 
 			"""
-			{264} BR7-R5.7-RCD603-AINT Result-Exception generation
+			{409} BR7-R5.7-RCD603-AINT Result-Exception generation
 			===============
 			Q-Solution Definition:
 			A Bichard7 Regression Test verifying AINT results handling:
@@ -13,6 +13,9 @@ Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
 
 			MadeTech Definition:
 			Verifying AINT results generate no PNC update
+
+			TODO
+			This test is copied from test 264 and probably needs a better description.
 			"""
 
 	Background:
@@ -20,6 +23,7 @@ Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
 			And "input-message" is received
 
 	@ExcludeOnPreProd
+	@NextUI
 	Scenario: Handling unexpected errors for PNC update after resubmission
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
