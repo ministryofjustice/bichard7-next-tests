@@ -47,7 +47,8 @@ const {
   checkNoRecordsForThis,
   checkNoExceptionsForThis,
   goToExceptionList,
-  noTriggersPresentForOffender
+  noTriggersPresentForOffender,
+  correctOffenceException
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -67,11 +68,13 @@ Given("a message is received", async function () {
 
 Given("I am logged in as {string}", logInAs);
 
-When("I wait {string} seconds", async (delay) => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, delay * 1000);
-  });
-});
+When(
+  "I wait {int} seconds",
+  async (delay) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, delay * 1000);
+    })
+);
 
 When("message id {string} is received", async function (id) {
   await sendMessage.apply(this, [id]);
@@ -92,6 +95,8 @@ When("I click the {string} tab", loadTab);
 When("I resolve all of the triggers", resolveAllTriggers);
 
 When("I generate today's report", generateTodaysReport);
+
+When("I correct {string} to {string}", correctOffenceException);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 

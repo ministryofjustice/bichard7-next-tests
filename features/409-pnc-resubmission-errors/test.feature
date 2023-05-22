@@ -23,7 +23,6 @@ Feature: {409} BR7-R5.7-RCD603-AINT Result-Exception generation
 			And "input-message" is received
 
 	@ExcludeOnPreProd
-	@NextUI
 	Scenario: Handling unexpected errors for PNC update after resubmission
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
@@ -32,6 +31,7 @@ Feature: {409} BR7-R5.7-RCD603-AINT Result-Exception generation
 		When I open the record for "EXCEPTIONAINT CASE"
 			And I click the "Defendant" tab
 			And I correct "Court PNCID" to "2013/0000016P"
+			And I wait 300 seconds
 			And I submit the record
 			And I click the "Return To List" button
 		Then I see exception "HO100314" in the exception list table
