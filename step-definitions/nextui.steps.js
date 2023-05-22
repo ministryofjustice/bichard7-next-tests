@@ -1,6 +1,6 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
-const { logInAs } = require("./old-utils/auth");
+const { logInAs } = require("./utils/auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./old-utils/message");
 const {
