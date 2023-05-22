@@ -1,17 +1,17 @@
 const fs = require("fs").promises;
 const uuid = require("uuid").v4;
 const { World } = require("@cucumber/cucumber");
-const PostgresHelper = require("../helpers/PostgresHelper");
-const ActiveMqHelper = require("../helpers/ActiveMqHelper");
-const AuditLogDynamoDbHelper = require("../helpers/AuditLogDynamoDbHelper");
-const MockPNCHelper = require("../helpers/MockPNCHelper");
-const PNCTestTool = require("../helpers/PNCTestTool");
-const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
-const Phase1Bucket = require("../helpers/Phase1Bucket");
-const BrowserHelper = require("../helpers/BrowserHelper");
-const defaults = require("../utils/defaults");
-const AuditLogApiHelper = require("../helpers/AuditLogApiHelper");
-const { config } = require("../utils/config");
+const PostgresHelper = require("../../helpers/PostgresHelper");
+const ActiveMqHelper = require("../../helpers/ActiveMqHelper");
+const AuditLogDynamoDbHelper = require("../../helpers/AuditLogDynamoDbHelper");
+const MockPNCHelper = require("../../helpers/MockPNCHelper");
+const PNCTestTool = require("../../helpers/PNCTestTool");
+const IncomingMessageBucket = require("../../helpers/IncomingMessageBucket");
+const Phase1Bucket = require("../../helpers/Phase1Bucket");
+const BrowserHelper = require("../../helpers/BrowserHelper");
+const defaults = require("../../utils/defaults");
+const AuditLogApiHelper = require("../../helpers/AuditLogApiHelper");
+const { config } = require("../../utils/config");
 
 class Bichard extends World {
   constructor(options) {

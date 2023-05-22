@@ -20,7 +20,8 @@ module.exports = {
     "func-names": "off",
     "import/prefer-default-export": "off",
     "import/no-dynamic-require": "off",
-    "global-require": "off"
+    "global-require": "off",
+    "no-console": "off"
   },
   ignorePatterns: ["jest.setup.ts"]
 };

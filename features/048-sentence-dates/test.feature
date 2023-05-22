@@ -19,6 +19,7 @@ Feature: {048} #189 - DH page updated with sentence postponed DDMMYY
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Correctly adding dates for sentence
 		Given "input-message-1" is received
 		Given I am logged in as "supervisor"

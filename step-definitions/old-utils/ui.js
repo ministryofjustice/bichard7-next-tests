@@ -1,29 +1,22 @@
 const { expect } = require("expect");
-const { caseListPage } = require("../utils/urls");
+const { caseListPage } = require("../../utils/urls");
 const {
   reloadUntilSelector,
   waitForRecord,
   reloadUntilContent,
   reloadUntilNotContent,
   reloadUntilContentInSelector
-} = require("../utils/puppeteer-utils");
-const fsHelp = require("../helpers/fsHelper");
+} = require("../../utils/puppeteer-utils");
+const fsHelp = require("../../helpers/fsHelper");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
-  if (process.env.nextUI) {
-    await world.browser.page.click("button#filter-button");
-  }
-  const searchField = process.env.nextUI ? "input[name='keywords']" : "input[name='defendantSearch']";
+  const searchField = "input[name='defendantSearch']";
 
   // Triple click selects any existing text so we type over it
   await world.browser.page.click(searchField, { clickCount: 3 });
   await world.browser.page.type(searchField, name);
-  if (process.env.nextUI) {
-    await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
-  } else {
-    await Promise.all([world.browser.page.keyboard.press("Enter"), world.browser.page.waitForNavigation()]);
-  }
+  await Promise.all([world.browser.page.keyboard.press("Enter"), world.browser.page.waitForNavigation()]);
 };
 
 const containsValue = async function (page, selector, value) {
@@ -55,9 +48,7 @@ const getRawTableData = async function (world, selector) {
 };
 
 const checkDataTable = async function (world, values) {
-  const tableData = process.env.nextUI
-    ? await getTableData(world, "#Triggers_table .TableBody-sc-1qqarm8-0 tr")
-    : await getTableData(world, "#br7_exception_details_court_data_table .resultsTable tbody tr");
+  const tableData = await getTableData(world, "#br7_exception_details_court_data_table .resultsTable tbody tr");
 
   const check = tableData.filter((row) =>
     values.every((val) => {
@@ -76,42 +67,27 @@ const goToExceptionList = async function () {
 };
 
 const findRecordFor = async function (name) {
-  if (process.env.nextUI) {
-    expect(await this.browser.pageText()).toContain(name);
-  } else {
-    await reloadUntilSelector(this.browser.page, ".resultsTable a.br7_exception_list_record_table_link");
-    await this.browser.page.waitForFunction(
-      `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${name}')`
-    );
-  }
+  await reloadUntilSelector(this.browser.page, ".resultsTable a.br7_exception_list_record_table_link");
+  await this.browser.page.waitForFunction(
+    `document.querySelector('.resultsTable a.br7_exception_list_record_table_link').innerText.includes('${name}')`
+  );
 };
 
 const checkNoPncErrors = async function (name) {
-  if (process.env.nextUI) {
-    await this.browser.page.click(`a[id="Case details for ${name}"]`);
-    await this.browser.clickAndWait("text=PNC errors");
-    // TODO: assert no PNC errors once we have the table
-  } else {
-    expect(await this.browser.elementText(".resultsTable a.br7_exception_list_record_table_link")).toBe(name);
-    await this.browser.page.click(".resultsTable a.br7_exception_list_record_table_link");
-    await containsValue(this.browser.page, "#br7_exception_details_pnc_data_table", "Theft of pedal cycle");
-  }
+  expect(await this.browser.elementText(".resultsTable a.br7_exception_list_record_table_link")).toBe(name);
+  await this.browser.page.click(".resultsTable a.br7_exception_list_record_table_link");
+  await containsValue(this.browser.page, "#br7_exception_details_pnc_data_table", "Theft of pedal cycle");
 };
 
 const openRecordFor = async function (name) {
   await waitForRecord(this.browser.page);
-
-  const record = process.env.nextUI
-    ? `a[id='Case details for ${name}']`
-    : `.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`;
+  const record = `.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`;
 
   await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
 };
 
 const openRecordForCurrentTest = async function () {
-  const record = process.env.nextUI
-    ? `a[id='Case details for ${this.getRecordName()}']`
-    : `.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`;
+  const record = `.resultsTable a.br7_exception_list_record_table_link[title^='${this.getRecordName()}']`;
 
   await filterByRecordName(this);
   await waitForRecord(this.browser.page);
@@ -133,11 +109,6 @@ const loadTriggersTab = async function (page) {
 };
 
 const loadTab = async function (tabName) {
-  if (process.env.nextUI && tabName.toLowerCase() === "triggers") {
-    // Triggers displayed on the case details page on the new UI
-    return;
-  }
-
   const tabIds = {
     hearing: "#br7_button_Hearing",
     case: "#br7_button_Case",
@@ -222,41 +193,17 @@ const reallocateCase = async function () {
 
 const reallocateCaseToForce = async function (force) {
   const { page } = this.browser;
-
-  if (process.env.nextUI) {
-    await this.browser.clickAndWait("text=Reallocate Case");
-    const optionValue = await page.evaluate(() => {
-      const select = this.document.querySelector('select[name="force"]');
-      const options = Array.from(select.options);
-      const option = options.find((o) => o.text === "BTP global include");
-      return option.value;
-    });
-    await page.select('select[name="force"]', optionValue);
-    await this.browser.clickAndWait("#Reallocate");
-  } else {
-    await this.browser.clickAndWait("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
-    const dropDownOptions = process.env.nextUI ? "#force option" : "#reallocateAction option";
-    const options = await page.$$eval(dropDownOptions, (els) =>
-      els.map((el) => ({ id: el.getAttribute("value"), text: el.innerText.trim() }))
-    );
-    const selectedOptionId = options.find((option) => option.text.includes(force)).id;
-    await page.select("#reallocateAction", selectedOptionId);
-    await this.browser.clickAndWait("input[value='OK']");
-  }
+  await this.browser.clickAndWait("#br7_exception_details_view_edit_buttons > input[value='Reallocate Case']");
+  const options = await page.$$eval("#reallocateAction option", (els) =>
+    els.map((el) => ({ id: el.getAttribute("value"), text: el.innerText.trim() }))
+  );
+  const selectedOptionId = options.find((option) => option.text.includes(force)).id;
+  await page.select("#reallocateAction", selectedOptionId);
+  await this.browser.clickAndWait("input[value='OK']");
 };
 
 const canSeeContentInTable = async function (value) {
-  let found = false;
-  if (process.env.nextUI) {
-    const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-    found = await reloadUntilContentInSelector(
-      this.browser.page,
-      newValue,
-      "#main-content > div.top-padding-0-2-5.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
-    );
-  } else {
-    found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
-  }
+  const found = await reloadUntilContentInSelector(this.browser.page, value, ".resultsTable > tbody td");
   expect(found).toBeTruthy();
 };
 
@@ -268,14 +215,8 @@ const canSeeContentInTableForThis = async function (value) {
 
 const cannotSeeTrigger = async function (value) {
   await waitForRecord(this.browser.page, 2);
-  if (process.env.nextUI) {
-    const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(),"${newValue}")]`);
-    expect(noCasesMessageMatch.length).toEqual(0);
-  } else {
-    const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
-    expect(isVisible).toBe(false);
-  }
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", value);
+  expect(isVisible).toBe(false);
 };
 
 const cannotSeeException = async function (exception) {
@@ -285,41 +226,21 @@ const cannotSeeException = async function (exception) {
 };
 
 const noExceptionPresentForOffender = async function (name) {
-  if (process.env.nextUI) {
-    // Filter for exceptions
-    await this.browser.page.waitForSelector("#filter-button");
-    await this.browser.page.click("#filter-button");
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3 * 1000);
+  });
 
-    await this.browser.page.waitForSelector("#exceptions-type");
-    await this.browser.page.click("#exceptions-type");
+  // Grab the current value of the exception type filter so that it can be restored after the test
+  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
 
-    await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
+  expect(isVisible).toBe(false);
 
-    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
-    expect(noCasesMessageMatch.length).toEqual(1);
-
-    // Reset filters
-    await this.browser.clickAndWait("#clear-filters-applied");
-  } else {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 3 * 1000);
-    });
-
-    // Grab the current value of the exception type filter so that it can be restored after the test
-    const filterValue = await this.browser.page.$eval(
-      "#exceptionTypeFilter > option[selected]",
-      (el) => el.textContent
-    );
-
-    await this.browser.selectDropdownOption("exceptionTypeFilter", "Exceptions");
-    await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
-    const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
-    expect(isVisible).toBe(false);
-
-    // Restore the previous exception type filter setting
-    await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
-    await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
-  }
+  // Restore the previous exception type filter setting
+  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
 };
 
 const recordsForPerson = async function (count, name) {
@@ -465,33 +386,14 @@ const checkTrigger = async function (triggerId) {
 };
 
 const resolveAllTriggers = async function () {
-  if (process.env.nextUI) {
-    let resolveTriggersButtons = await this.browser.page.$$(
-      "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
-    );
+  await this.browser.page.$$eval("input[name='triggerMarkedAsCompleteList']", (elHandle) =>
+    elHandle.forEach((el) => el.click())
+  );
 
-    /* eslint-disable no-await-in-loop */
-    while (resolveTriggersButtons.length > 0) {
-      await Promise.all([
-        this.browser.page.click("#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"),
-        this.browser.page.waitForNavigation()
-      ]);
-
-      resolveTriggersButtons = await this.browser.page.$$(
-        "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
-      );
-    }
-    /* eslint-enable no-await-in-loop */
-  } else {
-    await this.browser.page.$$eval("input[name='triggerMarkedAsCompleteList']", (elHandle) =>
-      elHandle.forEach((el) => el.click())
-    );
-
-    await Promise.all([
-      this.browser.page.click("input[value='Mark Selected Complete']"),
-      this.browser.page.waitForNavigation()
-    ]);
-  }
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
 };
 
 const manuallyResolveRecord = async function () {
@@ -512,36 +414,20 @@ const manuallyResolveRecord = async function () {
 };
 
 const filterRecords = async function (world, resolvedType, recordType) {
-  if (process.env.nextUI) {
-    await world.browser.page.click("button#filter-button");
-
-    if (resolvedType.toLowerCase() === "resolved") {
-      await world.browser.page.click("input#resolved");
-    }
-
-    if (recordType.toLowerCase() === "exception") {
-      await world.browser.page.click("input#exceptions-type");
-    } else if (recordType.toLowerCase() === "trigger") {
-      await world.browser.page.click("input#trigger-type");
-    }
-
-    await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
-  } else {
-    const recordSelectId = { record: "0", exception: "1", trigger: "2" }[recordType.toLowerCase()];
-    if (!recordSelectId) {
-      throw new Error(`Record type '${recordType}' is unknown`);
-    }
-    await world.browser.page.waitForSelector("select#exceptionTypeFilter");
-    await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
-
-    const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
-    if (!resolutionSelectId) {
-      throw new Error(`Resolution type '${resolvedType}' is unknown`);
-    }
-    await world.browser.page.select("select#resolvedFilter", resolutionSelectId);
-
-    await Promise.all([world.browser.page.click("input[value='Refresh']"), world.browser.page.waitForNavigation()]);
+  const recordSelectId = { record: "0", exception: "1", trigger: "2" }[recordType.toLowerCase()];
+  if (!recordSelectId) {
+    throw new Error(`Record type '${recordType}' is unknown`);
   }
+  await world.browser.page.waitForSelector("select#exceptionTypeFilter");
+  await world.browser.page.select("select#exceptionTypeFilter", recordSelectId);
+
+  const resolutionSelectId = { unresolved: "1", resolved: "2" }[resolvedType.toLowerCase()];
+  if (!resolutionSelectId) {
+    throw new Error(`Resolution type '${resolvedType}' is unknown`);
+  }
+  await world.browser.page.select("select#resolvedFilter", resolutionSelectId);
+
+  await Promise.all([world.browser.page.click("input[value='Refresh']"), world.browser.page.waitForNavigation()]);
 };
 
 const checkRecordResolved = async function (recordType, recordName, resolvedType) {
@@ -550,17 +436,8 @@ const checkRecordResolved = async function (recordType, recordName, resolvedType
 };
 
 const checkRecordForThisTestResolved = async function (recordType, resolvedType) {
-  if (process.env.nextUI) {
-    // TODO: Currently there is no way of filtering for resolved cases, we need to update next UI and update this test
-    const resolveTriggersButtons = await this.browser.page.$$(
-      "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
-    );
-
-    expect(resolveTriggersButtons.length).toEqual(0);
-  } else {
-    await filterRecords(this, resolvedType, recordType);
-    expect(await this.browser.elementText("table.resultsTable")).toMatch(this.getRecordName());
-  }
+  await filterRecords(this, resolvedType, recordType);
+  expect(await this.browser.elementText("table.resultsTable")).toMatch(this.getRecordName());
 };
 
 const checkRecordNotResolved = async function (recordType, recordName, resolvedType) {
@@ -569,17 +446,8 @@ const checkRecordNotResolved = async function (recordType, recordName, resolvedT
 };
 
 const checkRecordForThisTestNotResolved = async function (recordType, resolvedType) {
-  if (process.env.nextUI) {
-    // TODO: Currently there is no way of filtering for resolved cases, we need to update next UI and update this test
-    const resolveTriggersButtons = await this.browser.page.$$(
-      "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
-    );
-
-    expect(resolveTriggersButtons.length).toEqual(0);
-  } else {
-    await filterRecords(this, resolvedType, recordType);
-    expect(await this.browser.elementText("table.resultsTable")).not.toMatch(this.getRecordName());
-  }
+  await filterRecords(this, resolvedType, recordType);
+  expect(await this.browser.elementText("table.resultsTable")).not.toMatch(this.getRecordName());
 };
 
 const checkRecordNotExists = async function (recordName) {
@@ -680,26 +548,17 @@ const checkNoExceptions = async function () {
 };
 
 const checkNoExceptionsForThis = async function () {
-  if (process.env.nextUI) {
-    // TODO: Currently there is no way of viewing exceptions, we need to update next UI and update this test
-  } else {
-    const name = this.getRecordName();
-    await filterRecords(this, "unresolved", "exception");
-    const links = await this.browser.page.$$(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
-    expect(links.length).toEqual(0);
-  }
+  const name = this.getRecordName();
+  await filterRecords(this, "unresolved", "exception");
+  const links = await this.browser.page.$$(`.resultsTable a.br7_exception_list_record_table_link[title^='${name}']`);
+  expect(links.length).toEqual(0);
 };
 
 const checkNoRecords = async function () {
   await filterRecords(this, "unresolved", "record");
 
-  if (process.env.nextUI) {
-    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
-    expect(noCasesMessageMatch.length).toEqual(1);
-  } else {
-    const tableRows = await this.browser.page.$$("table.resultsTable tr");
-    expect(tableRows.length).toEqual(2);
-  }
+  const tableRows = await this.browser.page.$$("table.resultsTable tr");
+  expect(tableRows.length).toEqual(2);
 };
 
 const checkNoRecordsForThis = async function () {

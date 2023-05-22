@@ -1,5 +1,7 @@
 const { expect } = require("expect");
 const fs = require("fs");
+
+// eslint-disable-next-line import/no-unresolved
 const { parse } = require("csv-parse/sync");
 const { getTableData, getRawTableData } = require("./ui");
 

@@ -3,7 +3,7 @@ jest.setTimeout(30000)
 import { TriggerCode } from "../types/TriggerCode"
 import TriggerRecordable from "../types/TriggerRecordable"
 import generateMessage from "../helpers/generateMessage"
-import World from "../../steps/world"
+import World from "../../step-definitions/old-utils/world"
 import processMessage from "../helpers/processMessage"
 
 const offenceTests = [
