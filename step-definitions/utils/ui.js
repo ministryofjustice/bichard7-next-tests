@@ -21,6 +21,16 @@ const getTableData = async function (world, selector) {
   return Promise.all(trPromises);
 };
 
+const containsValue = async function (page, selector, value) {
+  await page.waitForSelector(selector);
+
+  const matches = await page.$$(selector).then((els) => els.map((el) => el.getProperty("innerText")));
+  const innerTexts = await Promise.all(matches);
+  const jsonValues = await Promise.all(await innerTexts.map((m) => m.jsonValue()));
+
+  return Boolean(jsonValues.find((j) => j.includes(value)));
+};
+
 const checkDataTable = async function (world, values) {
   const tableData = await getTableData(world, "#Triggers_table .TableBody-sc-1qqarm8-0 tr");
 
@@ -248,6 +258,24 @@ const goToExceptionList = async function () {
   await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
 };
 
+const noTriggersPresentForOffender = async function (name) {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3 * 1000);
+  });
+
+  // Grab the current value of the exception type filter so that it can be restored after the test
+  const filterValue = await this.browser.page.$eval("#exceptionTypeFilter > option[selected]", (el) => el.textContent);
+
+  await this.browser.selectDropdownOption("exceptionTypeFilter", "Triggers");
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+  const isVisible = await containsValue(this.browser.page, ".resultsTable > tbody td", name);
+  expect(isVisible).toBe(false);
+
+  // Restore the previous exception type filter setting
+  await this.browser.selectDropdownOption("exceptionTypeFilter", filterValue);
+  await this.browser.clickAndWait("table.br7_exception_list_filter_table input[type=submit][value=Refresh]");
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -272,5 +300,6 @@ module.exports = {
   checkNoRecordsForThis,
   checkOffence,
   getTableData,
-  goToExceptionList
+  goToExceptionList,
+  noTriggersPresentForOffender
 };
