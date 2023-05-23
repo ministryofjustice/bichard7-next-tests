@@ -14,7 +14,7 @@ module.exports = {
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
     excluded_triggers: [],
-    groups: ["B7GeneralHandler"]
+    groups: ["B7GeneralHandler", "B7NewUI"]
   },
   triggerhandler: {
     inclusionList: ["B01", "B41ME00"],
@@ -46,7 +46,7 @@ module.exports = {
     visible_courts: ["001"],
     visible_forces: [],
     excluded_triggers: [],
-    groups: ["B7Supervisor"]
+    groups: ["B7Supervisor", "B7NewUI"]
   },
   "wilt.shire": {
     inclusionList: ["054"],
@@ -118,6 +118,6 @@ module.exports = {
     visible_courts: [],
     visible_forces: ["041"],
     excluded_triggers: [],
-    groups: ["B7Supervisor"]
+    groups: ["B7Supervisor", "B7NewUI"]
   }
 };
