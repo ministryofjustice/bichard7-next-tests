@@ -20,6 +20,7 @@ Feature: {202a} BR7 R5.1-RCD422-Breach of Community Order-Revoked-Resentenced
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Breach Offence handling where a Further Offence is charged
 		Given "input-message" is received
 			And I am logged in as "supervisor"
