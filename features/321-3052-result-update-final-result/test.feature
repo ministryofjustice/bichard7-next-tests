@@ -16,7 +16,7 @@ Feature: {321} BR7 R5.11-RCD673 - PNC update for 3052 result_Judgement Final Res
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: PNC Update for 3052 result
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

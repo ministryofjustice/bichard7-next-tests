@@ -1,6 +1,6 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
-const { logInAs } = require("./old-utils/auth");
+const { logInAs } = require("./utils/auth");
 const { timeout } = require("../utils/config");
 const { sendMessage, sendMessageForTest } = require("./old-utils/message");
 const {
@@ -46,7 +46,9 @@ const {
   checkCompleteTriggerforOffence,
   checkNoRecordsForThis,
   checkNoExceptionsForThis,
-  goToExceptionList
+  goToExceptionList,
+  noTriggersPresentForOffender,
+  correctOffenceException
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -65,6 +67,14 @@ Given("a message is received", async function () {
 });
 
 Given("I am logged in as {string}", logInAs);
+
+When(
+  "I wait {int} seconds",
+  async (delay) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, delay * 1000);
+    })
+);
 
 When("message id {string} is received", async function (id) {
   await sendMessage.apply(this, [id]);
@@ -86,6 +96,8 @@ When("I resolve all of the triggers", resolveAllTriggers);
 
 When("I generate today's report", generateTodaysReport);
 
+When("I correct {string} to {string}", correctOffenceException);
+
 Then("the exception list should contain a record for {string}", findRecordFor);
 
 Then("the record for {string} should not have any PNC errors", checkNoPncErrors);
@@ -95,6 +107,8 @@ Then("the PNC updates the record", checkMocks);
 Then("I see exception {string} in the exception list table", canSeeContentInTable);
 
 Then("there are no exceptions raised for {string}", noExceptionPresentForOffender);
+
+Then("there are no triggers raised for {string}", noTriggersPresentForOffender);
 
 Then("I see trigger {string} in the exception list table", canSeeContentInTable);
 

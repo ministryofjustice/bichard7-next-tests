@@ -124,7 +124,7 @@ const reallocateCaseToForce = async function (force) {
 };
 
 const canSeeContentInTable = async function (value) {
-  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const found = await reloadUntilContentInSelector(
     this.browser.page,
     newValue,
@@ -135,7 +135,7 @@ const canSeeContentInTable = async function (value) {
 
 const cannotSeeTrigger = async function (value) {
   await waitForRecord(this.browser.page, 2);
-  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(),"${newValue}")]`);
   expect(noCasesMessageMatch.length).toEqual(0);
 };
@@ -248,6 +248,33 @@ const goToExceptionList = async function () {
   await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
 };
 
+// TODO: refactor down with noExceptionsPresentForOffender
+const noTriggersPresentForOffender = async function (name) {
+  await this.browser.page.waitForSelector("#filter-button");
+  await this.browser.page.click("#filter-button");
+
+  await this.browser.page.waitForSelector("#triggers-type");
+  await this.browser.page.click("#triggers-type");
+
+  await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
+
+  const noCaseNamesMatch = await this.browser.page.$x(`//*[contains(text(), "${name}")]`);
+  expect(noCaseNamesMatch.length).toEqual(0);
+
+  const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
+  expect(noCasesMessageMatch.length).toEqual(1);
+
+  // Reset filters
+  await this.browser.clickAndWait("#clear-filters-applied");
+};
+
+// TODO: implement once case details page layout is completed.
+// Currently the correction fields in the UI can't be easily
+// selected.
+const correctOffenceException = async function () {
+  throw new Error("Not implemented");
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -272,5 +299,7 @@ module.exports = {
   checkNoRecordsForThis,
   checkOffence,
   getTableData,
-  goToExceptionList
+  goToExceptionList,
+  noTriggersPresentForOffender,
+  correctOffenceException
 };

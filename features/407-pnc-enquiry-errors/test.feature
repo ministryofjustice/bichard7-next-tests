@@ -8,8 +8,7 @@ Feature: {407} Handling unexpected PNC enquiry errors
 	Background:
 		And "input-message" is received
 
-	@ExcludeOnPreProd
-	@ExcludedOnConductor
+	@ExcludeOnPreProd @ExcludedOnConductor @NextUI
 	Scenario: Handling unexpected errors for PNC enquiry
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

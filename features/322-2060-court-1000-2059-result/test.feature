@@ -17,7 +17,7 @@ Feature: {322} BR7 R5.11-RCD687 - Existing Offence Result 2060 with Offence adde
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Existing offence with 2060 result and 1000 and 2059 results added in court
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
