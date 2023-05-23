@@ -18,6 +18,7 @@ Feature: {209} BR7-R5.4-RCD548-Offence Added In Court, Adj Pre Judg, PNC Adj exi
 		Given the data for this test is in the PNC
 
 	@Should
+	@NextUI
 	Scenario: Offence added in court which cannot be added to the PNC
 		Given I am logged in as "supervisor"
 			And "input-message-1" is received
