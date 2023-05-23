@@ -17,7 +17,7 @@ Feature: {284} BR7 R5.8-RCD638 - TRPR0029 - Offence Code Granted Text Missing
 	Background:
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: No civil proceedings trigger without "granted" text
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

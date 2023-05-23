@@ -18,7 +18,7 @@ Feature: {270} BR7 R5.7-RCD464-TRPR0026 Driving Disqualification Suspended
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Correctly handle disqualified driver triggers
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

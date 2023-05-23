@@ -18,7 +18,7 @@ Feature: {281} BR7 R5.8-RCD638 - TRPR0029 - Identical Civil Offences
 	Background:
 		Given "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Generating a single civil proceedings trigger
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

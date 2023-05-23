@@ -23,7 +23,7 @@ Feature: {250} BR7 R5.6-RCD459-Multi CCR HO200212 handling
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Multi CCR HO200212 handling
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

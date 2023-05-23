@@ -17,7 +17,7 @@ Feature: {282} BR7 R5.8-RCD638 - TRPR0029 - Ignored Offence
 	Background:
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Ignore civil offences
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

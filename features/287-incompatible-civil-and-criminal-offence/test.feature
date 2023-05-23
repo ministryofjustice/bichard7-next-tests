@@ -20,7 +20,7 @@ Feature: {287} BR7 R5.8-RCD638 - TRPR0029 - Recordable & Non-Recordable Civil Of
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Test exception is generated for incompatible civil and criminal offences
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
