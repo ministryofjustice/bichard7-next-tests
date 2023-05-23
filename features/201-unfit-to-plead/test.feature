@@ -21,6 +21,7 @@ Feature: {201} BR7-R5.3.2-RCD556-Offence Non-Conviction
 			And "input-message" is received
 
 	@Could
+	@NextUI
 	Scenario: Trigger is generated and PNC is updated when Defendant is considered as "Unfit To Plead"
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
