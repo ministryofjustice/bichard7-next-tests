@@ -46,7 +46,7 @@ module.exports = {
     visible_courts: ["001"],
     visible_forces: [],
     excluded_triggers: [],
-    groups: ["B7Supervisor", "B7NewUI"]
+    groups: ["B7Supervisor"]
   },
   "wilt.shire": {
     inclusionList: ["054"],
