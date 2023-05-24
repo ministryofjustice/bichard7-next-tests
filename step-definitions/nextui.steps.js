@@ -78,6 +78,16 @@ When(
     })
 );
 
+// TODO: remove this and refactor reliant tests when
+// old test suite is removed
+When(
+  "I wait {string} seconds",
+  async (delay) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, delay * 1000);
+    })
+);
+
 When("message id {string} is received", async function (id) {
   await sendMessage.apply(this, [id]);
 });
