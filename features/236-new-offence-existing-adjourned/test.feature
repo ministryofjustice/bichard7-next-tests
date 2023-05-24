@@ -17,7 +17,7 @@ Feature: {236} BR7 R5.6-RCD597-Single CCR-Offences Adj Pre Judg-Adj With Judg-Of
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Adding new offence in court where existing offences are adjourned
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
