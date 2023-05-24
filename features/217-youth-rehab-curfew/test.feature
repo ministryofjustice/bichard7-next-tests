@@ -20,6 +20,7 @@ Feature: {217} BR7 R5.4-RCD517-TRPR0003 conditions-Youth Rehabilitation Orders
 			And "input-message" is received
 
 	@Could
+	@NextUI
 	Scenario: Youth Rehabilitation Orders and Curfew Requirement handling
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
