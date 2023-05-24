@@ -19,7 +19,7 @@ Feature: {263} BR7 R5.7-RCD601-Result Code 2065 received after Defendant found G
 	Background:
 		Given the data for this test is in the PNC
 
-	@Could
+	@Could @NextUI
 	Scenario: Defendant dies after being found guilty
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

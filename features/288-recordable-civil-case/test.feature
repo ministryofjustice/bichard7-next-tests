@@ -18,7 +18,7 @@ Feature: {288} BR7 R5.8-RCD638 - TRPR0029 - Recordable Civil Case
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Handling a recordable civil case
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

@@ -17,7 +17,7 @@ Feature: {285} BR7 R5.8-RCD638 - TRPR0029 - Offence Code plus Granted Text
 	Background:
 		Given "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Generate civil proceedings trigger with "granted" text
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

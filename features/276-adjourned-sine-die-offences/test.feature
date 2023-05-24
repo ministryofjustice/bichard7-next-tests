@@ -20,7 +20,7 @@ Feature: {276} BR7 R5.8-RCD626 - Offences Added in Court Adjourned Sine Die Case
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Validate Offences Added in Court that are Adjourned Sine Die with Undated FTA Warrant Issued
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

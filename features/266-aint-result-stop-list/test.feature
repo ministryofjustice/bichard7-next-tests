@@ -17,7 +17,7 @@ Feature: {266} BR7-R5.7-RCD603-AINT Result-Stop List Offence Added In Court
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Handling an AINT result that only contains offences on the stop list
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

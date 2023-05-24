@@ -24,7 +24,7 @@ Feature: {248} BR7 R5.6-RCD554-Offence Added In Court-Sentence-no PNC Adjudicati
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
+	@Should @NextUI
 	Scenario: Handling offences added in court (Sentence)
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

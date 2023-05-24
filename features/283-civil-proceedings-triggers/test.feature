@@ -21,7 +21,7 @@ Feature: {283} BR7 R5.8-RCD638 - TRPR0029 - Multiple Trigger-generating conditio
 	Background:
 		Given "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Generating civil proceedings triggers
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

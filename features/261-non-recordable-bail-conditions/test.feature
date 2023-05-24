@@ -16,9 +16,7 @@ Feature: {261} BR7 R5.7-RCD611 - Bail Qualifier for Non Recordable Case
 	Background:
 		Given "input-message" is received
 
-	@Should
-	@PreProdTest
-	@OnlyRunsOnPNC
+	@Should @PreProdTest @OnlyRunsOnPNC
 	Scenario: Handling non-recordable bail conditions
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
