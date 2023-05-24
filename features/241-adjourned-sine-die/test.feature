@@ -18,7 +18,7 @@ Feature: {241} BR7 R5.6-RCD469-Sine Die No Conviction Date from Court
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Adjourned Sine Die results with no conviction date
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
