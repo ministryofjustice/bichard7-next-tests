@@ -21,6 +21,7 @@ Feature: {218} BR7 R5.5_RCD563-Breach of Bail-Plea of Admits
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Verifying 'Breach of Bail' Trigger generation where the Defendant Admits the charge of Breaching existing Bail Conditions
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"
