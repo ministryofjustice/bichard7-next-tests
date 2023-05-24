@@ -48,7 +48,9 @@ const {
   checkNoExceptionsForThis,
   goToExceptionList,
   noTriggersPresentForOffender,
-  correctOffenceException
+  correctOffenceException,
+  nRecordsInList,
+  returnToCaseList
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -179,3 +181,7 @@ Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport)
 Then("no PNC requests have been made", noPncRequests);
 
 Then("no PNC updates have been made", noPncUpdates);
+
+Then("there should only be {string} records", nRecordsInList);
+
+Then("I return to the list", returnToCaseList);
