@@ -18,6 +18,7 @@ Feature: {213} BR7 R5.4-RCD533-Offences taken into consideration-SENDEF
 		Given the data for this test is in the PNC
 
 	@Should
+	@NextUI
 	Scenario: Offences taken into consideration
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

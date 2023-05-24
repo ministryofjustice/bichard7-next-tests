@@ -118,6 +118,6 @@ module.exports = {
     visible_courts: [],
     visible_forces: ["041"],
     excluded_triggers: [],
-    groups: ["B7Supervisor"]
+    groups: ["B7Supervisor", "B7NewUI"]
   }
 };

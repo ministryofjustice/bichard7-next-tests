@@ -21,6 +21,7 @@ Feature: {202b} BR7 R5.1-RCD422-Breach of Community Order-Revoked-Resentenced
 			And "input-message" is received
 
 	@Could
+	@NextUI
 	Scenario: Breach Offence handling where a Further Offence is charged
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
