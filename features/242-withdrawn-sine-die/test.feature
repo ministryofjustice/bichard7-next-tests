@@ -17,7 +17,7 @@ Feature: {242} BR7 R5.6-RCD562-Sine Die Results then Withdrawn
 	Background:
 		Given the data for this test is in the PNC
 
-	@Could
+	@Could @NextUI
 	Scenario: Withdrawn Sine Die results
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
