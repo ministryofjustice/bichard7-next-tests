@@ -48,7 +48,9 @@ const {
   checkNoExceptionsForThis,
   goToExceptionList,
   noTriggersPresentForOffender,
-  correctOffenceException
+  correctOffenceException,
+  nRecordsInList,
+  returnToCaseList
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -70,6 +72,16 @@ Given("I am logged in as {string}", logInAs);
 
 When(
   "I wait {int} seconds",
+  async (delay) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, delay * 1000);
+    })
+);
+
+// TODO: remove this and refactor reliant tests when
+// old test suite is removed
+When(
+  "I wait {string} seconds",
   async (delay) =>
     new Promise((resolve) => {
       setTimeout(resolve, delay * 1000);
@@ -179,3 +191,7 @@ Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport)
 Then("no PNC requests have been made", noPncRequests);
 
 Then("no PNC updates have been made", noPncUpdates);
+
+Then("there should only be {string} records", nRecordsInList);
+
+Then("I return to the list", returnToCaseList);

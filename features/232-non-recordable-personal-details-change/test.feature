@@ -17,7 +17,7 @@ Feature: {232} BR7 R5.5-RCD544-Non-Recordable-Personal Details Change and other 
 	Background:
 		Given "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Non-recordable personal details change
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
