@@ -243,6 +243,14 @@ const checkNoRecordsForThis = async function () {
   }
 };
 
+const nRecordsInList = async function (n) {
+  const records = await this.browser.page.$$("[class*='caseDetailsRow']");
+  // TODO: change "there should only be {string} records"
+  // to "there should only be {int} records" once old
+  // steps are removed - update assertion
+  expect(`${records.length}`).toBe(n);
+};
+
 const goToExceptionList = async function () {
   if (this.config.noUi) return;
   await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
@@ -275,6 +283,11 @@ const correctOffenceException = async function () {
   throw new Error("Not implemented");
 };
 
+const returnToCaseList = async function () {
+  const { page } = this.browser;
+  await Promise.all([page.click("[class*='BackLink']"), page.waitForNavigation()]);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -301,5 +314,7 @@ module.exports = {
   getTableData,
   goToExceptionList,
   noTriggersPresentForOffender,
-  correctOffenceException
+  correctOffenceException,
+  nRecordsInList,
+  returnToCaseList
 };
