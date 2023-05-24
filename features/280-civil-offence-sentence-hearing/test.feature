@@ -19,7 +19,7 @@ Feature: {280} BR7 R5.8-RCD638 - TRPR0029 - Civil Offence added in Court at Sent
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
+	@Should @NextUI
 	Scenario: Civil Offence added in Court at Sentence Hearing
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

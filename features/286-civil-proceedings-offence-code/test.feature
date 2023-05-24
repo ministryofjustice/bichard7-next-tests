@@ -17,7 +17,7 @@ Feature: {286} BR7 R5.8-RCD638 - TRPR0029 - Offence Code Trigger only
 	Background:
 		Given "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Creating civil proceedings triggers based on offence code
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

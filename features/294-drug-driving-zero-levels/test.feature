@@ -17,7 +17,7 @@ Feature: {294} BR7-R5.9-RCD605-Drug Driving-Minimum AlcoholLevelAmount
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Handling results with drug driving zero levels
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

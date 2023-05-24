@@ -17,7 +17,7 @@ Feature: {292} BR7-R5.9-Interim Sexual Order
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Handling interim sexual order results
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
