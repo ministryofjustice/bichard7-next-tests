@@ -1,15 +1,29 @@
-ARG BUILD_IMAGE="buildkite/puppeteer:latest"
+ARG BUILD_IMAGE="nodejs"
 FROM ${BUILD_IMAGE}
 
 LABEL maintainer="CJSE"
 
-WORKDIR /src
+COPY ./google.repo /etc/yum.repos.d/google.repo
+
+RUN yum update -y \
+  && yum install -y wget gnupg \
+  && yum install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /home/pptruser 
+
+RUN npm init -y &&  \
+  npm i puppeteer \
+  && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+  && mkdir -p /home/pptruser/Downloads \
+  && chown -R pptruser:pptruser /home/pptruser \
+  && chown -R pptruser:pptruser ./node_modules \
+  && chown -R pptruser:pptruser ./package.json \
+  && chown -R pptruser:pptruser ./package-lock.json
 
 COPY ./package* /src/
 
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN apt-get update
-RUN apt-get install -y build-essential python gcc
+RUN yum install -y build-essential python gcc
 RUN npm i
 
 COPY ./features/ /src/features
@@ -21,6 +35,8 @@ COPY ./utils/ /src/utils
 COPY ./scripts/run_test_chunk.sh /src/scripts/run_test_chunk.sh
 COPY ./tsconfig.json /src
 
-CMD CI=true npm test
+USER pptruser
+
+CMD google-chrome-stable; CI=true npm test
 
 EXPOSE 4000
