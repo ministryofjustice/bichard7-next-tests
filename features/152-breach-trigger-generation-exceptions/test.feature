@@ -19,7 +19,7 @@ Feature: {152} BR7 R5.2.2-RCD518 - 2xResult Code Only - NG - Final Result
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Breach trigger generation with exceptions
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
