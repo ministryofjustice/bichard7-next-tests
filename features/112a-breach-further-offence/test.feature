@@ -22,8 +22,7 @@ Feature: {112a} BR7 R5.1-RCD422-Breach with Further Offence-Suspended Sentence
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
-	@NextUI
+	@Could @NextUI
 	Scenario: Breach offence handling where a further offence is charged
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

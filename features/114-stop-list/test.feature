@@ -21,8 +21,7 @@ Feature: {114} BR7 R5.1-RCD384-395-Stop checking Result Code Qualifiers against 
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
-	@NextUI
+	@Could @NextUI
 	Scenario: Checking result codes against the stop list
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
