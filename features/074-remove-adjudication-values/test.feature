@@ -19,7 +19,7 @@ Feature: {074} R4.0_BR7_Stripout Conviction for 2058-2059-2060
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Removing adjudication values for certain offences
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
