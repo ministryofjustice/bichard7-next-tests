@@ -19,6 +19,7 @@ Feature: {193b} BR7 R5.3.2-RCD422-Standalone Breach-Order to Continue-Order Vari
 		Given the data for this test is in the PNC
 
 	@Should
+	@NextUI
 	Scenario: Order Varied breach results
 		Given "input-message" is received
 			And I am logged in as "supervisor"

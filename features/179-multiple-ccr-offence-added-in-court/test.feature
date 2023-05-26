@@ -23,6 +23,7 @@ Feature: {179} BR7 R5.3-RCD496 - Multiple CCR group offence added in court_Judge
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Multiple CCR groups and offence added in court
 		Given "input-message-1" is received
 			And I wait "2" seconds

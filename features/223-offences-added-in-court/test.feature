@@ -19,6 +19,7 @@ Feature: {223} BR7-R5.5-RCD576-PNC_Adj-Existing_Offences_Adj_Post_Judg-Offence_A
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Validating offences added in court behaviour
 		Given "input-message-1" is received
 			And I wait "2" seconds

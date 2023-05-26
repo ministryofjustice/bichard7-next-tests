@@ -19,6 +19,7 @@ Feature: {227} BR7-R5.5-RCD576-PNC_Adj-Existing_Offences_Sentence-Offence_Added_
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Validating offences added in court behaviour
 		Given I am logged in as "supervisor"
 			And "input-message-1" is received

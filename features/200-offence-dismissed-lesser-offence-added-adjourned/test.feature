@@ -24,6 +24,7 @@ Feature: {200} BR7-R5.3.2-RCD556-Offence Dismissed-Lesser Offence Added-Adjourne
 			And "input-message" is received
 
 	@Should
+	@NextUI
 	Scenario: Trigger is created to alert police of adding lesser offence to PNC
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

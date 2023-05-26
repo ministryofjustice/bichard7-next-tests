@@ -24,6 +24,7 @@ Feature: {183} BR7 R5.3-RCD496 - Multiple CCR group offence added in court_2nd J
 		Given the data for this test is in the PNC
 
 	@Could
+	@NextUI
 	Scenario: Multiple CCR groups and offences added in court
 		Given I am logged in as "generalhandler"
 			And "input-message-1" is received
