@@ -21,8 +21,7 @@ Feature: {116b} BR7 R5.1-238-414-Multiple CCR-Adjudications-Existing Results
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
-	@ExcludeOnPreProd
+	@Should @ExcludeOnPreProd @NextUI
 	Scenario: Multiple CCR with no offence overlaps
 		Given "input-message-1" is received
 			And I wait "2" seconds

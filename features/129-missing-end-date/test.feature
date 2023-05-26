@@ -17,7 +17,7 @@ Feature: {129} BR7 R5.1-RCD411-No PNC Offence End Date
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Exception is raised if end dates are missing
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

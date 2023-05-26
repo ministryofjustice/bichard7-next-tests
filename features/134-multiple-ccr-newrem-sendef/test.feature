@@ -19,7 +19,7 @@ Feature: {134} BR7 R5.1.3-RCD467 - Multiple CCR-SENDEF-NEWREM
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
+	@Should @NextUI
 	Scenario: Multiple CCR with newrem and sendef elements
 		Given "input-message-1" is received
 			And I wait "2" seconds
