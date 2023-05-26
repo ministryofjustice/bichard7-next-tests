@@ -20,8 +20,7 @@ Feature: {157} BR7 R5.2.2-RCD518 - Result class Adjournment With Judgement
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
-	@LoadTestNoUI
+	@Could @LoadTestNoUI @NextUI
 	Scenario: Correctly processing adjournment with judgement
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

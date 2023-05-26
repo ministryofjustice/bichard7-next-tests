@@ -50,7 +50,9 @@ const {
   noTriggersPresentForOffender,
   correctOffenceException,
   nRecordsInList,
-  returnToCaseList
+  nRecordsForPerson,
+  returnToCaseList,
+  waitForRecordStep
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -109,6 +111,16 @@ When("I resolve all of the triggers", resolveAllTriggers);
 When("I generate today's report", generateTodaysReport);
 
 When("I correct {string} to {string}", correctOffenceException);
+
+When("I wait for {string} in the list of records", waitForRecordStep);
+
+When("I see {int} record for {string}", nRecordsForPerson);
+
+// eslint-disable-next-line prefer-arrow-callback
+When("I see {string} record for {string}", async function (count, name) {
+  const n = Number.parseInt(count, 10);
+  nRecordsForPerson.apply(this, [n, name]);
+});
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 

@@ -17,9 +17,7 @@ Feature: {154} BR7 R5.2.2-RCD518 - New Offence - Guilty - 1040 Result
 	Background:
 		Given "input-message" is received
 
-	@Could
-	@PreProdTest
-	@OnlyRunsOnPNC
+	@Could @PreProdTest @OnlyRunsOnPNC
 	Scenario: Does not create breach trigger for 1040 result
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

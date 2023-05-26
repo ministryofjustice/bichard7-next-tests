@@ -19,7 +19,7 @@ Feature: {110} BR7 R5.0-RCD385-PSA Code Change - part 2
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: PSA code change handling
 		Given I am logged in as "met.police"
 			And I view the list of exceptions

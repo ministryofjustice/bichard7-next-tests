@@ -19,8 +19,7 @@ Feature: {113a} BR7 R5.1-RCD422-Breach of Suspended Sentence-Order to Continue
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
-	@NextUI
+	@Could @NextUI
 	Scenario: PNC Error for result code 1508
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

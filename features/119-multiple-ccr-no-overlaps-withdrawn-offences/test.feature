@@ -17,7 +17,7 @@ Feature: {119} BR7 R5.1-238-414-Multiple CCR-No overlaps-Withdrawn Offences
   Background:
     Given the data for this test is in the PNC
 
-  @Must
+  @Must @NextUI
   Scenario: PNC is updated when there are multiple CCR, no overlaps and withdrawn offences
     When I am logged in as "supervisor"
     When "input-message-1" is received

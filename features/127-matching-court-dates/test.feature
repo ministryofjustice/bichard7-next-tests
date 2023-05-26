@@ -21,7 +21,7 @@ Feature: {127} BR7 R5.1-RCD411-Date Codes 2 and 3 and 6 Offence Matching
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Checking matches for court dates
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

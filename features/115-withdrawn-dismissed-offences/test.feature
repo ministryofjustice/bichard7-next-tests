@@ -18,7 +18,7 @@ Feature: {115} BR7 R5.1-RCD-327-Handling of Withdrawn-Dismissed Offences
 	Background:
 		Given the data for this test is in the PNC
 
-	@Could
+	@Could @NextUI
 	Scenario: Handling of Withdrawn-Dismissed Offences
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

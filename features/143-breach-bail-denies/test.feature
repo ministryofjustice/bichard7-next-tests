@@ -21,7 +21,7 @@ Feature: {143} BR7 R5.5_RCD563-Breach of Bail-Plea of Denies
 	Background:
 		Given the data for this test is in the PNC
 
-	@Could
+	@Could @NextUI
 	Scenario: Handling a breach of bail with a 'Denies' plea
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

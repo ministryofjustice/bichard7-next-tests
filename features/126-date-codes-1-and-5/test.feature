@@ -20,7 +20,7 @@ Feature: {126} BR7 R5.1-RCD411-Date Codes 1 and 5 Offence Matching
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Offence code matching for date codes 1 and 5
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
