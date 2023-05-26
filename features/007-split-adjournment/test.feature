@@ -19,8 +19,7 @@ Feature: {007} R3_BR7_TR_002_Date
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
-	@LoadTestUI
+	@Should @LoadTestUI @NextUI
 	Scenario: Split adjournment court results automation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
