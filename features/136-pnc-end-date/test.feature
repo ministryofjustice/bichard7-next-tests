@@ -24,7 +24,7 @@ Feature: {136} BR7 R5.1.3-RCD462 - No PNC-End-Date All Offences Dates the same
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: testing start and end date matching for offence codes
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

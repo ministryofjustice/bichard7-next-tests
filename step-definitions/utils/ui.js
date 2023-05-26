@@ -1,7 +1,7 @@
 const { expect } = require("expect");
 const { caseListPage } = require("./urls");
 const { waitForRecord } = require("./waitForRecord");
-const { reloadUntilContentInSelector } = require("../../utils/puppeteer-utils");
+const { reloadUntilContentInSelector, reloadUntilContent } = require("../../utils/puppeteer-utils");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
@@ -288,6 +288,10 @@ const returnToCaseList = async function () {
   await Promise.all([page.click("[class*='BackLink']"), page.waitForNavigation()]);
 };
 
+const waitForRecordStep = async function (record) {
+  await reloadUntilContent(this.browser.page, record);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -316,5 +320,6 @@ module.exports = {
   noTriggersPresentForOffender,
   correctOffenceException,
   nRecordsInList,
-  returnToCaseList
+  returnToCaseList,
+  waitForRecordStep
 };

@@ -50,7 +50,8 @@ const {
   noTriggersPresentForOffender,
   correctOffenceException,
   nRecordsInList,
-  returnToCaseList
+  returnToCaseList,
+  waitForRecordStep
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -109,6 +110,8 @@ When("I resolve all of the triggers", resolveAllTriggers);
 When("I generate today's report", generateTodaysReport);
 
 When("I correct {string} to {string}", correctOffenceException);
+
+When("I wait for {string} in the list of records", waitForRecordStep);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
