@@ -247,8 +247,14 @@ const nRecordsInList = async function (n) {
   const records = await this.browser.page.$$("[class*='caseDetailsRow']");
   // TODO: change "there should only be {string} records"
   // to "there should only be {int} records" once old
-  // steps are removed - update assertion
+  // steps are removed - remove coercion below
   expect(`${records.length}`).toBe(n);
+};
+
+// TODO: review whether this is specific enough
+const nRecordsForPerson = async function (n, name) {
+  const records = await this.browser.page.$x(`//tr/td/a[text()[contains(.,'${name}')]]`);
+  expect(records.length).toBe(n);
 };
 
 const goToExceptionList = async function () {
@@ -320,6 +326,7 @@ module.exports = {
   noTriggersPresentForOffender,
   correctOffenceException,
   nRecordsInList,
+  nRecordsForPerson,
   returnToCaseList,
   waitForRecordStep
 };

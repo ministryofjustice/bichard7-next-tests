@@ -50,6 +50,7 @@ const {
   noTriggersPresentForOffender,
   correctOffenceException,
   nRecordsInList,
+  nRecordsForPerson,
   returnToCaseList,
   waitForRecordStep
 } = require("./utils/ui");
@@ -112,6 +113,8 @@ When("I generate today's report", generateTodaysReport);
 When("I correct {string} to {string}", correctOffenceException);
 
 When("I wait for {string} in the list of records", waitForRecordStep);
+
+When("I see {int} record for {string}", nRecordsForPerson);
 
 Then("the exception list should contain a record for {string}", findRecordFor);
 
