@@ -20,7 +20,7 @@ Feature: {105} BR7 R5.0-RCD334-4583-Some Offences Ignored
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Ensuring that ignored offences are not displayed
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
@@ -29,6 +29,7 @@ Feature: {105} BR7 R5.0-RCD334-4583-Some Offences Ignored
 			And I see trigger "PS02 - Check address" in the exception list table
 		When I open the record for "SOMEOFFENCES IGNORE"
 			And I click the "Offences" tab
+			And I wait 3000 seconds
 		Then I see "TH68010" for offence "1"
 			And I see "TH68012" for offence "2"
 			And there should only be "2" offences
