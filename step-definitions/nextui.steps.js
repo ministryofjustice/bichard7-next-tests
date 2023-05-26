@@ -116,6 +116,12 @@ When("I wait for {string} in the list of records", waitForRecordStep);
 
 When("I see {int} record for {string}", nRecordsForPerson);
 
+// eslint-disable-next-line prefer-arrow-callback
+When("I see {string} record for {string}", async function (count, name) {
+  const n = Number.parseInt(count, 10);
+  nRecordsForPerson.apply(this, [n, name]);
+});
+
 Then("the exception list should contain a record for {string}", findRecordFor);
 
 Then("the record for {string} should not have any PNC errors", checkNoPncErrors);

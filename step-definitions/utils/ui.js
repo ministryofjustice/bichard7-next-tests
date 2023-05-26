@@ -254,7 +254,7 @@ const nRecordsInList = async function (n) {
 // TODO: review whether this is specific enough
 const nRecordsForPerson = async function (n, name) {
   const records = await this.browser.page.$x(`//tr/td/a[text()[contains(.,'${name}')]]`);
-  expect(records.length).toBe(n);
+  expect(records.length).toEqual(n);
 };
 
 const goToExceptionList = async function () {
