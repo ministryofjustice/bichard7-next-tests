@@ -23,6 +23,7 @@ Feature: {198} BR7-R5.3.2-RCD556-Offence Withdrawn-Replaced-Adjourned
 			And "input-message" is received
 
 	@Could
+	@NextUI
 	Scenario: PNC is updated when an Offence is replaced with another Offence
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions
