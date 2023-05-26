@@ -20,7 +20,7 @@ Feature: {091} R4.1.1_BR7_Bail Condition Padding
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: The bail conditions are padded to make sure no words are split over two lines
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
