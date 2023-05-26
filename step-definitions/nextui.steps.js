@@ -52,7 +52,8 @@ const {
   nRecordsInList,
   nRecordsForPerson,
   returnToCaseList,
-  waitForRecordStep
+  waitForRecordStep,
+  noRecordsForPerson
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -207,3 +208,5 @@ Then("no PNC updates have been made", noPncUpdates);
 Then("there should only be {string} records", nRecordsInList);
 
 Then("I return to the list", returnToCaseList);
+
+Then("the record for {string} does not exist", noRecordsForPerson);

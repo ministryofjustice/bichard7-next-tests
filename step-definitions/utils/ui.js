@@ -257,6 +257,10 @@ const nRecordsForPerson = async function (n, name) {
   expect(records.length).toEqual(n);
 };
 
+const noRecordsForPerson = async function (name) {
+  await nRecordsForPerson.apply(this, [0, name]);
+};
+
 const goToExceptionList = async function () {
   if (this.config.noUi) return;
   await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
@@ -328,5 +332,6 @@ module.exports = {
   nRecordsInList,
   nRecordsForPerson,
   returnToCaseList,
-  waitForRecordStep
+  waitForRecordStep,
+  noRecordsForPerson
 };
