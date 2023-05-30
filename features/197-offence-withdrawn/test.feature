@@ -18,7 +18,7 @@ Feature: {197} BR7-R5.3.2-RCD556-Offence Withdrawn
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Verify Result Class calculation and Withdrawn Offences processing
 		Given I am logged in as "supervisor"
 		Then the PNC updates the record
