@@ -18,8 +18,7 @@ Feature: {006} R3_BR7_TR_003_TRPS0002
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
-	@LoadTestUI
+	@Should @LoadTestUI @NextUI
 	Scenario: I can resolve a trigger for check address
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

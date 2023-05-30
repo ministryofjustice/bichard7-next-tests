@@ -18,7 +18,7 @@ Feature: {057} #192 - Result Date
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Validating judgement with final result automation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions

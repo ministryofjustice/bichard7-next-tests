@@ -52,7 +52,9 @@ const {
   nRecordsInList,
   nRecordsForPerson,
   returnToCaseList,
-  waitForRecordStep
+  waitForRecordStep,
+  noRecordsForPerson,
+  canSeeContentInTableForThis
 } = require("./utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
@@ -130,11 +132,15 @@ Then("the PNC updates the record", checkMocks);
 
 Then("I see exception {string} in the exception list table", canSeeContentInTable);
 
+Then("I see exception {string} for this record in the exception list", canSeeContentInTableForThis);
+
 Then("there are no exceptions raised for {string}", noExceptionPresentForOffender);
 
 Then("there are no triggers raised for {string}", noTriggersPresentForOffender);
 
 Then("I see trigger {string} in the exception list table", canSeeContentInTable);
+
+Then("I see trigger {string} for this record in the exception list", canSeeContentInTableForThis);
 
 Then("I cannot see trigger {string} in the exception list table", cannotSeeTrigger);
 
@@ -207,3 +213,5 @@ Then("no PNC updates have been made", noPncUpdates);
 Then("there should only be {string} records", nRecordsInList);
 
 Then("I return to the list", returnToCaseList);
+
+Then("the record for {string} does not exist", noRecordsForPerson);

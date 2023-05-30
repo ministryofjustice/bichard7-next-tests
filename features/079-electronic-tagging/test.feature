@@ -20,7 +20,7 @@ Feature: {079} R4.0.6_BR7_BA qualifier applied to curfew order result
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Correctly handling electronic tagging results
 		Given I am logged in as "generalhandler"
 		When I view the list of exceptions

@@ -18,8 +18,7 @@ Feature: {047} #186 - Result text population for Orders - 2nd variation
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
-	@LoadTestUI
+	@Could @LoadTestUI @NextUI
 	Scenario: Result text population for Orders - 2nd variation
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
