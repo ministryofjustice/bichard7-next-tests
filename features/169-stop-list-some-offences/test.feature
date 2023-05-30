@@ -21,7 +21,7 @@ Feature: {169} BR7 R5.3-RCD513 - Some Offences Stop Listed
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could @NextUI
+	@Could
 	Scenario: Ignored offence handling when some results are on the stop list
 		Given I am logged in as "supervisor"
 		When I view the list of exceptions
