@@ -47,8 +47,7 @@ const logInNormallyAs = async function (world, name) {
 
   const [button] = await page.$x("//a[contains(., 'Access New Bichard')]");
   if (button) {
-    await button.click();
-    await page.waitForNavigation();
+    await Promise.all([button.click(), page.waitForNavigation()]);
   }
 };
 

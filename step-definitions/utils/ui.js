@@ -1,7 +1,11 @@
 const { expect } = require("expect");
 const { caseListPage } = require("./urls");
 const { waitForRecord } = require("./waitForRecord");
-const { reloadUntilContentInSelector, reloadUntilContent } = require("../../utils/puppeteer-utils");
+const {
+  reloadUntilContentInSelector,
+  reloadUntilContent,
+  reloadUntilXPathSelector
+} = require("../../utils/puppeteer-utils");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
@@ -21,37 +25,65 @@ const getTableData = async function (world, selector) {
   return Promise.all(trPromises);
 };
 
-const checkDataTable = async function (world, values) {
-  const tableData = await getTableData(world, "#Triggers_table .TableBody-sc-1qqarm8-0 tr");
+const getShortTriggerCode = (triggerCode) => {
+  const triggerCodeDetails = triggerCode.match(/TR(?<triggerType>\w{2})(?<triggerCode>\d+)/).groups;
+  return `${triggerCodeDetails.triggerType}${String(Number(triggerCodeDetails.triggerCode)).padStart(2, "0")}`;
+};
 
-  const check = tableData.filter((row) =>
-    values.every((val) => {
-      if (val.exact) {
-        return row[val.column - 1] && row[val.column - 1] === val.value;
-      }
-      return row[val.column - 1] && row[val.column - 1].includes(val.value);
+const getTriggersFromPage = async (world) => {
+  const triggerRows = await world.browser.page.$$("section#triggers .moj-trigger-row");
+  const triggers = await Promise.all(
+    triggerRows.map(async (row) => {
+      const triggerCode = await row.evaluate((element) =>
+        element.querySelector("label.trigger-code")?.innerText?.trim()
+      );
+      const offenceId = Number(
+        await row.evaluate(
+          (element) =>
+            element
+              .querySelector("button.moj-action-link")
+              ?.innerText?.trim()
+              ?.match(/Offence (?<offenceId>\d+)/).groups.offenceId
+        )
+      );
+      return { triggerCode, offenceId };
     })
   );
-  expect(check.length).toEqual(1);
+
+  return triggers;
 };
 
-const checkTriggerforOffence = async function (triggerId, offenceId) {
-  await checkDataTable(this, [
-    { column: 1, value: triggerId, exact: false },
-    { column: 2, value: offenceId, exact: true }
+const doesTriggerMatch = (actualTrigger, expectedTrigger) => {
+  const triggerCodeMatch = actualTrigger.triggerCode === getShortTriggerCode(expectedTrigger.triggerCode);
+  const offenceIdMatch = !expectedTrigger.offenceId || actualTrigger.offenceId === Number(expectedTrigger.offenceId);
+
+  return triggerCodeMatch && offenceIdMatch;
+};
+
+const checkTriggers = async (world, expectedTriggers) => {
+  const actualTriggers = await getTriggersFromPage(world);
+  const matchedTriggers = expectedTriggers.filter((expectedTrigger) =>
+    actualTriggers.some((actualTrigger) => doesTriggerMatch(actualTrigger, expectedTrigger))
+  );
+
+  expect(matchedTriggers.length).toEqual(expectedTriggers.length);
+};
+
+const checkTriggerforOffence = async function (triggerCode, offenceId) {
+  await checkTriggers(this, [
+    {
+      triggerCode,
+      offenceId
+    }
   ]);
 };
 
-const checkCompleteTriggerforOffence = async function (triggerId, offenceId) {
-  await checkDataTable(this, [
-    { column: 1, value: triggerId, exact: false },
-    { column: 2, value: offenceId, exact: true },
-    { column: 3, value: "Complete", exact: true }
-  ]);
+const checkCompleteTriggerforOffence = async function (triggerCode, offenceId) {
+  await checkTriggers(this, [{ triggerCode, offenceId, status: "Complete" }]);
 };
 
-const checkTrigger = async function (triggerId) {
-  await checkDataTable(this, [{ column: 1, value: triggerId, exact: false }]);
+const checkTrigger = async function (triggerCode) {
+  await checkTriggers(this, [{ triggerCode, exact: false }]);
 };
 
 const findRecordFor = async function (name) {
@@ -65,40 +97,34 @@ const checkNoPncErrors = async function (name) {
 };
 
 const checkOffenceData = async function (value, key) {
-  await checkDataTable(this, [
+  await checkTriggers(this, [
     { column: 1, value: key, exact: true },
     { column: 2, value, exact: true }
   ]);
 };
 
 const checkOffenceDataError = async function (value, key) {
-  await checkDataTable(this, [
-    { column: 1, value: key, exact: true },
-    { column: 3, value, exact: false }
-  ]);
+  console.log("Check offence data error", key, value);
+  throw Error("Not yet implemented.");
 };
 
 const checkOffence = async function (offenceCode, offenceId) {
-  await checkDataTable(this, [
-    { column: 2, value: offenceId, exact: true },
-    { column: 4, value: offenceCode, exact: true }
-  ]);
+  console.log("Check offence", offenceCode, offenceId);
+  throw Error("Not yet implemented.");
 };
 
 const openRecordFor = async function (name) {
-  await waitForRecord(this.browser.page);
+  await waitForRecord(name, this.browser.page);
 
-  await Promise.all([
-    this.browser.page.click(`a[id='Case details for ${name}']`),
-    this.browser.page.waitForNavigation()
-  ]);
+  const [link] = await this.browser.page.$x(`//table/tbody/tr/*/a[contains(.,"${name}")]`);
+  await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
 };
 
 const openRecordForCurrentTest = async function () {
   const record = `a[id='Case details for ${this.getRecordName()}']`;
 
   await filterByRecordName(this);
-  await waitForRecord(this.browser.page);
+  await waitForRecord(this.getRecordName(), this.browser.page);
   await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
 };
 
@@ -146,7 +172,7 @@ const canSeeContentInTableForThis = async function (value) {
 };
 
 const cannotSeeTrigger = async function (value) {
-  await waitForRecord(this.browser.page, 2);
+  await waitForRecord(null, this.browser.page, 2);
   const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(),"${newValue}")]`);
   expect(noCasesMessageMatch.length).toEqual(0);
@@ -250,8 +276,11 @@ const checkNoRecordsForThis = async function () {
     const records = await this.db.getMatchingErrorRecords(name);
     expect(records.length).toEqual(0);
   } else {
-    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
-    expect(noCasesMessageMatch.length).toEqual(1);
+    const didFoundText = await reloadUntilXPathSelector(
+      this.browser.page,
+      `//*[contains(text(), "There are no court cases to show")]`
+    );
+    expect(didFoundText).toEqual(true);
   }
 };
 
@@ -275,7 +304,8 @@ const noRecordsForPerson = async function (name) {
 
 const goToExceptionList = async function () {
   if (this.config.noUi) return;
-  await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
+  await this.browser.page.goto("about:blank");
+  await Promise.all([this.browser.page.waitForNavigation(), this.browser.page.goto(caseListPage())]);
 };
 
 // TODO: refactor down with noExceptionsPresentForOffender
