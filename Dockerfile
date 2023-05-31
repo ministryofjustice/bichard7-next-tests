@@ -1,28 +1,17 @@
-ARG BUILD_IMAGE="nodejs"
+ARG BUILD_IMAGE="ghcr.io/puppeteer/puppeteer:latest"
 FROM ${BUILD_IMAGE}
 
 LABEL maintainer="CJSE"
 
-RUN yum update -y \
-  && yum install -y wget gnupg chromium \
-  && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /home/pptruser 
-
-RUN npm init -y &&  \
-  npm i puppeteer \
-  && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-  && mkdir -p /home/pptruser/Downloads \
-  && chown -R pptruser:pptruser /home/pptruser \
-  && chown -R pptruser:pptruser ./node_modules \
-  && chown -R pptruser:pptruser ./package.json \
-  && chown -R pptruser:pptruser ./package-lock.json
-  
 WORKDIR /src
 
-COPY ./package* ./
+COPY ./package* /src/
 
-RUN yum install -y build-essential python gcc
+USER root
+
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN apt-get update
+RUN apt-get install -y build-essential python gcc
 RUN npm i
 
 COPY ./features/ /src/features
