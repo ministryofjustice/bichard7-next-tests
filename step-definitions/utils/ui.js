@@ -172,7 +172,7 @@ const canSeeContentInTableForThis = async function (value) {
 };
 
 const cannotSeeTrigger = async function (value) {
-  await waitForRecord(this.getRecordName(), this.browser.page, 2);
+  await waitForRecord(null, this.browser.page, 2);
   const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(),"${newValue}")]`);
   expect(noCasesMessageMatch.length).toEqual(0);
