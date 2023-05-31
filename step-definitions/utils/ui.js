@@ -1,7 +1,11 @@
 const { expect } = require("expect");
 const { caseListPage } = require("./urls");
 const { waitForRecord } = require("./waitForRecord");
-const { reloadUntilContentInSelector, reloadUntilContent } = require("../../utils/puppeteer-utils");
+const {
+  reloadUntilContentInSelector,
+  reloadUntilContent,
+  reloadUntilXPathSelector
+} = require("../../utils/puppeteer-utils");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
@@ -275,8 +279,11 @@ const checkNoRecordsForThis = async function () {
     const records = await this.db.getMatchingErrorRecords(name);
     expect(records.length).toEqual(0);
   } else {
-    const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(), "There are no court cases to show")]`);
-    expect(noCasesMessageMatch.length).toEqual(1);
+    const didFoundText = await reloadUntilXPathSelector(
+      this.browser.page,
+      `//*[contains(text(), "There are no court cases to show")]`
+    );
+    expect(didFoundText).toEqual(true);
   }
 };
 
