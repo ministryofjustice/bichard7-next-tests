@@ -13,8 +13,7 @@ const filterByRecordName = async function (world) {
   const searchField = "input[name='keywords']";
   await world.browser.page.click(searchField, { clickCount: 3 });
   await world.browser.page.type(searchField, name);
-  await world.browser.page.click("button#search");
-  await world.browser.page.waitForNavigation();
+  await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
 };
 
 const getTableData = async function (world, selector) {
@@ -117,9 +116,8 @@ const checkOffence = async function (offenceCode, offenceId) {
 const openRecordFor = async function (name) {
   await waitForRecord(name, this.browser.page);
 
-  const link = await this.browser.page.$x(`//table/tbody/tr/*/a[contains(.,"${name}")]`);
-  await link[0].click();
-  await this.browser.page.waitForNavigation();
+  const [link] = await this.browser.page.$x(`//table/tbody/tr/*/a[contains(.,"${name}")]`);
+  await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
 };
 
 const openRecordForCurrentTest = async function () {
@@ -127,8 +125,7 @@ const openRecordForCurrentTest = async function () {
 
   await filterByRecordName(this);
   await waitForRecord(this.getRecordName(), this.browser.page);
-  await this.browser.page.click(record);
-  await this.browser.page.waitForNavigation();
+  await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -307,7 +304,8 @@ const noRecordsForPerson = async function (name) {
 
 const goToExceptionList = async function () {
   if (this.config.noUi) return;
-  await Promise.all([this.browser.page.goto(caseListPage()), this.browser.page.waitForNavigation()]);
+  await this.browser.page.goto("about:blank");
+  await Promise.all([this.browser.page.waitForNavigation(), this.browser.page.goto(caseListPage())]);
 };
 
 // TODO: refactor down with noExceptionsPresentForOffender
