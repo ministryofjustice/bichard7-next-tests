@@ -19,7 +19,7 @@ Feature: {243} BR7 R5.6-RCD592-Parent Warrant-4585
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Parent warrant handling
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
