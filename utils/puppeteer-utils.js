@@ -34,6 +34,16 @@ const reloadUntilSelector = async (page, selector, attempts) => {
   return retryDelay(checkForSelector, reloadPage, 1000, attempts);
 };
 
+const reloadUntilXPathSelector = async (page, selector, attempts) => {
+  const checkForSelector = async () => (await page.$x(selector)).length > 0;
+
+  const reloadPage = async () => {
+    await page.reload();
+  };
+
+  return retryDelay(checkForSelector, reloadPage, 1000, attempts);
+};
+
 const reloadUntilContent = async (page, content) => {
   const checkForContent = async () => !!(await page.evaluate(() => document.body.innerText)).includes(content);
 
@@ -82,6 +92,7 @@ module.exports = {
   delay,
   retryDelay,
   reloadUntilSelector,
+  reloadUntilXPathSelector,
   waitForRecord,
   reloadUntilContent,
   reloadUntilContentInSelector,

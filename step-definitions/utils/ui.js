@@ -9,7 +9,8 @@ const filterByRecordName = async function (world) {
   const searchField = "input[name='keywords']";
   await world.browser.page.click(searchField, { clickCount: 3 });
   await world.browser.page.type(searchField, name);
-  await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
+  await world.browser.page.click("button#search");
+  await world.browser.page.waitForNavigation();
 };
 
 const getTableData = async function (world, selector) {
@@ -110,20 +111,18 @@ const checkOffence = async function (offenceCode, offenceId) {
 };
 
 const openRecordFor = async function (name) {
-  await waitForRecord(this.browser.page);
+  await waitForRecord(name, this.browser.page);
 
-  await Promise.all([
-    this.browser.page.click(`a[id='Case details for ${name}']`),
-    this.browser.page.waitForNavigation()
-  ]);
+  const link = await this.browser.page.$x(`//table/tbody/tr/*/a[contains(.,"${name}")]`);
+  await link[0].click();
+  await this.browser.page.waitForNavigation();
 };
 
 const openRecordForCurrentTest = async function () {
   const record = `a[id='Case details for ${this.getRecordName()}']`;
 
   await filterByRecordName(this);
-  await waitForRecord(this.browser.page);
-  await this.browser.page.waitForNavigation();
+  await waitForRecord(this.getRecordName(), this.browser.page);
   await this.browser.page.click(record);
   await this.browser.page.waitForNavigation();
 };
@@ -172,7 +171,7 @@ const canSeeContentInTableForThis = async function (value) {
 };
 
 const cannotSeeTrigger = async function (value) {
-  await waitForRecord(this.browser.page, 2);
+  await waitForRecord(this.getRecordName(), this.browser.page, 2);
   const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const noCasesMessageMatch = await this.browser.page.$x(`//*[contains(text(),"${newValue}")]`);
   expect(noCasesMessageMatch.length).toEqual(0);
