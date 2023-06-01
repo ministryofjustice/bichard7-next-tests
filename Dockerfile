@@ -1,4 +1,4 @@
-ARG BUILD_IMAGE="buildkite/puppeteer:latest"
+ARG BUILD_IMAGE="ghcr.io/puppeteer/puppeteer:latest"
 FROM ${BUILD_IMAGE}
 
 LABEL maintainer="CJSE"
@@ -6,6 +6,8 @@ LABEL maintainer="CJSE"
 WORKDIR /src
 
 COPY ./package* /src/
+
+USER root
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN apt-get update
@@ -21,6 +23,8 @@ COPY ./step-definitions /src/step-definitions
 COPY ./utils/ /src/utils
 COPY ./scripts/run_test_chunk.sh /src/scripts/run_test_chunk.sh
 COPY ./tsconfig.json /src
+
+USER pptruser
 
 CMD CI=true npm test
 
