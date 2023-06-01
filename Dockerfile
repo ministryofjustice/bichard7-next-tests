@@ -3,11 +3,11 @@ FROM ${BUILD_IMAGE}
 
 LABEL maintainer="CJSE"
 
+USER root
+
 WORKDIR /src
 
 COPY ./package* /src/
-
-USER root
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN apt-get update
@@ -23,8 +23,6 @@ COPY ./step-definitions /src/step-definitions
 COPY ./utils/ /src/utils
 COPY ./scripts/run_test_chunk.sh /src/scripts/run_test_chunk.sh
 COPY ./tsconfig.json /src
-
-USER pptruser
 
 CMD CI=true npm test
 
