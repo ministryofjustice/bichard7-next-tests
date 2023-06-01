@@ -130,17 +130,3 @@ If the Test Tool looks healthy then you can run a test using it as follows (068 
 ```
 PNC_TEST_TOOL=https://10.129.3.16 REAL_PNC=true npm run test:file features/068*
 ```
-
-## Building for M1
-
-Goodle does not currently provide binaries for arm64. To build ofr M1, you will need an amd64 version of the nodejs image. You can pull this from ECR with the using the scripts in the core repo:
-
-```bash
-aws-vault exec bichard7-shared -- ./scripts/fetch-docker-image.sh nodejs
-```
-
-You will then be able to build the `e2etests` image by specifying `--platform` in the build command:
-
-```bash
-docker build --platform linux/amd64 -t e2etests .
-```
