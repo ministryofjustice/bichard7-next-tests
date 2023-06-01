@@ -19,7 +19,7 @@ Feature: {245} BR7 R5.6-RCD554-Existing Offence-Adj Post Judg-no PNC Adjudicatio
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should
+	@Should @NextUI
 	Scenario: Raise exception for adjournment post judgement
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

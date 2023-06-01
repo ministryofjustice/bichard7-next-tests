@@ -17,7 +17,7 @@ Feature: {120} BR7 R5.1-238-414-Multiple CCR-Overlapping Offences
     Given the data for this test is in the PNC
       And "input-message" is received
 
-  @Must
+  @Must @NextUI
   Scenario: PNC is updated when there are multiple CCR and overlapping offences
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
