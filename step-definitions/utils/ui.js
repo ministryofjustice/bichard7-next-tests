@@ -141,7 +141,7 @@ const reallocateCaseToForce = async function (force) {
   const optionValue = await page.evaluate((f) => {
     const select = document.querySelector('select[name="force"]');
     const options = Array.from(select.options);
-    const selectedForce = { BTP: "93 - BTP" }[f];
+    const selectedForce = { BTP: "93 - BTP global include" }[f];
     const option = options.find((o) => o.text === selectedForce);
     return option.value;
   }, force);
