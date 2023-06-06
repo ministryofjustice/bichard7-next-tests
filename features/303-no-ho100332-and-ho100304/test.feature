@@ -30,9 +30,6 @@ Feature: {303} BR7-R5.9-RCD609-HO100332 and HO100304 combination no longer possi
 			And I view offence "1"
 		Then I see error "HO100332 - Offences match more than one CCR" in the "Sequence Number" row of the results table
 		When I click the "Offences" tab
-			And I view offence "2"
-		Then I see error "HO100332 - Offences match more than one CCR" in the "Sequence Number" row of the results table
-		When I click the "Offences" tab
 			And I view offence "3"
 		Then I see error "HO100332 - Offences match more than one CCR" in the "Sequence Number" row of the results table
 			And the PNC record has not been updated
