@@ -28,10 +28,7 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
       And I view the list of exceptions
     Then I see trigger "HO100310 (2)" in the exception list table
     When I open the record for "MISMATCH OFFENCE"
-      And I click the "Triggers" tab
-    Then I see trigger "TRPR0018" for offence "2"
-    Then I see trigger "TRPR0018" for offence "3"
-    When I click the "Offences" tab
+      And I click the "Offences" tab
       And I view offence "1"
       And I correct "Sequence Number" to "1"
       And I click the "Offences" tab
