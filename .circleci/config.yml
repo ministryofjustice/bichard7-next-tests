@@ -116,17 +116,23 @@ commands:
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
 
-  run_test_next_chunk:
+  build_e2e_image:
     steps:
       - run:
-          name: Install E2E tests
-          command: npm i
+          name: Build the e2e tests docker image
+          command: make build
+
+  run_test_next_chunk:
+    steps:
       - run:
           name: Run E2E tests
           environment:
             UI_PORT: 9443
             AUTH_TYPE: bichard-jwt
-          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk
+          command: |
+            cd ~/bichard7-next
+            COMPOSE_PROJECT_NAME=bichard7 TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX  docker-compose run --service-ports e2e-tests-record npm run test:chunk
+            docker cp $(docker ps -qa -f ancestor=e2etests):/src/screenshots ~/project/screenshots
 
   run_test_new_ui:
     steps:
@@ -196,6 +202,7 @@ commands:
     steps:
       - checkout
       - pre_run_setup
+      - build_e2e_image
       - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
@@ -244,7 +251,7 @@ jobs:
 
   test-e2e:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     environment:
