@@ -118,6 +118,7 @@ commands:
             make destroy
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
+            bash ./.circleci/scripts/wait-for-user-service.sh
           when: on_fail
 
   build_e2e_image:
