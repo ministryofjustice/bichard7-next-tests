@@ -108,8 +108,9 @@ commands:
           name: Wait for Bichard
           command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
       - run:
-          name: Wait for UI
-          command: npx -y wait-port 4080
+          name: Wait for user service
+          command: |
+            bash ./.circleci/scripts/wait-for-user-service.sh
       - run:
           name: Retry running Docker services
           command: |
