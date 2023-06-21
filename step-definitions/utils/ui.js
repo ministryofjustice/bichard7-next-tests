@@ -31,7 +31,9 @@ const getShortTriggerCode = (triggerCode) => {
 };
 
 const getTriggersFromPage = async (world) => {
+  await world.browser.page.waitForSelector("section#triggers .moj-trigger-row");
   const triggerRows = await world.browser.page.$$("section#triggers .moj-trigger-row");
+
   const triggers = await Promise.all(
     triggerRows.map(async (row) => {
       const triggerCode = await row.evaluate((element) =>
