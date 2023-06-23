@@ -93,10 +93,9 @@ const findRecordFor = async function (name) {
 };
 
 const checkNoPncErrors = async function (name) {
-  await Promise.all([
-    this.browser.page.waitForFunction(() => window.location.pathname.includes("court-cases")),
-    this.browser.page.click(`a[id="Case details for ${name}"]`)
-  ]);
+  this.browser.page.click(`a[id="Case details for ${name}"]`);
+
+  await this.browser.page.waitForSelector("text=PNC errors");
   await this.browser.clickAndWait("text=PNC errors");
   // TODO: assert no PNC errors once we have the table
 };
