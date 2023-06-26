@@ -141,7 +141,9 @@ commands:
           command: npm i
       - run:
           name: Run E2E tests with next UI
-          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:nextUI
+          command: |
+            echo "Nodes: $CIRCLE_NODE_TOTAL | Index: $CIRCLE_NODE_INDEX"
+            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:nextUI
 
   checkout-core:
     steps:
