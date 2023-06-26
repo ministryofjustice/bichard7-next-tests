@@ -295,15 +295,15 @@ workflows:
   deploy:
     jobs:
       - build
-      # - test-e2e:
-      #     requires:
-      #       - build
+      - test-e2e:
+          requires:
+            - build
       - tests-e2e-new-ui:
           requires:
             - build
-      # - test-characterisation-bichard:
-      #     requires:
-      #       - build
-      # - test-characterisation-core:
-      #     requires:
-      #       - build
+      - test-characterisation-bichard:
+          requires:
+            - build
+      - test-characterisation-core:
+          requires:
+            - build
