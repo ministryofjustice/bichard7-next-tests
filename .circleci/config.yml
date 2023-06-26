@@ -141,7 +141,7 @@ commands:
           command: npm i
       - run:
           name: Run E2E tests with next UI
-          command: npm run test:chunk:nextUI
+          command: npm run test:nextUI
 
   checkout-core:
     steps:
@@ -271,6 +271,7 @@ jobs:
       RECORD: "true"
     steps:
       - run-tests-e2e-new-ui
+    parallelism: 10
 
   test-characterisation-bichard:
     machine:
