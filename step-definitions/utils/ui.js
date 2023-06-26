@@ -1,4 +1,5 @@
 const { expect } = require("expect");
+const forces = require("@moj-bichard7-developers/bichard7-next-data/dist/data/forces.json");
 const { caseListPage } = require("./urls");
 const { waitForRecord } = require("./waitForRecord");
 const {
@@ -142,13 +143,18 @@ const reallocateCaseToForce = async function (force) {
   const { page } = this.browser;
 
   await this.browser.clickAndWait("text=Reallocate Case");
-  const optionValue = await page.evaluate((f) => {
-    const select = document.querySelector('select[name="force"]');
-    const options = Array.from(select.options);
-    const selectedForce = { BTP: "93 - BTP global include" }[f];
-    const option = options.find((o) => o.text === selectedForce);
-    return option.value;
-  }, force);
+  const optionValue = await page.evaluate(
+    ([f, allForces]) => {
+      const select = document.querySelector('select[name="force"]');
+      const options = Array.from(select.options);
+      const selectedForceCode = { BTP: "93" }[f];
+      const forceDetails = allForces.find((x) => x.code === selectedForceCode);
+      const dropdownTextToSelect = `${forceDetails.code} - ${forceDetails.name}`;
+      const option = options.find((o) => o.text === dropdownTextToSelect);
+      return option.value;
+    },
+    [force, forces]
+  );
   await page.select('select[name="force"]', optionValue);
   await this.browser.clickAndWait("#Reallocate");
 };
