@@ -347,7 +347,7 @@ const correctOffenceException = async function () {
 
 const returnToCaseList = async function () {
   const { page } = this.browser;
-  await Promise.all([page.click("[class*='BackLink']"), page.waitForNavigation()]);
+  await Promise.all([page.click("#leave-and-lock, #return-to-case-list"), page.waitForNavigation()]);
 };
 
 const waitForRecordStep = async function (record) {
