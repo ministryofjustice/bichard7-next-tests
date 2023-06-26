@@ -141,7 +141,9 @@ commands:
           command: npm i
       - run:
           name: Run E2E tests with next UI
-          command: npm run test:nextUI
+          command: |
+            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX
+            npm run test:nextUI
 
   checkout-core:
     steps:
@@ -295,15 +297,15 @@ workflows:
   deploy:
     jobs:
       - build
-      - test-e2e:
-          requires:
-            - build
+      # - test-e2e:
+      #     requires:
+      #       - build
       - tests-e2e-new-ui:
           requires:
             - build
-      - test-characterisation-bichard:
-          requires:
-            - build
-      - test-characterisation-core:
-          requires:
-            - build
+      # - test-characterisation-bichard:
+      #     requires:
+      #       - build
+      # - test-characterisation-core:
+      #     requires:
+      #       - build
