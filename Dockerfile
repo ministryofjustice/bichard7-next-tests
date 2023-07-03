@@ -11,7 +11,7 @@ COPY ./package* /src/
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN apt-get update
-RUN apt-get install -y build-essential python gcc
+RUN apt-get install -y build-essential python3 gcc
 RUN npm i
 
 COPY ./features/ /src/features
