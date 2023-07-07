@@ -10,4 +10,5 @@ Feature: Basic end-to-end test
     When I view the list of exceptions
     Then the exception list should contain a record for "Rigout Dean"
     When I open the record for "Rigout Dean"
+      And I click the "Triggers" tab
     Then I see trigger "TRPR0010"
