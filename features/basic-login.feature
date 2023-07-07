@@ -3,7 +3,7 @@ Feature: Basic end-to-end test
   I want to make sure the message is displayed in the Bichard UI
 
   @NextUI
-  Scenario: Raising an exception message
+  Scenario: Log in to Bichard and view a case
     Given there is a valid record for "Rigout Dean" in the PNC
       And a message is received
       And I am logged in as "triggerhandler"
