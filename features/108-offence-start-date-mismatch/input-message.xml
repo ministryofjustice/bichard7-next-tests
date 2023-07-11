@@ -183,10 +183,14 @@
 							<DC:Plea>2</DC:Plea>
 							<DC:ModeOfTrial>01</DC:ModeOfTrial>
 							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-							<DC:Finding>N</DC:Finding>
+							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>2004</DC:ResultCode>
-								<DC:ResultText>Not Guilty.</DC:ResultText>
+								<DC:ResultCode>1015</DC:ResultCode>
+								<DC:ResultText>Fined 300.</DC:ResultText>
+								<DC:Outcome>
+									<DC:ResultAmountSterling>300.00</DC:ResultAmountSterling>
+								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 						<DC:Offence>
