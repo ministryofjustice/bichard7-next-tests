@@ -133,10 +133,12 @@ const openRecordForCurrentTest = async function () {
   await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
 };
 
-// eslint-disable-next-line no-unused-vars
 const loadTab = async function (tabName) {
-  // TODO add options here as we implement new UI
-  // Triggers displayed on the case details page on the new UI
+  if (["Triggers", "Exceptions"].includes(tabName)) {
+    await this.browser.page.click(`#${tabName.toLowerCase()}-tab`);
+    return;
+  }
+  await this.browser.page.click(`text=${tabName}`);
 };
 
 const reallocateCaseToForce = async function (force) {
@@ -354,6 +356,17 @@ const waitForRecordStep = async function (record) {
   await reloadUntilContent(this.browser.page, record);
 };
 
+const checkNoteExists = async function (value) {
+  const tableData = await getTableData(this, "#br7_exception_details_display_notes .resultsTable tbody tr");
+  if (!tableData.some((row) => row[0].includes(value))) {
+    throw new Error("Note does not exist");
+  }
+};
+
+const clickButton = async function (value) {
+  await this.browser.clickAndWait(`text=${value}`);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -386,5 +399,7 @@ module.exports = {
   nRecordsForPerson,
   returnToCaseList,
   waitForRecordStep,
-  noRecordsForPerson
+  noRecordsForPerson,
+  checkNoteExists,
+  clickButton
 };
