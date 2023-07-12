@@ -212,21 +212,9 @@ const noExceptionPresentForOffender = async function (name) {
 };
 
 const resolveAllTriggers = async function () {
-  let resolveTriggersButtons = await this.browser.page.$$(
-    "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
-  );
-
-  /* eslint-disable no-await-in-loop */
-  while (resolveTriggersButtons.length > 0) {
-    await Promise.all([
-      this.browser.page.click("#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"),
-      this.browser.page.waitForNavigation()
-    ]);
-
-    resolveTriggersButtons = await this.browser.page.$$(
-      "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
-    );
-  }
+  const [selectAllLink] = await this.browser.page.$$("#select-all-triggers button");
+  await selectAllLink.evaluate((e) => e.click());
+  await this.browser.clickAndWait("#mark-triggers-complete-button");
 };
 
 const filterRecords = async function (world, resolvedType, recordType) {
