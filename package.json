@@ -25,6 +25,7 @@
     "test:characterisation": "cd characterisation && jest --runInBand",
     "test:characterisation:bichard": "cd characterisation && USE_BICHARD=true  jest --runInBand",
     "test:nextUI": "nextUI=true ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@NextUI'",
+    "test:nextUI:auditlogs": "echo $PNC_HOST && ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@AuditLog and @NextUI and not @OnlyRunsOnPNC and not @Excluded' features",
     "test:nextUI:file": "nextUI=true node --tls-min-v1.0 ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --tags '@NextUI'",
     "prepare": "husky install",
     "update-deps": "ncu -u && npm install"

@@ -11,13 +11,13 @@ then
     echo "Running all tests"
     CI=true RECORD=true npm run test
     CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:auditlogs
+    CI=true RECORD=true npm run test:nextUI
+    CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:auditLogs
   else
     echo "Running must tests"
     CI=true RECORD=true npm run test:must
     CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:must:auditlogs
   fi
-  # echo "Running new UI tests"
-  # CI=true RECORD=true npm run test:nextUI
 
   echo "Running characterisation tests"
   npm run test:characterisation:bichard
