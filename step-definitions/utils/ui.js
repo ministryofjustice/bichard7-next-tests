@@ -131,6 +131,7 @@ const openRecordForCurrentTest = async function () {
   await filterByRecordName(this);
   await waitForRecord(this.getRecordName(), this.browser.page);
   await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
+  await this.browser.page.waitForSelector("text=Case details");
 };
 
 const loadTab = async function (tabName) {
