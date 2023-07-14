@@ -46,8 +46,6 @@ const {
   checkCompleteTriggerforOffence,
   checkNoRecordsForThis,
   checkNoExceptionsForThis,
-  checkNoteExists,
-  clickButton,
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
@@ -109,8 +107,6 @@ When("I open the record for {string}", openRecordFor);
 When("I access the {string} report", accessReport);
 
 When("I click the {string} tab", loadTab);
-
-When("I click the {string} button", clickButton);
 
 When("I resolve all of the triggers", resolveAllTriggers);
 
@@ -219,5 +215,3 @@ Then("there should only be {string} records", nRecordsInList);
 Then("I return to the list", returnToCaseList);
 
 Then("the record for {string} does not exist", noRecordsForPerson);
-
-Then("I see {string} in the table", checkNoteExists);

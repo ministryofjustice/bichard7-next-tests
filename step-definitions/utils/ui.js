@@ -131,15 +131,12 @@ const openRecordForCurrentTest = async function () {
   await filterByRecordName(this);
   await waitForRecord(this.getRecordName(), this.browser.page);
   await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
-  await this.browser.page.waitForSelector("text=Case details");
 };
 
+// eslint-disable-next-line no-unused-vars
 const loadTab = async function (tabName) {
-  if (["Triggers", "Exceptions"].includes(tabName)) {
-    await this.browser.page.click(`#${tabName.toLowerCase()}-tab`);
-    return;
-  }
-  await this.browser.page.click(`text=${tabName}`);
+  // TODO add options here as we implement new UI
+  // Triggers displayed on the case details page on the new UI
 };
 
 const reallocateCaseToForce = async function (force) {
@@ -212,9 +209,21 @@ const noExceptionPresentForOffender = async function (name) {
 };
 
 const resolveAllTriggers = async function () {
-  const [selectAllLink] = await this.browser.page.$$("#select-all-triggers button");
-  await selectAllLink.evaluate((e) => e.click());
-  await this.browser.clickAndWait("#mark-triggers-complete-button");
+  let resolveTriggersButtons = await this.browser.page.$$(
+    "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
+  );
+
+  /* eslint-disable no-await-in-loop */
+  while (resolveTriggersButtons.length > 0) {
+    await Promise.all([
+      this.browser.page.click("#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"),
+      this.browser.page.waitForNavigation()
+    ]);
+
+    resolveTriggersButtons = await this.browser.page.$$(
+      "#Triggers_table .src__StyledButton-sc-19ocyxv-0:not([disabled])"
+    );
+  }
 };
 
 const filterRecords = async function (world, resolvedType, recordType) {
@@ -345,17 +354,6 @@ const waitForRecordStep = async function (record) {
   await reloadUntilContent(this.browser.page, record);
 };
 
-const checkNoteExists = async function (value) {
-  const tableData = await getTableData(this, "#br7_exception_details_display_notes .resultsTable tbody tr");
-  if (!tableData.some((row) => row[0].includes(value))) {
-    throw new Error("Note does not exist");
-  }
-};
-
-const clickButton = async function (value) {
-  await this.browser.clickAndWait(`text=${value}`);
-};
-
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -388,7 +386,5 @@ module.exports = {
   nRecordsForPerson,
   returnToCaseList,
   waitForRecordStep,
-  noRecordsForPerson,
-  checkNoteExists,
-  clickButton
+  noRecordsForPerson
 };

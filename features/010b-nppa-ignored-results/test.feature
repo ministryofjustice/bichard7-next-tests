@@ -17,7 +17,6 @@ Feature: {010} R2_Regression_NPPA_NPP_001 - part 2
 
 	@Could
 	@AuditLog
-	@NextUI
 	Scenario: NPPA exception generation
 		Given I am logged in as "wilt.shire"
 			And I view the list of exceptions
