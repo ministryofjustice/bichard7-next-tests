@@ -42,5 +42,6 @@ phases:
       - echo "Storing artifacts"
       - for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
       - mkdir ./saved_artifacts
+      - mkdir -p ./screenshots
       - mv ./screenshots/*.tar.gz ./saved_artifacts/
       - aws s3 sync ./saved_artifacts s3://pathtolive-ci-codebuild/${WORKSPACE}-recordings/$(date +"%Y-%m-%dT%H:%M")/
