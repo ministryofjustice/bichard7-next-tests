@@ -13,15 +13,15 @@ then
     CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:auditlogs
 
     echo "Running all tests (next UI)"
-    CI=true RECORD=true npm run test:nextUI
-    CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:auditLogs
+    CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI
+    CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:auditlogs
   else
     echo "Running must tests (old UI)"
     CI=true RECORD=true npm run test:must
     CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:must:auditlogs
 
     echo "Running must tests (next UI)"
-    CI=true RECORD=true npm run test:nextUI:must
+    CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:must
     CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:must:auditlogs
   fi
 
@@ -34,7 +34,7 @@ then
   CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:preprodauditlogs
 
   echo "Running preprod tests (next UI)"
-  CI=true RECORD=true npm run test:nextUI:preprod
+  CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:preprod
   CI=true RECORD=true MESSAGE_ENTRY_POINT=s3 npm run test:nextUI:preprodauditlogs
 else
   echo "Unknown AWS test workspace"
