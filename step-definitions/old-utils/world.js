@@ -54,10 +54,10 @@ class Bichard extends World {
     });
 
     this.auditLogClient = new AuditLogDynamoDbHelper({
-      region: process.env.AUDIT_LOGGING_DYNAMODB_REGION || defaults.awsRegion,
+      region: process.env.AUDIT_LOG_DYNAMODB_REGION || defaults.awsRegion,
       endpoint: process.env.AWS_URL,
-      tableName: process.env.AUDIT_LOGGING_DYNAMODB_TABLE || "audit-log",
-      eventsTableName: process.env.AUDIT_LOGGING_DYNAMODB_EVENTS_TABLE || "audit-log-events"
+      tableName: process.env.AUDIT_LOG_DYNAMODB_TABLE || "audit-log",
+      eventsTableName: process.env.AUDIT_LOG_DYNAMODB_EVENTS_TABLE || "audit-log-events"
     });
 
     if (this.config.realPNC) {
