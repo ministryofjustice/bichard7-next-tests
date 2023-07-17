@@ -89,7 +89,7 @@ const {
 } = require("./old-utils/ui");
 
 const {
-  // findRecordFor: alternateFindRecordFor,
+  findRecordFor: alternateFindRecordFor,
   loadTab: alternateLoadTab,
   checkOffenceData: alternateCheckOffenceData
 } = require("./utils/ui");
@@ -302,3 +302,5 @@ When("I click the alternate {string} tab", alternateLoadTab);
 Then("I should not see a button to switch to the alternate version of bichard", cannotSeeBichardSwitcher);
 
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
+
+Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
