@@ -606,6 +606,13 @@ const selectTrigger = async function (triggerNo) {
   checkBoxes[index].click();
 };
 
+const switchBichard = async function () {
+  await Promise.all([
+    this.browser.page.click(".wpsToolBarBichardSwitch button"),
+    this.browser.page.waitForNavigation()
+  ]);
+};
+
 const cannotSeeBichardSwitcher = async function () {
   const bichardSwitcher = await this.browser.page.$$(".wpsToolBarBichardSwitch");
   expect(bichardSwitcher.length).toEqual(0);
@@ -678,5 +685,6 @@ module.exports = {
   getTableData,
   getRawTableData,
   recordsForPerson,
+  switchBichard,
   cannotSeeBichardSwitcher
 };

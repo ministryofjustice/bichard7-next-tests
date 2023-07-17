@@ -84,8 +84,16 @@ const {
   checkNoRecordsForThis,
   checkNoExceptionsForThis,
   canSeeContentInTableForThis,
+  switchBichard,
   cannotSeeBichardSwitcher
 } = require("./old-utils/ui");
+
+const {
+  // findRecordFor: alternateFindRecordFor,
+  loadTab: alternateLoadTab,
+  checkOffenceData: alternateCheckOffenceData
+} = require("./utils/ui");
+
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
 const Bichard = require("./old-utils/world");
 
@@ -287,4 +295,10 @@ Then("no PNC requests have been made", noPncRequests);
 
 Then("no PNC updates have been made", noPncUpdates);
 
+When("I switch to the alternate version of bichard", switchBichard);
+
+When("I click the alternate {string} tab", alternateLoadTab);
+
 Then("I should not see a button to switch to the alternate version of bichard", cannotSeeBichardSwitcher);
+
+Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);

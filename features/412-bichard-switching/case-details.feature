@@ -16,11 +16,11 @@ Feature: {412} Switching between bichard versions for case details
 	@Should @NextUI
 	Scenario: Switching to the alternate version of bichard from the case list should take you to the alternate version's case list
 		Given I am logged in as "generalhandler"
-		And I view the list of exceptions
-		And I open the record for "DASWON CAO"
+			And I view the list of exceptions
+			And I open the record for "DASWON CAO"
 
 		# should go directly to case details page
 		When I switch to the alternate version of bichard
-		And I click the alternate "Defendant" tab
+			And I click the alternate "Defendant" tab
 		Then I see "CAO" in the "Given Name" row of the alternate results table
-		And I see "DASWON" in the "Family Name" row of the alternate results table
+			And I see "DASWON" in the "Family Name" row of the alternate results table

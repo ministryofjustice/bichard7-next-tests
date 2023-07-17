@@ -57,6 +57,7 @@ const {
   canSeeContentInTableForThis,
   switchBichard
 } = require("./utils/ui");
+
 const {
   findRecordFor: alternateFindRecordFor,
   loadTab: alternateLoadTab,
@@ -114,8 +115,6 @@ When("I access the {string} report", accessReport);
 
 When("I click the {string} tab", loadTab);
 
-When("I click the alternate {string} tab", alternateLoadTab);
-
 When("I resolve all of the triggers", resolveAllTriggers);
 
 When("I generate today's report", generateTodaysReport);
@@ -132,11 +131,7 @@ When("I see {string} record for {string}", async function (count, name) {
   nRecordsForPerson.apply(this, [n, name]);
 });
 
-When("I switch to the alternate version of bichard", switchBichard);
-
 Then("the exception list should contain a record for {string}", findRecordFor);
-
-Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
 
 Then("the record for {string} should not have any PNC errors", checkNoPncErrors);
 
@@ -171,8 +166,6 @@ Then("this {string} is {string}", checkRecordForThisTestResolved);
 Then("this {string} is not {string}", checkRecordForThisTestNotResolved);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
-
-Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
 
 Then("I see error {string} in the {string} row of the results table", checkOffenceDataError);
 
@@ -229,3 +222,11 @@ Then("there should only be {string} records", nRecordsInList);
 Then("I return to the list", returnToCaseList);
 
 Then("the record for {string} does not exist", noRecordsForPerson);
+
+When("I switch to the alternate version of bichard", switchBichard);
+
+When("I click the alternate {string} tab", alternateLoadTab);
+
+Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
+
+Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
