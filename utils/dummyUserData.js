@@ -40,6 +40,14 @@ module.exports = {
     excluded_triggers: [],
     groups: ["B7Audit", "B7NewUI"]
   },
+  "old.bichard.user": {
+    inclusionList: ["B01", "B41ME00"],
+    exclusionList: [],
+    visible_courts: ["B01", "B41ME00"],
+    visible_forces: [],
+    excluded_triggers: [],
+    groups: ["B7GeneralHandler"]
+  },
   "met.police": {
     inclusionList: ["001"],
     exclusionList: [],

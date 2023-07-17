@@ -354,6 +354,11 @@ const waitForRecordStep = async function (record) {
   await reloadUntilContent(this.browser.page, record);
 };
 
+const switchBichard = async function () {
+  const { page } = this.browser;
+  await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -386,5 +391,6 @@ module.exports = {
   nRecordsForPerson,
   returnToCaseList,
   waitForRecordStep,
-  noRecordsForPerson
+  noRecordsForPerson,
+  switchBichard
 };

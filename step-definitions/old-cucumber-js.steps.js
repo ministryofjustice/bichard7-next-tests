@@ -83,7 +83,8 @@ const {
   recordsForPerson,
   checkNoRecordsForThis,
   checkNoExceptionsForThis,
-  canSeeContentInTableForThis
+  canSeeContentInTableForThis,
+  cannotSeeBichardSwitcher
 } = require("./old-utils/ui");
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
 const Bichard = require("./old-utils/world");
@@ -285,3 +286,5 @@ Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport)
 Then("no PNC requests have been made", noPncRequests);
 
 Then("no PNC updates have been made", noPncUpdates);
+
+Then("I should not see a button to switch to the alternate version of bichard", cannotSeeBichardSwitcher);

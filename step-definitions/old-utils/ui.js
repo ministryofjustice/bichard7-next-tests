@@ -606,6 +606,11 @@ const selectTrigger = async function (triggerNo) {
   checkBoxes[index].click();
 };
 
+const cannotSeeBichardSwitcher = async function () {
+  const bichardSwitcher = await this.browser.page.$$(".wpsToolBarBichardSwitch");
+  expect(bichardSwitcher.length).toEqual(0);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -672,5 +677,6 @@ module.exports = {
   selectTrigger,
   getTableData,
   getRawTableData,
-  recordsForPerson
+  recordsForPerson,
+  cannotSeeBichardSwitcher
 };
