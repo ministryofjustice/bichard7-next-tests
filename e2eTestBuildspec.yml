@@ -39,8 +39,4 @@ phases:
       - LOCK_PREFIX=${DEPLOY_ENV:-sandbox}
       - python3 ${CODEBUILD_SRC_DIR}/scripts/build_locks.py release ${LOCK_PREFIX}-ci-codebuild-concurrency ${DEPLOY_ENV}-${WORKSPACE} $(cat /tmp/.lock_token)
       - echo "Build lock released"
-      - echo "Storing artifacts"
-      - for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
-      - mkdir ./saved_artifacts
-      - mv ./screenshots/*.tar.gz ./saved_artifacts/
-      - aws s3 sync ./saved_artifacts s3://pathtolive-ci-codebuild/${WORKSPACE}-recordings/$(date +"%Y-%m-%dT%H:%M")/
+      - ./scripts/save_artifacts_in_s3.sh
