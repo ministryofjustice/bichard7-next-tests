@@ -21,4 +21,4 @@ Feature: {501} Trigger resolved events
 			And the audit log contains "Trigger locked"
 			And the audit log contains "Trigger marked as resolved by user"
 			And the audit log contains "All triggers marked as resolved"
-			# And the audit log contains "Trigger unlocked" //TODO: Uncomment when logic is implemented in the next UI
+			And the audit log contains "Trigger unlocked"

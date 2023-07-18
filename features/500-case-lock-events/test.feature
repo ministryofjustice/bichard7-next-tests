@@ -12,4 +12,4 @@ Feature: {500} Lock and unlock events
 			And the audit log contains "Exception locked"
 		When I click the "Leave and unlock" button
 			Then the audit log contains "Trigger unlocked"
-			# And the audit log contains "Exception unlocked" //TODO: Uncomment this once nextUI supports exception handlers
+			And the audit log contains "Exception unlocked"
