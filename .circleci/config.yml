@@ -47,13 +47,12 @@ commands:
       - attach_workspace:
           at: ~/
       - clear_docker_networks
-      - run:
-          name: Make a fake user-service image
-          command: docker pull hello-world && docker tag hello-world user-service
       - fetch_docker_image:
           image: nginx-auth-proxy
       - fetch_docker_image:
           image: ui
+      - fetch_docker_image:
+          image: user-service
 
   run_audit_logging:
     description: Run audit logging
