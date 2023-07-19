@@ -53,6 +53,7 @@ const {
   loadTab,
   checkTrigger,
   resolveAllTriggers,
+  resolveSelectedTriggers,
   manuallyResolveRecord,
   viewOffence,
   checkOffenceData,
@@ -131,6 +132,8 @@ When("I download the report", downloadCSV);
 When("I click the {string} tab", loadTab);
 
 When("I resolve all of the triggers", resolveAllTriggers);
+
+When("I resolve the selected triggers", resolveSelectedTriggers);
 
 When("I wait {string} seconds", async (delay) => {
   await new Promise((resolve) => {
