@@ -396,6 +396,13 @@ const resolveAllTriggers = async function () {
   ]);
 };
 
+const resolveSelectedTriggers = async function () {
+  await Promise.all([
+    this.browser.page.click("input[value='Mark Selected Complete']"),
+    this.browser.page.waitForNavigation()
+  ]);
+};
+
 const manuallyResolveRecord = async function () {
   await Promise.all([
     this.browser.page.click("input[value='Select All Triggers']"),
@@ -603,7 +610,7 @@ const selectTrigger = async function (triggerNo) {
     "#br7_exception_details_court_data_table .resultsTable tbody tr input[type=checkbox]"
   );
   const index = parseInt(triggerNo, 10) - 1;
-  checkBoxes[index].click();
+  await checkBoxes[index].click();
 };
 
 module.exports = {
@@ -645,6 +652,7 @@ module.exports = {
   checkTriggerforOffence,
   checkCompleteTriggerforOffence,
   resolveAllTriggers,
+  resolveSelectedTriggers,
   checkRecordResolved,
   checkRecordForThisTestResolved,
   checkRecordNotResolved,
