@@ -611,6 +611,8 @@ const switchBichard = async function () {
     this.browser.page.click(".wpsToolBarBichardSwitch button"),
     this.browser.page.waitForNavigation()
   ]);
+
+  await this.browser.page.waitForSelector(".moj-header__logo");
 };
 
 const cannotSeeBichardSwitcher = async function () {
