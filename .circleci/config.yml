@@ -75,6 +75,7 @@ commands:
           command: |
             cd ~/bichard7-next
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
+            make run-ui
       - fetch_docker_image:
           image: pncemulator
       - fetch_docker_image:
@@ -90,7 +91,7 @@ commands:
           command: |
             cd ~/bichard7-next
             make destroy
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-new-ui
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
 
@@ -227,7 +228,7 @@ commands:
       - checkout
       - pre_run_setup
       - build_e2e_image
-      - run_services_with_new_ui_and_wait
+      - run_services_and_wait
       - run_test_next_chunk
       - save_artifacts
 
