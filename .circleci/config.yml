@@ -21,12 +21,6 @@ commands:
       - store_artifacts:
           path: /home/circleci/project/saved_artifacts
 
-  checkout-audit-logging:
-    steps:
-      - run:
-          name: Git clone audit logging
-          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
-
   fetch_docker_image:
     parameters:
       image:
@@ -36,31 +30,25 @@ commands:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
 
-  clear_docker_networks:
-    steps:
-      - run:
-          command: docker network prune -f
-          name: Clear out the networks before we start our Docker services
-
-  pre_run_setup:
+  pull_base_images:
     steps:
       - attach_workspace:
           at: ~/
-      - clear_docker_networks
-      - run:
-          name: Make a fake user-service image
-          command: docker pull hello-world && docker tag hello-world user-service
+      - fetch_docker_image:
+          image: pncemulator
+      - fetch_docker_image:
+          image: beanconnect
+      - fetch_docker_image:
+          image: user-service
       - fetch_docker_image:
           image: nginx-auth-proxy
 
-  run_audit_logging:
-    description: Run audit logging
+  pull_ui:
     steps:
-      - run:
-          name: Run audit logging API
-          working_directory: ~/bichard7-next-audit-logging
-          command: npm install && SKIP_PG=true SKIP_MQ=true npm run start-api
-          background: true
+      - attach_workspace:
+          at: ~/
+      - fetch_docker_image:
+          image: ui
 
   run_services_and_wait:
     parameters:
@@ -72,14 +60,7 @@ commands:
           name: Run docker services (except BeanConnect)
           command: |
             cd ~/bichard7-next
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all-no-bc -j 4
-      - fetch_docker_image:
-          image: pncemulator
-      - fetch_docker_image:
-          image: beanconnect
-      - run:
-          name: Run BeanConnect and PNC Emulator docker services
-          command: cd ~/bichard7-next && make run-beanconnect
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all -j 4
       - run:
           name: Wait for Bichard
           command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
@@ -92,29 +73,12 @@ commands:
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
 
-  pre_run_setup_new_ui:
-    steps:
-      - attach_workspace:
-          at: ~/
-      - clear_docker_networks
-      - fetch_docker_image:
-          image: pncemulator
-      - fetch_docker_image:
-          image: beanconnect
-      - fetch_docker_image:
-          image: user-service
-      - fetch_docker_image:
-          image: nginx-auth-proxy
-      - fetch_docker_image:
-          image: ui
-
   run_services_with_new_ui_and_wait:
     parameters:
       ENABLE_PHASE_2:
         default: "true"
         type: string
     steps:
-      - checkout-audit-logging
       - run_audit_logging
       - run:
           name: Wait for Audit logging API to start
@@ -138,23 +102,24 @@ commands:
             bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
           when: on_fail
 
-  build_e2e_image:
+  run_audit_logging:
+    description: Run audit logging
     steps:
       - run:
-          name: Build the e2e tests docker image
-          command: make build
+          name: Run audit logging API
+          working_directory: ~/bichard7-next-audit-logging
+          command: npm install && SKIP_PG=true SKIP_MQ=true npm run start-api
+          background: true
 
   run_test_next_chunk:
     steps:
       - run:
+          name: Install E2E tests
+          command: npm i
+      - run:
           name: Run E2E tests
           environment:
-            UI_PORT: 9443
-            AUTH_TYPE: bichard-jwt
-          command: |
-            cd ~/bichard7-next
-            COMPOSE_PROJECT_NAME=bichard7 TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX  docker-compose run --service-ports e2e-tests-record npm run test:chunk
-            docker cp $(docker ps -qa -f ancestor=e2etests):/src/screenshots ~/project/screenshots
+          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk
 
   run_test_new_ui:
     steps:
@@ -223,16 +188,17 @@ commands:
   run-tests-e2e:
     steps:
       - checkout
-      - pre_run_setup
-      - build_e2e_image
-      - run_services_and_wait
+      - pull_base_images
+      - pull_ui
+      - run_services_with_new_ui_and_wait
       - run_test_next_chunk
       - save_artifacts
 
   run-tests-e2e-new-ui:
     steps:
       - checkout
-      - pre_run_setup_new_ui
+      - pull_base_images
+      - pull_ui
       - run_services_with_new_ui_and_wait
       - run_test_new_ui
       - save_artifacts
@@ -240,7 +206,7 @@ commands:
   run-tests-characterisation-bichard:
       steps:
         - checkout
-        - pre_run_setup
+        - pull_base_images
         - run_services_and_wait:
             ENABLE_PHASE_2: "false"
         - test-bichard
@@ -265,21 +231,25 @@ jobs:
           name: Clone Bichard7 Next
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
       - run:
+          name: Clone bichard7-next-audit-logging
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
+      - run:
           name: Build Bichard7 Next
           command: cd ~/bichard7-next && make build-ci
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next
+      - persist_to_workspace:
+          root: ~/
+          paths: bichard7-next-audit-logging
 
   test-e2e:
     machine:
-      image: ubuntu-2204:current
+      image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
     resource_class: large
     environment:
-      BICHARD_REDIRECT_URL: https://172.17.0.1:9443/bichard-ui/Authenticate
       RECORD: "true"
-      AUTH_TYPE: bichard-jwt
     steps:
       - run-tests-e2e
     parallelism: 10

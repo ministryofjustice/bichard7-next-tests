@@ -102,10 +102,17 @@ const checkNoPncErrors = async function (name) {
 };
 
 const checkOffenceData = async function (value, key) {
-  await checkTriggers(this, [
-    { column: 1, value: key, exact: true },
-    { column: 2, value, exact: true }
-  ]);
+  // const [cell] = await this.browser.page.$x(`//table//td[contains(.,"${key}")]/following-sibling::td`);
+  // case-sensitivity hack because old bichard capitalises every word and new bichard does not
+  const [cell] = await this.browser.page.$x(
+    `//table//td[contains(
+      translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),
+      "${key.toLowerCase()}"
+    )]/following-sibling::td`
+  );
+
+  const content = await cell.evaluate((c) => c.textContent);
+  expect(content).toBe(value);
 };
 
 const checkOffenceDataError = async function (value, key) {
@@ -356,6 +363,11 @@ const clickButton = async function (value) {
   await this.browser.clickAndWait(`text=${value}`);
 };
 
+const switchBichard = async function () {
+  const { page } = this.browser;
+  await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -390,5 +402,6 @@ module.exports = {
   waitForRecordStep,
   noRecordsForPerson,
   checkNoteExists,
-  clickButton
+  clickButton,
+  switchBichard
 };

@@ -613,6 +613,20 @@ const selectTrigger = async function (triggerNo) {
   await checkBoxes[index].click();
 };
 
+const switchBichard = async function () {
+  await Promise.all([
+    this.browser.page.click(".wpsToolBarBichardSwitch button"),
+    this.browser.page.waitForNavigation()
+  ]);
+
+  await this.browser.page.waitForSelector(".moj-header__logo");
+};
+
+const cannotSeeBichardSwitcher = async function () {
+  const bichardSwitcher = await this.browser.page.$$(".wpsToolBarBichardSwitch");
+  expect(bichardSwitcher.length).toEqual(0);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -680,5 +694,7 @@ module.exports = {
   selectTrigger,
   getTableData,
   getRawTableData,
-  recordsForPerson
+  recordsForPerson,
+  switchBichard,
+  cannotSeeBichardSwitcher
 };

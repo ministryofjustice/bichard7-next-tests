@@ -19,7 +19,7 @@ echo "Fetching ${IMAGE} Docker image on `date`"
 
 REGION=eu-west-2
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
-IMAGE_HASH=$(aws ecr describe-images --repository-name ${IMAGE} --query "to_string(sort_by(imageDetails,& imagePushedAt)[-1].imageDigest)" --output text | head -n 1)
+IMAGE_HASH=$(aws ecr describe-images --repository-name ${IMAGE} --query "to_string(sort_by(imageDetails,& imagePushedAt)[-1].imageDigest)" --output yaml | tr -d '"')
 
 aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
 

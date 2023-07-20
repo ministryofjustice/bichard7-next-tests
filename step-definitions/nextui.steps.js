@@ -56,8 +56,15 @@ const {
   returnToCaseList,
   waitForRecordStep,
   noRecordsForPerson,
-  canSeeContentInTableForThis
+  canSeeContentInTableForThis,
+  switchBichard
 } = require("./utils/ui");
+
+const {
+  findRecordFor: alternateFindRecordFor,
+  loadTab: alternateLoadTab,
+  checkOffenceData: alternateCheckOffenceData
+} = require("./old-utils/ui");
 
 const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
 const Bichard = require("./old-utils/world");
@@ -221,3 +228,11 @@ Then("I return to the list", returnToCaseList);
 Then("the record for {string} does not exist", noRecordsForPerson);
 
 Then("I see {string} in the table", checkNoteExists);
+
+When("I switch to the alternate version of bichard", switchBichard);
+
+When("I click the alternate {string} tab", alternateLoadTab);
+
+Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
+
+Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
