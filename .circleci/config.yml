@@ -230,7 +230,7 @@ jobs:
           name: Clone Bichard7 Next
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
       - run:
-          name: Clone audit-logging
+          name: Clone bichard7-next-audit-logging
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
       - run:
           name: Build Bichard7 Next
@@ -238,6 +238,9 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next
+      - persist_to_workspace:
+          root: ~/
+          paths: bichard7-next-audit-logging
 
   test-e2e:
     machine:
