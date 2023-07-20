@@ -51,10 +51,8 @@ commands:
           image: nginx-auth-proxy
       - fetch_docker_image:
           image: ui
-      - fetch_docker_image:
-          image: user-service
   
-  pull_pnc_beanconnect:
+  pull_base_images:
     steps:
       - attach_workspace:
           at: ~/
@@ -63,6 +61,8 @@ commands:
           image: pncemulator
       - fetch_docker_image:
           image: beanconnect
+      - fetch_docker_image:
+          image: user-service
 
   run_services_and_wait:
     parameters:
@@ -203,8 +203,8 @@ commands:
   run-tests-e2e:
     steps:
       - checkout
+      - pull_base_images
       - pull_ui_images
-      - pull_pnc_beanconnect
       - run_services_with_new_ui_and_wait
       - run_test_next_chunk
       - save_artifacts
@@ -212,8 +212,8 @@ commands:
   run-tests-e2e-new-ui:
     steps:
       - checkout
+      - pull_base_images
       - pull_ui_images
-      - pull_pnc_beanconnect
       - run_services_with_new_ui_and_wait
       - run_test_new_ui
       - save_artifacts
@@ -221,7 +221,7 @@ commands:
   run-tests-characterisation-bichard:
       steps:
         - checkout
-        - pull_pnc_beanconnect
+        - pull_base_images
         - run_services_and_wait:
             ENABLE_PHASE_2: "false"
         - test-bichard
