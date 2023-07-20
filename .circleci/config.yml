@@ -231,7 +231,7 @@ jobs:
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
       - run:
           name: Clone audit-logging
-          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
       - run:
           name: Build Bichard7 Next
           command: cd ~/bichard7-next && make build-ci
