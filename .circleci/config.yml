@@ -225,9 +225,9 @@ commands:
   run-tests-e2e:
     steps:
       - checkout
-      - pre_run_setup
+      - pre_run_setup_new_ui
       - build_e2e_image
-      - run_services_and_wait
+      - run_services_with_new_ui_and_wait
       - run_test_next_chunk
       - save_artifacts
 
