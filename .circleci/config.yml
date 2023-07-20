@@ -189,6 +189,7 @@ commands:
     steps:
       - checkout
       - pull_base_images
+      - pull_ui
       - run_services_with_new_ui_and_wait
       - run_test_next_chunk
       - save_artifacts
