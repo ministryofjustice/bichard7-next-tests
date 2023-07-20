@@ -150,7 +150,7 @@ commands:
           environment:
             UI_PORT: 9443
             AUTH_TYPE: bichard-jwt
-          command: npm run test:chunk
+          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk
 
   run_test_new_ui:
     steps:
