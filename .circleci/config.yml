@@ -21,12 +21,6 @@ commands:
       - store_artifacts:
           path: /home/circleci/project/saved_artifacts
 
-  checkout-audit-logging:
-    steps:
-      - run:
-          name: Git clone audit logging
-          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
-
   fetch_docker_image:
     parameters:
       image:
@@ -36,33 +30,25 @@ commands:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
 
-  clear_docker_networks:
-    steps:
-      - run:
-          command: docker network prune -f
-          name: Clear out the networks before we start our Docker services
-
-  pull_ui_images:
-    steps:
-      - attach_workspace:
-          at: ~/
-      - clear_docker_networks
-      - fetch_docker_image:
-          image: nginx-auth-proxy
-      - fetch_docker_image:
-          image: ui
-  
   pull_base_images:
     steps:
       - attach_workspace:
           at: ~/
-      - clear_docker_networks
       - fetch_docker_image:
           image: pncemulator
       - fetch_docker_image:
           image: beanconnect
       - fetch_docker_image:
           image: user-service
+      - fetch_docker_image:
+          image: nginx-auth-proxy
+
+  pull_ui:
+    steps:
+      - attach_workspace:
+          at: ~/
+      - fetch_docker_image:
+          image: ui
 
   run_services_and_wait:
     parameters:
@@ -93,7 +79,6 @@ commands:
         default: "true"
         type: string
     steps:
-      - checkout-audit-logging
       - run_audit_logging
       - run:
           name: Wait for Audit logging API to start
@@ -204,7 +189,6 @@ commands:
     steps:
       - checkout
       - pull_base_images
-      - pull_ui_images
       - run_services_with_new_ui_and_wait
       - run_test_next_chunk
       - save_artifacts
@@ -213,7 +197,7 @@ commands:
     steps:
       - checkout
       - pull_base_images
-      - pull_ui_images
+      - pull_ui
       - run_services_with_new_ui_and_wait
       - run_test_new_ui
       - save_artifacts
@@ -245,6 +229,9 @@ jobs:
       - run:
           name: Clone Bichard7 Next
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
+      - run:
+          name: Clone audit-logging
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
       - run:
           name: Build Bichard7 Next
           command: cd ~/bichard7-next && make build-ci
