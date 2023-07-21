@@ -32,9 +32,6 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
       And I view offence "1"
       And I correct "Sequence Number" to "1"
       And I click the "Offences" tab
-      And I view offence "4"
-      And I correct "Sequence Number" to "4"
-      And I click the "Offences" tab
       And I submit the record
     Then I see exception "(Submitted)" in the exception list table
       And the PNC updates the record
