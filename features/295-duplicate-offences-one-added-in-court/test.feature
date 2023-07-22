@@ -34,9 +34,6 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 			And I view offence "1"
 			And I correct "Sequence Number" to "1"
 			And I click the "Offences" tab
-			And I view offence "2"
-			And I correct "Sequence Number" to "2"
-			And I click the "Offences" tab
 			And I submit the record
 		Then I see exception "(Submitted)" in the exception list table
 			And the PNC updates the record

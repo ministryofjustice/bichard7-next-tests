@@ -16,7 +16,7 @@ class BrowserHelper {
     if (!this.browser)
       this.browser = await puppeteer.launch({
         ignoreHTTPSErrors: true,
-        headless: this.options.headless,
+        headless: this.options.headless ? "new" : false,
         args: [
           // Required for Docker version of Puppeteer
           "--no-sandbox",
