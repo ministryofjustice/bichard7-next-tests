@@ -38,7 +38,7 @@ Feature: {040} 04 MIS - User Performance Summary
 			And I click the "Offences" tab
 			And I submit the record
 			And I see exception "(Submitted)" in the exception list table
-			And I reload until I see "PS02 - Check address"
+			And I reload until I don't see "(Submitted)"
 			And the PNC updates the record
 		When I am logged in as "triggerhandler"
 			And I view the list of exceptions
