@@ -541,11 +541,13 @@ const submitRecord = async function () {
 };
 
 const reloadUntilStringPresent = async function (content) {
-  await reloadUntilContent(this.browser.page, content);
+  const result = await reloadUntilContent(this.browser.page, content);
+  expect(result).toBeTruthy();
 };
 
 const reloadUntilStringNotPresent = async function (content) {
-  await reloadUntilNotContent(this.browser.page, content);
+  const result = await reloadUntilNotContent(this.browser.page, content);
+  expect(result).toBeTruthy();
 };
 
 const checkNoExceptions = async function () {
