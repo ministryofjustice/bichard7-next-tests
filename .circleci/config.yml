@@ -80,18 +80,15 @@ commands:
 
   start_core:
     steps:
-      - run:
-          name: Create a hash of the package lock
-          command: md5sum ~/bichard7-next-core/package-lock.json > ~/bichard7-next-core/package-lock.json.md5
       - restore_cache:
           name: Load node_modules from the cache if they haven't changed
           keys:
-            - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json.md5" }}
+            - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
       - run:
           name: NPM install the core repo
           command: cd ~/bichard7-next-core && nvm use v16 && npm i
       - save_cache:
-          key: core-deps-{{ checksum "~/bichard7-next-core/package-lock.json.md5" }}
+          key: core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
           paths: ~/bichard7-next-core/node_modules
       - run:
           name: Start the test server in the background
@@ -165,12 +162,12 @@ commands:
       - save_artifacts
 
   run-tests-characterisation-bichard:
-      steps:
-        - checkout
-        - pull_service_images
-        - start_bichard7:
-            ENABLE_PHASE_2: "false"
-        - test_bichard
+    steps:
+      - checkout
+      - pull_service_images
+      - start_bichard7:
+          ENABLE_PHASE_2: "false"
+      - test_bichard
 
   run-tests-characterisation-core:
     steps:
@@ -189,6 +186,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 15:7c:72:90:e7:44:01:0e:3d:a3:fc:b5:ca:c0:c2:f3
+      - checkout
       - run:
           name: Clone bichard7-next-core
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
