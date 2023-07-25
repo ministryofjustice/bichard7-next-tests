@@ -4,6 +4,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.7.0
 
 commands:
+################### Helpers
   save_artifacts:
     steps:
       - run:
@@ -30,7 +31,7 @@ commands:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
 
-  pull_base_images:
+  pull_service_images:
     steps:
       - attach_workspace:
           at: ~/
@@ -42,67 +43,11 @@ commands:
           image: user-service
       - fetch_docker_image:
           image: nginx-auth-proxy
-
-  pull_ui:
-    steps:
-      - attach_workspace:
-          at: ~/
       - fetch_docker_image:
           image: ui
 
-  run_services_and_wait:
-    parameters:
-      ENABLE_PHASE_2:
-        default: "true"
-        type: string
-    steps:
-      - run:
-          name: Run docker services (except BeanConnect)
-          command: |
-            cd ~/bichard7-next
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all -j 4
-      - run:
-          name: Wait for Bichard
-          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
-      - run:
-          name: Retry running Docker services
-          command: |
-            cd ~/bichard7-next
-            make destroy
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
-            bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
-          when: on_fail
-
-  run_services_with_new_ui_and_wait:
-    parameters:
-      ENABLE_PHASE_2:
-        default: "true"
-        type: string
-    steps:
-      - run_audit_logging
-      - run:
-          name: Wait for Audit logging API to start
-          command: STATUS_CODE=200 npx wait-on --config ./scripts/wait-for-status.js http://localhost:3010/messages
-      - run:
-          name: Run docker services
-          command: |
-            cd ~/bichard7-next
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all && make run-ui
-          environment:
-            AUDIT_LOG_API_URL: http://172.17.0.1:3010
-      - run:
-          name: Wait for Bichard
-          command: bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
-      - run:
-          name: Retry running Docker services
-          command: |
-            cd ~/bichard7-next
-            make destroy
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> make run-all
-            bash ~/bichard7-next/scripts/wait_for_bichard.sh 90
-          when: on_fail
-
-  run_audit_logging:
+################### Services
+  start_audit_logging:
     description: Run audit logging
     steps:
       - run:
@@ -110,33 +55,30 @@ commands:
           working_directory: ~/bichard7-next-audit-logging
           command: npm install && SKIP_PG=true SKIP_MQ=true npm run start-api
           background: true
+      - run:
+          name: Wait for Audit logging API to start
+          command: npx wait-on http://localhost:3010/messages
 
-  run_test_next_chunk:
+  start_bichard7:
+    parameters:
+      ENABLE_PHASE_2:
+        default: "true"
+        type: string
     steps:
+      - start_audit_logging
       - run:
-          name: Install E2E tests
-          command: npm i
+          name: Run docker services
+          working_directory: ~/bichard7-next-core
+          command: ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run bichard
       - run:
-          name: Run E2E tests
-          environment:
-          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk
+          name: Retry - run docker services
+          working_directory: ~/bichard7-next-core
+          when: on_fail
+          command: |
+            npm run destroy
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run bichard
 
-  run_test_new_ui:
-    steps:
-      - run:
-          name: Install E2E tests
-          command: npm i
-      - run:
-          name: Run E2E tests with next UI
-          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk:nextUI
-
-  checkout-core:
-    steps:
-      - run:
-          name: Git clone Core
-          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
-
-  run-core:
+  start_core:
     steps:
       - run:
           name: Create a hash of the package lock
@@ -159,7 +101,8 @@ commands:
           name: Wait for Core
           command: nvm use v16 && npx -y wait-port 6000
 
-  install-tests:
+################### Tests
+  install_tests:
     steps:
       - run:
           name: Create a hash of the package lock
@@ -175,48 +118,67 @@ commands:
           key: test-deps-{{ checksum "package-lock.json.md5" }}
           paths: node_modules
 
-  test-core:
+  test_chunk:
     steps:
-      - install-tests
+      - run:
+          name: Install E2E tests
+          command: npm i
+      - run:
+          name: Run E2E tests
+          environment:
+          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk
+
+  test_chunk_nextui:
+    steps:
+      - run:
+          name: Install E2E tests
+          command: npm i
+      - run:
+          name: Run E2E tests with next UI
+          command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk:nextUI
+
+  test_core:
+    steps:
+      - install_tests
       - run: nvm use v16 && npm run test:characterisation
 
-  test-bichard:
+  test_bichard:
     steps:
-      - install-tests
+      - install_tests
       - run: nvm use v16 && npm run test:characterisation:bichard
 
+################### Job definitions
   run-tests-e2e:
     steps:
       - checkout
-      - pull_base_images
-      - pull_ui
-      - run_services_with_new_ui_and_wait
-      - run_test_next_chunk
+      - pull_service_images
+      - start_bichard7
+      - test_chunk
       - save_artifacts
 
   run-tests-e2e-new-ui:
     steps:
       - checkout
-      - pull_base_images
-      - pull_ui
-      - run_services_with_new_ui_and_wait
-      - run_test_new_ui
+      - pull_service_images
+      - start_bichard7
+      - test_chunk_nextui
       - save_artifacts
 
   run-tests-characterisation-bichard:
       steps:
         - checkout
-        - pull_base_images
-        - run_services_and_wait:
+        - pull_service_images
+        - start_bichard7:
             ENABLE_PHASE_2: "false"
-        - test-bichard
+        - test_bichard
 
   run-tests-characterisation-core:
     steps:
       - checkout
-      - checkout-core
-      - run-core
-      - test-core
+      - start_core
+      - test_core
+
+#################################################################################
 
 jobs:
   build:
@@ -228,17 +190,14 @@ jobs:
           fingerprints:
             - 15:7c:72:90:e7:44:01:0e:3d:a3:fc:b5:ca:c0:c2:f3
       - run:
-          name: Clone Bichard7 Next
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next.git ~/bichard7-next
+          name: Clone bichard7-next-core
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
       - run:
           name: Clone bichard7-next-audit-logging
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
-      - run:
-          name: Build Bichard7 Next
-          command: cd ~/bichard7-next && make build-ci
       - persist_to_workspace:
           root: ~/
-          paths: bichard7-next
+          paths: bichard7-next-core
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next-audit-logging
@@ -280,6 +239,8 @@ jobs:
     resource_class: large
     steps:
         - run-tests-characterisation-core
+
+#################################################################################
 
 workflows:
   version: 3
