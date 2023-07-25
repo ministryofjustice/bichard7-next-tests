@@ -34,6 +34,8 @@ commands:
   pull_service_images:
     steps:
       - fetch_docker_image:
+          image: nodejs # required for message-forwarder in core
+      - fetch_docker_image:
           image: pncemulator
       - fetch_docker_image:
           image: beanconnect
