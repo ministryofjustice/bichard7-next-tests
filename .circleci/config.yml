@@ -33,8 +33,6 @@ commands:
 
   pull_service_images:
     steps:
-      - attach_workspace:
-          at: ~/
       - fetch_docker_image:
           image: pncemulator
       - fetch_docker_image:
@@ -45,6 +43,8 @@ commands:
           image: nginx-auth-proxy
       - fetch_docker_image:
           image: ui
+      - fetch_docker_image:
+          image: bichard7-liberty
 
 ################### Services
   start_audit_logging:
@@ -147,7 +147,8 @@ commands:
 ################### Job definitions
   run-tests-e2e:
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/
       - pull_service_images
       - start_bichard7
       - test_chunk
@@ -155,7 +156,8 @@ commands:
 
   run-tests-e2e-new-ui:
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/
       - pull_service_images
       - start_bichard7
       - test_chunk_nextui
@@ -163,7 +165,8 @@ commands:
 
   run-tests-characterisation-bichard:
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/
       - pull_service_images
       - start_bichard7:
           ENABLE_PHASE_2: "false"
@@ -171,7 +174,8 @@ commands:
 
   run-tests-characterisation-core:
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/
       - start_core
       - test_core
 
