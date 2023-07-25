@@ -71,14 +71,14 @@ commands:
       - run:
           name: Run docker services
           working_directory: ~/bichard7-next-core
-          command: ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run bichard
+          command: ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run all-no-worker
       - run:
           name: Retry - run docker services
           working_directory: ~/bichard7-next-core
           when: on_fail
           command: |
             npm run destroy
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run bichard
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run all-no-worker
 
   start_core:
     steps:
@@ -136,12 +136,12 @@ commands:
           name: Run E2E tests with next UI
           command: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk:nextUI
 
-  test_core:
+  test_characterisation_core:
     steps:
       - install_tests
       - run: nvm use v16 && npm run test:characterisation
 
-  test_bichard:
+  test_characterisation_bichard:
     steps:
       - install_tests
       - run: nvm use v16 && npm run test:characterisation:bichard
@@ -154,7 +154,7 @@ commands:
       - test_chunk
       - save_artifacts
 
-  run-tests-e2e-new-ui:
+  run-tests-e2e-nextui:
     steps:
       - pull_service_images
       - start_bichard7
@@ -166,12 +166,12 @@ commands:
       - pull_service_images
       - start_bichard7:
           ENABLE_PHASE_2: "false"
-      - test_bichard
+      - test_characterisation_bichard
 
   run-tests-characterisation-core:
     steps:
       - start_core
-      - test_core
+      - test_characterisation_core
 
 #################################################################################
 
@@ -224,7 +224,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run-tests-e2e-new-ui
+      - run-tests-e2e-nextui
     parallelism: 10
 
   test-characterisation-bichard:
