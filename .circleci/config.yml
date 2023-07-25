@@ -31,22 +31,35 @@ commands:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
 
-  pull_service_images:
+  install_core:
     steps:
-      - fetch_docker_image:
-          image: nodejs # required for message-forwarder in core
-      - fetch_docker_image:
-          image: pncemulator
-      - fetch_docker_image:
-          image: beanconnect
-      - fetch_docker_image:
-          image: user-service
-      - fetch_docker_image:
-          image: nginx-auth-proxy
-      - fetch_docker_image:
-          image: ui
-      - fetch_docker_image:
-          image: bichard7-liberty
+      - restore_cache:
+          name: Load node_modules from the cache if they haven't changed
+          keys:
+            - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
+      - run:
+          name: NPM install the core repo
+          working_directory: cd ~/bichard7-next-core
+          command: nvm use v16 && npm i
+      - save_cache:
+          key: core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
+          paths: ~/bichard7-next-core/node_modules
+    
+  install_tests:
+    steps:
+      - run:
+          name: Create a hash of the package lock
+          command: md5sum package-lock.json > package-lock.json.md5
+      - restore_cache:
+          name: Load node_modules from the cache if they haven't changed
+          keys:
+            - test-deps-{{ checksum "package-lock.json.md5" }}
+      - run:
+          name: NPM install the core repo
+          command: nvm use v16 && npm i
+      - save_cache:
+          key: test-deps-{{ checksum "package-lock.json.md5" }}
+          paths: node_modules
 
 ################### Services
   start_audit_logging:
@@ -67,7 +80,10 @@ commands:
         default: "true"
         type: string
     steps:
+      - install_core
       - start_audit_logging
+      - fetch_docker_image:
+          image: nodejs # required for message-forwarder in core
       - run:
           name: Run docker services
           working_directory: ~/bichard7-next-core
@@ -82,41 +98,17 @@ commands:
 
   start_core:
     steps:
-      - restore_cache:
-          name: Load node_modules from the cache if they haven't changed
-          keys:
-            - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
-      - run:
-          name: NPM install the core repo
-          command: cd ~/bichard7-next-core && nvm use v16 && npm i
-      - save_cache:
-          key: core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
-          paths: ~/bichard7-next-core/node_modules
+      - install_core
       - run:
           name: Start the test server in the background
-          command: nvm use v16 && cd ~/bichard7-next-core && npm run test:server
+          working_directory: ~/bichard7-next-core
+          command: nvm use v16 && npm run test:server
           background: true
       - run:
           name: Wait for Core
           command: nvm use v16 && npx -y wait-port 6000
 
 ################### Tests
-  install_tests:
-    steps:
-      - run:
-          name: Create a hash of the package lock
-          command: md5sum package-lock.json > package-lock.json.md5
-      - restore_cache:
-          name: Load node_modules from the cache if they haven't changed
-          keys:
-            - test-deps-{{ checksum "package-lock.json.md5" }}
-      - run:
-          name: NPM install the core repo
-          command: nvm use v16 && npm i
-      - save_cache:
-          key: test-deps-{{ checksum "package-lock.json.md5" }}
-          paths: node_modules
-
   test_chunk:
     steps:
       - run:
@@ -149,21 +141,18 @@ commands:
 ################### Job definitions
   run-tests-e2e:
     steps:
-      - pull_service_images
       - start_bichard7
       - test_chunk
       - save_artifacts
 
   run-tests-e2e-nextui:
     steps:
-      - pull_service_images
       - start_bichard7
       - test_chunk_nextui
       - save_artifacts
 
   run-tests-characterisation-bichard:
     steps:
-      - pull_service_images
       - start_bichard7:
           ENABLE_PHASE_2: "false"
       - test_characterisation_bichard
