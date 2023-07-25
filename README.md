@@ -81,6 +81,27 @@ HEADLESS=false npm run test:local
 
 If you want to take screenshots of the browser as the tests run, you can add `RECORD=true` as an environment variable. The screenshots go in a unique folder within the `screenshots` directory. If your tests fail it will print out which folder the screenshots for that specific test are in.
 
+## VS Code Extension
+
+We use [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete).
+
+With these settings:
+
+```json
+{
+  "cucumberautocomplete.steps": ["step-definitions/*.js"],
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "cucumberautocomplete.formatConfOverride": {
+    "And": 3,
+    "But": "relative"
+  }
+}
+```
+
+If you don't have syntax highlighting you may have to change your theme. For example, if you have install the Ruby Language Server, search "Theme" and select "Text Editor" and change this setting:
+
+![Editor > Semantic Highlighting](docs/theme.png)
+
 ### Running the tests remotely (on the actual e2e environment)
 
 Connect to the e2e vpn
