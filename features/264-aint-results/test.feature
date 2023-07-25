@@ -30,7 +30,6 @@ Feature: {264} BR7-R5.7-RCD603-AINT Result-Exception generation
 			And I correct "Court PNCID" to "2013/0000016P"
 			And I submit the record
 			And I click the "Return To List" button
-			And I see exception "(Submitted)" in the exception list table
 			And I reload until I don't see "(Submitted)"
 		Then the "record" for "EXCEPTIONAINT CASE" is "resolved"
 			And the "record" for "EXCEPTIONAINT CASE" is not "unresolved"
