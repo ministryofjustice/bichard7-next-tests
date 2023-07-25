@@ -147,8 +147,6 @@ commands:
 ################### Job definitions
   run-tests-e2e:
     steps:
-      - attach_workspace:
-          at: ~/
       - pull_service_images
       - start_bichard7
       - test_chunk
@@ -156,8 +154,6 @@ commands:
 
   run-tests-e2e-new-ui:
     steps:
-      - attach_workspace:
-          at: ~/
       - pull_service_images
       - start_bichard7
       - test_chunk_nextui
@@ -165,8 +161,6 @@ commands:
 
   run-tests-characterisation-bichard:
     steps:
-      - attach_workspace:
-          at: ~/
       - pull_service_images
       - start_bichard7:
           ENABLE_PHASE_2: "false"
@@ -174,8 +168,6 @@ commands:
 
   run-tests-characterisation-core:
     steps:
-      - attach_workspace:
-          at: ~/
       - start_core
       - test_core
 
@@ -191,15 +183,18 @@ jobs:
           fingerprints:
             - 15:7c:72:90:e7:44:01:0e:3d:a3:fc:b5:ca:c0:c2:f3
       - checkout
+      - persist_to_workspace:
+          root: ~/
+          paths: project
       - run:
           name: Clone bichard7-next-core
           command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
-      - run:
-          name: Clone bichard7-next-audit-logging
-          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next-core
+      - run:
+          name: Clone bichard7-next-audit-logging
+          command: git clone --depth 1 git@github.com:ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
       - persist_to_workspace:
           root: ~/
           paths: bichard7-next-audit-logging
@@ -212,6 +207,8 @@ jobs:
     environment:
       RECORD: "true"
     steps:
+      - attach_workspace:
+          at: ~/
       - run-tests-e2e
     parallelism: 10
 
@@ -223,6 +220,8 @@ jobs:
     environment:
       RECORD: "true"
     steps:
+      - attach_workspace:
+          at: ~/
       - run-tests-e2e-new-ui
     parallelism: 10
 
@@ -232,7 +231,9 @@ jobs:
         docker_layer_caching: false
     resource_class: large
     steps:
-        - run-tests-characterisation-bichard
+      - attach_workspace:
+          at: ~/
+      - run-tests-characterisation-bichard
 
   test-characterisation-core:
     machine:
@@ -240,7 +241,9 @@ jobs:
         docker_layer_caching: false
     resource_class: large
     steps:
-        - run-tests-characterisation-core
+      - attach_workspace:
+          at: ~/
+      - run-tests-characterisation-core
 
 #################################################################################
 
