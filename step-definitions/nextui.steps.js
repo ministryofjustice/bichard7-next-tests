@@ -66,8 +66,8 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./old-utils/ui");
 
-const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
-const Bichard = require("./old-utils/world");
+const { checkEventByAuditMessageNumber } = require("./utils/auditLogging");
+const Bichard = require("./world");
 
 setWorldConstructor(Bichard);
 
@@ -195,10 +195,6 @@ Then("I see {string} for offence {string}", checkOffence);
 
 Then("the audit log contains {string}", async function (eventType) {
   await checkEventByAuditMessageNumber(this, 1, eventType, true);
-});
-
-Then("the audit log for message {string} contains {string}", async function (auditMessageNumber, eventType) {
-  await checkEventByAuditMessageNumber(this, auditMessageNumber, eventType, true);
 });
 
 Then("{string} is not in the audit log", async function (eventType) {

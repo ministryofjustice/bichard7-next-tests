@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const isError = require("../../utils/isError");
 const convertMessageToNewFormat = require("../../utils/convertMessageToNewFormat");
-const { checkEventByExternalCorrelationId } = require("../old-utils/auditLogging");
+const { checkEventByExternalCorrelationId } = require("./auditLogging");
 const { replaceAllTags } = require("../../utils/tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
@@ -27,6 +27,7 @@ const sendMsg = async function (world, messagePath) {
   const rawMessage = await fs.promises.readFile(messagePath);
   const correlationId = `CID-${uuid()}`;
   let messageData = rawMessage.toString().replace("EXTERNAL_CORRELATION_ID", correlationId);
+  world.setCorrelationId(correlationId);
   if (world.config.parallel) {
     messageData = replaceAllTags(world, messageData, "DC:");
   }

@@ -22,7 +22,7 @@ class AuditLogApiHelper {
       {
         caseId: "Case ID",
         createdBy: "Create audit log test",
-        externalCorrelationId: uuid(),
+        externalCorrelationId: correlationId,
         externalId: uuid(),
         isSanitised: 0,
         messageHash: uuid(),

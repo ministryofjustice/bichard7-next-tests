@@ -1,7 +1,7 @@
 const path = require("path");
 const { exit } = require("process");
-const { sendMessageForTest } = require("../step-definitions/old-utils/message");
-const Bichard = require("../step-definitions/old-utils/world");
+const { sendMessageForTest } = require("../step-definitions/utils/message");
+const Bichard = require("../step-definitions/world");
 const { mockPNCDataForTest } = require("../step-definitions/old-utils/pnc");
 
 const world = new Bichard({});
