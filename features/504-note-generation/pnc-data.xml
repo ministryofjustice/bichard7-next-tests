@@ -100,28 +100,8 @@
 			<Offence>
 				<BaseOffenceDetails>
 					<OffenceSequenceNumber>002</OffenceSequenceNumber>
-					<OffenceCode>TH68151</OffenceCode>
-					<OffenceWording>Aggravated vehicle taking - ( driver did not take ) and vehicle damage of
-						£5000 or over.</OffenceWording>
-					<OffenceTiming>
-						<OffenceDateCode>1</OffenceDateCode>
-						<OffenceStart>
-							<OffenceDateStartDate>2010-11-28</OffenceDateStartDate>
-						</OffenceStart>
-						<OffenceEnd>
-							<OffenceEndDate>2010-12-05</OffenceEndDate>
-						</OffenceEnd>
-					</OffenceTiming>
-					<ChargeDate>2010-12-02</ChargeDate>
-					<ArrestDate>2010-12-01</ArrestDate>
-					<LocationOfOffence>Kingston High Street</LocationOfOffence>
-				</BaseOffenceDetails>
-			</Offence>
-			<Offence>
-				<BaseOffenceDetails>
-					<OffenceSequenceNumber>003</OffenceSequenceNumber>
-					<OffenceCode>RT88191</OffenceCode>
-					<OffenceWording>Use a motor vehicle without third party insurance.</OffenceWording>
+					<OffenceCode>SX03001A</OffenceCode>
+					<OffenceWording>Sexual offence</OffenceWording>
 					<OffenceTiming>
 						<OffenceDateCode>1</OffenceDateCode>
 						<OffenceStart>
