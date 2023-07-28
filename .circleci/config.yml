@@ -36,12 +36,12 @@ commands:
       - restore_cache:
           name: Check cache for core NPM dependencies
           keys:
-            - bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
+            - v1-bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
       - run:
           name: Install core NPM dependencies
           command: cd ~/bichard7-next-core && nvm use v16 && npm i
       - save_cache:
-          key: bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
+          key: v1-bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
           paths: ~/bichard7-next-core/node_modules
 
   save_artifacts:
