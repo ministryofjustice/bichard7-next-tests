@@ -39,8 +39,7 @@ commands:
             - bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
       - run:
           name: Install core NPM dependencies
-          working_directory: cd ~/bichard7-next-core
-          command: nvm use v16 && npm i
+          command: cd ~/bichard7-next-core && nvm use v16 && npm i
       - save_cache:
           key: bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
           paths: ~/bichard7-next-core/node_modules
