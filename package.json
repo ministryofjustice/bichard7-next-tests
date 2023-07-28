@@ -16,7 +16,7 @@
     "test:chunk": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and not @AuditLog'",
     "test:chunk:nextUI": "nextUI=true bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and not @AuditLog and @NextUI'",
     "test:chunk:conductor": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and not @AuditLog and not @ExcludedOnConductor'",
-    "test:file": "./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet",
+    "test:file": "./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter",
     "test:file-parallel": "./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet --parallel",
     "test:must": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and not @AuditLog' features",
     "test:must:auditlogs": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and @AuditLog' features",

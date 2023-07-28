@@ -2,7 +2,7 @@ import promisePoller from "promise-poller";
 import { v4 as uuid } from "uuid";
 import type ActiveMqHelper from "../../helpers/ActiveMqHelper";
 import type PostgresHelper from "../../helpers/PostgresHelper";
-import World from "../../step-definitions/old-utils/world";
+import World from "../../step-definitions/world";
 import { AnnotatedHearingOutcome } from "../types/AnnotatedHearingOutcome";
 import type BichardResultType from "../types/BichardResultType";
 import extractExceptionsFromAho from "./extractExceptionsFromAho";

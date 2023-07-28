@@ -2,7 +2,7 @@ const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
 const { logInAs } = require("./old-utils/auth");
 const { timeout } = require("../utils/config");
-const { sendMessage, sendMessageForTest } = require("./old-utils/message");
+const { sendMessage, sendMessageForTest } = require("./utils/message");
 const {
   createValidRecordInPNC,
   checkMocks,
@@ -95,8 +95,8 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./utils/ui");
 
-const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
-const Bichard = require("./old-utils/world");
+const { checkAuditLogExists } = require("./utils/auditLogging");
+const Bichard = require("./world");
 
 setWorldConstructor(Bichard);
 
@@ -269,15 +269,11 @@ Then("there should only be {string} offences", checkTableRows);
 Then("there should only be {string} records", checkRecordRows);
 
 Then("the audit log contains {string}", async function (eventType) {
-  await checkEventByAuditMessageNumber(this, 1, eventType, true);
-});
-
-Then("the audit log for message {string} contains {string}", async function (auditMessageNumber, eventType) {
-  await checkEventByAuditMessageNumber(this, auditMessageNumber, eventType, true);
+  await checkAuditLogExists(this, eventType, true);
 });
 
 Then("{string} is not in the audit log", async function (eventType) {
-  await checkEventByAuditMessageNumber(this, 1, eventType, false);
+  await checkAuditLogExists(this, eventType, false);
 });
 
 When("I reallocate the case to {string}", reallocateCaseToForce);
