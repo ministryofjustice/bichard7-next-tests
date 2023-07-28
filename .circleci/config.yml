@@ -14,9 +14,8 @@ commands:
           name: Fetch the <<parameters.image>> image
           command: bash scripts/fetch_docker_image.sh <<parameters.image>>
 
-  install_tests:
+  install_tests_dependencies:
     steps:
-      - checkout
       - restore_cache:
           name: Check cache for test NPM dependencies
           keys:
@@ -28,11 +27,14 @@ commands:
           key: bichard7-next-tests-deps-{{ checksum "package-lock.json" }}
           paths: node_modules
 
-  install_core:
+  checkout_core:
     steps:
       - run:
           name: Clone bichard7-next-core
           command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
+  
+  install_core_dependencies:
+    steps:
       - restore_cache:
           name: Check cache for core NPM dependencies
           keys:
@@ -101,8 +103,9 @@ jobs:
       image: ubuntu-2004:2022.07.1
     resource_class: xlarge
     steps:
-      - install_tests
-      - install_core
+      - checkout
+      - install_tests_dependencies
+      - checkout_core
       - persist_to_workspace:
           root: ~/
           paths: .
@@ -157,6 +160,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - install_core_dependencies
       - start_core
       - run: nvm use v16 && npm run test:characterisation
 
