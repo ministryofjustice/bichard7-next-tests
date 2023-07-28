@@ -9,7 +9,6 @@ Feature: {504} Note generation
     Given the data for this test is in the PNC
       And "input-message" is received
 
-  @Excluded
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
@@ -17,7 +16,7 @@ Feature: {504} Note generation
     When I open the record for "MISMATCH OFFENCE"
       And I click the "Notes" tab
     Then I see "Error codes: 2 x HO100310" in the table
-      And I see "Trigger codes: 2 x TRPR0018" in the table
+      And I see "Trigger codes: 1 x TRPR0004" in the table
     When I click the "Offences" tab
       And I view offence "1"
       And I correct "Sequence Number" to "1"
@@ -29,7 +28,8 @@ Feature: {504} Note generation
       And I open the record for "MISMATCH OFFENCE"
       And I click the "Notes" tab
     Then I see "Error codes: 2 x HO100310" in the table
-      And I see "Trigger codes: 2 x TRPR0018" in the table
+      And I see "Trigger codes: 1 x TRPR0004" in the table
       And I see "generalhandler: Portal Action: Resubmitted Message." in the table
-      And I see "Triggers added: 2 x TRPS0010" in the table
+      And I see "generalhandler: Portal Action: Update Applied. Element: OffenceReasonSequence. New Value: 1" in the table
       And I see "Triggers added: 1 x TRPR0018" in the table
+      And I see "Triggers added: 2 x TRPS0010" in the table
