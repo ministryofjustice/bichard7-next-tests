@@ -18,7 +18,7 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          name: Load node_modules from the cache if they haven't changed
+          name: Check cache for test NPM dependencies
           keys:
             - test-deps-{{ checksum "package-lock.json" }}
       - run:
@@ -34,7 +34,7 @@ commands:
           name: Clone bichard7-next-core
           command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
       - restore_cache:
-          name: Load node_modules from the cache if they haven't changed
+          name: Check cache for core NPM dependencies
           keys:
             - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
       - run:
