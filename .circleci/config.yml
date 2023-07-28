@@ -20,6 +20,8 @@ commands:
           command: mv ./screenshots/*.tar.gz ./saved_artifacts/
       - store_artifacts:
           path: /home/circleci/project/saved_artifacts
+      - store_test_results:
+          path: /home/circleci/project/test-results.xml
 
   fetch_docker_image:
     parameters:
@@ -204,12 +206,12 @@ commands:
       - save_artifacts
 
   run-tests-characterisation-bichard:
-      steps:
-        - checkout
-        - pull_base_images
-        - run_services_and_wait:
-            ENABLE_PHASE_2: "false"
-        - test-bichard
+    steps:
+      - checkout
+      - pull_base_images
+      - run_services_and_wait:
+          ENABLE_PHASE_2: "false"
+      - test-bichard
 
   run-tests-characterisation-core:
     steps:
@@ -267,19 +269,19 @@ jobs:
 
   test-characterisation-bichard:
     machine:
-        image: ubuntu-2004:2022.07.1
-        docker_layer_caching: false
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
     resource_class: large
     steps:
-        - run-tests-characterisation-bichard
+      - run-tests-characterisation-bichard
 
   test-characterisation-core:
     machine:
-        image: ubuntu-2004:2022.07.1
-        docker_layer_caching: false
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
     resource_class: large
     steps:
-        - run-tests-characterisation-core
+      - run-tests-characterisation-core
 
 workflows:
   version: 3
