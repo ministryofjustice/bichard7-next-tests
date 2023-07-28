@@ -106,6 +106,7 @@ jobs:
       - checkout
       - install_tests_dependencies
       - checkout_core
+      - install_core_dependencies
       - persist_to_workspace:
           root: ~/
           paths: .
@@ -160,7 +161,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - install_core_dependencies
       - start_core
       - run: nvm use v16 && npm run test:characterisation
 
