@@ -22,7 +22,7 @@ commands:
           keys:
             - test-deps-{{ checksum "package-lock.json" }}
       - run:
-          name: NPM install the core repo
+          name: Install test NPM dependencies
           command: nvm use v16 && npm i
       - save_cache:
           key: test-deps-{{ checksum "package-lock.json" }}
@@ -38,7 +38,7 @@ commands:
           keys:
             - core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
       - run:
-          name: NPM install the core repo
+          name: Install core NPM dependencies
           working_directory: cd ~/bichard7-next-core
           command: nvm use v16 && npm i
       - save_cache:
