@@ -45,9 +45,6 @@ commands:
       - save_cache:
           key: v1-bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
           paths: ~/bichard7-next-core/node_modules
-      - run:
-          name: Build message forwarder image
-          command: docker-compose -f environment/docker-compose.yml build message-forwarder
 
   build_core_images:
     steps:
