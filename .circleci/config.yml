@@ -45,6 +45,29 @@ commands:
       - save_cache:
           key: v1-bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
           paths: ~/bichard7-next-core/node_modules
+      - run:
+          name: Build message forwarder image
+          command: docker-compose -f environment/docker-compose.yml build message-forwarder
+
+  build_core_images:
+    steps:
+      - run:
+          name: Build message forwarder image
+          working_directory: ~/bichard7-next-core
+          command: docker-compose -f environment/docker-compose.yml build message-forwarder
+
+  checkout_audit_logging:
+    steps:
+      - run:
+          name: Clone bichard7-next-audit-logging
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
+  
+  build_audit_logging_images:
+    steps:
+      - run:
+          name: Build audit logging images
+          working_directory: ~/bichard7-next-audit-logging
+          command: make build-api-server build-event-handler-server
 
   save_artifacts:
     steps:
@@ -72,17 +95,28 @@ commands:
     steps:
       - fetch_docker_image:
           image: nodejs # required for message-forwarder in core
+      - build_core_images
+      - checkout_audit_logging
+      - build_audit_logging_images
       - run:
           name: Run docker services
           working_directory: ~/bichard7-next-core
-          command: ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run all-no-worker
+          command: |
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
+            npm run all-no-worker
       - run:
-          name: Retry - run docker services
+          # currently quicker to run the worker separately due to data install
+          name: Run the worker
+          command: npm run conductor-worker
+          background: true
+      - run:
+          name: Retry - run all
           working_directory: ~/bichard7-next-core
           when: on_fail
           command: |
             npm run destroy
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> npm run all-no-worker
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
+            npm run all
 
   start_core:
     steps:
@@ -118,11 +152,16 @@ jobs:
     resource_class: large
     environment:
       RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3phase1
+      AWS_URL: http://localhost:4566
+      AUDIT_LOG_API_URL: http://localhost:7010
     steps:
       - attach_workspace:
           at: ~/
       - start_bichard7
-      - run: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk
+      - run: |
+          TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
+          bash ./scripts/run_test_chunk.sh 'not @Excluded and not @OnlyRunsOnPNC'
       - save_artifacts
     parallelism: 10
 
@@ -133,11 +172,16 @@ jobs:
     resource_class: large
     environment:
       RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3phase1
+      AWS_URL: http://localhost:4566
+      AUDIT_LOG_API_URL: http://localhost:7010
     steps:
       - attach_workspace:
           at: ~/
       - start_bichard7
-      - run: TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX npm run test:chunk:nextUI
+      - run: |
+          TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
+          bash ./scripts/run_test_chunk.sh '@NextUI and not @Excluded and not @OnlyRunsOnPNC'
       - save_artifacts
     parallelism: 10
 
