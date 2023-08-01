@@ -53,7 +53,7 @@ const {
   correctOffenceException,
   nRecordsInList,
   nRecordsForPerson,
-  returnToCaseList,
+  returnToCaseListUnlock,
   waitForRecordStep,
   noRecordsForPerson,
   canSeeContentInTableForThis,
@@ -219,7 +219,7 @@ Then("no PNC updates have been made", noPncUpdates);
 
 Then("there should only be {string} records", nRecordsInList);
 
-Then("I return to the list", returnToCaseList);
+Then("I unlock the record and return to the list", returnToCaseListUnlock);
 
 Then("the record for {string} does not exist", noRecordsForPerson);
 

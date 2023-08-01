@@ -28,7 +28,7 @@ Feature: {242} BR7 R5.6-RCD562-Sine Die Results then Withdrawn
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0017" for offence "1"
 			And I see trigger "TRPR0017" for offence "2"
-		When I return to the list
+		When I unlock the record and return to the list
 			And "input-message-2" is received
 		Then there should only be "1" records
 			And the PNC updates the record

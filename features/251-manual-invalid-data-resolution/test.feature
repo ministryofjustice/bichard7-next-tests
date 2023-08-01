@@ -35,6 +35,6 @@ Feature: {251} BR7 R3.2-UAT-Wrong Offence or Court Code
 		When I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
 		When I resolve all of the triggers
-			And I return to the list
+			And I unlock the record and return to the list
 		Then there are no triggers raised for "Burnham Lester"
 			And the PNC record has not been updated
