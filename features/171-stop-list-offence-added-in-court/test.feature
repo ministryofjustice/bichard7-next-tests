@@ -28,7 +28,7 @@ Feature: {171} BR7 R5.3-RCD513 - Stop List Offence added in court - 4583
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
 		When I resolve all of the triggers
-			And I return to the list
+			And I unlock the record and return to the list
 		Then the "trigger" for "Venger Terry" is "resolved"
 			And the "trigger" for "Venger Terry" is not "unresolved"
 			And the PNC record has not been updated

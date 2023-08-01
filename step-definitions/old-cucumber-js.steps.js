@@ -59,7 +59,7 @@ const {
   checkOffenceData,
   checkOffenceDataError,
   checkTriggerforOffence,
-  returnToList,
+  returnToCaseListUnlock,
   checkRecordResolved,
   checkRecordForThisTestResolved,
   checkRecordNotResolved,
@@ -152,7 +152,7 @@ When("I wait {string} seconds", async (delay) => {
 
 When("I view offence {string}", viewOffence);
 
-When("I return to the list", returnToList);
+When("I unlock the record and return to the list", returnToCaseListUnlock);
 
 When("I correct {string} to {string}", correctOffenceException);
 

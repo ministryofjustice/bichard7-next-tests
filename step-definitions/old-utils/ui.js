@@ -488,7 +488,7 @@ const checkOffenceDataError = async function (value, key) {
   ]);
 };
 
-const returnToList = async function () {
+const returnToCaseListUnlock = async function () {
   await this.browser.clickAndWait("input[type='submit'][value='Return To List (Unlock)']");
   const yesButton = await this.browser.page.$("input[type='submit'][value='Yes']");
   if (yesButton) {
@@ -677,7 +677,7 @@ module.exports = {
   viewOffence,
   checkOffenceData,
   checkOffenceDataError,
-  returnToList,
+  returnToCaseListUnlock,
   checkRecordNotExists,
   correctOffenceException,
   correctOffenceFreeTextException,

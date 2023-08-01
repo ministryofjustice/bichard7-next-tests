@@ -1,7 +1,8 @@
 Feature: {502} Reallocation events
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is in the PNC
+			And "input-message" is received
 
 	@NextUI @AuditLog
 	Scenario: Generates audit logs for case reallocation

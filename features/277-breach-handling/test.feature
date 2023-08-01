@@ -40,7 +40,7 @@ Feature: {277} BR7-R5.8-RCD628 - Standalone Breach Admits Plea No Verdict
 			And I view offence "1"
 		Then I see "Adjournment pre Judgement" in the "Result Class" row of the results table
 		When "input-message-2" is received
-			And I return to the list
+			And I unlock the record and return to the list
 		Then I see trigger "PR10 - Conditional bail" in the exception list table
 			And there are no exceptions raised for "BREACHPLEANOVERDICT Standalone"
 		When I open the record for "BREACHPLEANOVERDICT Standalone"
@@ -48,7 +48,7 @@ Feature: {277} BR7-R5.8-RCD628 - Standalone Breach Admits Plea No Verdict
 			And I view offence "1"
 		Then I see "Adjournment pre Judgement" in the "Result Class" row of the results table
 		When "input-message-3" is received
-			And I return to the list
+			And I unlock the record and return to the list
 		Then I see trigger "PR20 - Breach" in the exception list table
 			And there are no exceptions raised for "BREACHPLEANOVERDICT Standalone"
 		When I open the record for "BREACHPLEANOVERDICT Standalone"
