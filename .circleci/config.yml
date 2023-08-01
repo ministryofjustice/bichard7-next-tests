@@ -104,8 +104,9 @@ commands:
       - run:
           # currently quicker to run the worker separately due to data install
           name: Run the worker
-          command: npm run conductor-worker
+          working_directory: ~/bichard7-next-core
           background: true
+          command: npm run conductor-worker
       - run:
           name: Retry - run all
           working_directory: ~/bichard7-next-core
