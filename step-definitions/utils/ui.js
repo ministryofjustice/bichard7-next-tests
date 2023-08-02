@@ -343,9 +343,9 @@ const correctOffenceException = async function () {
   throw new Error("Not implemented");
 };
 
-const returnToCaseList = async function () {
+const returnToCaseListUnlock = async function () {
   const { page } = this.browser;
-  await Promise.all([page.click("#leave-and-lock, #return-to-case-list"), page.waitForNavigation()]);
+  await Promise.all([page.click("#leave-and-unlock, #return-to-case-list"), page.waitForNavigation()]);
 };
 
 const waitForRecordStep = async function (record) {
@@ -398,7 +398,7 @@ module.exports = {
   correctOffenceException,
   nRecordsInList,
   nRecordsForPerson,
-  returnToCaseList,
+  returnToCaseListUnlock,
   waitForRecordStep,
   noRecordsForPerson,
   checkNoteExists,

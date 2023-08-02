@@ -36,7 +36,7 @@ Feature: {302} BR7-R5.9-RCD607-Twice Breached-Same ASN incorrectly re-used
 		When "input-message-2" is received
 			And I wait "3" seconds
 		Then there are no exceptions or triggers
-			And the audit log for message "2" contains "Results already on PNC"
+			And the audit log contains "Results already on PNC"
 		When "input-message-3" is received
 		Then I see exception "HO200104" in the exception list table
 			And I see trigger "PR20 - Breach" in the exception list table

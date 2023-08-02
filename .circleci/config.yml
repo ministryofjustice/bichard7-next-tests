@@ -79,6 +79,8 @@ commands:
           command: mv ./screenshots/*.tar.gz ./saved_artifacts/
       - store_artifacts:
           path: /home/circleci/project/saved_artifacts
+      - store_test_results:
+          path: /home/circleci/project/test-results.xml
 
 ################### Services
   start_bichard7_legacy:

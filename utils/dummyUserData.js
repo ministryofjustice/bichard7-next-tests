@@ -1,7 +1,7 @@
 // Note: These users are only created automatically when running against Postgres - they will need seeding in DB2 or LDAP
 module.exports = {
   supervisor: {
-    inclusionList: ["B01", "B41ME00"],
+    inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
@@ -9,7 +9,7 @@ module.exports = {
     groups: ["B7Supervisor", "B7NewUI"]
   },
   generalhandler: {
-    inclusionList: ["B01", "B41ME00"],
+    inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
@@ -17,7 +17,7 @@ module.exports = {
     groups: ["B7GeneralHandler", "B7NewUI"]
   },
   triggerhandler: {
-    inclusionList: ["B01", "B41ME00"],
+    inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
@@ -25,7 +25,7 @@ module.exports = {
     groups: ["B7TriggerHandler", "B7NewUI"]
   },
   exceptionhandler: {
-    inclusionList: ["B01", "B41ME00"],
+    inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
@@ -33,7 +33,7 @@ module.exports = {
     groups: ["B7ExceptionHandler", "B7NewUI"]
   },
   auditor: {
-    inclusionList: ["B01", "B41ME00"],
+    inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
@@ -41,7 +41,7 @@ module.exports = {
     groups: ["B7Audit", "B7NewUI"]
   },
   "old.bichard.user": {
-    inclusionList: ["B01", "B41ME00"],
+    inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
     visible_forces: [],
@@ -51,40 +51,40 @@ module.exports = {
   "met.police": {
     inclusionList: ["001"],
     exclusionList: [],
-    visible_courts: ["001"],
-    visible_forces: [],
+    visible_courts: [],
+    visible_forces: ["001"],
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   },
   "wilt.shire": {
     inclusionList: ["054"],
     exclusionList: [],
-    visible_courts: ["054"],
-    visible_forces: [],
+    visible_courts: [],
+    visible_forces: ["054"],
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   },
   "super.fivefour": {
     inclusionList: ["054"],
     exclusionList: [],
-    visible_courts: ["054"],
-    visible_forces: [],
+    visible_courts: [],
+    visible_forces: ["054"],
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   },
   "br7.btp": {
     inclusionList: ["093"],
     exclusionList: [],
-    visible_courts: ["093"],
-    visible_forces: [],
+    visible_courts: [],
+    visible_forces: ["093"],
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   },
   "west.yorkshire": {
-    inclusionList: ["013"],
+    inclusionList: [],
     exclusionList: [],
-    visible_courts: ["013"],
-    visible_forces: [],
+    visible_courts: [],
+    visible_forces: ["013"],
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   },

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DeliverRequest xmlns="http://schemas.cjse.gov.uk/messages/deliver/2006-05" xmlns:ex="http://schemas.cjse.gov.uk/messages/exception/2006-06" xmlns:mf="http://schemas.cjse.gov.uk/messages/format/2006-05" xmlns:mm="http://schemas.cjse.gov.uk/messages/metadata/2006-05" xmlns:msg="http://schemas.cjse.gov.uk/messages/messaging/2006-05" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.cjse.gov.uk/messages/deliver/2006-05 C:ClearCasekel-masri_BR7_0_1_intgBR7XML_ConverterSourceClassGenerationschemasReceiveDeliverServiceDeliverService-v1-0.xsd">
+<DeliverRequest xmlns="http://schemas.cjse.gov.uk/messages/deliver/2006-05"
+	xmlns:ex="http://schemas.cjse.gov.uk/messages/exception/2006-06"
+	xmlns:mf="http://schemas.cjse.gov.uk/messages/format/2006-05"
+	xmlns:mm="http://schemas.cjse.gov.uk/messages/metadata/2006-05"
+	xmlns:msg="http://schemas.cjse.gov.uk/messages/messaging/2006-05"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.cjse.gov.uk/messages/deliver/2006-05 C:ClearCasekel-masri_BR7_0_1_intgBR7XML_ConverterSourceClassGenerationschemasReceiveDeliverServiceDeliverService-v1-0.xsd">
 	<msg:MessageIdentifier>EXTERNAL_CORRELATION_ID</msg:MessageIdentifier>
 	<msg:RequestingSystem>
 		<msg:Name>CJSE</msg:Name>
@@ -32,7 +39,9 @@
 		</mf:MessageSchema>
 	</mf:MessageFormat>
 	<Message>
-		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra" Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g">
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra"
+			Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice"
+			SchemaVersion="0.6g">
 			<DC:Session>
 				<DC:CourtHearing>
 					<DC:Hearing>
@@ -100,15 +109,15 @@
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>TH68151</DC:OffenceCode>
-								<DC:OffenceWording>Aggravated vehicle taking - ( driver did not take ) and vehicle damage of 5000 or over.</DC:OffenceWording>
+								<DC:OffenceCode>SX03001A</DC:OffenceCode>
+								<DC:OffenceWording>Sexual offence</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>
 										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
 									</DC:OffenceStart>
 									<DC:OffenceEnd>
-										<DC:OffenceEndDate>2010-12-03</DC:OffenceEndDate>
+										<DC:OffenceEndDate>2010-12-05</DC:OffenceEndDate>
 									</DC:OffenceEnd>
 								</DC:OffenceTiming>
 								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
@@ -132,38 +141,6 @@
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>003</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>RT88191</DC:OffenceCode>
-								<DC:OffenceWording>Use a motor vehicle without third party insurance.</DC:OffenceWording>
-								<DC:OffenceTiming>
-									<DC:OffenceDateCode>1</DC:OffenceDateCode>
-									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2010-11-30</DC:OffenceDateStartDate>
-									</DC:OffenceStart>
-									<DC:OffenceEnd>
-										<DC:OffenceEndDate>2010-12-05</DC:OffenceEndDate>
-									</DC:OffenceEnd>
-								</DC:OffenceTiming>
-								<DC:ChargeDate>2010-11-30</DC:ChargeDate>
-								<DC:ArrestDate>2010-12-05</DC:ArrestDate>
-								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
-							<DC:ConvictionDate>2011-09-26</DC:ConvictionDate>
-							<DC:Finding>G</DC:Finding>
-							<DC:Result>
-								<DC:ResultCode>1015</DC:ResultCode>
-								<DC:ResultText>Fined 200.</DC:ResultText>
-								<DC:Outcome>
-									<DC:ResultAmountSterling>200.00</DC:ResultAmountSterling>
-								</DC:Outcome>
-							</DC:Result>
-						</DC:Offence>
-						<DC:Offence>
-							<DC:BaseOffenceDetails>
-								<DC:OffenceSequenceNumber>004</DC:OffenceSequenceNumber>
 								<DC:OffenceCode>TH68006</DC:OffenceCode>
 								<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
 								<DC:OffenceTiming>
@@ -195,7 +172,7 @@
 						</DC:Offence>
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
-								<DC:OffenceSequenceNumber>005</DC:OffenceSequenceNumber>
+								<DC:OffenceSequenceNumber>004</DC:OffenceSequenceNumber>
 								<DC:OffenceCode>RT88026</DC:OffenceCode>
 								<DC:OffenceWording>Drive a motor vehicle dangerously.</DC:OffenceWording>
 								<DC:OffenceTiming>

@@ -53,7 +53,7 @@ const {
   correctOffenceException,
   nRecordsInList,
   nRecordsForPerson,
-  returnToCaseList,
+  returnToCaseListUnlock,
   waitForRecordStep,
   noRecordsForPerson,
   canSeeContentInTableForThis,
@@ -66,8 +66,8 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./old-utils/ui");
 
-const { checkEventByAuditMessageNumber } = require("./old-utils/auditLogging");
-const Bichard = require("./old-utils/world");
+const { checkEventByAuditMessageNumber } = require("./utils/auditLogging");
+const Bichard = require("./world");
 
 setWorldConstructor(Bichard);
 
@@ -197,10 +197,6 @@ Then("the audit log contains {string}", async function (eventType) {
   await checkEventByAuditMessageNumber(this, 1, eventType, true);
 });
 
-Then("the audit log for message {string} contains {string}", async function (auditMessageNumber, eventType) {
-  await checkEventByAuditMessageNumber(this, auditMessageNumber, eventType, true);
-});
-
 Then("{string} is not in the audit log", async function (eventType) {
   await checkEventByAuditMessageNumber(this, 1, eventType, false);
 });
@@ -223,7 +219,7 @@ Then("no PNC updates have been made", noPncUpdates);
 
 Then("there should only be {string} records", nRecordsInList);
 
-Then("I return to the list", returnToCaseList);
+Then("I unlock the record and return to the list", returnToCaseListUnlock);
 
 Then("the record for {string} does not exist", noRecordsForPerson);
 

@@ -1,9 +1,10 @@
+const { expect } = require("expect");
 const isError = require("../../utils/isError");
 const Poller = require("../../utils/Poller");
 
 const checkEventByExternalCorrelationId = async (context, externalCorrelationId, eventType, contains) => {
-  const { auditLogClient } = context;
-  const getMessages = () => auditLogClient.getMessageByExternalCorrelationId(externalCorrelationId);
+  const { auditLogApi } = context;
+  const getMessages = () => auditLogApi.getMessageByExternalCorrelationId(externalCorrelationId);
 
   let events = null;
   const options = {
@@ -71,4 +72,14 @@ const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, 
   return checkEventByExternalCorrelationId(context, externalCorrelationId, eventType, contains);
 };
 
-module.exports = { checkEventByExternalCorrelationId, checkEventByAuditMessageNumber };
+const checkAuditLogExists = async (context, eventType, contains) => {
+  const checkEventResult = await checkEventByExternalCorrelationId(
+    context,
+    context.currentCorrelationId,
+    eventType,
+    contains
+  );
+  expect(isError(checkEventResult)).toBeFalsy();
+};
+
+module.exports = { checkEventByExternalCorrelationId, checkEventByAuditMessageNumber, checkAuditLogExists };

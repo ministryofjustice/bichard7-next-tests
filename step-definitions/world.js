@@ -1,17 +1,16 @@
 const fs = require("fs").promises;
 const uuid = require("uuid").v4;
 const { World } = require("@cucumber/cucumber");
-const PostgresHelper = require("../../helpers/PostgresHelper");
-const ActiveMqHelper = require("../../helpers/ActiveMqHelper");
-const AuditLogDynamoDbHelper = require("../../helpers/AuditLogDynamoDbHelper");
-const MockPNCHelper = require("../../helpers/MockPNCHelper");
-const PNCTestTool = require("../../helpers/PNCTestTool");
-const IncomingMessageBucket = require("../../helpers/IncomingMessageBucket");
-const Phase1Bucket = require("../../helpers/Phase1Bucket");
-const BrowserHelper = require("../../helpers/BrowserHelper");
-const defaults = require("../../utils/defaults");
-const AuditLogApiHelper = require("../../helpers/AuditLogApiHelper");
-const { config } = require("../../utils/config");
+const PostgresHelper = require("../helpers/PostgresHelper");
+const ActiveMqHelper = require("../helpers/ActiveMqHelper");
+const MockPNCHelper = require("../helpers/MockPNCHelper");
+const PNCTestTool = require("../helpers/PNCTestTool");
+const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
+const Phase1Bucket = require("../helpers/Phase1Bucket");
+const BrowserHelper = require("../helpers/BrowserHelper");
+const defaults = require("../utils/defaults");
+const AuditLogApiHelper = require("../helpers/AuditLogApiHelper");
+const { config } = require("../utils/config");
 
 class Bichard extends World {
   constructor(options) {
@@ -25,6 +24,11 @@ class Bichard extends World {
     this.currentProsecutorReference = [];
     this.currentPTIURNValues = [];
     this.currentPTIURN = uuid();
+    this.currentCorrelationId = null;
+
+    this.setCorrelationId = (correlationId) => {
+      this.currentCorrelationId = correlationId;
+    };
 
     this.db = new PostgresHelper({
       host: process.env.DB_HOST || defaults.postgresHost,
@@ -51,13 +55,6 @@ class Bichard extends World {
       url: process.env.AWS_URL,
       region: process.env.S3_REGION || defaults.awsRegion,
       phase1BucketName: process.env.S3_PHASE_1_BUCKET || defaults.phase1Bucket
-    });
-
-    this.auditLogClient = new AuditLogDynamoDbHelper({
-      region: process.env.AUDIT_LOG_DYNAMODB_REGION || defaults.awsRegion,
-      endpoint: process.env.AWS_URL,
-      tableName: process.env.AUDIT_LOG_DYNAMODB_TABLE || "audit-log",
-      eventsTableName: process.env.AUDIT_LOG_DYNAMODB_EVENTS_TABLE || "audit-log-events"
     });
 
     if (this.config.realPNC) {
