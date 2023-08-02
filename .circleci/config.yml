@@ -86,7 +86,7 @@ commands:
           path: /home/circleci/project/saved_artifacts
 
 ################### Services
-  start_bichard7:
+  start_bichard7_legacy:
     parameters:
       ENABLE_PHASE_2:
         default: "true"
@@ -102,13 +102,7 @@ commands:
           working_directory: ~/bichard7-next-core
           command: |
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
-            npm run all-no-worker
-      - run:
-          # currently quicker to run the worker separately due to data install
-          name: Run the worker
-          working_directory: ~/bichard7-next-core
-          background: true
-          command: npm run conductor-worker
+            npm run bichard-legacy
       - run:
           name: Retry - run all
           working_directory: ~/bichard7-next-core
@@ -116,7 +110,7 @@ commands:
           command: |
             npm run destroy
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
-            npm run all
+            npm run bichard-legacy
 
   start_core:
     steps:
@@ -158,7 +152,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - start_bichard7
+      - start_bichard7_legacy
       - run: |
           TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
           bash ./scripts/run_test_chunk.sh 'not @Excluded and not @OnlyRunsOnPNC'
@@ -178,7 +172,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - start_bichard7
+      - start_bichard7_legacy
       - run: |
           TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
           bash ./scripts/run_test_chunk.sh '@NextUI and not @Excluded and not @OnlyRunsOnPNC'
@@ -193,7 +187,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - start_bichard7:
+      - start_bichard7_legacy:
           ENABLE_PHASE_2: "false"
       - run: nvm use v16 && npm run test:characterisation:bichard
 
