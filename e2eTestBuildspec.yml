@@ -26,6 +26,7 @@ phases:
       - export AWS_SECRET_ACCESS_KEY=$(echo $temp_role | jq -r .Credentials.SecretAccessKey)
       - export AWS_SESSION_TOKEN=$(echo $temp_role | jq -r .Credentials.SessionToken)
       - aws ec2 describe-client-vpn-endpoints | jq -r ".ClientVpnEndpoints[].DnsServers[0:2][]" | sed 's/^/nameserver /' | cat - /etc/resolv.conf > tmp && cp tmp /etc/resolv.conf
+      - aws ec2 describe-client-vpn-endpoints | jq -r ".ClientVpnEndpoints[0].DnsServers[0:2][]" | sed 's/^/nameserver /' | cat - /etc/resolv.conf > tmp && cp tmp /etc/resolv.conf
       - openvpn --config ~/cjse-${WORKSPACE}-config.ovpn --daemon --log /var/log/openvpn.log
       - make setup-e2e-tests
       - npm i
