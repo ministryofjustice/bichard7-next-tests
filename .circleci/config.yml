@@ -92,10 +92,6 @@ commands:
       - checkout_audit_logging
       - build_audit_logging_images
       - run:
-          name: Retry - audit logging
-          steps:
-            - checkout_audit_logging
-      - run:
           name: Run docker services
           working_directory: ~/bichard7-next-core
           command: |
