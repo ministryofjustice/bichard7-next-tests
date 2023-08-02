@@ -144,9 +144,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
-      - run: |
-          TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
-          bash ./scripts/run_test_chunk.sh 'not @Excluded and not @OnlyRunsOnPNC'
+      - run: npm run test:chunk
       - save_artifacts
     parallelism: 10
 
@@ -164,9 +162,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
-      - run: |
-          TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
-          bash ./scripts/run_test_chunk.sh '@NextUI and not @Excluded and not @OnlyRunsOnPNC'
+      - run: npm run test:chunk:nextUI
       - save_artifacts
     parallelism: 10
 
