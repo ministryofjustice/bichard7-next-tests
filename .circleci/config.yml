@@ -5,15 +5,6 @@ orbs:
 
 commands:
 ################### Helpers
-  fetch_docker_image:
-    parameters:
-      image:
-        type: string
-    steps:
-      - run:
-          name: Fetch the <<parameters.image>> image
-          command: bash scripts/fetch_docker_image.sh <<parameters.image>>
-
   install_tests_dependencies:
     steps:
       - restore_cache:
@@ -92,8 +83,7 @@ commands:
         default: "true"
         type: string
     steps:
-      - fetch_docker_image:
-          image: nodejs # required for message-forwarder in core
+      - run: bash scripts/fetch_docker_image.sh nodejs # required for message-forwarder in core
       - build_core_images
       - checkout_audit_logging
       - build_audit_logging_images
@@ -102,15 +92,16 @@ commands:
           working_directory: ~/bichard7-next-core
           command: |
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
-            npm run bichard-legacy
+            npm run all-legacy
       - run:
           name: Retry - run all
           working_directory: ~/bichard7-next-core
           when: on_fail
           command: |
-            npm run destroy
+            # TODO: add legacy compose to destroy in core
+            docker-compose --project-name bichard -f environment/docker-compose.yml -f environment/docker-compose-bichard.yml down -v
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
-            npm run bichard-legacy
+            npm run all-legacy
 
   start_core:
     steps:
