@@ -51,6 +51,10 @@ commands:
       - run:
           name: Clone bichard7-next-audit-logging
           command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
+      - run:
+          name: Retry: clone bichard7-next-audit-logging
+          when: on_fail
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
   
   build_audit_logging_images:
     steps:
@@ -88,6 +92,10 @@ commands:
       - checkout_audit_logging
       - build_audit_logging_images
       - run:
+          name: Retry - audit logging
+          steps:
+            - checkout_audit_logging
+      - run:
           name: Run docker services
           working_directory: ~/bichard7-next-core
           command: |
@@ -99,7 +107,10 @@ commands:
           when: on_fail
           command: |
             # TODO: add legacy compose to destroy in core
-            docker-compose --project-name bichard -f environment/docker-compose.yml -f environment/docker-compose-bichard.yml down -v
+            docker-compose --project-name bichard \
+              -f environment/docker-compose.yml \
+              -f environment/docker-compose-bichard.yml down -v
+
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
 
