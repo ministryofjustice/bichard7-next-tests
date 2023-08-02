@@ -80,7 +80,7 @@ class Bichard extends World {
     });
 
     this.auditLogApi = new AuditLogApiHelper({
-      apiUrl: process.env.AUDIT_LOG_API_URL ?? "http://localhost:3010",
+      apiUrl: process.env.AUDIT_LOG_API_URL ?? "http://localhost:7010",
       apiKey: process.env.AUDIT_LOG_API_KEY ?? "xxx"
     });
   }
