@@ -96,6 +96,8 @@ commands:
       - run:
           name: Run docker services
           working_directory: ~/bichard7-next-core
+          environment:
+            BC_PROXY_URL: oltp://172.17.0.1:31004/BCU31004
           command: |
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
@@ -103,6 +105,8 @@ commands:
           name: Retry - run all
           working_directory: ~/bichard7-next-core
           when: on_fail
+          environment:
+            BC_PROXY_URL: oltp://172.17.0.1:31004/BCU31004
           command: |
             # TODO: add legacy compose to destroy in core
             docker-compose --project-name bichard \
