@@ -66,7 +66,7 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./old-utils/ui");
 
-const { checkEventByAuditMessageNumber } = require("./utils/auditLogging");
+const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
 
 setWorldConstructor(Bichard);
@@ -194,11 +194,11 @@ Then("the PNC update includes {string}", pncUpdateIncludes);
 Then("I see {string} for offence {string}", checkOffence);
 
 Then("the audit log contains {string}", async function (eventType) {
-  await checkEventByAuditMessageNumber(this, 1, eventType, true);
+  await checkAuditLogExists(this, eventType, true);
 });
 
 Then("{string} is not in the audit log", async function (eventType) {
-  await checkEventByAuditMessageNumber(this, 1, eventType, false);
+  await checkAuditLogExists(this, eventType, false);
 });
 
 When("I reallocate the case to {string}", reallocateCaseToForce);
