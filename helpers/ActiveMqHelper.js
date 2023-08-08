@@ -85,6 +85,7 @@ class ActiveMqHelper {
       destination: `/queue/${queueName}`
     };
 
+    console.log("MQ connected, pushing message to:", queueName);
     return new Promise((resolve, reject) => {
       const writable = client.send(headers);
 
