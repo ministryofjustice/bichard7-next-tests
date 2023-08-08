@@ -146,7 +146,6 @@ jobs:
     resource_class: large
     environment:
       RECORD: "true"
-      MESSAGE_ENTRY_POINT: s3phase1
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
@@ -166,7 +165,6 @@ jobs:
     resource_class: large
     environment:
       RECORD: "true"
-      MESSAGE_ENTRY_POINT: s3phase1
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
