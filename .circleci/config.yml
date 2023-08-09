@@ -147,7 +147,7 @@ jobs:
     environment:
       RECORD: "true"
       AWS_URL: http://localhost:4566
-      AUDIT_LOG_API_URL: http://localhost:7010
+      AUDIT_LOG_API_URL: http://audit-log-api:7010
     steps:
       - attach_workspace:
           at: ~/
@@ -166,7 +166,7 @@ jobs:
     environment:
       RECORD: "true"
       AWS_URL: http://localhost:4566
-      AUDIT_LOG_API_URL: http://localhost:7010
+      AUDIT_LOG_API_URL: http://audit-log-api:7010
     steps:
       - attach_workspace:
           at: ~/
