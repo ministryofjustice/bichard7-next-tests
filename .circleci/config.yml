@@ -98,6 +98,7 @@ commands:
           working_directory: ~/bichard7-next-core
           command: |
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
+            AUDIT_LOG_API_URL=http://audit-log-api:7010 \
             npm run all-legacy
       - run:
           name: Retry - run all
@@ -110,6 +111,7 @@ commands:
               -f environment/docker-compose-bichard.yml down -v
 
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
+            AUDIT_LOG_API_URL=http://audit-log-api:7010 \
             npm run all-legacy
 
   start_core:
@@ -147,7 +149,7 @@ jobs:
     environment:
       RECORD: "true"
       AWS_URL: http://localhost:4566
-      AUDIT_LOG_API_URL: http://audit-log-api:7010
+      AUDIT_LOG_API_URL: http://localhost:7010
     steps:
       - attach_workspace:
           at: ~/
@@ -166,7 +168,7 @@ jobs:
     environment:
       RECORD: "true"
       AWS_URL: http://localhost:4566
-      AUDIT_LOG_API_URL: http://audit-log-api:7010
+      AUDIT_LOG_API_URL: http://localhost:7010
     steps:
       - attach_workspace:
           at: ~/
