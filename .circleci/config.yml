@@ -24,7 +24,7 @@ commands:
     steps:
       - run:
           name: Clone bichard7-next-core
-          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
+          command: git clone -b rick/ci --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
   
   install_core_dependencies:
     steps:
