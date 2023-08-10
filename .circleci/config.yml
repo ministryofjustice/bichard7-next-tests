@@ -147,7 +147,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - start_bichard7_legacy
+      - start_bichard7_legacy 
       - run: |
           CHUNK=$(circleci tests glob "features/*.feature" | circleci tests split --split-by=timings)
           npm run test:chunk
