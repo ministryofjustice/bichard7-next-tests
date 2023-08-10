@@ -149,7 +149,7 @@ jobs:
           at: ~/
       - start_bichard7_legacy
       - run: |
-          CHUNK=$(circleci tests glob "features/*.feature" | circleci tests split --split-by=timings) \
+          CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
           npm run test:chunk
       - save_artifacts
     parallelism: 10
@@ -168,7 +168,7 @@ jobs:
           at: ~/
       - start_bichard7_legacy
       - run: |
-          CHUNK=$(circleci tests glob "features/*.feature" | circleci tests split --split-by=timings) \
+          CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
           npm run test:chunk:nextUI
       - save_artifacts
     parallelism: 10
