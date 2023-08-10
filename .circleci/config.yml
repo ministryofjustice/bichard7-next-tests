@@ -111,11 +111,9 @@ jobs:
     steps:
       - node/install
       - checkout
-      - node/install-packages:
-          cache-version: v1
+      - node/install-packages
       - checkout_core
       - node/install-packages:
-          cache-version: v1
           app-dir: ~/bichard7-next-core
       - persist_to_workspace:
           root: ~/
