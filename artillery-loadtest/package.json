@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "artillery": "^2.0.0-26",
+    "artillery": "^2.0.0-35",
     "jsonwebtoken": "^9.0.0",
     "pg-promise": "^10.12.1"
   }
