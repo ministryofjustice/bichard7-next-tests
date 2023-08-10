@@ -95,11 +95,11 @@ commands:
       - run:
           name: Start the test server in the background
           working_directory: ~/bichard7-next-core
-          command: nvm use v16 && npm run test:server
+          command: npm run test:server
           background: true
       - run:
           name: Wait for Core
-          command: nvm use v16 && npx -y wait-port 6000
+          command: npx -y wait-port 6000
 
 #################################################################################
 
@@ -171,7 +171,7 @@ jobs:
           at: ~/
       - start_bichard7_legacy:
           ENABLE_PHASE_2: "false"
-      - run: nvm use v16 && npm run test:characterisation:bichard
+      - run: npm run test:characterisation:bichard
 
   test-characterisation-core:
     machine:
@@ -184,7 +184,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - start_core
-      - run: nvm use v16 && npm run test:characterisation
+      - run: npm run test:characterisation
 
 #################################################################################
 
