@@ -109,8 +109,7 @@ jobs:
       image: ubuntu-2004:2022.07.1
     resource_class: xlarge
     steps:
-      - node/install:
-          node-version: '16.15'
+      - node/install
       - checkout
       - node/install-packages
       - checkout_core
@@ -130,8 +129,7 @@ jobs:
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
-      - node/install:
-          node-version: '16.15'
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -149,8 +147,7 @@ jobs:
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
-      - node/install:
-          node-version: '16.15'
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -165,8 +162,7 @@ jobs:
         docker_layer_caching: true
     resource_class: large
     steps:
-      - node/install:
-          node-version: '16.15'
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy:
@@ -179,8 +175,7 @@ jobs:
         docker_layer_caching: true
     resource_class: large
     steps:
-      - node/install:
-          node-version: '16.15'
+      - node/install
       - attach_workspace:
           at: ~/
       - start_core
