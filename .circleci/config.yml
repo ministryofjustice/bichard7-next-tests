@@ -24,7 +24,7 @@ commands:
     steps:
       - run:
           name: Clone bichard7-next-core
-          command: git clone -b rick/ci --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
   
   install_core_dependencies:
     steps:
@@ -50,11 +50,7 @@ commands:
     steps:
       - run:
           name: Clone bichard7-next-audit-logging
-          command: git clone -b rick/remove-strict-content-type-checking-in-express --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
-      - run:
-          name: Retry - clone bichard7-next-audit-logging
-          when: on_fail
-          command: git clone -b rick/remove-strict-content-type-checking-in-express --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
   
   build_audit_logging_images:
     steps:
