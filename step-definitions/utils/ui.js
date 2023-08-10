@@ -94,7 +94,8 @@ const findRecordFor = async function (name) {
 };
 
 const checkNoPncErrors = async function (name) {
-  this.browser.page.click(`a[id="Case details for ${name}"]`);
+  const [recordLink] = await this.browser.page.$x(`//table/tbody/tr/*/a[contains(text(),"${name}")]`);
+  await recordLink.click();
 
   await this.browser.page.waitForSelector("text=PNC errors");
   await this.browser.clickAndWait("text=PNC errors");
@@ -133,11 +134,10 @@ const openRecordFor = async function (name) {
 };
 
 const openRecordForCurrentTest = async function () {
-  const record = `a[id='Case details for ${this.getRecordName()}']`;
-
   await filterByRecordName(this);
   await waitForRecord(this.getRecordName(), this.browser.page);
-  await Promise.all([this.browser.page.click(record), this.browser.page.waitForNavigation()]);
+  const [recordLink] = await this.browser.page.$x(`//table/tbody/tr/*/a[contains(text(),"${this.getRecordName()}")]`);
+  await Promise.all([recordLink.click(), this.browser.page.waitForNavigation()]);
   await this.browser.page.waitForSelector("text=Case details");
 };
 
