@@ -108,8 +108,6 @@ jobs:
     machine:
       image: ubuntu-2004:2022.07.1
     resource_class: xlarge
-    environment:
-      PUPPETEER_DOWNLOAD_PATH: /home/circleci/.npm/chromium
     steps:
       - node/install:
           node-version: '16.15'
@@ -131,7 +129,6 @@ jobs:
       RECORD: "true"
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
-      PUPPETEER_DOWNLOAD_PATH: /home/circleci/.npm/chromium
     steps:
       - node/install:
           node-version: '16.15'
@@ -151,7 +148,6 @@ jobs:
       RECORD: "true"
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
-      PUPPETEER_DOWNLOAD_PATH: /home/circleci/.npm/chromium
     steps:
       - node/install:
           node-version: '16.15'
