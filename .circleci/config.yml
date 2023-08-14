@@ -2,62 +2,45 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.7.0
+  node: circleci/node@5.1.0
 
 commands:
 ################### Helpers
-  install_tests_dependencies:
-    steps:
-      - restore_cache:
-          name: Check cache for test NPM dependencies
-          keys:
-            - v1-bichard7-next-tests-deps-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install test NPM dependencies
-          command: nvm use v16 && npm i
-      - save_cache:
-          key: v1-bichard7-next-tests-deps-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.cache/puppeteer
-            - node_modules
-
   checkout_core:
     steps:
       - run:
           name: Clone bichard7-next-core
           command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
   
-  install_core_dependencies:
-    steps:
-      - restore_cache:
-          name: Check cache for core NPM dependencies
-          keys:
-            - v1-bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
-      - run:
-          name: Install core NPM dependencies
-          command: cd ~/bichard7-next-core && nvm use v16 && npm i
-      - save_cache:
-          key: v1-bichard7-next-core-deps-{{ checksum "~/bichard7-next-core/package-lock.json" }}
-          paths: ~/bichard7-next-core/node_modules
-
   build_core_images:
     steps:
       - run:
           name: Build message forwarder image
           working_directory: ~/bichard7-next-core
           command: docker-compose -f environment/docker-compose.yml build message-forwarder
-
-  checkout_audit_logging:
-    steps:
-      - run:
-          name: Clone bichard7-next-audit-logging
-          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
   
   build_audit_logging_images:
     steps:
       - run:
+          name: Clone bichard7-next-audit-logging
+          command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-audit-logging.git ~/bichard7-next-audit-logging
+      - run:
           name: Build audit logging images
           working_directory: ~/bichard7-next-audit-logging
           command: make build-api-server build-event-handler-server
+
+  run_test_chunk:
+    parameters:
+      NEXTUI:
+        default: "false"
+        type: "string"
+    steps:
+      - run:
+          name: Run test chunk
+          command: |
+            CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
+            NEXTUI=<<parameters.NEXTUI>> \
+            npm run test:chunk
 
   save_artifacts:
     steps:
@@ -87,16 +70,15 @@ commands:
     steps:
       - run: bash scripts/fetch_docker_image.sh nodejs # required for message-forwarder in core
       - build_core_images
-      - checkout_audit_logging
       - build_audit_logging_images
       - run:
-          name: Run docker services
+          name: Start bichard7 legacy
           working_directory: ~/bichard7-next-core
           command: |
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
       - run:
-          name: Retry - run all
+          name: Retry - start bichard7 legacy
           working_directory: ~/bichard7-next-core
           when: on_fail
           command: |
@@ -113,11 +95,11 @@ commands:
       - run:
           name: Start the test server in the background
           working_directory: ~/bichard7-next-core
-          command: nvm use v16 && npm run test:server
+          command: npm run test:server
           background: true
       - run:
           name: Wait for Core
-          command: nvm use v16 && npx -y wait-port 6000
+          command: npx -y wait-port 6000
 
 #################################################################################
 
@@ -128,9 +110,11 @@ jobs:
     resource_class: xlarge
     steps:
       - checkout
-      - install_tests_dependencies
+      - node/install
+      - node/install-packages
       - checkout_core
-      - install_core_dependencies
+      - node/install-packages:
+          app-dir: ~/bichard7-next-core
       - persist_to_workspace:
           root: ~/
           paths: .
@@ -145,12 +129,11 @@ jobs:
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
-      - run: |
-          TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
-          npm run test:chunk
+      - run_test_chunk
       - save_artifacts
     parallelism: 10
 
@@ -164,12 +147,12 @@ jobs:
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
-      - run: |
-          TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
-          npm run test:chunk:nextUI
+      - run_test_chunk:
+          NEXTUI: "true"
       - save_artifacts
     parallelism: 10
 
@@ -179,11 +162,12 @@ jobs:
         docker_layer_caching: true
     resource_class: large
     steps:
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy:
           ENABLE_PHASE_2: "false"
-      - run: nvm use v16 && npm run test:characterisation:bichard
+      - run: npm run test:characterisation:bichard
 
   test-characterisation-core:
     machine:
@@ -191,10 +175,11 @@ jobs:
         docker_layer_caching: true
     resource_class: large
     steps:
+      - node/install
       - attach_workspace:
           at: ~/
       - start_core
-      - run: nvm use v16 && npm run test:characterisation
+      - run: npm run test:characterisation
 
 #################################################################################
 
