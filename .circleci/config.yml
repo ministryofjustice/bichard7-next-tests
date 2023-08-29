@@ -94,8 +94,8 @@ commands:
     steps:
       - run:
           name: Start the test server in the background
-          working_directory: ~/packages/core
-          command: npm run test:server
+          working_directory: ~/bichar7-next-core
+          command: cd packages/core && npm run test:server
           background: true
       - run:
           name: Wait for Core
