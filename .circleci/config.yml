@@ -94,7 +94,7 @@ commands:
     steps:
       - run:
           name: Start the test server in the background
-          working_directory: ~/bichard7-next-core
+          working_directory: ~/bichard7-next-core/packages/core
           command: npm run test:server
           background: true
       - run:
