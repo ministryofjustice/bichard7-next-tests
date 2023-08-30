@@ -95,7 +95,7 @@ commands:
       - run:
           name: Start the test server in the background
           working_directory: ~/bichard7-next-core
-          command: npm run test:server --workspace packages/core
+          command: npm run -w packages/core test:server
           background: true
       - run:
           name: Wait for Core
