@@ -45,14 +45,15 @@ const sendMsg = async function (world, messagePath) {
     expect(isError(checkEventResult)).toBeFalsy();
     return Promise.resolve();
   }
-  await world.auditLogApi.createAuditLogMessage(correlationId);
 
   if (world.config.messageEntryPoint === "s3phase1") {
+    messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3Phase1(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
     return Promise.resolve();
   }
 
+  await world.auditLogApi.createAuditLogMessage(correlationId);
   return world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
 };
 
