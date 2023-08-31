@@ -11,7 +11,15 @@ commands:
       - run:
           name: Clone bichard7-next-core
           command: git clone --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
-  
+      - run:
+          name: Install dependency
+          working_directory: ~/bichard7-next-core
+          command: npm i
+      - run:
+          name: Build core
+          working_directory: ~/bichard7-next-core
+          command: npm run build
+ 
   build_core_images:
     steps:
       - run:
@@ -95,7 +103,7 @@ commands:
       - run:
           name: Start the test server in the background
           working_directory: ~/bichard7-next-core
-          command: npm run test:server
+          command: npm run -w packages/core test:server
           background: true
       - run:
           name: Wait for Core
@@ -122,7 +130,7 @@ jobs:
   test-e2e:
     machine:
       image: ubuntu-2004:2022.07.1
-      docker_layer_caching: true
+      docker_layer_caching: false
     resource_class: large
     environment:
       RECORD: "true"
@@ -140,7 +148,7 @@ jobs:
   tests-e2e-new-ui:
     machine:
       image: ubuntu-2004:2022.07.1
-      docker_layer_caching: true
+      docker_layer_caching: false
     resource_class: large
     environment:
       RECORD: "true"
@@ -159,7 +167,7 @@ jobs:
   test-characterisation-bichard:
     machine:
         image: ubuntu-2004:2022.07.1
-        docker_layer_caching: true
+        docker_layer_caching: false
     resource_class: large
     steps:
       - node/install
@@ -172,7 +180,7 @@ jobs:
   test-characterisation-core:
     machine:
         image: ubuntu-2004:2022.07.1
-        docker_layer_caching: true
+        docker_layer_caching: false
     resource_class: large
     steps:
       - node/install
