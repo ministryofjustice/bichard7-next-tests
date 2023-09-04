@@ -173,11 +173,7 @@ jobs:
           at: ~/
       - node/install
       - start_bichard7_core
-      - run:
-          name: Run e2e tests against core code
-          command: |
-            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
-            bash ./scripts/run_test_chunk.sh 'not @Excluded and not @OnlyRunsOnPNC'
+      - run_test_chunk
       - save_artifacts
 
   tests-e2e-new-ui:
@@ -233,6 +229,9 @@ workflows:
     jobs:
       - build
       - test-e2e:
+          requires:
+            - build
+      - test-e2e-core:
           requires:
             - build
       - tests-e2e-new-ui:
