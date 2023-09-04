@@ -5,7 +5,7 @@ orbs:
   node: circleci/node@5.1.0
 
 commands:
-################### Helpers
+  ################### Helpers
   checkout_core:
     steps:
       - run:
@@ -19,14 +19,14 @@ commands:
           name: Build core
           working_directory: ~/bichard7-next-core
           command: npm run build
- 
+
   build_core_images:
     steps:
       - run:
           name: Build message forwarder image
           working_directory: ~/bichard7-next-core
           command: docker-compose -f environment/docker-compose.yml build message-forwarder
-  
+
   build_audit_logging_images:
     steps:
       - run:
@@ -69,7 +69,7 @@ commands:
       - store_test_results:
           path: /home/circleci/project/test-results.xml
 
-################### Services
+  ################### Services
   start_bichard7_legacy:
     parameters:
       ENABLE_PHASE_2:
@@ -98,7 +98,19 @@ commands:
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
 
-  start_core:
+  start_bichard7_core:
+    steps:
+      - run: bash scripts/fetch_docker_image.sh nodejs # required for message-forwarder in core
+      - build_core_images
+      - build_audit_logging_images
+      - run: npm run all-no-worker
+      - run:
+          # currently quicker to run the worker separately due to data install
+          name: Run the worker
+          command: npm run -w packages/conductor worker
+          background: true
+
+  start_core_testserver:
     steps:
       - run:
           name: Start the test server in the background
@@ -134,6 +146,7 @@ jobs:
     resource_class: large
     environment:
       RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3phase1
       AWS_URL: http://localhost:4566
       AUDIT_LOG_API_URL: http://localhost:7010
     steps:
@@ -144,6 +157,28 @@ jobs:
       - run_test_chunk
       - save_artifacts
     parallelism: 10
+
+  test-e2e-core:
+    machine:
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
+    resource_class: large
+    environment:
+      RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3phase1
+      AWS_URL: http://localhost:4566
+      AUDIT_LOG_API_URL: http://localhost:7010
+    steps:
+      - attach_workspace:
+          at: ~/
+      - node/install
+      - start_bichard7_core
+      - run:
+          name: Run e2e tests against core code
+          command: |
+            TOTAL_CHUNKS=$CIRCLE_NODE_TOTAL CHUNK_NUMBER=$CIRCLE_NODE_INDEX \
+            bash ./scripts/run_test_chunk.sh 'not @Excluded and not @OnlyRunsOnPNC'
+      - save_artifacts
 
   tests-e2e-new-ui:
     machine:
@@ -166,8 +201,8 @@ jobs:
 
   test-characterisation-bichard:
     machine:
-        image: ubuntu-2004:2022.07.1
-        docker_layer_caching: false
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
     resource_class: large
     steps:
       - node/install
@@ -179,14 +214,14 @@ jobs:
 
   test-characterisation-core:
     machine:
-        image: ubuntu-2004:2022.07.1
-        docker_layer_caching: false
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
     resource_class: large
     steps:
       - node/install
       - attach_workspace:
           at: ~/
-      - start_core
+      - start_core_testserver
       - run: npm run test:characterisation
 
 #################################################################################
