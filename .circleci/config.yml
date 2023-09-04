@@ -104,6 +104,7 @@ commands:
       - build_core_images
       - build_audit_logging_images
       - run: npm run all-no-worker
+          working_directory: ~/bichard7-next-core
       - run:
           # currently quicker to run the worker separately due to data install
           name: Run the worker
