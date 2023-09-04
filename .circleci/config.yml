@@ -103,7 +103,8 @@ commands:
       - run: bash scripts/fetch_docker_image.sh nodejs # required for message-forwarder in core
       - build_core_images
       - build_audit_logging_images
-      - run: npm run all-no-worker
+      - run: 
+          command: npm run all-no-worker
           working_directory: ~/bichard7-next-core
       - run:
           # currently quicker to run the worker separately due to data install
