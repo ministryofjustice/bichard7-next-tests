@@ -179,7 +179,7 @@ jobs:
       - run_test_chunk
       - save_artifacts
 
-  tests-e2e-legacy-new-ui:
+  test-e2e-legacy-new-ui:
     machine:
       image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
@@ -237,7 +237,7 @@ workflows:
       - test-e2e-core:
           requires:
             - build
-      - tests-e2e-legacy-new-ui:
+      - test-e2e-legacy-new-ui:
           requires:
             - build
       - test-characterisation-legacy:
