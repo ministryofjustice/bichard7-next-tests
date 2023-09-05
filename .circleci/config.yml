@@ -142,7 +142,7 @@ jobs:
           root: ~/
           paths: .
 
-  test-e2e:
+  test-e2e-legacy:
     machine:
       image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
@@ -179,7 +179,7 @@ jobs:
       - run_test_chunk
       - save_artifacts
 
-  tests-e2e-new-ui:
+  tests-e2e-legacy-new-ui:
     machine:
       image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
@@ -198,7 +198,7 @@ jobs:
       - save_artifacts
     parallelism: 10
 
-  test-characterisation-bichard:
+  test-characterisation-legacy:
     machine:
       image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
@@ -231,16 +231,16 @@ workflows:
   deploy:
     jobs:
       - build
-      - test-e2e:
+      - test-e2e-legacy:
           requires:
             - build
       - test-e2e-core:
           requires:
             - build
-      - tests-e2e-new-ui:
+      - tests-e2e-legacy-new-ui:
           requires:
             - build
-      - test-characterisation-bichard:
+      - test-characterisation-legacy:
           requires:
             - build
       - test-characterisation-core:
