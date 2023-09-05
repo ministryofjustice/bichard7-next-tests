@@ -21,7 +21,13 @@ class Phase1Bucket {
   }
 
   async upload(message, correlationId) {
-    const s3FileName = `${correlationId}.xml`;
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = `${now.getMonth() + 1}`.padStart(2, "0");
+    const day = `${now.getDate()}`.padStart(2, "0");
+    const hour = `${now.getHours()}`.padStart(2, "0");
+    const minute = `${now.getMinutes()}`.padStart(2, "0");
+    const s3FileName = `${year}/${month}/${day}/${hour}/${minute}/${correlationId}.xml`;
 
     const params = {
       Bucket: this.phase1BucketName,

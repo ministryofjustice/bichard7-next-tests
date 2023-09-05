@@ -43,7 +43,7 @@
 					<DC:PSAcode>2576</DC:PSAcode>
 				</DC:CourtHearing>
 				<DC:Case>
-					<DC:PTIURN/>
+					<DC:PTIURN>XXXXXXXXX</DC:PTIURN>
 					<DC:Defendant>
 						<DC:ProsecutorReference/>
 						<DC:CourtIndividualDefendant>

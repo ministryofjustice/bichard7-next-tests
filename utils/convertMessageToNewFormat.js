@@ -6,6 +6,9 @@ const convertMessageToNewFormat = (message) => {
     resultedCaseMessage = message.match(/(<ResultedCaseMessage[\s\S]*<\/ResultedCaseMessage>)/)?.[0];
   }
 
+  resultedCaseMessage = `<!-- To avoid duplicate message hash: ${uuidv4()} -->${resultedCaseMessage}`;
+  resultedCaseMessage = resultedCaseMessage.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
   const externalCorrelationId = message.match(/<msg:MessageIdentifier>([\s\S]*)<\/msg:MessageIdentifier>/)[1]?.trim();
 
   const result = `<?xml version="1.0" encoding="UTF-8"?>
@@ -65,7 +68,6 @@ const convertMessageToNewFormat = (message) => {
           text/plain
       </ContentType>
       <DataStreamContent>
-          <!-- To avoid duplicate message hash: ${uuidv4()} -->
           ${resultedCaseMessage}
       </DataStreamContent>
     </DataStream>
