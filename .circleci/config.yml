@@ -5,7 +5,7 @@ orbs:
   node: circleci/node@5.1.0
 
 commands:
-################### Helpers
+  ################### Helpers
   checkout_core:
     steps:
       - run:
@@ -19,14 +19,14 @@ commands:
           name: Build core
           working_directory: ~/bichard7-next-core
           command: npm run build
- 
+
   build_core_images:
     steps:
       - run:
           name: Build message forwarder image
           working_directory: ~/bichard7-next-core
           command: docker-compose -f environment/docker-compose.yml build message-forwarder
-  
+
   build_audit_logging_images:
     steps:
       - run:
@@ -69,7 +69,7 @@ commands:
       - store_test_results:
           path: /home/circleci/project/test-results.xml
 
-################### Services
+  ################### Services
   start_bichard7_legacy:
     parameters:
       ENABLE_PHASE_2:
@@ -98,7 +98,27 @@ commands:
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
 
-  start_core:
+  start_bichard7_core:
+    steps:
+      - run: bash scripts/fetch_docker_image.sh nodejs # required for message-forwarder in core
+      - build_core_images
+      - build_audit_logging_images
+      - run:
+          command: npm run all-no-worker
+          working_directory: ~/bichard7-next-core
+      - run:
+          # currently quicker to run the worker separately due to data install
+          name: Run the worker
+          command: npm run -w packages/conductor worker
+          working_directory: ~/bichard7-next-core
+          background: true
+      - run:
+          when: on_fail
+          working_directory: ~/bichard7-next-core
+          command: npm run all-no-worker && npm run -w packages/conductor worker
+
+
+  start_core_testserver:
     steps:
       - run:
           name: Start the test server in the background
@@ -127,11 +147,12 @@ jobs:
           root: ~/
           paths: .
 
-  test-e2e:
+  test-e2e-legacy:
     machine:
       image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
     resource_class: large
+    parallelism: 10
     environment:
       RECORD: "true"
       AWS_URL: http://localhost:4566
@@ -143,13 +164,32 @@ jobs:
       - start_bichard7_legacy
       - run_test_chunk
       - save_artifacts
-    parallelism: 10
 
-  tests-e2e-new-ui:
+  test-e2e-core:
     machine:
       image: ubuntu-2004:2022.07.1
       docker_layer_caching: false
     resource_class: large
+    parallelism: 10
+    environment:
+      RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3phase1
+      AWS_URL: http://localhost:4566
+      AUDIT_LOG_API_URL: http://localhost:7010
+    steps:
+      - attach_workspace:
+          at: ~/
+      - node/install
+      - start_bichard7_core
+      - run_test_chunk
+      - save_artifacts
+
+  test-e2e-legacy-new-ui:
+    machine:
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
+    resource_class: large
+    parallelism: 10
     environment:
       RECORD: "true"
       AWS_URL: http://localhost:4566
@@ -162,12 +202,11 @@ jobs:
       - run_test_chunk:
           NEXTUI: "true"
       - save_artifacts
-    parallelism: 10
 
-  test-characterisation-bichard:
+  test-characterisation-legacy:
     machine:
-        image: ubuntu-2004:2022.07.1
-        docker_layer_caching: false
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
     resource_class: large
     steps:
       - node/install
@@ -179,14 +218,14 @@ jobs:
 
   test-characterisation-core:
     machine:
-        image: ubuntu-2004:2022.07.1
-        docker_layer_caching: false
+      image: ubuntu-2004:2022.07.1
+      docker_layer_caching: false
     resource_class: large
     steps:
       - node/install
       - attach_workspace:
           at: ~/
-      - start_core
+      - start_core_testserver
       - run: npm run test:characterisation
 
 #################################################################################
@@ -197,13 +236,16 @@ workflows:
   deploy:
     jobs:
       - build
-      - test-e2e:
+      - test-e2e-legacy:
           requires:
             - build
-      - tests-e2e-new-ui:
+      - test-e2e-core:
           requires:
             - build
-      - test-characterisation-bichard:
+      - test-e2e-legacy-new-ui:
+          requires:
+            - build
+      - test-characterisation-legacy:
           requires:
             - build
       - test-characterisation-core:
