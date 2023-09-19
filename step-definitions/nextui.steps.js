@@ -60,6 +60,8 @@ const {
   switchBichard
 } = require("./utils/ui");
 
+const cases = require("./utils/cases");
+
 const {
   findRecordFor: alternateFindRecordFor,
   loadTab: alternateLoadTab,
@@ -82,6 +84,8 @@ Given("a message is received", async function () {
 });
 
 Given("I am logged in as {string}", logInAs);
+
+Given("the case is waiting for resubmission", cases.insert);
 
 When(
   "I wait {int} seconds",

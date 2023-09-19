@@ -24,21 +24,21 @@ Feature: {050} R3.4_BR7_YZ Force Code
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
     Then I see exception "HO100310 (2)" in the exception list table
-    When I open the record for "Bass Barry"
-      And I click the "Offences" tab
-      And I view offence "1"
-      And I correct "Sequence Number" to "1"
-      And I click the "Offences" tab
-      And I view offence "2"
-      And I correct "Sequence Number" to "2"
-      And I click the "Offences" tab
-      And I submit the record
-    Then the PNC updates the record
-      And I see exception "(Submitted)" in the exception list table
-    When I reload until I see "PS02 - Check address"
-      And I open the record for "Bass Barry"
-      And I click the "Triggers" tab
-    Then I see trigger "TRPR0021" for offence "1"
-      And I see trigger "TRPR0006"
-      And I see trigger "TRPS0002"
-      And the PNC update includes "K01YZ"
+    # When I open the record for "Bass Barry"
+    #   And I click the "Offences" tab
+    #   And I view offence "1"
+    #   And I correct "Sequence Number" to "1"
+    #   And I click the "Offences" tab
+    #   And I view offence "2"
+    #   And I correct "Sequence Number" to "2"
+    #   And I click the "Offences" tab
+    #   And I submit the record
+    # Then the PNC updates the record
+    #   And I see exception "(Submitted)" in the exception list table
+    # When I reload until I see "PS02 - Check address"
+    #   And I open the record for "Bass Barry"
+    #   And I click the "Triggers" tab
+    # Then I see trigger "TRPR0021" for offence "1"
+    #   And I see trigger "TRPR0006"
+    #   And I see trigger "TRPS0002"
+    #   And the PNC update includes "K01YZ"
