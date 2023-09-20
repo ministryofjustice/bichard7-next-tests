@@ -134,7 +134,7 @@ commands:
 jobs:
   build:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:2023.07.2
     resource_class: xlarge
     steps:
       - checkout
@@ -149,7 +149,7 @@ jobs:
 
   test-e2e-legacy:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:2023.07.2
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -167,7 +167,7 @@ jobs:
 
   test-e2e-core:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:2023.07.2
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -186,7 +186,7 @@ jobs:
 
   test-e2e-legacy-new-ui:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:2023.07.2
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -205,7 +205,7 @@ jobs:
 
   test-characterisation-legacy:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:2023.07.2
       docker_layer_caching: false
     resource_class: large
     steps:
@@ -218,7 +218,7 @@ jobs:
 
   test-characterisation-core:
     machine:
-      image: ubuntu-2004:2022.07.1
+      image: ubuntu-2204:2023.07.2
       docker_layer_caching: false
     resource_class: large
     steps:
