@@ -167,6 +167,8 @@ jobs:
       - start_bichard7_legacy
       - run_test_chunk
       - save_artifacts
+      store_test_results:
+        path: ./cucumber/results
 
   test-e2e-core:
     machine:
@@ -185,6 +187,8 @@ jobs:
       - start_bichard7_core
       - run_test_chunk
       - save_artifacts
+      store_test_results:
+        path: ./cucumber/results
 
   test-e2e-legacy-new-ui:
     machine:
@@ -204,6 +208,8 @@ jobs:
       - run_test_chunk:
           NEXTUI: "true"
       - save_artifacts
+      store_test_results:
+        path: ./cucumber/results
 
   test-characterisation-legacy:
     machine:
