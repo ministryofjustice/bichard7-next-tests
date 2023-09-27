@@ -177,6 +177,7 @@ jobs:
     environment:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
+      S3_INCOMING_MESSAGE_BUCKET: phase1
     steps:
       - attach_workspace:
           at: ~/
