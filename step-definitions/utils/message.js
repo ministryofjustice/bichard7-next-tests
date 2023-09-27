@@ -4,19 +4,11 @@ const path = require("path");
 const fs = require("fs");
 const isError = require("../../utils/isError");
 const convertMessageToNewFormat = require("../../utils/convertMessageToNewFormat");
-const { checkEventByExternalCorrelationId } = require("./auditLogging");
+const { checkAuditLogRecordExists } = require("./auditLogging");
 const { replaceAllTags } = require("../../utils/tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
   const fileName = await context.incomingMessageBucket.upload(message, correlationId);
-
-  if (isError(fileName)) {
-    throw fileName;
-  }
-};
-
-const uploadToS3Phase1 = async (context, message, correlationId) => {
-  const fileName = await context.phase1Bucket.upload(message, correlationId);
 
   if (isError(fileName)) {
     throw fileName;
@@ -36,25 +28,17 @@ const sendMsg = async function (world, messagePath) {
     messageData = convertMessageToNewFormat(messageData);
     const uploadResult = await uploadToS3(world, messageData, correlationId);
     expect(isError(uploadResult)).toBeFalsy();
-    const checkEventResult = await checkEventByExternalCorrelationId(
-      world,
-      correlationId,
-      "Message Sent to Bichard",
-      true
-    );
+    const checkEventResult = await checkAuditLogRecordExists(world, correlationId);
     expect(isError(checkEventResult)).toBeFalsy();
     return Promise.resolve();
   }
 
-  if (world.config.messageEntryPoint === "s3phase1") {
-    messageData = convertMessageToNewFormat(messageData);
-    const uploadResult = await uploadToS3Phase1(world, messageData, correlationId);
-    expect(isError(uploadResult)).toBeFalsy();
-    return Promise.resolve();
+  if (world.config.messageEntryPoint === "mq") {
+    await world.auditLogApi.createAuditLogMessage(correlationId);
+    return world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
   }
 
-  await world.auditLogApi.createAuditLogMessage(correlationId);
-  return world.mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageData);
+  throw new Error(`Invalid value for MESSAGE_ENTRY_POINT: ${world.config.messageEntryPoint}`);
 };
 
 const sendMessage = async function (messageId) {
