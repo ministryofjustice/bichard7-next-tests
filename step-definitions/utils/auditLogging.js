@@ -49,27 +49,27 @@ const checkEventByExternalCorrelationId = async (context, externalCorrelationId,
   throw new Error(`${result.message}${eventsFoundMessage}`);
 };
 
-const checkEventByAuditMessageNumber = (context, auditMessageNumber, eventType, contains) => {
-  const {
-    incomingMessageBucket: { uploadedS3Files }
-  } = context;
+const checkAuditLogRecordExists = async (context, correlationId) => {
+  const { auditLogApi } = context;
+  const getMessages = () => auditLogApi.getMessageByExternalCorrelationId(correlationId);
 
-  if (uploadedS3Files.length === 0) {
-    throw new Error(`No S3 file has been uploaded`);
+  const options = {
+    timeout: 90000,
+    delay: 1000,
+    name: "checkForRecord",
+    condition: (message) => !!message
+  };
+
+  const result = await new Poller(getMessages)
+    .poll(options)
+    .then((messages) => messages)
+    .catch((error) => error);
+
+  if (!isError(result)) {
+    return;
   }
 
-  const s3FileIndex = parseInt(auditMessageNumber, 10) - 1;
-  if (s3FileIndex < 0 || s3FileIndex >= uploadedS3Files.length) {
-    throw new Error(`Index ${s3FileIndex} is out of range. There are ${uploadedS3Files.length} files uploaded to S3.`);
-  }
-
-  const externalCorrelationId = uploadedS3Files[s3FileIndex].split("/").slice(-1)?.[0]?.split(".")?.[0];
-
-  if (!externalCorrelationId) {
-    throw new Error(`Could not extract external correlation ID from the S3 file with index ${s3FileIndex}`);
-  }
-
-  return checkEventByExternalCorrelationId(context, externalCorrelationId, eventType, contains);
+  throw new Error(`Could not find audit log with external correlation ID: ${correlationId}`);
 };
 
 const checkAuditLogExists = async (context, eventType, contains) => {
@@ -82,4 +82,4 @@ const checkAuditLogExists = async (context, eventType, contains) => {
   expect(isError(checkEventResult)).toBeFalsy();
 };
 
-module.exports = { checkEventByExternalCorrelationId, checkEventByAuditMessageNumber, checkAuditLogExists };
+module.exports = { checkEventByExternalCorrelationId, checkAuditLogRecordExists, checkAuditLogExists };
