@@ -67,7 +67,7 @@ AUDIT_LOG_DYNAMODB_REGION="$AWS_REGION"
 AUDIT_LOG_API_ID=$(aws apigateway get-rest-apis --query "items[0].id" --output text)
 AUDIT_LOG_API_URL="https://${AUDIT_LOG_API_ID}.execute-api.eu-west-2.amazonaws.com/${WORKSPACE}"
 AUDIT_LOG_API_KEY=$(aws apigateway get-api-keys --include-values --query "items[0].value" --output text)
-MESSAGE_ENTRY_POINT=mq
+MESSAGE_ENTRY_POINT=s3
 
 if [ "$UI_HOST" = 'null' ] || [ "$UI_HOST" = '' ]
 then
