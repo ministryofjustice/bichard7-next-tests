@@ -224,6 +224,16 @@ const resolveAllTriggers = async function () {
   await this.browser.clickAndWait("#mark-triggers-complete-button");
 };
 
+const manuallyResolveRecord = async function () {
+  await this.browser.page.click("#exceptions-tab");
+  await Promise.all([
+    await this.browser.page.click("section#exceptions a[href*='resolve'] button"),
+    await this.browser.page.waitForNavigation()
+  ]);
+
+  await this.browser.page.click("#Resolve");
+};
+
 const filterRecords = async function (world, resolvedType, recordType) {
   await world.browser.page.click("button#filter-button");
 
@@ -396,6 +406,7 @@ module.exports = {
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
+  manuallyResolveRecord,
   nRecordsInList,
   nRecordsForPerson,
   returnToCaseListUnlock,

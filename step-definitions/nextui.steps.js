@@ -51,6 +51,7 @@ const {
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
+  manuallyResolveRecord,
   nRecordsInList,
   nRecordsForPerson,
   returnToCaseListUnlock,
@@ -168,6 +169,8 @@ Then("I see trigger {string}", checkTrigger);
 Then("this {string} is {string}", checkRecordForThisTestResolved);
 
 Then("this {string} is not {string}", checkRecordForThisTestNotResolved);
+
+Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
 
