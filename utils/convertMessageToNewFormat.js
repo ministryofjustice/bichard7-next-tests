@@ -7,7 +7,7 @@ const convertMessageToNewFormat = (message) => {
   }
 
   resultedCaseMessage = `<!-- To avoid duplicate message hash: ${uuidv4()} -->${resultedCaseMessage}`;
-  resultedCaseMessage = resultedCaseMessage.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  resultedCaseMessage = resultedCaseMessage.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
   const externalCorrelationId = message.match(/<msg:MessageIdentifier>([\s\S]*)<\/msg:MessageIdentifier>/)[1]?.trim();
 
