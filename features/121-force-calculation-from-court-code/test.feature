@@ -16,7 +16,6 @@ Feature: {121} BR7 R5.1-RCD399-Force calculation-FF code in CourtHearingLocation
 
 	@Should
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Deriving the force owner from the court hearing location
 		When I am logged in as "met.police"
 			And "input-message" is received
@@ -30,8 +29,7 @@ Feature: {121} BR7 R5.1-RCD399-Force calculation-FF code in CourtHearingLocation
 		Then I see error "HO100206" in the "ASN" row of the results table
 		When I correct "ASN" to "1101VK0100000376269X"
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
-		When I reload until I don't see "(Submitted)"
+			And I reload until I don't see "(Submitted)"
 		Then I cannot see exception "HO100201" in the exception list table
 		When I am logged in as "met.police"
 			And I view the list of exceptions

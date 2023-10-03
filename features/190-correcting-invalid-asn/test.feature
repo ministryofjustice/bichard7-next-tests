@@ -35,7 +35,7 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 			And I click the "Defendant" tab
 			And I correct "ASN" to "0901VK0100000342547V"
 			And I submit the record
-			And I click the "Return To List" button
+			And I return to the list
 		Then I see exception "HO100304" in the exception list table
 		When "input-message-2" is received
 		Then I see exception "HO100206" in the exception list table
@@ -44,6 +44,6 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 			And I click the "Defendant" tab
 			And I correct "ASN" to "0901VK0100000342547V"
 			And I submit the record
-			And I click the "Return To List" button
+			And I return to the list
 		Then I see exception "HO100304" in the exception list table
 			And the PNC record has not been updated
