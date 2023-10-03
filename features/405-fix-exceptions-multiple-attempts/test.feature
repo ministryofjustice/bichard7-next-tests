@@ -22,7 +22,7 @@ Feature: 405 - Fixing exceptions and resubmitting with multiple attempts
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000410804K"
 			And I submit the record
-			And I click the "Return To List" button
+			And I return to the list
 		Then the PNC updates the record
 			And the "record" for "Ladyfish Larry" is "resolved"
 			And there are no exceptions or triggers for this record

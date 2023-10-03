@@ -86,7 +86,8 @@ const {
   checkNoExceptionsForThis,
   canSeeContentInTableForThis,
   switchBichard,
-  cannotSeeBichardSwitcher
+  cannotSeeBichardSwitcher,
+  returnToList
 } = require("./old-utils/ui");
 
 const {
@@ -131,6 +132,8 @@ When("I open the record for {string}", openRecordFor);
 When("I click the {string} menu button", clickMainTab);
 
 When("I click the {string} button", clickButton);
+
+When("I return to the list", returnToList);
 
 When("I submit the record", submitRecord);
 
