@@ -31,9 +31,9 @@ Feature: {194} BR7-R5.4-RCD548-R5.3.2-RCD556-Breach Offence with Re-sentence for
 			And I click the "Offences" tab
 			And I view offence "1"
 		Then I see "3501" in the "CJS Code" row of the results table
-			And I click the "Return To List (Unlock)" button
+		When I return to the list
 			And I view the list of exceptions
-		When I open the record for "JUBES THETUBE"
+			And I open the record for "JUBES THETUBE"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0006"
 			And I see trigger "TRPR0020" for offence "1"

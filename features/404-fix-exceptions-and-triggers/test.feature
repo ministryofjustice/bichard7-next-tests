@@ -20,7 +20,7 @@ Feature: 404 - Fixing exceptions and triggers and resubmitting
 		Then I see exception "(Submitted)" in the exception list table
 		When I reload until I don't see "(Submitted)"
 			And I click the "Refresh" button
-			And I click the "Return To List (Unlock)" button
+			And I return to the list
 		Then the "exception" for "SEXOFFENCE TRPRFOUR" is "resolved"
 			And the PNC updates the record
 		When I view the list of exceptions
