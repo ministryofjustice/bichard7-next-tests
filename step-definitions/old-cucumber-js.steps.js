@@ -87,7 +87,8 @@ const {
   canSeeContentInTableForThis,
   switchBichard,
   cannotSeeBichardSwitcher,
-  returnToList
+  returnToList,
+  reloadUntilStringPresentForRecord
 } = require("./old-utils/ui");
 
 const {
@@ -166,6 +167,8 @@ When("I wait for {string} in the list of records", waitForRecordStep);
 When("I generate today's report", generateTodaysReport);
 
 Then("I reload until I see {string}", reloadUntilStringPresent);
+
+Then("I reload until I see {string} for this record", reloadUntilStringPresentForRecord);
 
 Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
 

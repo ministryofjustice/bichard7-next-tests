@@ -19,7 +19,7 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
       And "input-message" is received
 
   @Must
-  @LoadTestNoUI
+  @Parallel
   @NextUI
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "supervisor"
