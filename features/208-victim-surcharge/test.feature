@@ -17,7 +17,6 @@ Feature: {208} 3.2 UAT - Victim Surcharge
 			And "input-message" is received
 
 	@Should
-	@LoadTestNoUI
 	@NextUI
 	Scenario: Testing automation for victim surcharge
 		Given I am logged in as "supervisor"

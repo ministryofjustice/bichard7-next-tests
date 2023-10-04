@@ -17,8 +17,6 @@
     "test:chunk": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC'",
     "test:file-parallel": "./node_modules/.bin/cucumber-js --format @cucumber/pretty-formatter --require steps --no-strict --exit --publish-quiet --parallel",
     "test:file": "./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter",
-    "test:loadtest-noui": "PRINT_ENV=true RUN_PARALLEL=true NO_UI=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --tags '@LoadTestNoUI' features",
-    "test:loadtest-ui": "PRINT_ENV=true RUN_PARALLEL=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --tags '@LoadTestUI' features",
     "test:must": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must' features",
     "test:nextUI:file": "nextUI=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --publish-quiet --tags '@NextUI'",
     "test:nextUI:must": "nextUI=true ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@Must and @NextUI' features",

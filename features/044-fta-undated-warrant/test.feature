@@ -19,7 +19,6 @@ Feature: {044} #151 - FTA Undated Warrant
 			And "input-message" is received
 
 	@Could
-	@LoadTestUI
 	@NextUI
 	Scenario: Handling FTA results with undated warrant
 		Given I am logged in as "supervisor"

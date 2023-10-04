@@ -19,7 +19,7 @@ Feature: {153} BR7 R5.2.2-RCD518 - Verdict Not Guilty
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could @LoadTestNoUI @NextUI
+	@Could @NextUI
 	Scenario: No breach trigger is generated for not guilty updates
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
