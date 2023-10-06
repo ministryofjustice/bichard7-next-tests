@@ -6,7 +6,7 @@ const dummyUsers = require("../../utils/dummyUserData");
 
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
-const parallelUserName = (world, name) => (world.config.parallel ? `${name}.${process.env.PARALLEL_ID}` : name);
+const parallelUserName = (world, name) => (world.config.parallel ? `${name}.${world.config.workerId}` : name);
 
 const createUser = async (world, name) => {
   const user = dummyUsers[name.toLowerCase()];

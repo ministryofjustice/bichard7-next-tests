@@ -545,6 +545,12 @@ const reloadUntilStringPresent = async function (content) {
   expect(result).toBeTruthy();
 };
 
+const reloadUntilStringPresentForRecord = async function (content) {
+  await filterByRecordName(this);
+  const result = await reloadUntilContent(this.browser.page, content);
+  expect(result).toBeTruthy();
+};
+
 const reloadUntilStringNotPresent = async function (content) {
   const result = await reloadUntilNotContent(this.browser.page, content);
   expect(result).toBeTruthy();
@@ -711,5 +717,6 @@ module.exports = {
   recordsForPerson,
   switchBichard,
   cannotSeeBichardSwitcher,
-  returnToList
+  returnToList,
+  reloadUntilStringPresentForRecord
 };
