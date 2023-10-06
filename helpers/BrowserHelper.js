@@ -4,6 +4,8 @@ const PuppeteerMassScreenshots = require("puppeteer-mass-screenshots");
 const { authType } = require("../utils/config");
 const { logout } = require("../utils/urls");
 
+let browser;
+
 class BrowserHelper {
   constructor(options) {
     this.options = options;
@@ -13,8 +15,8 @@ class BrowserHelper {
   }
 
   async newPage(path) {
-    if (!this.browser)
-      this.browser = await puppeteer.launch({
+    if (!browser)
+      browser = await puppeteer.launch({
         ignoreHTTPSErrors: true,
         headless: this.options.headless ? "new" : false,
         args: [
@@ -27,7 +29,7 @@ class BrowserHelper {
           "--window-size=1024,1024"
         ]
       });
-    const context = await this.browser.createIncognitoBrowserContext();
+    const context = await browser.createIncognitoBrowserContext();
     this.page = await context.newPage();
     await this.page.setViewport({
       width: 1024,
@@ -87,7 +89,7 @@ class BrowserHelper {
       await this.recorder.stop();
       this.options.world.attach(this.options.world.outputDir);
     }
-    if (this.browser) this.browser.close();
+    if (this.page) this.page.close();
   }
 
   elementText(selector) {
