@@ -37,7 +37,7 @@ Feature: {158} BR7 R5.2.2-RCD518 - Result class Sentence & Adjournment Post Judg
 			And I view offence "2"
 			And I correct "Sequence Number" to "2"
 			And I submit the record
-			And I click the "Return To List" button
+			And I return to the list
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see exception "HO200113" in the exception list table
 		When I open the record for "DDDraven Alex"

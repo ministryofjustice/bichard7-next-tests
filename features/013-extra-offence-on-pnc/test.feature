@@ -19,7 +19,7 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
       And "input-message" is received
 
   @Must
-  @LoadTestUI
+  @Parallel
   @AuditLog
   @NextUI
   Scenario: Exception is raised when there is a data mismatch

@@ -86,7 +86,9 @@ const {
   checkNoExceptionsForThis,
   canSeeContentInTableForThis,
   switchBichard,
-  cannotSeeBichardSwitcher
+  cannotSeeBichardSwitcher,
+  returnToList,
+  reloadUntilStringPresentForRecord
 } = require("./old-utils/ui");
 
 const {
@@ -132,6 +134,8 @@ When("I click the {string} menu button", clickMainTab);
 
 When("I click the {string} button", clickButton);
 
+When("I return to the list", returnToList);
+
 When("I submit the record", submitRecord);
 
 When("I access the {string} report", accessReport);
@@ -163,6 +167,8 @@ When("I wait for {string} in the list of records", waitForRecordStep);
 When("I generate today's report", generateTodaysReport);
 
 Then("I reload until I see {string}", reloadUntilStringPresent);
+
+Then("I reload until I see {string} for this record", reloadUntilStringPresentForRecord);
 
 Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
 

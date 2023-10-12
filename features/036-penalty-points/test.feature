@@ -18,7 +18,6 @@ Feature: {036} 3.3_BR7_Penalty Points for Result Code 3008
 			And "input-message" is received
 
 	@Could
-	@LoadTestNoUI
 	@NextUI
 	Scenario: Hearing results with penalty points are sent to the PNC
 		Given I am logged in as "supervisor"

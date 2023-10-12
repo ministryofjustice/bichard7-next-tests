@@ -22,7 +22,7 @@ Feature: {297} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text ISNT use
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should @LoadTestNoUI @NextUI
+	@Should @NextUI
 	Scenario: No exceptions are generated when the result text is the same and PNC is updated
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

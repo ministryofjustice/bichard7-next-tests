@@ -19,7 +19,7 @@ Feature: {003} R3_BR7_TR_003_TRPR0012
       And "input-message" is received
 
   @Must
-  @LoadTestUI
+  @Parallel
   Scenario: Exceptions and triggers are created for a "stop list" message
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
