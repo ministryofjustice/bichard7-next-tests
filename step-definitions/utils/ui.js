@@ -157,7 +157,7 @@ const reallocateCaseToForce = async function (force) {
     ([f, allForces]) => {
       const select = document.querySelector('select[name="force"]');
       const options = Array.from(select.options);
-      const selectedForceCode = { BTP: "93" }[f];
+      const selectedForceCode = { BTP: "93", Merseyside: "05", Metropolitan: "02" }[f];
       const forceDetails = allForces.find((x) => x.code === selectedForceCode);
       const dropdownTextToSelect = `${forceDetails.code} - ${forceDetails.name}`;
       const option = options.find((o) => o.text === dropdownTextToSelect);
@@ -218,10 +218,19 @@ const noExceptionPresentForOffender = async function (name) {
   await this.browser.clickAndWait("#clear-filters-applied");
 };
 
+const resolveSelectedTriggers = async function () {
+  await this.browser.clickAndWait("#mark-triggers-complete-button");
+};
+
 const resolveAllTriggers = async function () {
   const [selectAllLink] = await this.browser.page.$$("#select-all-triggers button");
   await selectAllLink.evaluate((e) => e.click());
-  await this.browser.clickAndWait("#mark-triggers-complete-button");
+  await resolveSelectedTriggers();
+};
+
+const selectTriggerToResolve = async function (triggerNumber) {
+  const checkbox = (await this.browser.page.$$(".moj-trigger-row input[type=checkbox]"))[triggerNumber - 1];
+  await checkbox.click();
 };
 
 const filterRecords = async function (world, resolvedType, recordType) {
@@ -383,6 +392,8 @@ module.exports = {
   checkTriggerforOffence,
   checkCompleteTriggerforOffence,
   resolveAllTriggers,
+  selectTriggerToResolve,
+  resolveSelectedTriggers,
   checkRecordForThisTestResolved,
   checkRecordForThisTestNotResolved,
   checkOffenceData,

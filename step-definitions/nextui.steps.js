@@ -35,6 +35,8 @@ const {
   loadTab,
   checkTrigger,
   resolveAllTriggers,
+  selectTriggerToResolve,
+  resolveSelectedTriggers,
   checkOffenceData,
   checkOffenceDataError,
   checkTriggerforOffence,
@@ -120,6 +122,10 @@ When("I click the {string} tab", loadTab);
 When("I click the {string} button", clickButton);
 
 When("I resolve all of the triggers", resolveAllTriggers);
+
+When("I select trigger {string} to resolve", selectTriggerToResolve);
+
+When("I resolve the selected triggers", resolveSelectedTriggers);
 
 When("I generate today's report", generateTodaysReport);
 
