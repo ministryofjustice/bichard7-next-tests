@@ -218,14 +218,15 @@ const noExceptionPresentForOffender = async function (name) {
   await this.browser.clickAndWait("#clear-filters-applied");
 };
 
-const resolveSelectedTriggers = async function () {
+const resolveSelectedTriggers = async function (world = this) {
+  this.browser = this.browser ? this.browser : world.browser;
   await this.browser.clickAndWait("#mark-triggers-complete-button");
 };
 
 const resolveAllTriggers = async function () {
   const [selectAllLink] = await this.browser.page.$$("#select-all-triggers button");
   await selectAllLink.evaluate((e) => e.click());
-  await resolveSelectedTriggers();
+  await resolveSelectedTriggers(this);
 };
 
 const selectTriggerToResolve = async function (triggerNumber) {
