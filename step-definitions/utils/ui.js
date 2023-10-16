@@ -218,9 +218,11 @@ const noExceptionPresentForOffender = async function (name) {
   await this.browser.clickAndWait("#clear-filters-applied");
 };
 
-const resolveSelectedTriggers = async function (world = this) {
-  this.browser = this.browser ? this.browser : world.browser;
-  await this.browser.clickAndWait("#mark-triggers-complete-button");
+const resolveSelectedTriggers = async function (world) {
+  await Promise.all([
+    world.browser.page.click("#mark-triggers-complete-button"),
+    world.browser.page.waitForNavigation()
+  ]);
 };
 
 const resolveAllTriggers = async function () {
