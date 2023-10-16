@@ -218,17 +218,21 @@ const noExceptionPresentForOffender = async function (name) {
   await this.browser.clickAndWait("#clear-filters-applied");
 };
 
-const resolveSelectedTriggers = async function (world) {
+const markTriggersComplete = async function (world) {
   await Promise.all([
     world.browser.page.click("#mark-triggers-complete-button"),
     world.browser.page.waitForNavigation()
   ]);
 };
 
+const resolveSelectedTriggers = async function () {
+  await markTriggersComplete(this);
+};
+
 const resolveAllTriggers = async function () {
   const [selectAllLink] = await this.browser.page.$$("#select-all-triggers button");
   await selectAllLink.evaluate((e) => e.click());
-  await resolveSelectedTriggers(this);
+  await markTriggersComplete(this);
 };
 
 const selectTriggerToResolve = async function (triggerNumber) {
