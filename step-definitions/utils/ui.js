@@ -379,6 +379,12 @@ const clickButton = async function (value) {
 const switchBichard = async function () {
   const { page } = this.browser;
   await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
+
+  // if feedback page is shown
+  const skip = await page.$("button[class*='SkipLink']");
+  if (skip) {
+    await Promise.all([skip.click(), page.waitForNavigation()]);
+  }
 };
 
 module.exports = {
