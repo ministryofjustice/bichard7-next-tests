@@ -219,7 +219,7 @@ const noExceptionPresentForOffender = async function (name) {
 };
 
 const markTriggersComplete = async function (world) {
-  world.browser.clickAndWait("#mark-triggers-complete-button");
+  await world.browser.clickAndWait("#mark-triggers-complete-button");
 };
 
 const resolveSelectedTriggers = async function () {
