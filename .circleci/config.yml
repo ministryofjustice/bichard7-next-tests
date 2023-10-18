@@ -223,7 +223,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - start_bichard7_core
-      - run_test_chunk
+      - run_test_chunk:
           NEXTUI: "true"
       - save_artifacts
       - store_test_results:
