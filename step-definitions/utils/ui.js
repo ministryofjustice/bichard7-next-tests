@@ -218,15 +218,18 @@ const noExceptionPresentForOffender = async function (name) {
   await this.browser.clickAndWait("#clear-filters-applied");
 };
 
-const resolveSelectedTriggers = async function (world = this) {
-  this.browser = this.browser ? this.browser : world.browser;
-  await this.browser.clickAndWait("#mark-triggers-complete-button");
+const markTriggersComplete = async function (world) {
+  await world.browser.clickAndWait("#mark-triggers-complete-button");
+};
+
+const resolveSelectedTriggers = async function () {
+  await markTriggersComplete(this);
 };
 
 const resolveAllTriggers = async function () {
   const [selectAllLink] = await this.browser.page.$$("#select-all-triggers button");
   await selectAllLink.evaluate((e) => e.click());
-  await resolveSelectedTriggers(this);
+  await markTriggersComplete(this);
 };
 
 const selectTriggerToResolve = async function (triggerNumber) {
@@ -386,6 +389,12 @@ const clickButton = async function (value) {
 const switchBichard = async function () {
   const { page } = this.browser;
   await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
+
+  // if feedback page is shown
+  const skip = await page.$("button[class*='SkipLink']");
+  if (skip) {
+    await Promise.all([skip.click(), page.waitForNavigation()]);
+  }
 };
 
 module.exports = {
