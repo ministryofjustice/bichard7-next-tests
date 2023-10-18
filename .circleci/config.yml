@@ -169,6 +169,27 @@ jobs:
       - store_test_results:
           path: ./cucumber/results
 
+  test-e2e-legacy-new-ui:
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
+    parallelism: 10
+    environment:
+      RECORD: "true"
+      MESSAGE_ENTRY_POINT: mq
+      AWS_URL: "http://localhost:4566"
+    steps:
+      - node/install
+      - attach_workspace:
+          at: ~/
+      - start_bichard7_legacy
+      - run_test_chunk:
+          NEXTUI: "true"
+      - save_artifacts
+      - store_test_results:
+          path: ./cucumber/results
+  
   test-e2e-core:
     machine:
       image: ubuntu-2204:2023.07.2
@@ -188,7 +209,7 @@ jobs:
       - store_test_results:
           path: ./cucumber/results
 
-  test-e2e-legacy-new-ui:
+  test-e2e-core-new-ui:
     machine:
       image: ubuntu-2204:2023.07.2
       docker_layer_caching: false
@@ -196,14 +217,13 @@ jobs:
     parallelism: 10
     environment:
       RECORD: "true"
-      MESSAGE_ENTRY_POINT: mq
+      MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
     steps:
-      - node/install
       - attach_workspace:
           at: ~/
-      - start_bichard7_legacy
-      - run_test_chunk:
+      - start_bichard7_core
+      - run_test_chunk
           NEXTUI: "true"
       - save_artifacts
       - store_test_results:
@@ -245,10 +265,13 @@ workflows:
       - test-e2e-legacy:
           requires:
             - build
+      - test-e2e-legacy-new-ui:
+          requires:
+            - build
       - test-e2e-core:
           requires:
             - build
-      - test-e2e-legacy-new-ui:
+      - test-e2e-core-new-ui:
           requires:
             - build
       - test-characterisation-legacy:
