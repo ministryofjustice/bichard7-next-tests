@@ -69,6 +69,8 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./old-utils/ui");
 
+const { checkConductorWorkflowCompleted } = require("../utils/conductor");
+
 const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
 
@@ -241,3 +243,7 @@ When("I click the alternate {string} tab", alternateLoadTab);
 Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
 
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
+
+Then("the conductor workflow is completed", async function () {
+  await checkConductorWorkflowCompleted(this);
+});
