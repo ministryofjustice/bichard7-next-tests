@@ -10,7 +10,9 @@ if [ "$NEXTUI" == "true" ]; then
   TAGS="${TAGS} and @NextUI"
 fi
 
-if [ "$LEGACY_PHASE1" == "false" ]; then
+if [ "$LEGACY_PHASE1" == "true" ]; then
+  TAGS="${TAGS} and not @CorePhase1"
+elif [ "$LEGACY_PHASE1" == "false" ]; then
   TAGS="${TAGS} and @CorePhase1"
 fi
 
