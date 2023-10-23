@@ -42,12 +42,16 @@ commands:
       NEXTUI:
         default: "false"
         type: "string"
+      LEGACY_PHASE1:
+        default: "true"
+        type: "string"
     steps:
       - run:
           name: Run test chunk
           command: |
             CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
             NEXTUI=<<parameters.NEXTUI>> \
+            LEGACY_PHASE1=<<parameters.LEGACY_PHASE1>> \
             npm run test:chunk
 
   save_artifacts:
@@ -207,6 +211,7 @@ jobs:
           at: ~/
       - start_bichard7_core
       - run_test_chunk
+          LEGACY_PHASE1: "false"
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
@@ -221,7 +226,6 @@ jobs:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
-      # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
     steps:
       - attach_workspace:
@@ -229,6 +233,7 @@ jobs:
       - start_bichard7_core
       - run_test_chunk:
           NEXTUI: "true"
+          LEGACY_PHASE1: "false"
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
