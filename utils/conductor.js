@@ -29,14 +29,14 @@ const checkConductorWorkflowCompleted = async function (world) {
     .then((response) => response.data)
     .catch((e) => console.log(e));
 
-  const convertSpiToAhoTask = incomingMessageHandlerWorkflow.tasks.find((t) => t.taskType === "convert_spi_to_aho");
+  const beginProcessingTask = incomingMessageHandlerWorkflow.tasks.find(
+    (t) => t.referenceTaskName === "begin_processing"
+  );
 
   const workflow = await conductorApi
-    .get(`${CONDUCTOR_API_URL}/api/workflow/bichard_process/correlated/${convertSpiToAhoTask.outputData.correlationId}`)
-    .then((response) => (response.data.length ? response.data[0] : response.data))
+    .get(`${CONDUCTOR_API_URL}/api/workflow/${beginProcessingTask.outputData.workflowId}`)
+    .then((response) => response.data)
     .catch((e) => console.log(e));
-
-  console.log(workflow);
 
   expect(workflow.status).toEqual("COMPLETED");
 };
