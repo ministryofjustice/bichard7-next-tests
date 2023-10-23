@@ -5,6 +5,7 @@ set -e
 TAGS=$1
 CHUNK=${CHUNK:-$(find features -iname '*.feature' | sort | awk "(NR % $TOTAL_CHUNKS == $CHUNK_NUMBER)" | paste -d ' ' -s -)}
 NEXTUI=${NEXTUI:-"false"}
+LEGACY_PHASE1=${LEGACY_PHASE1:-"true"}
 
 if [ "$NEXTUI" == "true" ]; then
   TAGS="${TAGS} and @NextUI"
