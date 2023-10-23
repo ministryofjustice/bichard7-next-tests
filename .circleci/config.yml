@@ -211,7 +211,7 @@ jobs:
           at: ~/
       - start_bichard7_core
       - run_test_chunk:
-          LEGACY_PHASE1: "false"
+          LEGACY_PHASE1: 'false'
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
@@ -233,7 +233,7 @@ jobs:
       - start_bichard7_core
       - run_test_chunk:
           NEXTUI: "true"
-          LEGACY_PHASE1: "false"
+          LEGACY_PHASE1: 'false'
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
