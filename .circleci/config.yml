@@ -200,6 +200,8 @@ jobs:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
+      # use conductor for phase1 manual resolution
+      LEGACY_PHASE1: "false"
     steps:
       - attach_workspace:
           at: ~/
@@ -219,6 +221,8 @@ jobs:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
+      # use conductor for phase1 manual resolution
+      LEGACY_PHASE1: "false"
     steps:
       - attach_workspace:
           at: ~/
