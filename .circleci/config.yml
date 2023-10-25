@@ -141,9 +141,9 @@ commands:
 
 jobs:
   build:
-    machine:
-      image: ubuntu-2204:2023.07.2
-    resource_class: xlarge
+    executor:
+      name: node/default
+      tag: "20.6.1"
     steps:
       - checkout
       - node/install
@@ -156,10 +156,9 @@ jobs:
           paths: .
 
   test-e2e-legacy:
-    machine:
-      image: ubuntu-2204:2023.07.2
-      docker_layer_caching: false
-    resource_class: large
+    executor:
+      name: node/default
+      tag: "20.6.1"
     parallelism: 10
     environment:
       RECORD: "true"
@@ -176,10 +175,9 @@ jobs:
           path: ./cucumber/results
 
   test-e2e-legacy-new-ui:
-    machine:
-      image: ubuntu-2204:2023.07.2
-      docker_layer_caching: false
-    resource_class: large
+    executor:
+      name: node/default
+      tag: "20.6.1"
     parallelism: 10
     environment:
       RECORD: "true"
@@ -197,10 +195,9 @@ jobs:
           path: ./cucumber/results
   
   test-e2e-core:
-    machine:
-      image: ubuntu-2204:2023.07.2
-      docker_layer_caching: false
-    resource_class: large
+    executor:
+      name: node/default
+      tag: "20.6.1"
     parallelism: 10
     environment:
       RECORD: "true"
@@ -220,10 +217,9 @@ jobs:
           path: ./cucumber/results
 
   test-e2e-core-new-ui:
-    machine:
-      image: ubuntu-2204:2023.07.2
-      docker_layer_caching: false
-    resource_class: large
+    executor:
+      name: node/default
+      tag: "20.6.1"
     parallelism: 10
     environment:
       RECORD: "true"
@@ -243,10 +239,9 @@ jobs:
           path: ./cucumber/results
 
   test-characterisation-legacy:
-    machine:
-      image: ubuntu-2204:2023.07.2
-      docker_layer_caching: false
-    resource_class: large
+    executor:
+      name: node/default
+      tag: "20.6.1"
     steps:
       - node/install
       - attach_workspace:
@@ -256,10 +251,9 @@ jobs:
       - run: npm run test:characterisation:bichard
 
   test-characterisation-core:
-    machine:
-      image: ubuntu-2204:2023.07.2
-      docker_layer_caching: false
-    resource_class: large
+    executor:
+      name: node/default
+      tag: "20.6.1"
     steps:
       - node/install
       - attach_workspace:
