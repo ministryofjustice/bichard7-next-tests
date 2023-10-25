@@ -1,12 +1,12 @@
 const axios = require("axios");
 const { expect } = require("expect");
 const promisePoller = require("promise-poller").default;
-const { CONDUCTOR_API_URL, CONDUCTOR_API_PASSWORD, CONDUCTOR_API_USER } = require("../helpers/ConductorHelper");
+const { CONDUCTOR_API_URL, CONDUCTOR_PASSWORD, CONDUCTOR_USER } = require("../helpers/ConductorHelper");
 
 const base64 = (input) => Buffer.from(input).toString("base64");
 
 const basicAuthenticationHeaders = () => ({
-  Authorization: `Basic ${base64(`${CONDUCTOR_API_USER}:${CONDUCTOR_API_PASSWORD}`)}`
+  Authorization: `Basic ${base64(`${CONDUCTOR_USER}:${CONDUCTOR_PASSWORD}`)}`
 });
 
 const conductorApi = axios.create({
@@ -33,18 +33,26 @@ const checkConductorWorkflowCompleted = async function (world) {
     .then((response) => response.data)
     .catch((e) => console.log(e));
 
+  expect(incomingMessageHandlerWorkflowSearch).toBeDefined();
+
   const incomingMessageHandlerWorkflowSummary = incomingMessageHandlerWorkflowSearch.results.find((r) =>
     r.input.includes(world.currentCorrelationId)
   );
+
+  expect(incomingMessageHandlerWorkflowSummary).toBeDefined();
 
   const incomingMessageHandlerWorkflow = await conductorApi
     .get(`${CONDUCTOR_API_URL}/api/workflow/${incomingMessageHandlerWorkflowSummary.workflowId}`)
     .then((response) => response.data)
     .catch((e) => console.log(e));
 
+  expect(incomingMessageHandlerWorkflow).toBeDefined();
+
   const beginProcessingTask = incomingMessageHandlerWorkflow.tasks.find(
     (t) => t.referenceTaskName === "begin_processing"
   );
+
+  expect(beginProcessingTask).toBeDefined();
 
   const workflow = await promisePoller({
     taskFn: () => fetchCompletedBichardProcessWorkflow(beginProcessingTask.outputData.workflowId),

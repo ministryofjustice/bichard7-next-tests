@@ -206,6 +206,9 @@ jobs:
       AWS_URL: "http://localhost:4566"
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
+      CONDUCTOR_API_URL: "http://localhost:5002"
+      CONDUCTOR_USER: "bichard"
+      CONDUCTOR_PASSWORD: "password"
     steps:
       - attach_workspace:
           at: ~/
@@ -227,6 +230,9 @@ jobs:
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
+      CONDUCTOR_API_URL: "http://localhost:5002"
+      CONDUCTOR_USER: "bichard"
+      CONDUCTOR_PASSWORD: "password"
     steps:
       - attach_workspace:
           at: ~/
