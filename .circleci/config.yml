@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@6.7.0
+  aws-cli: circleci/aws-cli@4.1.1
   node: circleci/node@5.1.0
 
 commands:
@@ -164,6 +164,8 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
+      - aws-cli/setup:
+          profile_name: default
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -182,6 +184,8 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
+      - aws-cli/setup:
+          profile_name: default
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -203,6 +207,8 @@ jobs:
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
     steps:
+      - aws-cli/setup:
+          profile_name: default
       - attach_workspace:
           at: ~/
       - start_bichard7_core
@@ -223,6 +229,8 @@ jobs:
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
     steps:
+      - aws-cli/setup:
+          profile_name: default
       - attach_workspace:
           at: ~/
       - start_bichard7_core
@@ -238,6 +246,8 @@ jobs:
       name: node/default
       tag: "20.6.1"
     steps:
+      - aws-cli/setup:
+          profile_name: default
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy:
