@@ -10,7 +10,7 @@ commands:
     steps:
       - run:
           name: Clone bichard7-next-core
-          command: git clone -branch rick/update-bichard-process-human-task --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
+          command: git clone -b rick/update-bichard-process-human-task --depth 1 https://github.com/ministryofjustice/bichard7-next-core.git ~/bichard7-next-core
       - run:
           name: Install dependency
           working_directory: ~/bichard7-next-core
