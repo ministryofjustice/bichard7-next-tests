@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@4.1.1
   node: circleci/node@5.1.0
-  docker: circleci/docker@2.4.0
 
 commands:
   ################### Helpers
@@ -165,7 +164,7 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - docker/install-docker-tools
+      - setup_remote_docker
       - aws-cli/setup:
           profile_name: default
       - attach_workspace:
@@ -186,7 +185,7 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - docker/install-docker-tools
+      - setup_remote_docker
       - aws-cli/setup:
           profile_name: default
       - attach_workspace:
@@ -210,7 +209,7 @@ jobs:
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
     steps:
-      - docker/install-docker-tools
+      - setup_remote_docker
       - aws-cli/setup:
           profile_name: default
       - attach_workspace:
@@ -233,7 +232,7 @@ jobs:
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
     steps:
-      - docker/install-docker-tools
+      - setup_remote_docker
       - aws-cli/setup:
           profile_name: default
       - attach_workspace:
@@ -251,7 +250,7 @@ jobs:
       name: node/default
       tag: "20.6.1"
     steps:
-      - docker/install-docker-tools
+      - setup_remote_docker
       - aws-cli/setup:
           profile_name: default
       - attach_workspace:
