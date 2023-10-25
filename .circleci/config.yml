@@ -76,6 +76,9 @@ commands:
   ################### Services
   start_bichard7_legacy:
     parameters:
+      LEGACY_PHASE1:
+        default: "true"
+        type: string
       ENABLE_PHASE_2:
         default: "true"
         type: string
@@ -87,6 +90,7 @@ commands:
           name: Start bichard7 legacy
           working_directory: ~/bichard7-next-core
           command: |
+            LEGACY_PHASE1=<<parameters.LEGACY_PHASE1>> \
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
       - run:
@@ -99,6 +103,7 @@ commands:
               -f environment/docker-compose.yml \
               -f environment/docker-compose-bichard.yml down -v
 
+            LEGACY_PHASE1=<<parameters.LEGACY_PHASE1>> \
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
 
@@ -206,9 +211,6 @@ jobs:
       AWS_URL: "http://localhost:4566"
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
-      CONDUCTOR_API_URL: "http://localhost:5002"
-      CONDUCTOR_USER: "bichard"
-      CONDUCTOR_PASSWORD: "password"
     steps:
       - attach_workspace:
           at: ~/
@@ -230,9 +232,6 @@ jobs:
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
-      CONDUCTOR_API_URL: "http://localhost:5002"
-      CONDUCTOR_USER: "bichard"
-      CONDUCTOR_PASSWORD: "password"
     steps:
       - attach_workspace:
           at: ~/
