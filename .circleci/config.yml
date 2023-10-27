@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@4.1.1
   node: circleci/node@5.1.0
 
 commands:
@@ -141,11 +140,12 @@ commands:
 
 jobs:
   build:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+    resource_class: xlarge
     steps:
       - checkout
+      - node/install
       - node/install-packages
       - checkout_core
       - node/install-packages:
@@ -155,18 +155,17 @@ jobs:
           paths: .
 
   test-e2e-legacy:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
     parallelism: 10
     environment:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - setup_remote_docker
-      - aws-cli/setup:
-          profile_name: default
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -176,18 +175,17 @@ jobs:
           path: ./cucumber/results
 
   test-e2e-legacy-new-ui:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
     parallelism: 10
     environment:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - setup_remote_docker
-      - aws-cli/setup:
-          profile_name: default
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -198,9 +196,10 @@ jobs:
           path: ./cucumber/results
   
   test-e2e-core:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
     parallelism: 10
     environment:
       RECORD: "true"
@@ -209,9 +208,7 @@ jobs:
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
     steps:
-      - setup_remote_docker
-      - aws-cli/setup:
-          profile_name: default
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_core
@@ -222,9 +219,10 @@ jobs:
           path: ./cucumber/results
 
   test-e2e-core-new-ui:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
     parallelism: 10
     environment:
       RECORD: "true"
@@ -232,9 +230,7 @@ jobs:
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
     steps:
-      - setup_remote_docker
-      - aws-cli/setup:
-          profile_name: default
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_core
@@ -246,13 +242,12 @@ jobs:
           path: ./cucumber/results
 
   test-characterisation-legacy:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
     steps:
-      - setup_remote_docker
-      - aws-cli/setup:
-          profile_name: default
+      - node/install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy:
@@ -260,10 +255,12 @@ jobs:
       - run: npm run test:characterisation:bichard
 
   test-characterisation-core:
-    executor:
-      name: node/default
-      tag: "20.6.1"
+    machine:
+      image: ubuntu-2204:2023.07.2
+      docker_layer_caching: false
+    resource_class: large
     steps:
+      - node/install
       - attach_workspace:
           at: ~/
       - start_core_testserver
