@@ -5,15 +5,15 @@ set -e
 TAGS=$1
 CHUNK=${CHUNK:-$(find features -iname '*.feature' | sort | awk "(NR % $TOTAL_CHUNKS == $CHUNK_NUMBER)" | paste -d ' ' -s -)}
 NEXTUI=${NEXTUI:-"false"}
-LEGACY_PHASE1=${LEGACY_PHASE1:-"true"}
+ENABLE_CORE_PHASE1=${ENABLE_CORE_PHASE1:-"false"}
 
 if [ "$NEXTUI" == "true" ]; then
   TAGS="${TAGS} and @NextUI"
 fi
 
-if [ "$LEGACY_PHASE1" == "true" ]; then
+if [ "$ENABLE_CORE_PHASE1" == "false" ]; then
   TAGS="${TAGS} and not @CorePhase1"
-elif [ "$LEGACY_PHASE1" == "false" ]; then
+elif [ "$ENABLE_CORE_PHASE1" == "true" ]; then
   TAGS="${TAGS} or @CorePhase1"
 fi
 

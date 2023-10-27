@@ -41,8 +41,8 @@ commands:
       NEXTUI:
         default: "false"
         type: "string"
-      LEGACY_PHASE1:
-        default: "true"
+      ENABLE_CORE_PHASE1:
+        default: "false"
         type: "string"
     steps:
       - run:
@@ -50,7 +50,7 @@ commands:
           command: |
             CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
             NEXTUI=<<parameters.NEXTUI>> \
-            LEGACY_PHASE1=<<parameters.LEGACY_PHASE1>> \
+            ENABLE_CORE_PHASE1=<<parameters.ENABLE_CORE_PHASE1>> \
             npm run test:chunk
 
   save_artifacts:
@@ -89,8 +89,8 @@ commands:
   ################### Services
   start_bichard7_legacy:
     parameters:
-      LEGACY_PHASE1:
-        default: "true"
+      ENABLE_CORE_PHASE1:
+        default: "false"
         type: string
       ENABLE_PHASE_2:
         default: "true"
@@ -103,7 +103,7 @@ commands:
           name: Start bichard7 legacy
           working_directory: ~/bichard7-next-core
           command: |
-            LEGACY_PHASE1=<<parameters.LEGACY_PHASE1>> \
+            ENABLE_CORE_PHASE1=<<parameters.ENABLE_CORE_PHASE1>> \
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
       - run:
@@ -116,7 +116,7 @@ commands:
               -f environment/docker-compose.yml \
               -f environment/docker-compose-bichard.yml down -v
 
-            LEGACY_PHASE1=<<parameters.LEGACY_PHASE1>> \
+            ENABLE_CORE_PHASE1=<<parameters.ENABLE_CORE_PHASE1>> \
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
 
@@ -220,14 +220,14 @@ jobs:
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
       # use conductor for phase1 manual resolution
-      LEGACY_PHASE1: "false"
+      ENABLE_CORE_PHASE1: "true"
     steps:
       - attach_workspace:
           at: ~/
       - node_install
       - start_bichard7_core
       - run_test_chunk:
-          LEGACY_PHASE1: 'false'
+          ENABLE_CORE_PHASE1: 'true'
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
@@ -242,7 +242,7 @@ jobs:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
-      LEGACY_PHASE1: "false"
+      ENABLE_CORE_PHASE1: "true"
     steps:
       - attach_workspace:
           at: ~/
@@ -250,7 +250,7 @@ jobs:
       - start_bichard7_core
       - run_test_chunk:
           NEXTUI: "true"
-          LEGACY_PHASE1: 'false'
+          ENABLE_CORE_PHASE1: 'true'
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
