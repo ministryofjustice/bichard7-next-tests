@@ -72,6 +72,19 @@ commands:
       - store_test_results:
           path: /home/circleci/project/test-results.xml
 
+  - node_install:
+    - restore_cache:
+      name: Restore nvm cache
+      keys:
+        # Invalidate the cache based on architecture, the version of Node defined in `nvmrc`
+        - v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
+    - run: nvm install
+    - save_cache:
+        name: Save nvm cache
+        key: v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
+        paths:
+          - /opt/circleci/.nvm/.cache
+
   ################### Services
   start_bichard7_legacy:
     parameters:
@@ -145,7 +158,7 @@ jobs:
     resource_class: xlarge
     steps:
       - checkout
-      - node/install
+      - node_install
       - node/install-packages
       - checkout_core
       - node/install-packages:
@@ -165,7 +178,7 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - node/install
+      - node_install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -185,7 +198,7 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - node/install
+      - node_install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy
@@ -208,7 +221,7 @@ jobs:
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
     steps:
-      - node/install
+      - node_install
       - attach_workspace:
           at: ~/
       - start_bichard7_core
@@ -230,7 +243,7 @@ jobs:
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
     steps:
-      - node/install
+      - node_install
       - attach_workspace:
           at: ~/
       - start_bichard7_core
@@ -247,7 +260,7 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     steps:
-      - node/install
+      - node_install
       - attach_workspace:
           at: ~/
       - start_bichard7_legacy:
@@ -260,7 +273,7 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     steps:
-      - node/install
+      - node_install
       - attach_workspace:
           at: ~/
       - start_core_testserver
