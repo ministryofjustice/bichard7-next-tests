@@ -79,7 +79,9 @@ commands:
           keys:
             # Invalidate the cache based on architecture, the version of Node defined in `nvmrc`
             - v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
-      - run: nvm install
+      - run:
+          command: nvm install
+          working_directory: ~/bichard7-next-core
       - save_cache:
           name: Save nvm cache
           key: v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
