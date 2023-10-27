@@ -79,9 +79,7 @@ commands:
           keys:
             # Invalidate the cache based on architecture, the version of Node defined in `nvmrc`
             - v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
-      - run:
-          command: nvm install
-          working_directory: ~/bichard7-next-core
+      - run: nvm install
       - save_cache:
           name: Save nvm cache
           key: v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
@@ -181,9 +179,9 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - node_install
       - attach_workspace:
           at: ~/
+      - node_install
       - start_bichard7_legacy
       - run_test_chunk
       - save_artifacts
@@ -201,9 +199,9 @@ jobs:
       MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
     steps:
-      - node_install
       - attach_workspace:
           at: ~/
+      - node_install
       - start_bichard7_legacy
       - run_test_chunk:
           NEXTUI: "true"
@@ -224,9 +222,9 @@ jobs:
       # use conductor for phase1 manual resolution
       LEGACY_PHASE1: "false"
     steps:
-      - node_install
       - attach_workspace:
           at: ~/
+      - node_install
       - start_bichard7_core
       - run_test_chunk:
           LEGACY_PHASE1: 'false'
@@ -246,9 +244,9 @@ jobs:
       AWS_URL: "http://localhost:4566"
       LEGACY_PHASE1: "false"
     steps:
-      - node_install
       - attach_workspace:
           at: ~/
+      - node_install
       - start_bichard7_core
       - run_test_chunk:
           NEXTUI: "true"
@@ -263,9 +261,9 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     steps:
-      - node_install
       - attach_workspace:
           at: ~/
+      - node_install
       - start_bichard7_legacy:
           ENABLE_PHASE_2: "false"
       - run: npm run test:characterisation:bichard
@@ -276,9 +274,9 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     steps:
-      - node_install
       - attach_workspace:
           at: ~/
+      - node_install
       - start_core_testserver
       - run: npm run test:characterisation
 
