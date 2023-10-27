@@ -244,7 +244,7 @@ const manuallyResolveRecord = async function () {
     await this.browser.page.waitForNavigation()
   ]);
 
-  await this.browser.page.click("#Resolve");
+  await Promise.all([await this.browser.page.click("#Resolve"), await this.browser.page.waitForNavigation()]);
 };
 
 const filterRecords = async function (world, resolvedType, recordType) {
