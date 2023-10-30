@@ -27,7 +27,7 @@ const fetchCompletedBichardProcessWorkflow = async (workflowId) => {
 };
 
 const checkConductorWorkflowCompleted = async function (world) {
-  if (config.enableCorePhase1 === "false") {
+  if (config.enableCorePhase1 === false) {
     return;
   }
 
