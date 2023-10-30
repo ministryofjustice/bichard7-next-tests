@@ -2,6 +2,7 @@ const axios = require("axios");
 const { expect } = require("expect");
 const promisePoller = require("promise-poller").default;
 const { CONDUCTOR_API_URL, CONDUCTOR_PASSWORD, CONDUCTOR_USER } = require("../helpers/ConductorHelper");
+const { config } = require("./config");
 
 const base64 = (input) => Buffer.from(input).toString("base64");
 
@@ -26,6 +27,10 @@ const fetchCompletedBichardProcessWorkflow = async (workflowId) => {
 };
 
 const checkConductorWorkflowCompleted = async function (world) {
+  if (config.enableCorePhase1 === "false") {
+    return;
+  }
+
   const incomingMessageHandlerWorkflowSearch = await conductorApi
     .get(
       `${CONDUCTOR_API_URL}/api/workflow/search?query=%22workflowType=incoming_message_handler%20AND%20status=COMPLETED%22`

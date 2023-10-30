@@ -34,3 +34,4 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
       And this "record" is not "unresolved"
       And the PNC record has not been updated
       And the audit log contains "Exception marked as resolved by user"
+      And the conductor workflow is completed
