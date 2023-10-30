@@ -97,6 +97,8 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./utils/ui");
 
+const { checkConductorWorkflowCompleted } = require("../utils/conductor");
+
 const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
 
@@ -309,3 +311,7 @@ Then("I should not see a button to switch to the alternate version of bichard", 
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
 
 Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
+
+Then("the conductor workflow is completed", async function () {
+  await checkConductorWorkflowCompleted(this);
+});
