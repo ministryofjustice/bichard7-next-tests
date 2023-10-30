@@ -20,7 +20,6 @@ Feature: {034} R3.3_BR7_SPI ASN Validation - 2
 			And "input-message" is received
 
 	@Should
-	@LoadTestNoUI
 	@NextUI
 	Scenario: Validating correct ASN format
 		Given I am logged in as "supervisor"

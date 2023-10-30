@@ -86,7 +86,9 @@ const {
   checkNoExceptionsForThis,
   canSeeContentInTableForThis,
   switchBichard,
-  cannotSeeBichardSwitcher
+  cannotSeeBichardSwitcher,
+  returnToList,
+  reloadUntilStringPresentForRecord
 } = require("./old-utils/ui");
 
 const {
@@ -94,6 +96,8 @@ const {
   loadTab: alternateLoadTab,
   checkOffenceData: alternateCheckOffenceData
 } = require("./utils/ui");
+
+const { checkConductorWorkflowCompleted } = require("../utils/conductor");
 
 const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
@@ -135,6 +139,8 @@ When("I click the {string} menu button", clickMainTab);
 
 When("I click the {string} button", clickButton);
 
+When("I return to the list", returnToList);
+
 When("I submit the record", submitRecord);
 
 When("I access the {string} report", accessReport);
@@ -166,6 +172,8 @@ When("I wait for {string} in the list of records", waitForRecordStep);
 When("I generate today's report", generateTodaysReport);
 
 Then("I reload until I see {string}", reloadUntilStringPresent);
+
+Then("I reload until I see {string} for this record", reloadUntilStringPresentForRecord);
 
 Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
 
@@ -306,3 +314,7 @@ Then("I should not see a button to switch to the alternate version of bichard", 
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
 
 Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
+
+Then("the conductor workflow is completed", async function () {
+  await checkConductorWorkflowCompleted(this);
+});

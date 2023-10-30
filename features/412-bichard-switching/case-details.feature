@@ -19,7 +19,8 @@ Feature: {412} Switching between bichard versions for case details
 			And I view the list of exceptions
 			And I open the record for "DASWON CAO"
 
-		# should go directly to case details page
+		# should now skip through feedback page on the way to case
+		# details in the other UI
 		When I switch to the alternate version of bichard
 			And I click the alternate "Defendant" tab
 		Then I see "CAO" in the "Given Name" row of the alternate results table

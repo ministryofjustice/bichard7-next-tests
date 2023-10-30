@@ -545,6 +545,12 @@ const reloadUntilStringPresent = async function (content) {
   expect(result).toBeTruthy();
 };
 
+const reloadUntilStringPresentForRecord = async function (content) {
+  await filterByRecordName(this);
+  const result = await reloadUntilContent(this.browser.page, content);
+  expect(result).toBeTruthy();
+};
+
 const reloadUntilStringNotPresent = async function (content) {
   const result = await reloadUntilNotContent(this.browser.page, content);
   expect(result).toBeTruthy();
@@ -629,6 +635,18 @@ const cannotSeeBichardSwitcher = async function () {
   expect(bichardSwitcher.length).toEqual(0);
 };
 
+const returnToList = async function () {
+  const returnButton =
+    (await this.browser.page.$("[value='Return To List']")) ||
+    (await this.browser.page.$("[value='Return To List (Unlock)']")) ||
+    (await this.browser.page.$("[value='Return To List (Lock)']"));
+
+  if (!returnButton) {
+    throw new Error("Could not find return to list button");
+  }
+  await Promise.all([returnButton.click(), this.browser.page.waitForNavigation()]);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -698,5 +716,7 @@ module.exports = {
   getRawTableData,
   recordsForPerson,
   switchBichard,
-  cannotSeeBichardSwitcher
+  cannotSeeBichardSwitcher,
+  returnToList,
+  reloadUntilStringPresentForRecord
 };

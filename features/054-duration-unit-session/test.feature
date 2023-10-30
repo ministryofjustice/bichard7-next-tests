@@ -18,7 +18,6 @@ Feature: {054} R3.4_BR7_Duration Unit_Session
 			And "input-message" is received
 
 	@Could
-	@LoadTestNoUI
 	@NextUI
 	Scenario: Handling messages with session duration
 		Given I am logged in as "supervisor"

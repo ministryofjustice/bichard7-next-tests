@@ -32,5 +32,5 @@ Feature: {409} BR7-R5.7-RCD603-AINT Result-Exception generation
 			And I click the "Defendant" tab
 			And I correct "Court PNCID" to "2013/0000016P"
 			And I submit the record
-			And I click the "Return To List" button
+			And I return to the list
 		Then I see exception "HO100314" in the exception list table

@@ -21,7 +21,8 @@ const defaults = {
   pncPort: "3000",
   uiScheme: "https",
   uiPort: "4443",
-  uiHost: "localhost"
+  uiHost: "localhost",
+  enableCorePhase1: "false"
 };
 
 module.exports = defaults;

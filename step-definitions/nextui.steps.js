@@ -35,6 +35,8 @@ const {
   loadTab,
   checkTrigger,
   resolveAllTriggers,
+  selectTriggerToResolve,
+  resolveSelectedTriggers,
   checkOffenceData,
   checkOffenceDataError,
   checkTriggerforOffence,
@@ -51,6 +53,7 @@ const {
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
+  manuallyResolveRecord,
   nRecordsInList,
   nRecordsForPerson,
   returnToCaseListUnlock,
@@ -67,6 +70,8 @@ const {
   loadTab: alternateLoadTab,
   checkOffenceData: alternateCheckOffenceData
 } = require("./old-utils/ui");
+
+const { checkConductorWorkflowCompleted } = require("../utils/conductor");
 
 const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
@@ -125,6 +130,10 @@ When("I click the {string} button", clickButton);
 
 When("I resolve all of the triggers", resolveAllTriggers);
 
+When("I select trigger {string} to resolve", selectTriggerToResolve);
+
+When("I resolve the selected triggers", resolveSelectedTriggers);
+
 When("I generate today's report", generateTodaysReport);
 
 When("I correct {string} to {string}", correctOffenceException);
@@ -172,6 +181,8 @@ Then("I see trigger {string}", checkTrigger);
 Then("this {string} is {string}", checkRecordForThisTestResolved);
 
 Then("this {string} is not {string}", checkRecordForThisTestNotResolved);
+
+Then("I manually resolve the record", manuallyResolveRecord);
 
 Then("I see {string} in the {string} row of the results table", checkOffenceData);
 
@@ -236,3 +247,7 @@ When("I click the alternate {string} tab", alternateLoadTab);
 Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
 
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
+
+Then("the conductor workflow is completed", async function () {
+  await checkConductorWorkflowCompleted(this);
+});

@@ -21,12 +21,13 @@ class PostgresHelper {
     const { id } = await this.pg.one(
       `insert into br7own.users \
         (username, email, exclusion_list, inclusion_list, visible_courts, \
-          visible_forces, excluded_triggers,forenames, surname, password) \
-          values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) ON CONFLICT (lower(email)) DO \
+          visible_forces, excluded_triggers,forenames, surname, password, feature_flags) \
+          values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) ON CONFLICT (lower(email)) DO \
           UPDATE SET email = EXCLUDED.email, exclusion_list = EXCLUDED.exclusion_list, \
             inclusion_list = EXCLUDED.inclusion_list, visible_courts = EXCLUDED.visible_courts,\
             visible_forces = EXCLUDED.visible_forces, excluded_triggers = EXCLUDED.excluded_triggers, \
-            forenames = EXCLUDED.forenames, surname = EXCLUDED.surname, password = EXCLUDED.password \
+            forenames = EXCLUDED.forenames, surname = EXCLUDED.surname, password = EXCLUDED.password, \
+            feature_flags = EXCLUDED.feature_flags
             returning id`,
       [
         name,
@@ -38,7 +39,8 @@ class PostgresHelper {
         excludedTriggers.join(","),
         "",
         name,
-        defaultPasswordHash
+        defaultPasswordHash,
+        { exceptionsEnabled: true }
       ]
     );
 

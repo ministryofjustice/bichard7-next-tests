@@ -6,7 +6,6 @@ const ActiveMqHelper = require("../helpers/ActiveMqHelper");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const PNCTestTool = require("../helpers/PNCTestTool");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
-const Phase1Bucket = require("../helpers/Phase1Bucket");
 const BrowserHelper = require("../helpers/BrowserHelper");
 const defaults = require("../utils/defaults");
 const AuditLogApiHelper = require("../helpers/AuditLogApiHelper");
@@ -49,12 +48,6 @@ class Bichard extends World {
       url: process.env.AWS_URL,
       region: process.env.S3_REGION || defaults.awsRegion,
       incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
-    });
-
-    this.phase1Bucket = new Phase1Bucket({
-      url: process.env.AWS_URL,
-      region: process.env.S3_REGION || defaults.awsRegion,
-      phase1BucketName: process.env.S3_PHASE_1_BUCKET || defaults.phase1Bucket
     });
 
     if (this.config.realPNC) {

@@ -19,7 +19,6 @@ Feature: {088} R4.1.1_BR7_Court Location from Text
 			And "input-message" is received
 
 	@Should
-	@LoadTestNoUI
 	@NextUI
 	Scenario: PNC is updated with next hearing location from court results
 		Given I am logged in as "supervisor"

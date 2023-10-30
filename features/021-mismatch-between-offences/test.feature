@@ -23,11 +23,12 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
       And "input-message" is received
 
   @Must
+  @Parallel
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
-    Then I see exception "HO100304" in the exception list table
-    When I open the record for "SCONEA EXCEPTION"
+    Then I see exception "HO100304" for this record in the exception list
+    When I open this record
       And I click the "Offences" tab
       And I view offence "1"
     Then I see error "HO100300" in the "Next Hearing location" row of the results table

@@ -23,7 +23,8 @@ Feature: {043} #151 - FTA Dated Warrant
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should @LoadTestUI @NextUI
+	@Should
+	@NextUI
 	Scenario: Exceptions are triggered when a record is received with a dated warrant
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
