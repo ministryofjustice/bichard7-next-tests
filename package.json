@@ -43,7 +43,7 @@
     "@moj-bichard7-developers/bichard7-next-data": "^2.0.121",
     "@types/jest": "^29.5.5",
     "aws-sdk": "^2.1467.0",
-    "axios": "^1.5.1",
+    "axios": "^1.6.0",
     "csv-parse": "^5.5.0",
     "date-fns": "^2.30.0",
     "expect": "^29.7.0",
