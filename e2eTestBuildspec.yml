@@ -4,7 +4,7 @@ phases:
   install:
     runtime-versions:
       python: 3.9
-      nodejs: 16
+      nodejs: 18
     commands:
       - /bin/bash scripts/configure_codebuild_image.sh
       - yum groupinstall -y "Development tools"
