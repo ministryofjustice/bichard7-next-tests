@@ -24,7 +24,7 @@
     "test:parallel": "curl -X DELETE http://localhost:3000/mocks && ./node_modules/.bin/cucumber-js --require steps --retry 0 --no-strict --exit --publish-quiet --fail-fast --tags '@Parallel' --parallel $CONCURRENCY features",
     "test:preprod": "SKIP_PNC_VALIDATION=true ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags '@PreProdTest and not @Excluded' features",
     "test": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC' features",
-    "update-deps": "ncu -u && npm install"
+    "update-deps": "ncu -u -x @cucumber/cucumber && npm install"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
   "dependencies": {
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
-    "@cucumber/cucumber": "^10.0.1",
+    "@cucumber/cucumber": "^9.5.1",
     "@cucumber/pretty-formatter": "^1.0.0",
     "@moj-bichard7-developers/bichard7-next-data": "^2.0.130",
     "@types/jest": "^29.5.8",
