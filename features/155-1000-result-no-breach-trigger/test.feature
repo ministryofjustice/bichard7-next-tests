@@ -15,11 +15,11 @@ Feature: {155} BR7 R5.2.2-RCD518 - New Offence - Other - 1000 Result
 			"""
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is in the PNC
+			And "input-message" is received
 
 	@Could
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Does not create breach trigger for 1000 result
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

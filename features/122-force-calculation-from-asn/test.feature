@@ -13,12 +13,14 @@ Feature: {122} BR7 R5.1-RCD399-Force calculation-FF in ASN
 			Deriving the force owner from the ASN
 			"""
 
+	Background:
+		Given the data for this test is in the PNC
+			And "input-message" is received
+
 	@Should
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Deriving the force owner from the ASN
 		When I am logged in as "met.police"
-			And "input-message" is received
 			And I view the list of exceptions
 		Then I see exception "HO100201 " in the exception list table
 		When I open the record for "ASNFF FORCECALC"

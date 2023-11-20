@@ -14,11 +14,11 @@ Feature: {144} BR7 R5.2-RCD491-TRPR0008 BA76005 Not Guilty
 			"""
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is in the PNC
+			And "input-message" is received
 
 	@Could
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Handling breach of bail when not guilty
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
