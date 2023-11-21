@@ -16,7 +16,7 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "input-message" is received
 
 	@Should

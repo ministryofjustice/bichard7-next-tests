@@ -14,7 +14,7 @@ Feature: {144} BR7 R5.2-RCD491-TRPR0008 BA76005 Not Guilty
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "input-message" is received
 
 	@Could

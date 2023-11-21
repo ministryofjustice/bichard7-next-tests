@@ -14,7 +14,7 @@ Feature: {122} BR7 R5.1-RCD399-Force calculation-FF in ASN
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "input-message" is received
 
 	@Should
@@ -27,7 +27,7 @@ Feature: {122} BR7 R5.1-RCD399-Force calculation-FF in ASN
 			And I click the "Case" tab
 		Then I see error "HO100201 - Bad PTIURN format" in the "PTIURN" row of the results table
 		When I click the "Defendant" tab
-		Then I see error "HO100300 - Organisation not recognised" in the "ASN" row of the results table
+		Then I see error "HO100301 - ASN not found on PNC" in the "ASN" row of the results table
 		When I am logged in as "west.yorkshire"
 			And I view the list of exceptions
 		Then there are no exceptions or triggers

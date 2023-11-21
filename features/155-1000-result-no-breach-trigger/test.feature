@@ -15,7 +15,7 @@ Feature: {155} BR7 R5.2.2-RCD518 - New Offence - Other - 1000 Result
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "input-message" is received
 
 	@Could

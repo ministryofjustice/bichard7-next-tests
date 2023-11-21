@@ -10,7 +10,8 @@ const {
   pncUpdateIncludes,
   mockPNCDataForTest,
   noPncRequests,
-  noPncUpdates
+  noPncUpdates,
+  mockMissingPncDataForTest
 } = require("./old-utils/pnc");
 const {
   generateTodaysReport,
@@ -79,6 +80,8 @@ setWorldConstructor(Bichard);
 setDefaultTimeout(timeout);
 
 Given("the data for this test is in the PNC", mockPNCDataForTest);
+
+Given("the data for this test is not in the PNC", mockMissingPncDataForTest);
 
 Given("there is a valid record for {string} in the PNC", createValidRecordInPNC);
 

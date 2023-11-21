@@ -22,7 +22,7 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 	@PreProdTest
 	@NextUI
 	Scenario: Testing invalid offence codes
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "<messageId>" is received
 			And I am logged in as "generalhandler"
 			And I view the list of exceptions

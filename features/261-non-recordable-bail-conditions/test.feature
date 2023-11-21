@@ -14,7 +14,7 @@ Feature: {261} BR7 R5.7-RCD611 - Bail Qualifier for Non Recordable Case
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "input-message" is received
 
 	@Should

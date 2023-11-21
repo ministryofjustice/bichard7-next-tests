@@ -16,7 +16,7 @@ Feature: {145} BR7 R5.2-RCD490-TRPR0025 case not reopened
 			"""
 
 	Background:
-		Given the data for this test is in the PNC
+		Given the data for this test is not in the PNC
 			And "input-message" is received
 
 	@Could
