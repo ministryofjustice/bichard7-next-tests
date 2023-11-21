@@ -20,7 +20,6 @@ Feature: {113b} BR7 R5.1-RCD422-Breach of Suspended Sentence-Order to Continue
 			And "input-message" is received
 
 	@Could
-	@OnlyRunsOnPNC
 	Scenario: PNC Error for result code 1508
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

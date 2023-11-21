@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<NewCaseMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Flow="NewCasesFromThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g" xmlns="http://www.dca.gov.uk/xmlschemas/libra">
+<NewCaseMessage xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Flow="NewCasesFromThePolice"
+	Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g"
+	xmlns="http://www.dca.gov.uk/xmlschemas/libra">
 	<Case>
 		<PTIURN>01ZD0303908</PTIURN>
 		<OriginatingOrganisation>116BH00</OriginatingOrganisation>
@@ -37,13 +40,13 @@
 			</EmailDetails>
 		</OtherPartyOfficerInCase>
 		<Defendant>
-			<ProsecutorReference>1101ZD0100000410769X</ProsecutorReference>
+			<ProsecutorReference>1101ZD0100000410771Z</ProsecutorReference>
 			<PoliceIndividualDefendant>
 				<PersonDefendant>
 					<BasePersonDetails>
 						<PersonName>
 							<PersonTitle>Mr</PersonTitle>
-							<PersonGivenName1>TRPRTHREE</PersonGivenName1>
+							<PersonGivenName1>TRPRTHREEB</PersonGivenName1>
 							<PersonFamilyName>SVRO</PersonFamilyName>
 						</PersonName>
 						<TelephoneDetails>
