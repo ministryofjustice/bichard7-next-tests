@@ -147,7 +147,7 @@ const pncNotUpdated = async function () {
     expect(before).toEqual(after);
   } else {
     let mockCount = 0;
-    const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
+    const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU") && !mock.response.match(/<TXT>/));
     const mockResponsePromises = updateMocks.map(({ id }) => this.pnc.getMock(id));
     const mockResponses = await Promise.all(mockResponsePromises);
     mockResponses.forEach((mock) => {
