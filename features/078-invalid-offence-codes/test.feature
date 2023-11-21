@@ -20,10 +20,10 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 
 	@Could
 	@PreProdTest
-	@OnlyRunsOnPNC
 	@NextUI
 	Scenario: Testing invalid offence codes
-		Given "<messageId>" is received
+		Given the data for this test is not in the PNC
+			And "<messageId>" is received
 			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100306" in the exception list table

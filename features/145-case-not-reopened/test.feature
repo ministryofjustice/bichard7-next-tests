@@ -16,13 +16,14 @@ Feature: {145} BR7 R5.2-RCD490-TRPR0025 case not reopened
 			"""
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is not in the PNC
+			And "input-message" is received
 
 	@Could
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Not creating case reopened trigger if offence is not recordable
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions or triggers
+		Then the audit log contains "Re-opened / Statutory Declaration case ignored"
+			And there are no exceptions or triggers
 			And no PNC updates have been made

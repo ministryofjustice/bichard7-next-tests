@@ -16,11 +16,11 @@ Feature: {101} R4.1.3_BR7_New Trigger TRPR0016
 			"""
 
 	Background:
-		Given "input-message" is received
+		Given the data for this test is not in the PNC
+			And "input-message" is received
 
 	@Should
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Trigger is still created when record is not found in PNC
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

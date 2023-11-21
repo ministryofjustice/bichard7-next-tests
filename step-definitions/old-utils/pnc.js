@@ -8,6 +8,29 @@ const isError = require("../../utils/isError");
 
 const skipPNCValidation = process.env.SKIP_PNC_VALIDATION === "true";
 
+const setupMockInPncEmulator = async function (specFolder) {
+  // mock a response in the PNC
+  this.mocks = require(`../../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
+
+  /* eslint-disable no-restricted-syntax */
+  for (const mock of this.mocks) {
+    if (this.config.parallel) {
+      const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
+      mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
+    }
+
+    /* eslint-disable no-await-in-loop */
+    mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
+  }
+};
+
+const mockMissingPncDataForTest = async function () {
+  if (!this.config.realPNC) {
+    const specFolder = path.dirname(this.featureUri);
+    await setupMockInPncEmulator.call(this, [specFolder]);
+  }
+};
+
 /* eslint-disable consistent-return */
 const mockPNCDataForTest = async function () {
   const specFolder = path.dirname(this.featureUri);
@@ -38,19 +61,7 @@ const mockPNCDataForTest = async function () {
       throw err;
     }
   } else {
-    // mock a response in the PNC
-    this.mocks = require(`../../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
-
-    /* eslint-disable no-restricted-syntax */
-    for (const mock of this.mocks) {
-      if (this.config.parallel) {
-        const asnID = this.currentProsecutorReference[0][1].substring(this.currentProsecutorReference[0][1].length - 7);
-        mock.matchRegex = `${mock.matchRegex}.+${asnID}`;
-      }
-
-      /* eslint-disable no-await-in-loop */
-      mock.id = await this.pnc.addMock(mock.matchRegex, mock.response, mock.count);
-    }
+    await setupMockInPncEmulator.call(this, [specFolder]);
   }
 };
 
@@ -147,7 +158,7 @@ const pncNotUpdated = async function () {
     expect(before).toEqual(after);
   } else {
     let mockCount = 0;
-    const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU"));
+    const updateMocks = this.mocks.filter((mock) => mock.matchRegex.startsWith("CXU") && !mock.response.match(/<TXT>/));
     const mockResponsePromises = updateMocks.map(({ id }) => this.pnc.getMock(id));
     const mockResponses = await Promise.all(mockResponsePromises);
     mockResponses.forEach((mock) => {
@@ -184,6 +195,7 @@ module.exports = {
   checkMocks,
   pncNotUpdated,
   pncUpdateIncludes,
+  mockMissingPncDataForTest,
   mockPNCDataForTest,
   noPncRequests,
   noPncUpdates

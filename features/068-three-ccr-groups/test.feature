@@ -20,7 +20,6 @@ Feature: {068} R3.5_BR7_CCR Group Matching-Offence Added In Court-Offence in CCR
 
 	@Should
 	@PreProdTest
-	@OnlyRunsOnPNC
 	Scenario: Handles PNC errors with 3 CCR groups
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
