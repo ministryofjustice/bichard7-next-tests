@@ -2,6 +2,7 @@ const axiosClass = require("axios");
 const https = require("https");
 const fs = require("fs");
 const { XMLParser } = require("fast-xml-parser");
+require("tls").DEFAULT_MIN_VERSION = "TLSv1";
 
 const parser = new XMLParser();
 const Poller = require("../utils/Poller");
