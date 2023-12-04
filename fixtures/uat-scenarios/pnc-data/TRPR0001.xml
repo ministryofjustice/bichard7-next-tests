@@ -1,0 +1,17 @@
+<CXE01 xmlns="">
+  <FSC FSCode="31XM" IntfcUpdateType="K"/>
+  <IDS CRONumber="" Checkname="BOYLE" IntfcUpdateType="K" PNCID="2001/1583652X"/>
+  <CourtCases>
+      <CourtCase>
+          <CCR CourtCaseRefNo="83/38562/3856329D" CrimeOffenceRefNo="" IntfcUpdateType="K"/>
+          <Offences>
+              <Offence>
+                  <COF ACPOOffenceCode="12:15:53:1" CJSOffenceCode="RT88584" IntfcUpdateType="K" OffEndDate="" OffEndTime="" OffStartDate="04072021" OffStartTime="" OffenceQualifier1="" OffenceQualifier2="" OffenceTitle="Drive motor vehicle with a proportion of a specified controlled drug above the specified limit" ReferenceNumber="001"/>
+              </Offence>
+              <Offence>
+                  <COF ACPOOffenceCode="9:1:5:23" CJSOffenceCode="MD71530" IntfcUpdateType="K" OffEndDate="" OffEndTime="" OffStartDate="04072021" OffStartTime="" OffenceQualifier1="" OffenceQualifier2="" OffenceTitle="Possess a controlled drug of Class B - Cannabis / Cannabis Resin" ReferenceNumber="002"/>
+              </Offence>
+          </Offences>
+      </CourtCase>
+  </CourtCases>
+</CXE01>
