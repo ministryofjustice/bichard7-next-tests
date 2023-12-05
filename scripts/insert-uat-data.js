@@ -36,13 +36,13 @@ const scenarios = fs.readdirSync(SCENARIO_PATH);
 
 let asnCounter = 100001;
 
-const scenarioPromises = scenarios.map(async (scenario) => {
+const seedScenario = async (scenario) => {
   const asn = new ASN(`2100000000000${String(asnCounter).padStart("0", 6)}`).toString();
 
   const pncData = fs.readFileSync(`${SCENARIO_PATH}${scenario}/pnc-data.xml`).toString();
   const givenName = faker.person.firstName().toUpperCase();
   const familyName = faker.person.lastName().toUpperCase();
-  console.log(`${familyName} ${givenName}`);
+
   const incomingMessage = fs
     .readFileSync(`${SCENARIO_PATH}${scenario}/incoming-message.xml`)
     .toString()
@@ -63,6 +63,13 @@ const scenarioPromises = scenarios.map(async (scenario) => {
   await pnc.addMock(`CXE01.*${asn.slice(-7)}`, pncData);
   await incomingMessageBucket.upload(incomingMessage, randomUUID());
   asnCounter += 1;
-});
+};
 
-Promise.all(scenarioPromises).then(() => console.log("Done"));
+const seedData = async () => {
+  await pnc.clearMocks();
+  await Promise.all(scenarios.map(seedScenario));
+
+  console.log("done");
+};
+
+seedData();
