@@ -34,22 +34,28 @@ const SCENARIO_PATH = "./fixtures/uat-scenarios/";
 
 const scenarios = fs.readdirSync(SCENARIO_PATH);
 
-let asnCounter = 100001;
+const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
 
 const seedScenario = async (scenario) => {
-  const asn = new ASN(`2100000000000${String(asnCounter).padStart("0", 6)}`).toString();
-
-  const pncData = fs.readFileSync(`${SCENARIO_PATH}${scenario}/pnc-data.xml`).toString();
+  const asn = new ASN(`2100000000000${faker.string.numeric({ length: 6 }).padStart(6, "0")}`).toString();
   const givenName = faker.person.firstName().toUpperCase();
   const familyName = faker.person.lastName().toUpperCase();
+
+  const pncData = fs
+    .readFileSync(`${SCENARIO_PATH}${scenario}/pnc-data.xml`)
+    .toString()
+    .replace(/FAMILY_NAME/g, familyName.padEnd(24, " "));
 
   const incomingMessage = fs
     .readFileSync(`${SCENARIO_PATH}${scenario}/incoming-message.xml`)
     .toString()
     .replace(/EXTERNAL_CORRELATION_ID/g, randomUUID())
     .replace(/PROSECUTOR_REFERENCE/g, asn)
+    .replace(/PNC_IDENTIFIER/g, "20230012345P")
+    .replace(/_PTIURN_/g, `01XX${faker.string.numeric({ length: 7 })}`)
     .replace(/GIVEN_NAME/g, givenName)
     .replace(/FAMILY_NAME/g, familyName)
+    .replace(/DATE_OF_BIRTH/g, "1983-03-11")
     .replace(/ADDRESS_LINE_1/g, faker.location.streetAddress().toUpperCase())
     .replace(/ADDRESS_LINE_2/g, faker.location.street().toUpperCase())
     .replace(/ADDRESS_LINE_3/g, faker.location.city().toUpperCase())
@@ -57,16 +63,23 @@ const seedScenario = async (scenario) => {
     .replace(/ADDRESS_LINE_5/g, faker.location.zipCode().toUpperCase())
     .replace(/DATE_OF_HEARING/g, new Date().toISOString().split("T")[0]);
 
-  const updateData = mockUpdate("CXU02");
-  await pnc.addMock(updateData.matchRegex, updateData.response);
-
   await pnc.addMock(`CXE01.*${asn.slice(-7)}`, pncData);
   await incomingMessageBucket.upload(incomingMessage, randomUUID());
-  asnCounter += 1;
+};
+
+const updatePncEmulator = async () => {
+  await pnc.clearMocks();
+
+  await Promise.all(
+    mockUpdateCodes.map((code) => {
+      const updateData = mockUpdate(code);
+      return pnc.addMock(updateData.matchRegex, updateData.response);
+    })
+  );
 };
 
 const seedData = async () => {
-  await pnc.clearMocks();
+  await updatePncEmulator();
   await Promise.all(scenarios.map(seedScenario));
 
   console.log("done");
