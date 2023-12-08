@@ -32,7 +32,7 @@ const incomingMessageBucket = new IncomingMessageBucket({
 
 const SCENARIO_PATH = "./fixtures/uat-scenarios/";
 
-const scenarios = fs.readdirSync(SCENARIO_PATH);
+const scenarios = fs.readdirSync(SCENARIO_PATH).filter((scenario) => scenario === "TRPR0003");
 
 const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
 
@@ -45,6 +45,8 @@ const seedScenario = async (scenario) => {
     .readFileSync(`${SCENARIO_PATH}${scenario}/pnc-data.xml`)
     .toString()
     .replace(/FAMILY_NAME/g, familyName.padEnd(24, " "));
+
+  await pnc.addMock(`CXE01.*${asn.slice(-7)}`, pncData);
 
   const incomingMessage = fs
     .readFileSync(`${SCENARIO_PATH}${scenario}/incoming-message.xml`)
@@ -63,7 +65,6 @@ const seedScenario = async (scenario) => {
     .replace(/ADDRESS_LINE_5/g, faker.location.zipCode().toUpperCase())
     .replace(/DATE_OF_HEARING/g, new Date().toISOString().split("T")[0]);
 
-  await pnc.addMock(`CXE01.*${asn.slice(-7)}`, pncData);
   await incomingMessageBucket.upload(incomingMessage, randomUUID());
 };
 
