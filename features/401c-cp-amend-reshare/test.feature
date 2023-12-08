@@ -20,9 +20,9 @@ Feature: 401c - CP Amend and re-share (removed result code)
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"
 			And I view the list of exceptions
-		Then there are no exceptions or triggers for this record
-		When I wait "1" seconds
-			And "input-message-2" is received
+		Then the audit log contains "PNC Update applied successfully"
+			And there are no exceptions or triggers for this record
+		When "input-message-2" is received
 		Then the audit log contains "Results already on PNC"
 			And there are no exceptions or triggers for this record
 			And the PNC updates the record
