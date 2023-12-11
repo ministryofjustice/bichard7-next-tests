@@ -32,7 +32,7 @@ const incomingMessageBucket = new IncomingMessageBucket({
 
 const SCENARIO_PATH = "./fixtures/uat-scenarios/";
 
-const scenarios = fs.readdirSync(SCENARIO_PATH).filter((scenario) => scenario === "TRPR0003");
+const scenarios = fs.readdirSync(SCENARIO_PATH);
 
 const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
 
