@@ -23,6 +23,6 @@ Feature: {011} R2_Regression_NPPA_PP_002 - part 2
 	Scenario: Ignored results
 		Given I am logged in as "met.police"
 			And I view the list of exceptions
-		Then there are no exceptions or triggers
+		Then the audit log contains "Hearing Outcome ignored as no offences are recordable"
+			And there are no exceptions or triggers
 			And no PNC requests have been made
-			And the audit log contains "Hearing Outcome ignored as no offences are recordable"
