@@ -16,7 +16,12 @@ const { ASN } = require("../utils/asn");
 // - Grab the original incoming message
 // - Anonymise it and make the PNC message match
 
-const { REPEAT_SCENARIOS = 1 } = process.env;
+const { REPEAT_SCENARIOS = 1, DEPLOY_NAME } = process.env;
+
+if (DEPLOY_NAME !== "uat") {
+  console.error("Not running in e2e environment, bailing out. Set DEPLOY_NAME='uat' if you're sure.");
+  process.exit(1);
+}
 
 const pnc = new MockPNCHelper({
   host: process.env.PNC_HOST || defaults.pncHost,
@@ -86,9 +91,10 @@ const updatePncEmulator = async () => {
 };
 
 const seedData = async () => {
-  await updatePncEmulator();
   await Promise.all(scenarios.map(seedScenario));
 };
+
+updatePncEmulator();
 
 for (let i = 0; i < REPEAT_SCENARIOS; i += 1) {
   seedData();
