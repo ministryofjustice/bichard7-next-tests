@@ -17,7 +17,7 @@
       Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g"
       xmlns="http://www.dca.gov.uk/xmlschemas/libra"
       xmlns:ns2="http://www.govtalk.gov.uk/people/bs7666"&gt; &lt;Session&gt; &lt;CourtHearing&gt;
-      &lt;Hearing&gt; &lt;CourtHearingLocation&gt;B13HT02&lt;/CourtHearingLocation&gt;
+      &lt;Hearing&gt; &lt;CourtHearingLocation&gt;COURT_LOCATION&lt;/CourtHearingLocation&gt;
       &lt;DateOfHearing&gt;DATE_OF_HEARING&lt;/DateOfHearing&gt;
       &lt;TimeOfHearing&gt;13:30:00&lt;/TimeOfHearing&gt; &lt;/Hearing&gt;
       &lt;PSAcode&gt;2375&lt;/PSAcode&gt; &lt;/CourtHearing&gt; &lt;Case&gt;

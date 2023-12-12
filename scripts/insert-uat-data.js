@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { randomUUID } = require("crypto");
+const { organisationUnit } = require("@moj-bichard7-developers/bichard7-next-data");
 const { fakerEN_GB: faker } = require("@faker-js/faker");
 const MockPNCHelper = require("../helpers/MockPNCHelper");
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
@@ -36,7 +37,11 @@ const scenarios = fs.readdirSync(SCENARIO_PATH);
 
 const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
 
+const magistrateCourts = organisationUnit.filter((unit) => unit.topLevelCode === "B");
+
 const seedScenario = async (scenario) => {
+  const court = magistrateCourts[Math.floor(Math.random() * magistrateCourts.length)];
+  const courtCode = `${court.topLevelCode}${court.secondLevelCode}${court.thirdLevelCode}${court.bottomLevelCode}`;
   const asn = new ASN(`2100000000000${faker.string.numeric({ length: 6 }).padStart(6, "0")}`).toString();
   const givenName = faker.person.firstName().toUpperCase();
   const familyName = faker.person.lastName().toUpperCase();
@@ -52,6 +57,7 @@ const seedScenario = async (scenario) => {
     .readFileSync(`${SCENARIO_PATH}${scenario}/incoming-message.xml`)
     .toString()
     .replace(/EXTERNAL_CORRELATION_ID/g, randomUUID())
+    .replace(/COURT_LOCATION/g, courtCode)
     .replace(/PROSECUTOR_REFERENCE/g, asn)
     .replace(/PNC_IDENTIFIER/g, "20230012345P")
     .replace(/_PTIURN_/g, `01XX${faker.string.numeric({ length: 7 })}`)
