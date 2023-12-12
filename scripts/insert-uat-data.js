@@ -8,10 +8,6 @@ const defaults = require("../utils/defaults");
 const { mockUpdate } = require("../utils/pncMocks");
 const { ASN } = require("../utils/asn");
 
-// Bring in the clearing mocks call to this script
-// Add a second scenario
-// Enable mutliple inserts per scenario
-
 // Process:
 // - find a record in the DB that matches your criteria (e.g. specific trigger)
 // - Extract the AHO from the db and pull out the PNC data
@@ -19,6 +15,8 @@ const { ASN } = require("../utils/asn");
 // - Look up the S3 path in Dynamo
 // - Grab the original incoming message
 // - Anonymise it and make the PNC message match
+
+const { REPEAT_SCENARIOS = 1 } = process.env;
 
 const pnc = new MockPNCHelper({
   host: process.env.PNC_HOST || defaults.pncHost,
@@ -34,6 +32,8 @@ const incomingMessageBucket = new IncomingMessageBucket({
 const SCENARIO_PATH = "./fixtures/uat-scenarios/";
 
 const scenarios = fs.readdirSync(SCENARIO_PATH);
+
+console.log(`Seeding bichard with ${scenarios.length * REPEAT_SCENARIOS} cases`);
 
 const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
 
@@ -88,8 +88,10 @@ const updatePncEmulator = async () => {
 const seedData = async () => {
   await updatePncEmulator();
   await Promise.all(scenarios.map(seedScenario));
-
-  console.log("done");
 };
 
-seedData();
+for (let i = 0; i < REPEAT_SCENARIOS; i += 1) {
+  seedData();
+}
+
+console.log("done");
