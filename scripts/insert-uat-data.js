@@ -97,6 +97,7 @@ const seedData = async () => {
 updatePncEmulator();
 
 for (let i = 0; i < REPEAT_SCENARIOS; i += 1) {
+  console.log(`seeding batch ${i + 1}`);
   seedData();
 }
 
