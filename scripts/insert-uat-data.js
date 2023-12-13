@@ -19,7 +19,7 @@ const { ASN } = require("../utils/asn");
 const { REPEAT_SCENARIOS = 1, DEPLOY_NAME } = process.env;
 
 if (DEPLOY_NAME !== "uat") {
-  console.error("Not running in e2e environment, bailing out. Set DEPLOY_NAME='uat' if you're sure.");
+  console.error("Not running in uat environment, bailing out. Set DEPLOY_NAME='uat' if you're sure.");
   process.exit(1);
 }
 
@@ -42,7 +42,7 @@ console.log(`Seeding bichard with ${scenarios.length * REPEAT_SCENARIOS} cases`)
 
 const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
 
-const magistrateCourts = organisationUnit.filter((unit) => unit.topLevelCode === "B");
+const magistrateCourts = organisationUnit.filter((unit) => unit.topLevelCode === "B" && unit.secondLevelCode === "01");
 
 const seedScenario = async (scenario) => {
   const court = magistrateCourts[Math.floor(Math.random() * magistrateCourts.length)];
