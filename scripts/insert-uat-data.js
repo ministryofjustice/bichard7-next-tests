@@ -44,10 +44,13 @@ const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "
 
 const magistrateCourts = organisationUnit.filter((unit) => unit.topLevelCode === "B" && unit.secondLevelCode === "01");
 
+let asnCounter = 100000;
+
 const seedScenario = async (scenario) => {
   const court = magistrateCourts[Math.floor(Math.random() * magistrateCourts.length)];
   const courtCode = `${court.topLevelCode}${court.secondLevelCode}${court.thirdLevelCode}${court.bottomLevelCode}`;
-  const asn = new ASN(`2100000000000${faker.string.numeric({ length: 6 }).padStart(6, "0")}`).toString();
+  asnCounter += 1;
+  const asn = new ASN(`2100000000000${asnCounter.toString().padStart(6, "0")}`).toString();
   const givenName = faker.person.firstName().toUpperCase();
   const familyName = faker.person.lastName().toUpperCase();
 
