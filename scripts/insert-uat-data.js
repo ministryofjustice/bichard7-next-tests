@@ -51,8 +51,12 @@ const seedScenario = async (scenario) => {
   const courtCode = `${court.topLevelCode}${court.secondLevelCode}${court.thirdLevelCode}${court.bottomLevelCode}`;
   asnCounter += 1;
   const asn = new ASN(`2100000000000${asnCounter.toString().padStart(6, "0")}`).toString();
+  const ptiurn = `01XX${faker.string.numeric({ length: 7 })}`;
   const givenName = faker.person.firstName().toUpperCase();
   const familyName = faker.person.lastName().toUpperCase();
+
+  const offenceLocation =
+    `${faker.location.streetAddress()}, ${faker.location.city()}, ${faker.location.zipCode()}`.slice(0, 80);
 
   const pncData = fs
     .readFileSync(`${SCENARIO_PATH}${scenario}/pnc-data.xml`)
@@ -68,7 +72,7 @@ const seedScenario = async (scenario) => {
     .replace(/COURT_LOCATION/g, courtCode)
     .replace(/PROSECUTOR_REFERENCE/g, asn)
     .replace(/PNC_IDENTIFIER/g, "20230012345P")
-    .replace(/_PTIURN_/g, `01XX${faker.string.numeric({ length: 7 })}`)
+    .replace(/_PTIURN_/g, ptiurn)
     .replace(/GIVEN_NAME/g, givenName)
     .replace(/FAMILY_NAME/g, familyName)
     .replace(/DATE_OF_BIRTH/g, "1983-03-11")
@@ -77,9 +81,16 @@ const seedScenario = async (scenario) => {
     .replace(/ADDRESS_LINE_3/g, faker.location.city().toUpperCase())
     .replace(/ADDRESS_LINE_4/g, faker.location.county().toUpperCase())
     .replace(/ADDRESS_LINE_5/g, faker.location.zipCode().toUpperCase())
+    .replace(/OFFENCE_LOCATION/g, offenceLocation)
     .replace(/DATE_OF_HEARING/g, new Date().toISOString().split("T")[0]);
 
-  await incomingMessageBucket.upload(incomingMessage, randomUUID());
+  const s3Path = await incomingMessageBucket.upload(incomingMessage, randomUUID());
+  console.log({
+    scenario,
+    asn,
+    ptiurn,
+    s3Path
+  });
 };
 
 const updatePncEmulator = async () => {
@@ -93,15 +104,12 @@ const updatePncEmulator = async () => {
   );
 };
 
-const seedData = async () => {
-  await Promise.all(scenarios.map(seedScenario));
-};
+(async () => {
+  await updatePncEmulator();
 
-updatePncEmulator();
-
-for (let i = 0; i < REPEAT_SCENARIOS; i += 1) {
-  console.log(`seeding batch ${i + 1}`);
-  seedData();
-}
-
-console.log("done");
+  for (let i = 0; i < REPEAT_SCENARIOS; i += 1) {
+    console.log(`seeding batch ${i + 1}`);
+    // eslint-disable-next-line no-await-in-loop
+    await Promise.all(scenarios.map(seedScenario));
+  }
+})();
