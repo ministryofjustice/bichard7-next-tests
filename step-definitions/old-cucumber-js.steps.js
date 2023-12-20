@@ -102,6 +102,7 @@ const { checkConductorWorkflowCompleted } = require("../utils/conductor");
 
 const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
+const cases = require("./utils/cases");
 
 setWorldConstructor(Bichard);
 
@@ -120,6 +121,8 @@ Given("a message is received", async function () {
 Given("I am logged in as {string}", logInAs);
 
 Given("I navigate to the list of reports", canSeeReports);
+
+Given("the case is waiting for resubmission", cases.insert);
 
 When("message id {string} is received", async function (id) {
   await sendMessage.apply(this, [id]);
