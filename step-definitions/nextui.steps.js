@@ -61,7 +61,8 @@ const {
   waitForRecordStep,
   noRecordsForPerson,
   canSeeContentInTableForThis,
-  switchBichard
+  switchBichard,
+  viewOffence
 } = require("./utils/ui");
 
 const {
@@ -116,6 +117,8 @@ When("message id {string} is received", async function (id) {
 When("{string} is received", sendMessageForTest);
 
 When("I view the list of exceptions", goToExceptionList);
+
+When("I view offence {string}", viewOffence);
 
 When("I open this record", openRecordForCurrentTest);
 

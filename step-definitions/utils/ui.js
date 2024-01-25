@@ -397,6 +397,11 @@ const switchBichard = async function () {
   }
 };
 
+const viewOffence = async function (offenceId) {
+  const { page } = this.browser;
+  await Promise.all([page.click(`#offence-${offenceId}`)]);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -435,5 +440,6 @@ module.exports = {
   noRecordsForPerson,
   checkNoteExists,
   clickButton,
-  switchBichard
+  switchBichard,
+  viewOffence
 };
