@@ -7,7 +7,6 @@
     "lint:features": "gherkin-lint features",
     "lint:js": "eslint --fix .",
     "lint": "npm run lint:js && npm run lint:features",
-    "prepare": "husky install",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",
     "test:browser": "HEADLESS=false npm run test",
     "test:characterisation:bichard": "cd characterisation && USE_BICHARD=true  jest --runInBand",
@@ -24,7 +23,8 @@
     "test:parallel": "curl -X DELETE http://localhost:3000/mocks && ./node_modules/.bin/cucumber-js --require steps --retry 0 --no-strict --exit --fail-fast --tags '@Parallel' --parallel $CONCURRENCY features",
     "test:preprod": "SKIP_PNC_VALIDATION=true ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --format @cucumber/pretty-formatter --fail-fast --tags '@PreProdTest and not @Excluded' features",
     "test": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC' features",
-    "update-deps": "ncu -u -x @cucumber/cucumber && npm install"
+    "update-deps": "ncu -u -x @cucumber/cucumber && npm install",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
