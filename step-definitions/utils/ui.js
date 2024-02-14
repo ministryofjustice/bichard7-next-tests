@@ -94,7 +94,7 @@ const findRecordFor = async function (name) {
 };
 
 const checkNoPncErrors = async function (name) {
-  const [recordLink] = await this.browser.page.$$(`xpath/.//table/tbody/tr/*/a[contains(text(),"${name}")]`);
+  const [recordLink] = await this.browser.page.$$(`xpath/table/tbody/tr/*/a[contains(text(),"${name}")]`);
   await recordLink.click();
 
   await this.browser.page.waitForSelector("text=PNC errors");
@@ -106,11 +106,10 @@ const checkOffenceData = async function (value, key) {
   // const [cell] = await this.browser.page.$$(`xpath/.//table//td[contains(.,"${key}")]/following-sibling::td`);
   // case-sensitivity hack because old bichard capitalises every word and new bichard does not
   const [cell] = await this.browser.page.$$(`
-    xpath/.//table//td[contains(
+    xpath/table//td[contains(
       translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),
       "${key.toLowerCase()}"
-    )]/following-sibling::td`
-  );
+    )]/following-sibling::td`);
 
   const content = await cell.evaluate((c) => c.textContent);
   expect(content).toBe(value);
@@ -129,14 +128,16 @@ const checkOffence = async function (offenceCode, offenceId) {
 const openRecordFor = async function (name) {
   await waitForRecord(name, this.browser.page);
 
-  const [link] = await this.browser.page.$$(`xpath/.//table/tbody/tr/*/a[contains(.,"${name}")]`);
+  const [link] = await this.browser.page.$$(`xpath/table/tbody/tr/*/a[contains(.,"${name}")]`);
   await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
 };
 
 const openRecordForCurrentTest = async function () {
   await filterByRecordName(this);
   await waitForRecord(this.getRecordName(), this.browser.page);
-  const [recordLink] = await this.browser.page.$$(`xpath/.//table/tbody/tr/*/a[contains(text(),"${this.getRecordName()}")]`);
+  const [recordLink] = await this.browser.page.$$(
+    `xpath/table/tbody/tr/*/a[contains(text(),"${this.getRecordName()}")]`
+  );
   await Promise.all([recordLink.click(), this.browser.page.waitForNavigation()]);
   await this.browser.page.waitForSelector("text=Case details");
 };
@@ -211,7 +212,9 @@ const noExceptionPresentForOffender = async function (name) {
   const noCaseNamesMatch = await this.browser.page.$$(`xpath/.//*[contains(text(), "${name}")]`);
   expect(noCaseNamesMatch.length).toEqual(0);
 
-  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(), "There are no court cases to show")]`);
+  const noCasesMessageMatch = await this.browser.page.$$(
+    `xpath/.//*[contains(text(), "There are no court cases to show")]`
+  );
   expect(noCasesMessageMatch.length).toEqual(1);
 
   // Reset filters
@@ -285,7 +288,9 @@ const checkRecordForThisTestNotResolved = async function (recordType, resolvedTy
 
 const checkNoExceptions = async function () {
   await filterRecords(this, "unresolved", "exception");
-  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(), "There are no court cases to show")]`);
+  const noCasesMessageMatch = await this.browser.page.$$(
+    `xpath/.//*[contains(text(), "There are no court cases to show")]`
+  );
   expect(noCasesMessageMatch.length).toEqual(1);
 };
 
@@ -296,7 +301,9 @@ const checkNoExceptionsForThis = async function () {
 const checkNoRecords = async function () {
   await filterRecords(this, "unresolved", "record");
 
-  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(), "There are no court cases to show")]`);
+  const noCasesMessageMatch = await this.browser.page.$$(
+    `xpath/.//*[contains(text(), "There are no court cases to show")]`
+  );
   expect(noCasesMessageMatch.length).toEqual(1);
 };
 
@@ -352,7 +359,9 @@ const noTriggersPresentForOffender = async function (name) {
   const noCaseNamesMatch = await this.browser.page.$$(`xpath/.//*[contains(text(), "${name}")]`);
   expect(noCaseNamesMatch.length).toEqual(0);
 
-  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(), "There are no court cases to show")]`);
+  const noCasesMessageMatch = await this.browser.page.$$(
+    `xpath/.//*[contains(text(), "There are no court cases to show")]`
+  );
   expect(noCasesMessageMatch.length).toEqual(1);
 
   // Reset filters
