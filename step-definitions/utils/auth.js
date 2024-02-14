@@ -43,7 +43,7 @@ const logInNormallyAs = async function (world, name) {
   await page.type("#validationCode", verificationCode);
   await page.type("#password", "password");
   await world.browser.clickAndWait("button[type='submit']");
-  await ppage.waitForSelector('xpath/.//*[contains(text(), "Welcome ")]');
+  await page.waitForSelector('xpath/.//*[contains(text(), "Welcome ")]');
 
   const [button] = await page.$x("//a[contains(., 'Access New Bichard')]");
   if (button) {
