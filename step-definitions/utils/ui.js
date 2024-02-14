@@ -105,8 +105,8 @@ const checkNoPncErrors = async function (name) {
 const checkOffenceData = async function (value, key) {
   // const [cell] = await this.browser.page.$$(`xpath/.//table//td[contains(.,"${key}")]/following-sibling::td`);
   // case-sensitivity hack because old bichard capitalises every word and new bichard does not
-  const [cell] = await this.browser.page.$x(
-    `//table//td[contains(
+  const [cell] = await this.browser.page.$$(`
+    xpath/.//table//td[contains(
       translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),
       "${key.toLowerCase()}"
     )]/following-sibling::td`
