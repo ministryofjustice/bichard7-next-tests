@@ -105,14 +105,16 @@ const checkNoPncErrors = async function (name) {
 const checkOffenceData = async function (value, key) {
   // const [cell] = await this.browser.page.$$(`xpath/.//table//td[contains(.,"${key}")]/following-sibling::td`);
   // case-sensitivity hack because old bichard capitalises every word and new bichard does not
-  const [cell] = await this.browser.page.$$(`
-    xpath/table//td[contains(
-      translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),
-      "${key.toLowerCase()}"
-    )]/following-sibling::td`);
 
-  const content = await cell.evaluate((c) => c.textContent);
-  expect(content).toBe(value);
+  const [cellContent] = await this.browser.page.$$eval(
+    `xpath/.//table//td[contains(
+        translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),
+        "${key.toLowerCase()}"
+      )]/following-sibling::td`,
+    (cells) => cells.map((cell) => cell.textContent)
+  );
+
+  expect(cellContent).toBe(value);
 };
 
 const checkOffenceDataError = async function (value, key) {
