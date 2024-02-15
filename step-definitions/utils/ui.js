@@ -94,7 +94,7 @@ const findRecordFor = async function (name) {
 };
 
 const checkNoPncErrors = async function (name) {
-  const [recordLink] = await this.browser.page.$$(`xpath/table/tbody/tr/*/a[contains(text(),"${name}")]`);
+  const [recordLink] = await this.browser.page.$$(`xpath/.//table/tbody/tr/*/a[contains(text(),"${name}")]`);
   await recordLink.click();
 
   await this.browser.page.waitForSelector("text=PNC errors");
@@ -130,7 +130,8 @@ const checkOffence = async function (offenceCode, offenceId) {
 const openRecordFor = async function (name) {
   await waitForRecord(name, this.browser.page);
 
-  const [link] = await this.browser.page.$$(`xpath/table/tbody/tr/*/a[contains(.,"${name}")]`);
+  const [link] = await this.browser.page.$$(`xpath/.//table/tbody/tr/*/a[contains(.,"${name}")]`);
+
   await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
 };
 
@@ -138,7 +139,7 @@ const openRecordForCurrentTest = async function () {
   await filterByRecordName(this);
   await waitForRecord(this.getRecordName(), this.browser.page);
   const [recordLink] = await this.browser.page.$$(
-    `xpath/table/tbody/tr/*/a[contains(text(),"${this.getRecordName()}")]`
+    `xpath/.//table/tbody/tr/*/a[contains(text(),"${this.getRecordName()}")]`
   );
   await Promise.all([recordLink.click(), this.browser.page.waitForNavigation()]);
   await this.browser.page.waitForSelector("text=Case details");
@@ -318,7 +319,7 @@ const checkNoRecordsForThis = async function () {
   } else {
     const didFoundText = await reloadUntilXPathSelector(
       this.browser.page,
-      `//*[contains(text(), "There are no court cases to show")]`
+      `xpath/.//*[contains(text(), "There are no court cases to show")]`
     );
     expect(didFoundText).toEqual(true);
   }
