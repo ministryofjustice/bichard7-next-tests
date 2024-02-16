@@ -18,7 +18,6 @@ Feature: {300} BR7-R5.9-RCD401-501-Subsequent Remand-Different Dates
 		Given the data for this test is in the PNC
 
 	@Could
-	@AuditLog
 	@ExcludeOnPreProd
 	Scenario: Verifying 'Results already on PNC' processing
 		Given I am logged in as "supervisor"

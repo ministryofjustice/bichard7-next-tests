@@ -24,7 +24,6 @@ Feature: {142} BR7 R5.2-RCD423-Trigger Reallocation
       And "input-message" is received
 
   @Must
-  @AuditLog
   @ExcludeOnPreProd
   Scenario: Trigger reallocation when a force owner changes
     Given I am logged in as "norfolk.user"

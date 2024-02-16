@@ -14,7 +14,6 @@ Feature: {146} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
 			And the data for this test is in the PNC
 
 	@Should
-	@AuditLog
 	@PreProdTest
 	@OnlyRunsOnPNC
 	Scenario: Case reopened with original offences
