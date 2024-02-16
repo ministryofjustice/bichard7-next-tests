@@ -25,7 +25,6 @@ Feature: {302} BR7-R5.9-RCD607-Twice Breached-Same ASN incorrectly re-used
 		Given the data for this test is in the PNC
 
 	@Could
-	@AuditLog
 	@ExcludeOnPreProd
 	Scenario: Handling incorrectly re-used ASN
 		Given I am logged in as "supervisor"

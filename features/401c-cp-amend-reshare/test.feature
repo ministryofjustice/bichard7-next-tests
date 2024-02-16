@@ -15,7 +15,6 @@ Feature: 401c - CP Amend and re-share (removed result code)
 		Given the data for this test is in the PNC
 
 	@Excluded
-	@AuditLog
 	Scenario: Amend and re-share from with removed result code
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"

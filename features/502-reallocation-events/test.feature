@@ -4,7 +4,7 @@ Feature: {502} Reallocation events
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@NextUI @AuditLog
+	@NextUI
 	Scenario: Generates audit logs for case reallocation
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
