@@ -29,7 +29,7 @@ class BrowserHelper {
           "--window-size=1024,1024"
         ]
       });
-    const context = await browser.createIncognitoBrowserContext();
+    const context = await browser.createBrowserContext();
     this.page = await context.newPage();
     await this.page.setViewport({
       width: 1024,
@@ -101,7 +101,7 @@ class BrowserHelper {
   }
 
   async clickLinkAndWait(text) {
-    const linkHandlers = await this.page.$x(`//a[normalize-space()='${text}']`);
+    const linkHandlers = await this.page.$$(`xpath/.//a[normalize-space()='${text}']`);
     if (linkHandlers.length !== 1) throw new Error(`${linkHandlers.length} links found for ${text} - should be 1`);
     await Promise.all([linkHandlers[0].click(), this.page.waitForNavigation()]);
   }
@@ -121,7 +121,7 @@ class BrowserHelper {
   }
 
   async selectDropdownOption(dropdownId, text) {
-    const option = (await this.page.$x(`//*[@id = "${dropdownId}"]/option[text() = "${text}"]`))[0];
+    const option = (await this.page.$$(`xpath/.//*[@id = "${dropdownId}"]/option[text() = "${text}"]`))[0];
     const value = await (await option.getProperty("value")).jsonValue();
     await this.page.select(`#${dropdownId}`, value);
   }
