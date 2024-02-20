@@ -178,7 +178,7 @@ const canSeeContentInTable = async function (value) {
   const found = await reloadUntilContentInSelector(
     this.browser.page,
     newValue,
-    "#main-content > div.top-padding-0-2-5.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
+    "#main-content > div.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
   );
   expect(found).toBeTruthy();
 };
@@ -190,7 +190,7 @@ const canSeeContentInTableForThis = async function (value) {
   const found = await reloadUntilContentInSelector(
     this.browser.page,
     newValue,
-    "#main-content > div.top-padding-0-2-5.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
+    "#main-content > div.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
   );
   expect(found).toBeTruthy();
 };
