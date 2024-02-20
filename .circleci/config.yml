@@ -41,16 +41,12 @@ commands:
       NEXTUI:
         default: "false"
         type: "string"
-      ENABLE_CORE_PHASE1:
-        default: "false"
-        type: "string"
     steps:
       - run:
           name: Run test chunk
           command: |
             CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
             NEXTUI=<<parameters.NEXTUI>> \
-            ENABLE_CORE_PHASE1=<<parameters.ENABLE_CORE_PHASE1>> \
             npm run test:chunk
 
   save_artifacts:
@@ -89,9 +85,6 @@ commands:
   ################### Services
   start_bichard7_legacy:
     parameters:
-      ENABLE_CORE_PHASE1:
-        default: "false"
-        type: string
       ENABLE_PHASE_2:
         default: "true"
         type: string
@@ -103,7 +96,6 @@ commands:
           name: Start bichard7 legacy
           working_directory: ~/bichard7-next-core
           command: |
-            ENABLE_CORE_PHASE1=<<parameters.ENABLE_CORE_PHASE1>> \
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
       - run:
@@ -116,7 +108,6 @@ commands:
               -f environment/docker-compose.yml \
               -f environment/docker-compose-bichard.yml down -v
 
-            ENABLE_CORE_PHASE1=<<parameters.ENABLE_CORE_PHASE1>> \
             ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
             npm run all-legacy
 
@@ -155,7 +146,7 @@ commands:
 jobs:
   build:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
     resource_class: xlarge
     steps:
       - checkout
@@ -170,7 +161,7 @@ jobs:
 
   test-e2e-legacy:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -190,7 +181,7 @@ jobs:
 
   test-e2e-legacy-new-ui:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -208,10 +199,10 @@ jobs:
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
-  
+
   test-e2e-core:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -219,22 +210,19 @@ jobs:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
-      # use conductor for phase1 manual resolution
-      ENABLE_CORE_PHASE1: "true"
     steps:
       - attach_workspace:
           at: ~/
       - node_install
       - start_bichard7_core
-      - run_test_chunk:
-          ENABLE_CORE_PHASE1: 'true'
+      - run_test_chunk
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
 
   test-e2e-core-new-ui:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
@@ -242,7 +230,6 @@ jobs:
       RECORD: "true"
       MESSAGE_ENTRY_POINT: s3
       AWS_URL: "http://localhost:4566"
-      ENABLE_CORE_PHASE1: "true"
     steps:
       - attach_workspace:
           at: ~/
@@ -250,14 +237,13 @@ jobs:
       - start_bichard7_core
       - run_test_chunk:
           NEXTUI: "true"
-          ENABLE_CORE_PHASE1: 'true'
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
 
   test-characterisation-legacy:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     steps:
@@ -270,7 +256,7 @@ jobs:
 
   test-characterisation-core:
     machine:
-      image: ubuntu-2204:2023.07.2
+      image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     steps:

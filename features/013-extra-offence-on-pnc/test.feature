@@ -20,8 +20,6 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
 
   @Must
   @Parallel
-  @AuditLog
-  # @NextUI TODO: investigate why the audiot log event not generated
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as "supervisor"
       And I view the list of exceptions
@@ -34,4 +32,3 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
       And this "record" is not "unresolved"
       And the PNC record has not been updated
       And the audit log contains "Exception marked as resolved by user"
-      And the conductor workflow is completed

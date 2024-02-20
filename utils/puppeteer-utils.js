@@ -35,7 +35,7 @@ const reloadUntilSelector = async (page, selector, attempts) => {
 };
 
 const reloadUntilXPathSelector = async (page, selector, attempts) => {
-  const checkForSelector = async () => (await page.$x(selector)).length > 0;
+  const checkForSelector = async () => (await page.$$(selector)).length > 0;
 
   const reloadPage = async () => {
     await page.reload();

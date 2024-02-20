@@ -19,8 +19,7 @@ const config = {
   authType: process.env.AUTH_TYPE || authType.userService,
   noUi: process.env.NO_UI === "true",
   messageEntryPoint: process.env.MESSAGE_ENTRY_POINT || "s3",
-  realPNC: process.env.REAL_PNC === "true",
-  enableCorePhase1: process.env.ENABLE_CORE_PHASE1 === "true"
+  realPNC: process.env.REAL_PNC === "true"
 };
 
 module.exports = {
