@@ -5,6 +5,7 @@ const { waitForRecord } = require("./waitForRecord");
 const {
   reloadUntilContentInSelector,
   reloadUntilContent,
+  reloadUntilNotContent,
   reloadUntilXPathSelector
 } = require("../../utils/puppeteer-utils");
 
@@ -117,11 +118,6 @@ const checkOffenceData = async function (value, key) {
   expect(cellContent).toBe(value);
 };
 
-const checkOffenceDataError = async function (value, key) {
-  console.log("Check offence data error", key, value);
-  throw Error("Not yet implemented.");
-};
-
 const checkOffence = async function (offenceCode, offenceId) {
   console.log("Check offence", offenceCode, offenceId);
   throw Error("Not yet implemented.");
@@ -150,6 +146,14 @@ const loadTab = async function (tabName) {
     await this.browser.page.click(`#${tabName.toLowerCase()}-tab`);
     return;
   }
+
+  const backToAllOffencesLink = await this.browser.page.$$(".govuk-back-link");
+
+  if (tabName === "Offences" && backToAllOffencesLink.length > 0) {
+    await backToAllOffencesLink[0].click();
+    return;
+  }
+
   await this.browser.page.click(`text=${tabName}`);
 };
 
@@ -374,8 +378,12 @@ const noTriggersPresentForOffender = async function (name) {
 // TODO: implement once case details page layout is completed.
 // Currently the correction fields in the UI can't be easily
 // selected.
-const correctOffenceException = async function () {
-  throw new Error("Not implemented");
+// eslint-disable-next-line no-unused-vars
+const correctOffenceException = async function (field, newValue) {
+  const input = await this.browser.page.$(`input#${field.toLowerCase()}`);
+  if (input) {
+    input.value = newValue;
+  }
 };
 
 const returnToCaseListUnlock = async function () {
@@ -412,6 +420,28 @@ const switchBichard = async function () {
 const viewOffence = async function (offenceId) {
   const { page } = this.browser;
   await Promise.all([page.click(`#offence-${offenceId}`)]);
+};
+
+const submitRecord = async function () {
+  const { page } = this.browser;
+
+  await page.click("#exceptions-tab");
+  await Promise.all([page.click("#submit"), page.waitForNavigation()]);
+  await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
+  await Promise.all([page.click("#leave-and-unlock, #return-to-case-list"), page.waitForNavigation()]);
+};
+
+const reloadUntilStringNotPresent = async function (content) {
+  const contentSansParentheses = content.replace(/[()]/g, "");
+  const result = await reloadUntilNotContent(this.browser.page, contentSansParentheses.toUpperCase());
+  expect(result).toBeTruthy();
+};
+
+// eslint-disable-next-line no-unused-vars
+const checkOffenceDataError = async function (value, key) {
+  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+  const found = await reloadUntilContentInSelector(this.browser.page, newValue, "#exceptions");
+  expect(found).toBeTruthy();
 };
 
 module.exports = {
@@ -453,5 +483,7 @@ module.exports = {
   checkNoteExists,
   clickButton,
   switchBichard,
-  viewOffence
+  viewOffence,
+  submitRecord,
+  reloadUntilStringNotPresent
 };
