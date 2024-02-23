@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.1.0
+  node: circleci/node@5.2.0
 
 commands:
   ################### Helpers
@@ -269,8 +269,6 @@ jobs:
 #################################################################################
 
 workflows:
-  version: 3
-
   deploy:
     jobs:
       - build
