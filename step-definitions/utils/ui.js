@@ -375,15 +375,11 @@ const noTriggersPresentForOffender = async function (name) {
   await this.browser.clickAndWait("#clear-filters-applied");
 };
 
-// TODO: implement once case details page layout is completed.
-// Currently the correction fields in the UI can't be easily
-// selected.
-// eslint-disable-next-line no-unused-vars
 const correctOffenceException = async function (field, newValue) {
-  const input = await this.browser.page.$(`input#${field.toLowerCase()}`);
-  if (input) {
-    input.value = newValue;
-  }
+  const { page } = this.browser;
+
+  await page.focus(`input#${field.toLowerCase()}`);
+  await page.keyboard.type(newValue);
 };
 
 const returnToCaseListUnlock = async function () {
