@@ -253,3 +253,5 @@ When("I view offence {string}", viewOffence);
 When("I submit the record", submitRecord);
 
 Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
+
+Then("I return to the list", returnToCaseListUnlock);

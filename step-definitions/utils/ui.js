@@ -388,6 +388,10 @@ const correctOffenceException = async function (field, newValue) {
 
 const returnToCaseListUnlock = async function () {
   const { page } = this.browser;
+  const pageTitle = await page.title();
+  if (pageTitle.endsWith("Case List")) {
+    return;
+  }
   await Promise.all([page.click("#leave-and-unlock, #return-to-case-list"), page.waitForNavigation()]);
 };
 
