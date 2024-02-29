@@ -16,6 +16,7 @@ Feature: {121} BR7 R5.1-RCD399-Force calculation-FF code in CourtHearingLocation
 
 	@Should
 	@PreProdTest
+	@NextUI
 	Scenario: Deriving the force owner from the court hearing location
 		When I am logged in as "met.police"
 			And "input-message" is received

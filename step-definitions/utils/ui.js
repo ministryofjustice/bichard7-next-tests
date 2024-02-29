@@ -178,7 +178,11 @@ const reallocateCaseToForce = async function (force) {
 };
 
 const canSeeContentInTable = async function (value) {
-  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+  let newValue = value;
+  if (value === "(Submitted)") {
+    newValue = newValue.replace(/[()]/g, "").toUpperCase();
+  }
+  newValue = newValue.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const found = await reloadUntilContentInSelector(
     this.browser.page,
     newValue,
