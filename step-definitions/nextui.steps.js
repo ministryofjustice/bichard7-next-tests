@@ -64,7 +64,9 @@ const {
   switchBichard,
   viewOffence,
   submitRecord,
-  reloadUntilStringNotPresent
+  reloadUntilStringNotPresent,
+  checkRecordStatus,
+  checkRecordNotStatus
 } = require("./utils/ui");
 
 const {
@@ -255,3 +257,7 @@ When("I submit the record", submitRecord);
 Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
 
 Then("I return to the list", returnToCaseListUnlock);
+
+Then("the {string} for {string} is {string}", checkRecordStatus);
+
+Then("the {string} for {string} is not {string}", checkRecordNotStatus);

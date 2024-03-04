@@ -406,8 +406,18 @@ const checkNoteExists = async function (value) {
   }
 };
 
+const legacyToNextButtonTextMappings = {
+  "Mark Selected Complete": "Mark trigger(s) as complete",
+  Refresh: "Case list"
+};
+
 const clickButton = async function (value) {
-  await this.browser.clickAndWait(`text=${value}`);
+  let newValue = value;
+  if (legacyToNextButtonTextMappings[value]) {
+    newValue = legacyToNextButtonTextMappings[value];
+  }
+
+  await this.browser.clickAndWait(`text=${newValue}`);
 };
 
 const switchBichard = async function () {
@@ -446,6 +456,24 @@ const checkOffenceDataError = async function (value, key) {
   const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const found = await reloadUntilContentInSelector(this.browser.page, newValue, "#exceptions");
   expect(found).toBeTruthy();
+};
+
+const checkRecordStatus = async function (recordType, recordName, resolvedType) {
+  const { page } = this.browser;
+
+  await Promise.all([filterRecords(this, resolvedType, recordType), page.waitForNavigation()]);
+  expect(await this.browser.elementText("table.cases-list")).toMatch(recordName);
+  await Promise.all([page.click("#clear-filters-applied"), page.waitForNavigation()]);
+};
+
+const checkRecordNotStatus = async function (recordType, _recordName, resolvedType) {
+  const { page } = this.browser;
+
+  await Promise.all([filterRecords(this, resolvedType, recordType), page.waitForNavigation()]);
+
+  const noCasesMessageMatch = await page.$$(`xpath/.//*[contains(text(), "There are no court cases to show")]`);
+
+  expect(noCasesMessageMatch.length).toEqual(1);
 };
 
 module.exports = {
@@ -489,5 +517,7 @@ module.exports = {
   switchBichard,
   viewOffence,
   submitRecord,
-  reloadUntilStringNotPresent
+  reloadUntilStringNotPresent,
+  checkRecordStatus,
+  checkRecordNotStatus
 };
