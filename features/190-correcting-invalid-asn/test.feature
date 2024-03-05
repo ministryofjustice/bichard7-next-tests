@@ -25,6 +25,7 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 
 	@Should
 	@ExcludedOnConductor
+	@NextUI
 	Scenario: Correcting invalid ASN codes
 		Given "input-message-1" is received
 			And I am logged in as "generalhandler"

@@ -8,6 +8,7 @@ Feature: 403 - Fixing exceptions and resubmitting
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
+	@NextUI
 	Scenario: Handling messages with session duration
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
