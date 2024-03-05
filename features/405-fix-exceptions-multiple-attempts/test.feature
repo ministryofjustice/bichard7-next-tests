@@ -28,6 +28,7 @@ Feature: 405 - Fixing exceptions and resubmitting with multiple attempts
 			And there are no exceptions or triggers for this record
 
 	@NextUI
+	@ExcludeOnLegacyUI
 	Scenario: Exception can only be submitted when the input is valid
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
