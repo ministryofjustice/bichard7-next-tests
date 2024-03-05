@@ -382,7 +382,15 @@ const noTriggersPresentForOffender = async function (name) {
 const correctOffenceException = async function (field, newValue) {
   const { page } = this.browser;
 
-  await page.focus(`input#${field.toLowerCase()}`);
+  const inputId = `input#${field.toLowerCase()}`;
+
+  // clear any existing value
+  await page.$eval(inputId, (e) => {
+    const element = e;
+    element.value = "";
+  });
+
+  await page.focus(inputId);
   await page.keyboard.type(newValue);
 };
 
@@ -476,6 +484,16 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
   expect(noCasesMessageMatch.length).toEqual(1);
 };
 
+// eslint-disable-next-line no-unused-vars
+const invalidFieldCannotBeSubmitted = async function (fieldName) {
+  const { page } = this.browser;
+
+  await page.click("#exceptions-tab");
+
+  const submitDisabled = await page.$eval("#submit", (submitButton) => submitButton.disabled);
+  expect(submitDisabled).toBeTruthy();
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -519,5 +537,6 @@ module.exports = {
   submitRecord,
   reloadUntilStringNotPresent,
   checkRecordStatus,
-  checkRecordNotStatus
+  checkRecordNotStatus,
+  invalidFieldCannotBeSubmitted
 };

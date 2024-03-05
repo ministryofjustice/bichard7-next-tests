@@ -66,7 +66,8 @@ const {
   submitRecord,
   reloadUntilStringNotPresent,
   checkRecordStatus,
-  checkRecordNotStatus
+  checkRecordNotStatus,
+  invalidFieldCannotBeSubmitted
 } = require("./utils/ui");
 
 const {
@@ -261,3 +262,5 @@ Then("I return to the list", returnToCaseListUnlock);
 Then("the {string} for {string} is {string}", checkRecordStatus);
 
 Then("the {string} for {string} is not {string}", checkRecordNotStatus);
+
+Then("the invalid {string} cannot be submitted", invalidFieldCannotBeSubmitted);
