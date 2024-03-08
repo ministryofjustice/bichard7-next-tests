@@ -9,6 +9,7 @@ Feature: 404 - Fixing exceptions and triggers and resubmitting
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
+	@NextUI
 	Scenario: Updates and triggers are correctly generated for sexual offences
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
