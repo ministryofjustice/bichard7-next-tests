@@ -70,8 +70,6 @@ const {
   checkOffenceData: alternateCheckOffenceData
 } = require("./old-utils/ui");
 
-const { checkConductorWorkflowCompleted } = require("../utils/conductor");
-
 const { checkAuditLogExists } = require("./utils/auditLogging");
 const Bichard = require("./world");
 
