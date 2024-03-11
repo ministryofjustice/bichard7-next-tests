@@ -647,6 +647,31 @@ const returnToList = async function () {
   await Promise.all([returnButton.click(), this.browser.page.waitForNavigation()]);
 };
 
+const saveChanges = async function () {
+  await this.browser.clickAndWait(`input[type='submit'][value='Yes']`);
+};
+
+const checkCorrectionFieldAndValue = async function (field, expectedValue) {
+  await this.browser.page.$$("#br7_exception_details_court_data_table .resultsTable tbody tr").then((rows) =>
+    rows.map((row) =>
+      row.evaluate(
+        (rowEl, fieldName, value) => {
+          const tds = [...rowEl.querySelectorAll("td")].map((e) => e.innerText.trim());
+          if (tds[0] === fieldName) {
+            let input = rowEl.querySelector("input[type='text']");
+            if (!input) {
+              input = rowEl.querySelector("textarea");
+            }
+            expect(input.value).toEqual(value);
+          }
+        },
+        field,
+        expectedValue
+      )
+    )
+  );
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -718,5 +743,7 @@ module.exports = {
   switchBichard,
   cannotSeeBichardSwitcher,
   returnToList,
-  reloadUntilStringPresentForRecord
+  reloadUntilStringPresentForRecord,
+  saveChanges,
+  checkCorrectionFieldAndValue
 };

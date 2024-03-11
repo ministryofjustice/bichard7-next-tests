@@ -89,7 +89,9 @@ const {
   switchBichard,
   cannotSeeBichardSwitcher,
   returnToList,
-  reloadUntilStringPresentForRecord
+  reloadUntilStringPresentForRecord,
+  saveChanges,
+  checkCorrectionFieldAndValue
 } = require("./old-utils/ui");
 
 const {
@@ -312,3 +314,7 @@ Then("I should not see a button to switch to the alternate version of bichard", 
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
 
 Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
+
+Then("I save a record", saveChanges);
+
+Then("I see the correction for {string} to {string}", checkCorrectionFieldAndValue);

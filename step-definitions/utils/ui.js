@@ -178,7 +178,7 @@ const reallocateCaseToForce = async function (force) {
 
 const canSeeContentInTable = async function (value) {
   let newValue = value;
-  if (value === "(Submitted)" || value === "Resolved") {
+  if (value === "(Submitted)" || value === "(Resolved)") {
     newValue = newValue.replace(/[()]/g, "").toUpperCase();
   }
 
@@ -434,7 +434,7 @@ const submitRecord = async function () {
   await page.click("#exceptions-tab");
   await Promise.all([page.click("#submit"), page.waitForNavigation()]);
   await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
-  await Promise.all([page.click("#leave-and-unlock, #return-to-case-list"), page.waitForNavigation()]);
+  await Promise.all([page.click("#return-to-case-list"), page.waitForNavigation()]);
 };
 
 const reloadUntilStringNotPresent = async function (content) {
@@ -476,6 +476,46 @@ const invalidFieldCannotBeSubmitted = async function (fieldName) {
 
   const submitDisabled = await page.$eval("#submit", (submitButton) => submitButton.disabled);
   expect(submitDisabled).toBeTruthy();
+};
+
+const checkCorrectionFieldAndValue = async function (fieldName, value) {
+  const { page } = this.browser;
+
+  await page.click("#save-asn");
+  await page.waitForFunction(() => !document.querySelector("#save-asn[disabled]"));
+
+  const [correctionBadge] = await page.$$eval(
+    `xpath/.//div[contains(@class, "badge-wrapper") and contains(., "Correction")]`,
+    (badges) => badges.map((badge) => badge.textContent)
+  );
+  expect(correctionBadge).toEqual("Correction");
+
+  const [cellContent] = await page.$$eval(
+    `xpath/.//table/tbody/tr/*[contains(.,"${fieldName}")]/following-sibling::td`,
+    (cells) => cells.map((cell) => cell.textContent)
+  );
+  expect(cellContent).toContain(value);
+};
+
+const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) {
+  const { page } = this.browser;
+
+  await page.click("#save-asn");
+  await page.waitForFunction(() => !document.querySelector("#save-asn[disabled]"));
+
+  await page.reload();
+
+  const [correctionBadge] = await page.$$eval(
+    `xpath/.//div[contains(@class, "badge-wrapper") and contains(., "Correction")]`,
+    (badges) => badges.map((badge) => badge.textContent)
+  );
+  expect(correctionBadge).toEqual("Correction");
+
+  const [cellContent] = await page.$$eval(
+    `xpath/.//table/tbody/tr/*[contains(.,"${fieldName}")]/following-sibling::td`,
+    (cells) => cells.map((cell) => cell.textContent)
+  );
+  expect(cellContent).toContain(value);
 };
 
 module.exports = {
@@ -522,5 +562,7 @@ module.exports = {
   reloadUntilStringNotPresent,
   checkRecordStatus,
   checkRecordNotStatus,
-  invalidFieldCannotBeSubmitted
+  invalidFieldCannotBeSubmitted,
+  checkCorrectionFieldAndValue,
+  checkCorrectionFieldAndValueOnRefresh
 };
