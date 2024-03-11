@@ -11,7 +11,6 @@ const {
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
-  await world.browser.page.click("button#filter-button");
   const searchField = "input[name='keywords']";
   await world.browser.page.click(searchField, { clickCount: 3 });
   await world.browser.page.type(searchField, name);
@@ -178,7 +177,6 @@ const reallocateCaseToForce = async function (force) {
 };
 
 const canSeeContentInTable = async function (value) {
-
   const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const found = await reloadUntilContentInSelector(this.browser.page, newValue, "table.cases-list > tbody");
   expect(found).toBeTruthy();
@@ -205,9 +203,6 @@ const cannotSeeTrigger = async function (value) {
 
 const noExceptionPresentForOffender = async function (name) {
   // Filter for exceptions
-  await this.browser.page.waitForSelector("#filter-button");
-  await this.browser.page.click("#filter-button");
-
   await this.browser.page.waitForSelector("#exceptions-type");
   await this.browser.page.click("#exceptions-type");
 
@@ -222,7 +217,7 @@ const noExceptionPresentForOffender = async function (name) {
   expect(noCasesMessageMatch.length).toEqual(1);
 
   // Reset filters
-  await this.browser.clickAndWait("#clear-filters-applied");
+  await this.browser.clickAndWait("#clear-filters");
 };
 
 const markTriggersComplete = async function (world) {
@@ -350,9 +345,6 @@ const goToExceptionList = async function () {
 
 // TODO: refactor down with noExceptionsPresentForOffender
 const noTriggersPresentForOffender = async function (name) {
-  await this.browser.page.waitForSelector("#filter-button");
-  await this.browser.page.click("#filter-button");
-
   await this.browser.page.waitForSelector("#triggers-type");
   await this.browser.page.click("#triggers-type");
 
@@ -367,7 +359,7 @@ const noTriggersPresentForOffender = async function (name) {
   expect(noCasesMessageMatch.length).toEqual(1);
 
   // Reset filters
-  await this.browser.clickAndWait("#clear-filters-applied");
+  await this.browser.clickAndWait("#clear-filters");
 };
 
 const correctOffenceException = async function (field, newValue) {
