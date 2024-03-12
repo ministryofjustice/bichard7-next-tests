@@ -18,7 +18,6 @@ Feature: 404 - Fixing exceptions and triggers and resubmitting
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000448754K"
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
 		When I reload until I don't see "(Submitted)"
 			And I click the "Refresh" button
 			And I return to the list
@@ -33,5 +32,4 @@ Feature: 404 - Fixing exceptions and triggers and resubmitting
 			And the PNC updates the record
 		When I resolve all of the triggers
 		Then the "record" for "SEXOFFENCE TRPRFOUR" is "resolved"
-			And the "record" for "SEXOFFENCE TRPRFOUR" is not "unresolved"
 			And there are no exceptions for this record

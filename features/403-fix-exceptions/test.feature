@@ -17,6 +17,7 @@ Feature: 403 - Fixing exceptions and resubmitting
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000410804K"
 			And I submit the record
+		Then I reload until I don't see "(Submitted)"
 		Then the "record" for "Ladyfish Larry" is "resolved"
 			And the PNC updates the record
 			And I return to the list

@@ -178,7 +178,7 @@ const reallocateCaseToForce = async function (force) {
 
 const canSeeContentInTable = async function (value) {
   let newValue = value;
-  if (value === "(Submitted)") {
+  if (value === "(Submitted)" || value === "Resolved") {
     newValue = newValue.replace(/[()]/g, "").toUpperCase();
   }
 
