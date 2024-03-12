@@ -191,11 +191,7 @@ const canSeeContentInTableForThis = async function (value) {
   await filterByRecordName(this);
 
   const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-  const found = await reloadUntilContentInSelector(
-    this.browser.page,
-    newValue,
-    "#main-content > div.moj-filter-layout > div.moj-filter-layout__content > div.moj-scrollable-pane > div > table > tbody"
-  );
+  const found = await reloadUntilContentInSelector(this.browser.page, newValue, "table.cases-list > tbody");
   expect(found).toBeTruthy();
 };
 
