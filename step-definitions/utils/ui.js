@@ -6,7 +6,8 @@ const {
   reloadUntilContentInSelector,
   reloadUntilContent,
   reloadUntilNotContent,
-  reloadUntilXPathSelector
+  reloadUntilXPathSelector,
+  delay
 } = require("../../utils/puppeteer-utils");
 
 const filterByRecordName = async function (world) {
@@ -478,44 +479,39 @@ const invalidFieldCannotBeSubmitted = async function (fieldName) {
   expect(submitDisabled).toBeTruthy();
 };
 
+const getFieldNameId = (fieldName) => `${fieldName.toLowerCase().replace(" ", "-")}`;
+
+const clickSaveButton = async (fieldNameId) => {
+  await page.click(`#save-${fieldNameId}`);
+  const submitDisabled = await page.$eval(`#save-${fieldNameId}`, (submitButton) => submitButton.disabled);
+  expect(submitDisabled).toBeTruthy();
+};
+
 const checkCorrectionFieldAndValue = async function (fieldName, value) {
   const { page } = this.browser;
+  const fieldNameId = getFieldNameId();
 
-  await page.click("#save-asn");
-  await page.waitForFunction(() => !document.querySelector("#save-asn[disabled]"));
+  clickSaveButton(fieldNameId);
 
-  const [correctionBadge] = await page.$$eval(
-    `xpath/.//div[contains(@class, "badge-wrapper") and contains(., "Correction")]`,
-    (badges) => badges.map((badge) => badge.textContent)
-  );
-  expect(correctionBadge).toEqual("Correction");
-
-  const [cellContent] = await page.$$eval(
-    `xpath/.//table/tbody/tr/*[contains(.,"${fieldName}")]/following-sibling::td`,
-    (cells) => cells.map((cell) => cell.textContent)
-  );
-  expect(cellContent).toContain(value);
+  const correctionValue = await page.$eval(`#${fieldNameId}`, (field) => field.value);
+  expect(value).toEqual(correctionValue);
 };
 
 const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) {
   const { page } = this.browser;
+  const fieldNameId = getFieldNameId();
 
-  await page.click("#save-asn");
-  await page.waitForFunction(() => !document.querySelector("#save-asn[disabled]"));
+  clickSaveButton(fieldNameId);
 
+  const correctionValueOnInitialSave = await page.$eval(`#${fieldNameId}`, (field) => field.value);
+  expect(value).toEqual(correctionValueOnInitialSave);
+
+  // Reload happens too fast to display saved info
+  await delay(0.5);
   await page.reload();
 
-  const [correctionBadge] = await page.$$eval(
-    `xpath/.//div[contains(@class, "badge-wrapper") and contains(., "Correction")]`,
-    (badges) => badges.map((badge) => badge.textContent)
-  );
-  expect(correctionBadge).toEqual("Correction");
-
-  const [cellContent] = await page.$$eval(
-    `xpath/.//table/tbody/tr/*[contains(.,"${fieldName}")]/following-sibling::td`,
-    (cells) => cells.map((cell) => cell.textContent)
-  );
-  expect(cellContent).toContain(value);
+  const correctionValueOnReload = await page.$eval(`#${fieldNameId}`, (field) => field.value);
+  expect(value).toEqual(correctionValueOnReload);
 };
 
 module.exports = {
