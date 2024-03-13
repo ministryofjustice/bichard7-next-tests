@@ -489,7 +489,7 @@ const clickSaveButton = async (fieldNameId) => {
 
 const checkCorrectionFieldAndValue = async function (fieldName, value) {
   const { page } = this.browser;
-  const fieldNameId = getFieldNameId();
+  const fieldNameId = getFieldNameId(fieldName);
 
   clickSaveButton(fieldNameId);
 
@@ -499,7 +499,7 @@ const checkCorrectionFieldAndValue = async function (fieldName, value) {
 
 const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) {
   const { page } = this.browser;
-  const fieldNameId = getFieldNameId();
+  const fieldNameId = getFieldNameId(fieldName);
 
   clickSaveButton(fieldNameId);
 
