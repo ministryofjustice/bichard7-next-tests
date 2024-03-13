@@ -14,12 +14,12 @@ Feature: {324} BR7 R5.11-RCD688 - Existing Offence Result_2060 with Offence adde
 
 	Background:
 		Given the data for this test is in the PNC
-		And "input-message" is received
+			And "input-message" is received
 
 	@Should @NextUI
 	Scenario: Existing offence with 2060 result and 2059 result added in court
 		Given I am logged in as "supervisor"
-		And I view the list of exceptions
-		And the PNC updates the record
+			And I view the list of exceptions
+			And the PNC updates the record
 		Then I see trigger "PS10 - Offence added to PNC" in the exception list table
-		And there are no exceptions
+			And there are no exceptions
