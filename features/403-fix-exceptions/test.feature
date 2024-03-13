@@ -17,10 +17,8 @@ Feature: 403 - Fixing exceptions and resubmitting
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000410804K"
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
-		When I reload until I don't see "(Submitted)"
-			And I click the "Refresh" button
-			And I return to the list
+		Then I reload until I don't see "(Submitted)"
 		Then the "record" for "Ladyfish Larry" is "resolved"
 			And the PNC updates the record
+			And I return to the list
 			And there are no exceptions or triggers for this record

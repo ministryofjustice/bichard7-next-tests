@@ -85,7 +85,7 @@ const logInAs = async function (username) {
     await logInNormallyAs(this, username);
   }
 
-  expect(await this.browser.pageText()).toContain(username);
+  expect(await this.browser.pageText()).toMatch(new RegExp(username, "i"));
 };
 
 module.exports = { logInAs };

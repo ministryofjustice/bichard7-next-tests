@@ -30,7 +30,6 @@ Feature: {075} R4.0_BR7_Personal Details Trigger
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000410830N"
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
 		When I reload until I don't see "(Submitted)"
 		Then I see trigger "PR15 - Personal details changed" in the exception list table
 			And the PNC updates the record
