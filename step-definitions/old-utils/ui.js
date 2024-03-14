@@ -652,24 +652,12 @@ const saveChanges = async function () {
 };
 
 const checkCorrectionFieldAndValue = async function (field, expectedValue) {
-  await this.browser.page.$$("#br7_exception_details_court_data_table .resultsTable tbody tr").then((rows) =>
-    rows.map((row) =>
-      row.evaluate(
-        (rowEl, fieldName, value) => {
-          const tds = [...rowEl.querySelectorAll("td")].map((e) => e.innerText.trim());
-          if (tds[0] === fieldName) {
-            let input = rowEl.querySelector("input[type='text']");
-            if (!input) {
-              input = rowEl.querySelector("textarea");
-            }
-            expect(input.value).toEqual(value);
-          }
-        },
-        field,
-        expectedValue
-      )
-    )
+  const inputField = await this.browser.page.$eval(
+    `xpath/.//*/tbody/tr/td[contains(text(), "${field}")]/following-sibling::td[3]/input`,
+    (input) => input.value
   );
+
+  expect(inputField).toEqual(expectedValue);
 };
 
 module.exports = {
