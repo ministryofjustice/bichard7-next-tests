@@ -9,6 +9,7 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And "input-message" is received
 
 	@NextUI
+	@ExcludeOnLegacyUI
 	Scenario: Updates the ASN in Next UI and submit the exception
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
@@ -22,6 +23,7 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see exception "(Resolved)" in the exception list table
 
 	@NextUI
+	@ExcludeOnLegacyUI
 	Scenario: Updates the ASN in Next UI and reload the case details page
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
@@ -35,6 +37,7 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see exception "(Resolved)" in the exception list table
 
 	@NextUI
+	@ExcludeOnLegacyUI
 	Scenario: Updates the ASN in Next UI and edit the saved ASN
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
