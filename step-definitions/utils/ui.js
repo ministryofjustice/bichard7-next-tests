@@ -482,6 +482,8 @@ const invalidFieldCannotBeSubmitted = async function (fieldName) {
 const getFieldNameId = (fieldName) => `${fieldName.toLowerCase().replace(" ", "-")}`;
 
 const clickSaveButton = async (fieldNameId) => {
+  const { page } = this.browser;
+
   await page.click(`#save-${fieldNameId}`);
   const submitDisabled = await page.$eval(`#save-${fieldNameId}`, (submitButton) => submitButton.disabled);
   expect(submitDisabled).toBeTruthy();
