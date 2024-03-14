@@ -469,8 +469,7 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
   expect(noCasesMessageMatch.length).toEqual(1);
 };
 
-// eslint-disable-next-line no-unused-vars
-const invalidFieldCannotBeSubmitted = async function (fieldName) {
+const invalidFieldCannotBeSubmitted = async function () {
   const { page } = this.browser;
 
   await page.click("#exceptions-tab");
@@ -481,9 +480,7 @@ const invalidFieldCannotBeSubmitted = async function (fieldName) {
 
 const getFieldNameId = (fieldName) => `${fieldName.toLowerCase().replace(" ", "-")}`;
 
-const clickSaveButton = async (fieldNameId) => {
-  const { page } = this.browser;
-
+const clickSaveButton = async (page, fieldNameId) => {
   await page.click(`#save-${fieldNameId}`);
   const submitDisabled = await page.$eval(`#save-${fieldNameId}`, (submitButton) => submitButton.disabled);
   expect(submitDisabled).toBeTruthy();
@@ -493,7 +490,7 @@ const checkCorrectionFieldAndValue = async function (fieldName, value) {
   const { page } = this.browser;
   const fieldNameId = getFieldNameId(fieldName);
 
-  clickSaveButton(fieldNameId);
+  clickSaveButton(page, fieldNameId);
 
   const correctionValue = await page.$eval(`#${fieldNameId}`, (field) => field.value);
   expect(value).toEqual(correctionValue);
@@ -503,7 +500,7 @@ const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) 
   const { page } = this.browser;
   const fieldNameId = getFieldNameId(fieldName);
 
-  clickSaveButton(fieldNameId);
+  clickSaveButton(page, fieldNameId);
 
   const correctionValueOnInitialSave = await page.$eval(`#${fieldNameId}`, (field) => field.value);
   expect(value).toEqual(correctionValueOnInitialSave);
