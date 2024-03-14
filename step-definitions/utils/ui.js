@@ -468,8 +468,10 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
 
   expect(noCasesMessageMatch.length).toEqual(1);
 };
+const getFieldNameId = (fieldName) => `${fieldName.toLowerCase().replace(" ", "-")}`;
 
-const invalidFieldCannotBeSubmitted = async function () {
+// eslint-disable-next-line no-unused-vars
+const invalidFieldCannotBeSubmitted = async function (_fieldName) {
   const { page } = this.browser;
 
   await page.click("#exceptions-tab");
@@ -477,8 +479,6 @@ const invalidFieldCannotBeSubmitted = async function () {
   const submitDisabled = await page.$eval("#submit", (submitButton) => submitButton.disabled);
   expect(submitDisabled).toBeTruthy();
 };
-
-const getFieldNameId = (fieldName) => `${fieldName.toLowerCase().replace(" ", "-")}`;
 
 const clickSaveButton = async (page, fieldNameId) => {
   await page.click(`#save-${fieldNameId}`);
