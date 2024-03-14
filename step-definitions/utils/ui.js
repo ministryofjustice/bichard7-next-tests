@@ -10,6 +10,12 @@ const {
   delay
 } = require("../../utils/puppeteer-utils");
 
+const clickSaveButton = async (page, fieldNameId) => {
+  await page.click(fieldNameId);
+  const submitDisabled = await page.$eval(fieldNameId, (submitButton) => submitButton.disabled);
+  expect(submitDisabled).toBeTruthy();
+};
+
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
   const searchField = "input[name='keywords']";
@@ -377,6 +383,8 @@ const correctOffenceException = async function (field, newValue) {
 
   await page.focus(inputId);
   await page.keyboard.type(newValue);
+
+  clickSaveButton(page, `#save-${field.toLowerCase()}`);
 };
 
 const returnToCaseListUnlock = async function () {
@@ -468,7 +476,9 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
 
   expect(noCasesMessageMatch.length).toEqual(1);
 };
-const getFieldNameId = (fieldName) => `${fieldName.toLowerCase().replace(" ", "-")}`;
+
+const getFieldName = (fieldName) => fieldName.toLowerCase().replace(" ", "-");
+const getSaveFieldNameId = (fieldName) => `#save-${fieldName}`;
 
 // eslint-disable-next-line no-unused-vars
 const invalidFieldCannotBeSubmitted = async function (_fieldName) {
@@ -480,36 +490,32 @@ const invalidFieldCannotBeSubmitted = async function (_fieldName) {
   expect(submitDisabled).toBeTruthy();
 };
 
-const clickSaveButton = async (page, fieldNameId) => {
-  await page.click(`#save-${fieldNameId}`);
-  const submitDisabled = await page.$eval(`#save-${fieldNameId}`, (submitButton) => submitButton.disabled);
-  expect(submitDisabled).toBeTruthy();
-};
-
 const checkCorrectionFieldAndValue = async function (fieldName, value) {
   const { page } = this.browser;
-  const fieldNameId = getFieldNameId(fieldName);
+  const fieldNameId = `#${getFieldName(fieldName)}`;
+  const saveFieldNameId = getSaveFieldNameId(getFieldName(fieldName));
 
-  clickSaveButton(page, fieldNameId);
+  clickSaveButton(page, saveFieldNameId);
 
-  const correctionValue = await page.$eval(`#${fieldNameId}`, (field) => field.value);
+  const correctionValue = await page.$eval(fieldNameId, (field) => field.value);
   expect(value).toEqual(correctionValue);
 };
 
 const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) {
   const { page } = this.browser;
-  const fieldNameId = getFieldNameId(fieldName);
+  const fieldNameId = `#${getFieldName(fieldName)}`;
+  const saveFieldNameId = getSaveFieldNameId(getFieldName(fieldName));
 
-  clickSaveButton(page, fieldNameId);
+  clickSaveButton(page, saveFieldNameId);
 
-  const correctionValueOnInitialSave = await page.$eval(`#${fieldNameId}`, (field) => field.value);
+  const correctionValueOnInitialSave = await page.$eval(fieldNameId, (field) => field.value);
   expect(value).toEqual(correctionValueOnInitialSave);
 
   // Reload happens too fast to display saved info
   await delay(0.5);
   await page.reload();
 
-  const correctionValueOnReload = await page.$eval(`#${fieldNameId}`, (field) => field.value);
+  const correctionValueOnReload = await page.$eval(fieldNameId, (field) => field.value);
   expect(value).toEqual(correctionValueOnReload);
 };
 
