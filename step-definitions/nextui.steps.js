@@ -67,7 +67,9 @@ const {
   reloadUntilStringNotPresent,
   checkRecordStatus,
   checkRecordNotStatus,
-  invalidFieldCannotBeSubmitted
+  invalidFieldCannotBeSubmitted,
+  checkCorrectionFieldAndValue,
+  checkCorrectionFieldAndValueOnRefresh
 } = require("./utils/ui");
 
 const {
@@ -264,3 +266,7 @@ Then("the {string} for {string} is {string}", checkRecordStatus);
 Then("the {string} for {string} is not {string}", checkRecordNotStatus);
 
 Then("the invalid {string} cannot be submitted", invalidFieldCannotBeSubmitted);
+
+Then("I see the correction for {string} to {string}", checkCorrectionFieldAndValue);
+
+Then("I see the correction for {string} to {string} and reload", checkCorrectionFieldAndValueOnRefresh);

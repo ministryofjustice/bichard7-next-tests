@@ -6,8 +6,15 @@ const {
   reloadUntilContentInSelector,
   reloadUntilContent,
   reloadUntilNotContent,
-  reloadUntilXPathSelector
+  reloadUntilXPathSelector,
+  delay
 } = require("../../utils/puppeteer-utils");
+
+const clickSaveButton = async (page, fieldNameId) => {
+  await page.click(fieldNameId);
+  const submitDisabled = await page.$eval(fieldNameId, (submitButton) => submitButton.disabled);
+  expect(submitDisabled).toBeTruthy();
+};
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
@@ -178,11 +185,11 @@ const reallocateCaseToForce = async function (force) {
 
 const canSeeContentInTable = async function (value) {
   let newValue = value;
-  if (value === "(Submitted)" || value === "Resolved") {
+  if (value === "(Submitted)" || value === "(Resolved)") {
     newValue = newValue.replace(/[()]/g, "").toUpperCase();
   }
 
-  newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+  newValue = newValue.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const found = await reloadUntilContentInSelector(this.browser.page, newValue, "table.cases-list > tbody");
   expect(found).toBeTruthy();
 };
@@ -376,6 +383,8 @@ const correctOffenceException = async function (field, newValue) {
 
   await page.focus(inputId);
   await page.keyboard.type(newValue);
+
+  clickSaveButton(page, `#save-${field.toLowerCase()}`);
 };
 
 const returnToCaseListUnlock = async function () {
@@ -434,7 +443,7 @@ const submitRecord = async function () {
   await page.click("#exceptions-tab");
   await Promise.all([page.click("#submit"), page.waitForNavigation()]);
   await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
-  await Promise.all([page.click("#leave-and-unlock, #return-to-case-list"), page.waitForNavigation()]);
+  await Promise.all([page.click("#return-to-case-list"), page.waitForNavigation()]);
 };
 
 const reloadUntilStringNotPresent = async function (content) {
@@ -468,14 +477,46 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
   expect(noCasesMessageMatch.length).toEqual(1);
 };
 
+const getFieldName = (fieldName) => fieldName.toLowerCase().replace(" ", "-");
+const getSaveFieldNameId = (fieldName) => `#save-${fieldName}`;
+
 // eslint-disable-next-line no-unused-vars
-const invalidFieldCannotBeSubmitted = async function (fieldName) {
+const invalidFieldCannotBeSubmitted = async function (_fieldName) {
   const { page } = this.browser;
 
   await page.click("#exceptions-tab");
 
   const submitDisabled = await page.$eval("#submit", (submitButton) => submitButton.disabled);
   expect(submitDisabled).toBeTruthy();
+};
+
+const checkCorrectionFieldAndValue = async function (fieldName, value) {
+  const { page } = this.browser;
+  const fieldNameId = `#${getFieldName(fieldName)}`;
+  const saveFieldNameId = getSaveFieldNameId(getFieldName(fieldName));
+
+  clickSaveButton(page, saveFieldNameId);
+
+  const correctionValue = await page.$eval(fieldNameId, (field) => field.value);
+  expect(value).toEqual(correctionValue);
+};
+
+const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) {
+  const { page } = this.browser;
+  const fieldNameId = `#${getFieldName(fieldName)}`;
+  const saveFieldNameId = getSaveFieldNameId(getFieldName(fieldName));
+
+  clickSaveButton(page, saveFieldNameId);
+
+  const correctionValueOnInitialSave = await page.$eval(fieldNameId, (field) => field.value);
+  expect(value).toEqual(correctionValueOnInitialSave);
+
+  // Reload happens too fast to display saved info
+  await delay(0.5);
+  await page.reload();
+
+  const correctionValueOnReload = await page.$eval(fieldNameId, (field) => field.value);
+  expect(value).toEqual(correctionValueOnReload);
 };
 
 module.exports = {
@@ -522,5 +563,7 @@ module.exports = {
   reloadUntilStringNotPresent,
   checkRecordStatus,
   checkRecordNotStatus,
-  invalidFieldCannotBeSubmitted
+  invalidFieldCannotBeSubmitted,
+  checkCorrectionFieldAndValue,
+  checkCorrectionFieldAndValueOnRefresh
 };

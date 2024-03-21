@@ -647,6 +647,19 @@ const returnToList = async function () {
   await Promise.all([returnButton.click(), this.browser.page.waitForNavigation()]);
 };
 
+const saveChanges = async function () {
+  await this.browser.clickAndWait(`input[type='submit'][value='Yes']`);
+};
+
+const checkCorrectionFieldAndValue = async function (field, expectedValue) {
+  const inputField = await this.browser.page.$eval(
+    `xpath/.//*/tbody/tr/td[contains(text(), "${field}")]/following-sibling::td[3]/input`,
+    (input) => input.value
+  );
+
+  expect(inputField).toEqual(expectedValue);
+};
+
 module.exports = {
   checkNoPncErrors,
   containsValue,
@@ -718,5 +731,7 @@ module.exports = {
   switchBichard,
   cannotSeeBichardSwitcher,
   returnToList,
-  reloadUntilStringPresentForRecord
+  reloadUntilStringPresentForRecord,
+  saveChanges,
+  checkCorrectionFieldAndValue
 };
