@@ -401,6 +401,22 @@ const correctOffenceExceptionAndSave = async function (field, newValue) {
   await clickSaveButton(page, `#save-${fieldHtml}`);
 };
 
+const correctOffenceExceptionByTypeahead = async function (field, newValue) {
+  const { page } = this.browser;
+
+  await correctOffence(page, convertFieldToHtml(field), newValue);
+};
+
+const selectTheFirstOption = async function () {
+  const { page } = this.browser;
+
+  // API request happens too slow for puppeteer
+  await delay(0.5);
+
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("Enter");
+};
+
 const returnToCaseListUnlock = async function () {
   const { page } = this.browser;
   const pageTitle = await page.title();
@@ -448,7 +464,15 @@ const switchBichard = async function () {
 
 const viewOffence = async function (offenceId) {
   const { page } = this.browser;
-  await Promise.all([page.click(`#offence-${offenceId}`)]);
+
+  const [link] = await page.$$(`xpath/.//a[contains(text(), "${offenceId}")]`);
+
+  if (link) {
+    await link.click();
+    return;
+  }
+
+  await page.waitForSelector(`#offence-${offenceId}`).click();
 };
 
 const submitRecord = async function () {
@@ -532,6 +556,16 @@ const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) 
   expect(value).toEqual(correctionValueOnReload);
 };
 
+const inputFieldToKeyboardPress = async function (field, keyboardButton) {
+  const { page } = this.browser;
+
+  const inputField = `input#${convertFieldToHtml(field)}`;
+
+  await page.focus(inputField);
+
+  await page.keyboard.press(keyboardButton);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -563,6 +597,8 @@ module.exports = {
   noTriggersPresentForOffender,
   correctOffenceException,
   correctOffenceExceptionAndSave,
+  correctOffenceExceptionByTypeahead,
+  selectTheFirstOption,
   manuallyResolveRecord,
   nRecordsInList,
   nRecordsForPerson,
@@ -579,5 +615,6 @@ module.exports = {
   checkRecordNotStatus,
   invalidFieldCannotBeSubmitted,
   checkCorrectionFieldAndValue,
-  checkCorrectionFieldAndValueOnRefresh
+  checkCorrectionFieldAndValueOnRefresh,
+  inputFieldToKeyboardPress
 };

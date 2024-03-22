@@ -55,6 +55,7 @@ const {
   noTriggersPresentForOffender,
   correctOffenceException,
   correctOffenceExceptionAndSave,
+  correctOffenceExceptionByTypeahead,
   manuallyResolveRecord,
   nRecordsInList,
   nRecordsForPerson,
@@ -70,7 +71,9 @@ const {
   checkRecordNotStatus,
   invalidFieldCannotBeSubmitted,
   checkCorrectionFieldAndValue,
-  checkCorrectionFieldAndValueOnRefresh
+  checkCorrectionFieldAndValueOnRefresh,
+  selectTheFirstOption,
+  inputFieldToKeyboardPress
 } = require("./utils/ui");
 
 const {
@@ -273,3 +276,9 @@ Then("the invalid {string} cannot be submitted", invalidFieldCannotBeSubmitted);
 Then("I see the correction for {string} to {string}", checkCorrectionFieldAndValue);
 
 Then("I see the correction for {string} to {string} and reload", checkCorrectionFieldAndValueOnRefresh);
+
+Then("I correct {string} and type {string}", correctOffenceExceptionByTypeahead);
+
+Then("I select the first option", selectTheFirstOption);
+
+Then("I correct {string} and press {string}", inputFieldToKeyboardPress);
