@@ -54,6 +54,7 @@ const {
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
+  correctOffenceExceptionAndSave,
   manuallyResolveRecord,
   nRecordsInList,
   nRecordsForPerson,
@@ -142,6 +143,8 @@ When("I resolve the selected triggers", resolveSelectedTriggers);
 When("I generate today's report", generateTodaysReport);
 
 When("I correct {string} to {string}", correctOffenceException);
+
+When("I correct {string} to {string} and save", correctOffenceExceptionAndSave);
 
 When("I wait for {string} in the list of records", waitForRecordStep);
 
