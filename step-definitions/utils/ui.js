@@ -484,6 +484,14 @@ const submitRecord = async function () {
   await Promise.all([page.click("#return-to-case-list"), page.waitForNavigation()]);
 };
 
+const submitRecordAndStayOnPage = async function () {
+  const { page } = this.browser;
+
+  await page.click("#exceptions-tab");
+  await Promise.all([page.click("#submit"), page.waitForNavigation()]);
+  await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
+};
+
 const reloadUntilStringNotPresent = async function (content) {
   const contentSansParentheses = content.replace(/[()]/g, "");
   const result = await reloadUntilNotContent(this.browser.page, contentSansParentheses.toUpperCase());
@@ -566,6 +574,20 @@ const inputFieldToKeyboardPress = async function (field, keyboardButton) {
   await page.keyboard.press(keyboardButton);
 };
 
+const seeCorrectionBadge = async function () {
+  const { page } = this.browser;
+
+  await page.$$(`xpath/.//span[contains(@class, "moj-badge") and text() = "Correction"]`);
+};
+
+const goToExceptionPage = async function (exception) {
+  const { page } = this.browser;
+
+  const [link] = await page.$$(`xpath/.//table/tbody/tr[contains(.,"${exception}")]//a`);
+
+  await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -616,5 +638,8 @@ module.exports = {
   invalidFieldCannotBeSubmitted,
   checkCorrectionFieldAndValue,
   checkCorrectionFieldAndValueOnRefresh,
-  inputFieldToKeyboardPress
+  inputFieldToKeyboardPress,
+  seeCorrectionBadge,
+  submitRecordAndStayOnPage,
+  goToExceptionPage
 };

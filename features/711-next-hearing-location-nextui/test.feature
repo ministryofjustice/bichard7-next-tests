@@ -15,13 +15,14 @@ Feature: Next Hearing location Next UI
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100300" in the exception list table
-		When I open the record for "TRTWODATE TRIGGER"
+		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
 			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
-			And I correct "Next Hearing location" to "B01EF01"
-		Then I submit the record
-			And I see exception "(Submitted)" in the exception list table
-			And I reload until I don't see "(Submitted)"
+			And I correct "Next Hearing location" and type "B01EF01"
+		Then I submit the record on the case details page
+			And I click the "Offences" tab
+			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+		Then I see the Correction badge
 
 	@ExcludeOnLegacyUI
 	@NextUI
@@ -29,14 +30,15 @@ Feature: Next Hearing location Next UI
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100300" in the exception list table
-		When I open the record for "TRTWODATE TRIGGER"
+		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
 			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
-			And I correct "Next Hearing location" and type "Barbican"
+			And I correct "Next Hearing location" and type "Barb"
 			And I select the first option
-		Then I submit the record
-			And I see exception "(Submitted)" in the exception list table
-			And I reload until I don't see "(Submitted)"
+		Then I submit the record on the case details page
+			And I click the "Offences" tab
+			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+		Then I see the Correction badge
 
 	@ExcludeOnLegacyUI
 	@NextUI
@@ -44,11 +46,12 @@ Feature: Next Hearing location Next UI
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100300" in the exception list table
-		When I open the record for "TRTWODATE TRIGGER"
+		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
 			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 			And I correct "Next Hearing location" and type "C01B"
 			And I select the first option
-		Then I submit the record
-			And I see exception "(Submitted)" in the exception list table
-			And I reload until I don't see "(Submitted)"
+		Then I submit the record on the case details page
+			And I click the "Offences" tab
+			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+		Then I see the Correction badge

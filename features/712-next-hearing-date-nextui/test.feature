@@ -15,14 +15,15 @@ Feature: Next Hearing Date Not Found Next UI
     Given I am logged in as "supervisor"
       And I view the list of exceptions
     Then I see exception "HO100322" in the exception list table
-    When I open the record for "Harp Nigel"
+    When I go to the Case Details for this exception "HO100322"
       And I click the "Offences" tab
       And I view offence "Theft - other - including theft by finding"
       And I correct "Next Hearing location" to "B01EF01"
       And I correct "Next Hearing date" to "08/10/2011"
-    Then I submit the record
-      And I see exception "(Submitted)" in the exception list table
-      And I reload until I don't see "(Submitted)"
+    Then I submit the record on the case details page
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+    Then I see the Correction badge
 
   @NextUI
   @ExcludeOnLegacyUI
@@ -30,13 +31,14 @@ Feature: Next Hearing Date Not Found Next UI
     Given I am logged in as "supervisor"
       And I view the list of exceptions
     Then I see exception "HO100322" in the exception list table
-    When I open the record for "Harp Nigel"
+    When I go to the Case Details for this exception "HO100322"
       And I click the "Offences" tab
       And I view offence "Theft - other - including theft by finding"
       And I correct "Next Hearing location" to "B01EF01"
       And I correct "Next Hearing date" and press "Space"
       And I correct "Next Hearing date" and press "ArrowDown"
       And I correct "Next Hearing date" and press "Enter"
-    Then I submit the record
-      And I see exception "(Submitted)" in the exception list table
-      And I reload until I don't see "(Submitted)"
+    Then I submit the record on the case details page
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+    Then I see the Correction badge
