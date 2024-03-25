@@ -2,75 +2,10 @@ const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
 const { logInAs } = require("./utils/auth");
 const { timeout } = require("../utils/config");
-const { sendMessage, sendMessageForTest } = require("./utils/message");
-const {
-  createValidRecordInPNC,
-  checkMocks,
-  pncNotUpdated,
-  pncUpdateIncludes,
-  mockPNCDataForTest,
-  noPncRequests,
-  noPncUpdates,
-  mockMissingPncDataForTest
-} = require("./old-utils/pnc");
-const {
-  generateTodaysReport,
-  reportContains,
-  accessReport,
-  reportDoesNotContain,
-  fakeTriggerReportData,
-  fakeLiveStatusExceptionsReportData,
-  checkUserSummaryReport,
-  checkLiveStatusExceptionsReport,
-  checkResolvedExceptionsReport
-} = require("./old-utils/reports");
-const {
-  checkNoPncErrors,
-  findRecordFor,
-  openRecordForCurrentTest,
-  openRecordFor,
-  reallocateCaseToForce,
-  canSeeContentInTable,
-  cannotSeeTrigger,
-  noExceptionPresentForOffender,
-  loadTab,
-  checkTrigger,
-  resolveAllTriggers,
-  selectTriggerToResolve,
-  resolveSelectedTriggers,
-  checkOffenceData,
-  checkOffenceDataError,
-  checkTriggerforOffence,
-  checkRecordForThisTestResolved,
-  checkRecordForThisTestNotResolved,
-  checkNoExceptions,
-  checkNoRecords,
-  checkOffence,
-  checkCompleteTriggerforOffence,
-  checkNoRecordsForThis,
-  checkNoExceptionsForThis,
-  checkNoteExists,
-  clickButton,
-  goToExceptionList,
-  noTriggersPresentForOffender,
-  correctOffenceException,
-  manuallyResolveRecord,
-  nRecordsInList,
-  nRecordsForPerson,
-  returnToCaseListUnlock,
-  waitForRecordStep,
-  noRecordsForPerson,
-  canSeeContentInTableForThis,
-  switchBichard,
-  viewOffence,
-  submitRecord,
-  reloadUntilStringNotPresent,
-  checkRecordStatus,
-  checkRecordNotStatus,
-  invalidFieldCannotBeSubmitted,
-  checkCorrectionFieldAndValue,
-  checkCorrectionFieldAndValueOnRefresh
-} = require("./utils/ui");
+const messages = require("./utils/message");
+const pnc = require("./old-utils/pnc");
+const reports = require("./old-utils/reports");
+const ui = require("./utils/ui");
 
 const {
   findRecordFor: alternateFindRecordFor,
@@ -85,18 +20,9 @@ setWorldConstructor(Bichard);
 
 setDefaultTimeout(timeout);
 
-Given("the data for this test is in the PNC", mockPNCDataForTest);
-
-Given("the data for this test is not in the PNC", mockMissingPncDataForTest);
-
-Given("there is a valid record for {string} in the PNC", createValidRecordInPNC);
-
-Given("a message is received", async function () {
-  await sendMessage.apply(this);
-});
-
 Given("I am logged in as {string}", logInAs);
 
+// Misc
 When(
   "I wait {int} seconds",
   async (delay) =>
@@ -104,7 +30,6 @@ When(
       setTimeout(resolve, delay * 1000);
     })
 );
-
 // TODO: remove this and refactor reliant tests when
 // old test suite is removed
 When(
@@ -114,159 +39,108 @@ When(
       setTimeout(resolve, delay * 1000);
     })
 );
-
-When("message id {string} is received", async function (id) {
-  await sendMessage.apply(this, [id]);
-});
-
-When("{string} is received", sendMessageForTest);
-
-When("I view the list of exceptions", goToExceptionList);
-
-When("I open this record", openRecordForCurrentTest);
-
-When("I open the record for {string}", openRecordFor);
-
-When("I access the {string} report", accessReport);
-
-When("I click the {string} tab", loadTab);
-
-When("I click the {string} button", clickButton);
-
-When("I resolve all of the triggers", resolveAllTriggers);
-
-When("I select trigger {string} to resolve", selectTriggerToResolve);
-
-When("I resolve the selected triggers", resolveSelectedTriggers);
-
-When("I generate today's report", generateTodaysReport);
-
-When("I correct {string} to {string}", correctOffenceException);
-
-When("I wait for {string} in the list of records", waitForRecordStep);
-
-When("I see {int} record for {string}", nRecordsForPerson);
-
-// eslint-disable-next-line prefer-arrow-callback
-When("I see {string} record for {string}", async function (count, name) {
-  const n = Number.parseInt(count, 10);
-  nRecordsForPerson.apply(this, [n, name]);
-});
-
-Then("the exception list should contain a record for {string}", findRecordFor);
-
-Then("the record for {string} should not have any PNC errors", checkNoPncErrors);
-
-Then("the PNC updates the record", checkMocks);
-
-Then("I see exception {string} in the exception list table", canSeeContentInTable);
-
-Then("I see exception {string} for this record in the exception list", canSeeContentInTableForThis);
-
-Then("there are no exceptions raised for {string}", noExceptionPresentForOffender);
-
-Then("there are no triggers raised for {string}", noTriggersPresentForOffender);
-
-Then("I see trigger {string} in the exception list table", canSeeContentInTable);
-
-Then("I see trigger {string} for this record in the exception list", canSeeContentInTableForThis);
-
-Then("I cannot see trigger {string} in the exception list table", cannotSeeTrigger);
-
-Then("I cannot see exception {string} in the exception list table", cannotSeeTrigger);
-
-Then("the PNC record has not been updated", pncNotUpdated);
-
-Then("I see trigger {string} for offence {string}", checkTriggerforOffence);
-
-Then("I see complete trigger {string} for offence {string}", checkCompleteTriggerforOffence);
-
-Then("I see trigger {string}", checkTrigger);
-
-Then("this {string} is {string}", checkRecordForThisTestResolved);
-
-Then("this {string} is not {string}", checkRecordForThisTestNotResolved);
-
-Then("I manually resolve the record", manuallyResolveRecord);
-
-Then("I see {string} in the {string} row of the results table", checkOffenceData);
-
-Then("I see error {string} in the {string} row of the results table", checkOffenceDataError);
-
-Then("there are no exceptions", checkNoExceptions);
-
-Then("there are no exceptions for this record", checkNoExceptionsForThis);
-
-Then("there are no exceptions or triggers", checkNoRecords);
-
-Then("there are no exceptions or triggers for this record", checkNoRecordsForThis);
-
-Then("I see {string} in the Warrants report", reportContains);
-
-Then("I see {string} in the report", reportContains);
-
-Then("I do not see {string} in the report", reportDoesNotContain);
-
 Then("pending", () => "pending");
 
-Then("the PNC update includes {string}", pncUpdateIncludes);
-
-Then("I see {string} for offence {string}", checkOffence);
-
+// Audit Logging
 Then("the audit log contains {string}", async function (eventType) {
   await checkAuditLogExists(this, eventType, true);
 });
-
 Then("{string} is not in the audit log", async function (eventType) {
   await checkAuditLogExists(this, eventType, false);
 });
 
-When("I reallocate the case to {string}", reallocateCaseToForce);
+// Messages
+Given("a message is received", async function () {
+  await messages.sendMessage.apply(this);
+});
+When("message id {string} is received", async function (id) {
+  await messages.sendMessage.apply(this, [id]);
+});
+When("{string} is received", messages.sendMessageForTest);
 
-When("I fake the data for the operational trigger report", fakeTriggerReportData);
+// PNC Actions
+Given("the data for this test is in the PNC", pnc.mockPNCDataForTest);
+Given("the data for this test is not in the PNC", pnc.mockMissingPncDataForTest);
+Given("there is a valid record for {string} in the PNC", pnc.createValidRecordInPNC);
+Then("the PNC updates the record", pnc.checkMocks);
+Then("the PNC record has not been updated", pnc.pncNotUpdated);
+Then("the PNC update includes {string}", pnc.pncUpdateIncludes);
+Then("no PNC requests have been made", pnc.noPncRequests);
+Then("no PNC updates have been made", pnc.noPncUpdates);
 
-When("I fake the data for the Live Status Detail - Exceptions report", fakeLiveStatusExceptionsReportData);
+// Report Actions
+When("I fake the data for the operational trigger report", reports.fakeTriggerReportData);
+When("I fake the data for the Live Status Detail - Exceptions report", reports.fakeLiveStatusExceptionsReportData);
+Then("the user performance summary report is correct", reports.checkUserSummaryReport);
+Then("the Live Status Detail - Exceptions report is correct", reports.checkLiveStatusExceptionsReport);
+Then("the Resolved Exceptions report is correct", reports.checkResolvedExceptionsReport);
+When("I access the {string} report", reports.accessReport);
+When("I generate today's report", reports.generateTodaysReport);
+Then("I see {string} in the Warrants report", reports.reportContains);
+Then("I see {string} in the report", reports.reportContains);
+Then("I do not see {string} in the report", reports.reportDoesNotContain);
 
-Then("the user performance summary report is correct", checkUserSummaryReport);
-
-Then("the Live Status Detail - Exceptions report is correct", checkLiveStatusExceptionsReport);
-
-Then("the Resolved Exceptions report is correct", checkResolvedExceptionsReport);
-
-Then("no PNC requests have been made", noPncRequests);
-
-Then("no PNC updates have been made", noPncUpdates);
-
-Then("there should only be {string} records", nRecordsInList);
-
-Then("I unlock the record and return to the list", returnToCaseListUnlock);
-
-Then("the record for {string} does not exist", noRecordsForPerson);
-
-Then("I see {string} in the table", checkNoteExists);
-
-When("I switch to the alternate version of bichard", switchBichard);
-
+// UI Actions
+When("I view the list of exceptions", ui.goToExceptionList);
+When("I open this record", ui.openRecordForCurrentTest);
+When("I open the record for {string}", ui.openRecordFor);
+When("I click the {string} tab", ui.loadTab);
+When("I click the {string} button", ui.clickButton);
+When("I resolve all of the triggers", ui.resolveAllTriggers);
+When("I select trigger {string} to resolve", ui.selectTriggerToResolve);
+When("I resolve the selected triggers", ui.resolveSelectedTriggers);
+When("I correct {string} to {string}", ui.correctOffenceException);
+When("I correct {string} to {string} and save", ui.correctOffenceExceptionAndSave);
+When("I wait for {string} in the list of records", ui.waitForRecordStep);
+When("I see {int} record for {string}", ui.nRecordsForPerson);
+When("I see {string} record for {string}", async function (count, name) {
+  const n = Number.parseInt(count, 10);
+  ui.nRecordsForPerson.apply(this, [n, name]);
+});
+Then("the exception list should contain a record for {string}", ui.findRecordFor);
+Then("the record for {string} should not have any PNC errors", ui.checkNoPncErrors);
+Then("I see exception {string} in the exception list table", ui.canSeeContentInTable);
+Then("I see exception {string} for this record in the exception list", ui.canSeeContentInTableForThis);
+Then("there are no exceptions raised for {string}", ui.noExceptionPresentForOffender);
+Then("there are no triggers raised for {string}", ui.noTriggersPresentForOffender);
+Then("I see trigger {string} in the exception list table", ui.canSeeContentInTable);
+Then("I see trigger {string} for this record in the exception list", ui.canSeeContentInTableForThis);
+Then("I cannot see trigger {string} in the exception list table", ui.cannotSeeTrigger);
+Then("I cannot see exception {string} in the exception list table", ui.cannotSeeTrigger);
+Then("I see trigger {string} for offence {string}", ui.checkTriggerforOffence);
+Then("I see complete trigger {string} for offence {string}", ui.checkCompleteTriggerforOffence);
+Then("I see trigger {string}", ui.checkTrigger);
+Then("this {string} is {string}", ui.checkRecordForThisTestResolved);
+Then("this {string} is not {string}", ui.checkRecordForThisTestNotResolved);
+Then("I manually resolve the record", ui.manuallyResolveRecord);
+Then("I see {string} in the {string} row of the results table", ui.checkOffenceData);
+Then("I see error {string} in the {string} row of the results table", ui.checkOffenceDataError);
+Then("there are no exceptions", ui.checkNoExceptions);
+Then("there are no exceptions for this record", ui.checkNoExceptionsForThis);
+Then("there are no exceptions or triggers", ui.checkNoRecords);
+Then("there are no exceptions or triggers for this record", ui.checkNoRecordsForThis);
+Then("I see {string} for offence {string}", ui.checkOffence);
+When("I reallocate the case to {string}", ui.reallocateCaseToForce);
+Then("there should only be {string} records", ui.nRecordsInList);
+Then("I unlock the record and return to the list", ui.returnToCaseListUnlock);
+Then("the record for {string} does not exist", ui.noRecordsForPerson);
+Then("I see {string} in the table", ui.checkNoteExists);
+When("I switch to the alternate version of bichard", ui.switchBichard);
 When("I click the alternate {string} tab", alternateLoadTab);
-
 Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
-
 Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
-
-When("I view offence {string}", viewOffence);
-
-When("I submit the record", submitRecord);
-
-Then("I reload until I don't see {string}", reloadUntilStringNotPresent);
-
-Then("I return to the list", returnToCaseListUnlock);
-
-Then("the {string} for {string} is {string}", checkRecordStatus);
-
-Then("the {string} for {string} is not {string}", checkRecordNotStatus);
-
-Then("the invalid {string} cannot be submitted", invalidFieldCannotBeSubmitted);
-
-Then("I see the correction for {string} to {string}", checkCorrectionFieldAndValue);
-
-Then("I see the correction for {string} to {string} and reload", checkCorrectionFieldAndValueOnRefresh);
+When("I view offence {string}", ui.viewOffence);
+When("I submit the record", ui.submitRecord);
+When("I submit the record on the case details page", ui.submitRecordAndStayOnPage);
+Then("I reload until I don't see {string}", ui.reloadUntilStringNotPresent);
+Then("I return to the list", ui.returnToCaseListUnlock);
+Then("the {string} for {string} is {string}", ui.checkRecordStatus);
+Then("the {string} for {string} is not {string}", ui.checkRecordNotStatus);
+Then("the invalid {string} cannot be submitted", ui.invalidFieldCannotBeSubmitted);
+Then("I see the correction for {string} to {string}", ui.checkCorrectionFieldAndValue);
+Then("I see the correction for {string} to {string} and reload", ui.checkCorrectionFieldAndValueOnRefresh);
+Then("I correct {string} and type {string}", ui.correctOffenceExceptionByTypeahead);
+Then("I select the first option", ui.selectTheFirstOption);
+Then("I correct {string} and press {string}", ui.inputFieldToKeyboardPress);
+Then("I see the Correction badge", ui.seeCorrectionBadge);
+When("I go to the Case Details for this exception {string}", ui.goToExceptionPage);
