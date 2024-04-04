@@ -456,7 +456,7 @@ const switchBichard = async function () {
   await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
 
   // if feedback page is shown
-  const skip = await page.$("button[class*='SkipLink']");
+  const skip = await page.$("button[id='skip-feedback']");
   if (skip) {
     await Promise.all([skip.click(), page.waitForNavigation()]);
   }
