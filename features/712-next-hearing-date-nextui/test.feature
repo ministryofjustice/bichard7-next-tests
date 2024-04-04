@@ -42,3 +42,48 @@ Feature: Next Hearing Date Not Found Next UI
       And I click the "Offences" tab
       And I view offence "Theft - other - including theft by finding"
     Then I see the Correction badge
+
+  @NextUI
+  @ExcludeOnLegacyUI
+  Scenario: Save next hearing date
+    Given I am logged in as "supervisor"
+      And I view the list of exceptions
+    Then I see exception "HO100322" in the exception list table
+    When I go to the Case Details for this exception "HO100322"
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+      And I correct "Next Hearing date" to "08/10/2011" and save
+
+  @NextUI
+  @ExcludeOnLegacyUI
+  Scenario: Persist saved next hearing date
+    Given I am logged in as "supervisor"
+      And I view the list of exceptions
+    Then I see exception "HO100322" in the exception list table
+    When I go to the Case Details for this exception "HO100322"
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+      And I correct "Next Hearing date" to "08/10/2011" and save
+    Then I reload the page
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+      And I see the correction for "Next Hearing date" to "2011-10-08"
+
+  @NextUI
+  @ExcludeOnLegacyUI
+  Scenario: Update saved next hearing date
+    Given I am logged in as "supervisor"
+      And I view the list of exceptions
+    Then I see exception "HO100322" in the exception list table
+    When I go to the Case Details for this exception "HO100322"
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+      And I correct "Next Hearing date" to "08/10/2011" and save
+    Then I reload the page
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+      And I correct "Next Hearing date" to "15/12/2011" and save
+    Then I reload the page
+      And I click the "Offences" tab
+      And I view offence "Theft - other - including theft by finding"
+      And I see the correction for "Next Hearing date" to "2011-12-15"
