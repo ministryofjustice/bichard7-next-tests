@@ -31,7 +31,8 @@ Feature: 601 - ASN Update / Correction in the Next UI
 		When I open the record for "SEXOFFENCE TRPRFOUR"
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000448754K" and save
-			And I see the correction for "ASN" to "1101ZD0100000448754K" and reload
+		Then I reload the page
+			And I see the correction for "ASN" to "1101ZD0100000448754K"
 		Then I submit the record
 			And I reload until I don't see "(Submitted)"
 			And I see exception "(Resolved)" in the exception list table
@@ -45,9 +46,11 @@ Feature: 601 - ASN Update / Correction in the Next UI
 		When I open the record for "SEXOFFENCE TRPRFOUR"
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000448754K" and save
-			And I see the correction for "ASN" to "1101ZD0100000448754K" and reload
+		Then I reload the page
+			And I see the correction for "ASN" to "1101ZD0100000448754K"
 		Then I correct "ASN" to "1101ZD0100000410836V" and save
-			And I see the correction for "ASN" to "1101ZD0100000410836V" and reload
+		Then I reload the page
+			And I see the correction for "ASN" to "1101ZD0100000410836V"
 		Then I submit the record
 			And I reload until I don't see "(Submitted)"
 			And I see exception "(Resolved)" in the exception list table
