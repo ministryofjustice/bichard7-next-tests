@@ -53,6 +53,7 @@ The seed script looks for the following strings to replace:
 |-------------------------|----------------------------------------|
 | EXTERNAL_CORRELATION_ID | A random UUID                          |
 | COURT_LOCATION          | A random court code                    |
+| DATE_OF_HEARING         | The current date                       |
 | PROSECUTOR_REFERENCE    | An incrementally generated ASN         |
 | PNC_IDENTIFIER          | "20230012345P"                         |
 | _PTIURN_                | "01XX" + random 7 digit number         |
