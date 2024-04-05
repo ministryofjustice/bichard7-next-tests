@@ -528,7 +528,7 @@ const checkCorrectionFieldAndValue = async function (fieldName, value) {
   const fieldNameId = `#${convertFieldToHtml(fieldName)}`;
 
   const correctionValue = await page.$eval(fieldNameId, (field) => field.value);
-  expect(value).toEqual(correctionValue);
+  expect(correctionValue).toEqual(value);
 };
 
 const correctOffenceExceptionAndSave = async function (field, newValue) {
