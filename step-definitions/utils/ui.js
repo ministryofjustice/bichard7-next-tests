@@ -213,8 +213,8 @@ const cannotSeeTrigger = async function (value) {
 
 const noExceptionPresentForOffender = async function (name) {
   // Filter for exceptions
-  await this.browser.page.waitForSelector("#exceptions-type");
-  await this.browser.page.click("#exceptions-type");
+  await this.browser.page.waitForSelector("#exceptions-reason");
+  await this.browser.page.click("#exceptions-reason");
 
   await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
 
@@ -265,7 +265,7 @@ const filterRecords = async function (world, resolvedType, recordType) {
   }
 
   if (recordType.toLowerCase() === "exception") {
-    await world.browser.page.click("input#exceptions-type");
+    await world.browser.page.click("input#exceptions-reason");
   } else if (recordType.toLowerCase() === "trigger") {
     await world.browser.page.click("input#trigger-type");
   }
@@ -355,8 +355,8 @@ const goToExceptionList = async function () {
 
 // TODO: refactor down with noExceptionsPresentForOffender
 const noTriggersPresentForOffender = async function (name) {
-  await this.browser.page.waitForSelector("#triggers-type");
-  await this.browser.page.click("#triggers-type");
+  await this.browser.page.waitForSelector("#triggers-reason");
+  await this.browser.page.click("#triggers-reason");
 
   await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
 
