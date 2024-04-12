@@ -15,7 +15,7 @@ const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
 const clickSaveButton = async (page, fieldNameId) => {
   await page.click(fieldNameId);
   await page.waitForSelector(`${fieldNameId}[disabled]`);
-  await delay(0.5);
+  await delay(1);
 };
 
 const filterByRecordName = async function (world) {
