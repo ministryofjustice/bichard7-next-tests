@@ -82,8 +82,8 @@ Feature: Next Hearing Date Not Found Next UI
     Then I reload the page
       And I click the "Offences" tab
       And I view offence "Theft - other - including theft by finding"
-      And I correct "Next Hearing date" to "15/12/2011" and save
+      And I correct "Next Hearing date" to "10/01/2012" and save
     Then I reload the page
       And I click the "Offences" tab
       And I view offence "Theft - other - including theft by finding"
-      And I see the correction for "Next Hearing date" to "2011-12-15"
+      And I see the correction for "Next Hearing date" to "2012-01-10"
