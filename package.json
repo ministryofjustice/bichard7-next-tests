@@ -23,7 +23,7 @@
     "test:parallel": "curl -X DELETE http://localhost:3000/mocks && ./node_modules/.bin/cucumber-js --require steps --retry 0 --no-strict --exit --fail-fast --tags '@Parallel' --parallel $CONCURRENCY features",
     "test:preprod": "SKIP_PNC_VALIDATION=true ./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --format @cucumber/pretty-formatter --fail-fast --tags '@PreProdTest and not @Excluded' features",
     "test": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --format @cucumber/pretty-formatter --fail-fast --tags 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC' features",
-    "update-deps": "ncu -u -x @cucumber/cucumber && npm install",
+    "update-deps": "ncu -u -x @cucumber/cucumber -x eslint && npm install",
     "prepare": "husky"
   },
   "repository": {
@@ -63,7 +63,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "eslint": "^9.0.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
