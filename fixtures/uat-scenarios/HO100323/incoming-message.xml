@@ -1,0 +1,22 @@
+<RouteData xmlns:ns2="http://schemas.cjse.gov.uk/common/businessentities" xmlns:ns3="http://schemas.cjse.gov.uk/common/businesstypes" xmlns="http://schemas.cjse.gov.uk/common/operations" VersionNumber="1.0" RequestResponse="Request">
+  <RequestFromSystem VersionNumber="1.0">
+  <CorrelationID>EXTERNAL_CORRELATION_ID</CorrelationID>
+  <SystemID>Z00CJSE</SystemID>
+  <OrganizationalUnitID>Z000000</OrganizationalUnitID>
+  <DataController>DataController</DataController>
+  </RequestFromSystem>
+  <DataStream VersionNumber="1.0">
+  <ns2:System>C00CommonPlatform</ns2:System>
+  <ns2:DataStreamType>SPIResults</ns2:DataStreamType>
+  <ns2:SystemDataStreamID>767e8c8a-6aee-457a-ab04-86c1a98f82ce</ns2:SystemDataStreamID>
+  <ns2:ContentType>text/xml</ns2:ContentType>
+  <ns2:DataStreamContent><ResultedCaseMessage Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice" SchemaVersion="0.6g" xmlns="http://www.dca.gov.uk/xmlschemas/libra" xmlns:ns2="http://www.govtalk.gov.uk/people/bs7666"><Session><CourtHearing><Hearing><CourtHearingLocation>COURT_LOCATION</CourtHearingLocation><DateOfHearing>DATE_OF_HEARING</DateOfHearing><TimeOfHearing>09:00:00</TimeOfHearing></Hearing><PSAcode>2576</PSAcode></CourtHearing><Case><PTIURN>_PTIURN_</PTIURN><Defendant><ProsecutorReference>PROSECUTOR_REFERENCE</ProsecutorReference><CourtIndividualDefendant><PersonDefendant><BasePersonDetails><PersonName><PersonTitle>Ms</PersonTitle><PersonGivenName1>GIVEN_NAME</PersonGivenName1><PersonFamilyName>FAMILY_NAME</PersonFamilyName></PersonName><Birthdate>DATE_OF_BIRTH</Birthdate><Gender>2</Gender></BasePersonDetails><PNCidentifier>PNC_IDENTIFIER</PNCidentifier><BailConditions></BailConditions></PersonDefendant><BailStatus>U</BailStatus><Address><SimpleAddress><AddressLine1>ADDRESS_LINE_1</AddressLine1><AddressLine2>ADDRESS_LINE_2</AddressLine2><AddressLine3>ADDRESS_LINE_3</AddressLine3><AddressLine4>ADDRESS_LINE_4</AddressLine4><AddressLine5>ADDRESS_LINE_5</AddressLine5></SimpleAddress></Address><PresentAtHearing>Y</PresentAtHearing></CourtIndividualDefendant><Offence><BaseOffenceDetails><OffenceSequenceNumber>001</OffenceSequenceNumber><OffenceCode>MD71526</OffenceCode><OffenceWording>On 27/03/2024 at ADDRESS_LINE_3 had in your possession a quantity of cannabis a controlled drug of class B with intent to supply it to unknown persons in contravention of section 4(1) of the Misuse of Drugs Act 1971</OffenceWording><OffenceTiming><OffenceDateCode>1</OffenceDateCode><OffenceStart><OffenceDateStartDate>2024-03-27</OffenceDateStartDate></OffenceStart></OffenceTiming><ChargeDate>2024-03-28</ChargeDate><ArrestDate>2024-03-28</ArrestDate><LocationOfOffence>No location provided</LocationOfOffence></BaseOffenceDetails><InitiatedDate>2024-03-27</InitiatedDate><Plea>1</Plea><FinalDisposalIndicator>N</FinalDisposalIndicator><ConvictionDate>2024-04-05</ConvictionDate><ConvictingCourt>2576</ConvictingCourt><Finding>G</Finding><Result><ResultCode>4014</ResultCode><ResultText>CCSU - Committed to Crown Court for sentence on unconditional bail Committed for sentence (Section 14 of the Sentencing Act 2020) for hearing on a Date and time to be fixed, ADDRESS_LINE_4 Crown Court. Bail remand days to count (tagged days): 0. No indication given re victim personal statement. </ResultText><ResultCodeQualifier>WF</ResultCodeQualifier></Result></Offence></Defendant></Case></Session></ResultedCaseMessage></ns2:DataStreamContent>
+  </DataStream>
+  <Routes VersionNumber="1.0">
+  <Route VersionNumber="1.0">
+  <RouteID>1</RouteID>
+  <RouteSourceSystem>C00CommonPlatform</RouteSourceSystem>
+  <RouteDestinationSystem>00101PoliceCaseSystem</RouteDestinationSystem>
+  </Route>
+  </Routes>
+  </RouteData>

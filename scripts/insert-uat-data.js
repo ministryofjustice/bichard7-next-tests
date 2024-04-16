@@ -36,7 +36,7 @@ const incomingMessageBucket = new IncomingMessageBucket({
 
 const SCENARIO_PATH = "./fixtures/uat-scenarios/";
 
-const scenarios = fs.readdirSync(SCENARIO_PATH);
+const scenarios = fs.readdirSync(SCENARIO_PATH).filter((scenario) => scenario !== "README.md");
 
 console.log(`Seeding bichard with ${scenarios.length * REPEAT_SCENARIOS} cases`);
 
