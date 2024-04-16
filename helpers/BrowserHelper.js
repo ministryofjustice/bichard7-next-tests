@@ -26,7 +26,8 @@ class BrowserHelper {
           // This will write shared memory files into /tmp instead of /dev/shm,
           // because Docker’s default for /dev/shm is 64MB
           "--disable-dev-shm-usage",
-          "--window-size=1024,1024"
+          "--window-size=1024,1024",
+          "--lang=en_GB"
         ]
       });
     const context = await browser.createBrowserContext();
@@ -34,6 +35,9 @@ class BrowserHelper {
     await this.page.setViewport({
       width: 1024,
       height: 1024
+    });
+    await this.page.setExtraHTTPHeaders({
+      "Accept-Language": "en_GB"
     });
     await this.record();
     await this.visitUrl(path);

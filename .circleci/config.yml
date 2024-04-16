@@ -82,6 +82,13 @@ commands:
           paths:
             - /opt/circleci/.nvm/.cache
 
+  set_locale:
+    steps:
+      - run:
+          name: Set GB locale
+          working_directory: ~/bichard7-next-core
+          command: bash .circleci/scripts/set-locale.sh
+
   ################### Services
   start_bichard7_legacy:
     parameters:
@@ -137,6 +144,7 @@ jobs:
       - node_install
       - node/install-packages
       - checkout_core
+      - set_locale
       - node/install-packages:
           app-dir: ~/bichard7-next-core
       - persist_to_workspace:
@@ -156,6 +164,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - set_locale
       - node_install
       - start_bichard7_legacy
       - run_test_chunk
@@ -176,6 +185,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - set_locale
       - node_install
       - start_bichard7_legacy
       - run_test_chunk:
@@ -197,6 +207,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - set_locale
       - node_install
       - start_bichard7_core
       - run_test_chunk
@@ -217,6 +228,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - set_locale
       - node_install
       - start_bichard7_core
       - run_test_chunk:
@@ -233,6 +245,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - set_locale
       - node_install
       - start_bichard7_legacy:
           ENABLE_PHASE_2: "false"
@@ -246,6 +259,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - set_locale
       - node_install
       - start_core_testserver
       - run: npm run test:characterisation

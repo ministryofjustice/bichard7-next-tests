@@ -14,8 +14,8 @@ const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
 
 const clickSaveButton = async (page, fieldNameId) => {
   await page.click(fieldNameId);
-  const submitDisabled = await page.$eval(fieldNameId, (submitButton) => submitButton.disabled);
-  expect(submitDisabled).toBeTruthy();
+  await page.waitForSelector(`${fieldNameId}[disabled]`);
+  await delay(1);
 };
 
 const filterByRecordName = async function (world) {
@@ -213,8 +213,8 @@ const cannotSeeTrigger = async function (value) {
 
 const noExceptionPresentForOffender = async function (name) {
   // Filter for exceptions
-  await this.browser.page.waitForSelector("#exceptions-type");
-  await this.browser.page.click("#exceptions-type");
+  await this.browser.page.waitForSelector("#exceptions-reason");
+  await this.browser.page.click("#exceptions-reason");
 
   await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
 
@@ -265,7 +265,7 @@ const filterRecords = async function (world, resolvedType, recordType) {
   }
 
   if (recordType.toLowerCase() === "exception") {
-    await world.browser.page.click("input#exceptions-type");
+    await world.browser.page.click("input#exceptions-reason");
   } else if (recordType.toLowerCase() === "trigger") {
     await world.browser.page.click("input#trigger-type");
   }
@@ -355,8 +355,8 @@ const goToExceptionList = async function () {
 
 // TODO: refactor down with noExceptionsPresentForOffender
 const noTriggersPresentForOffender = async function (name) {
-  await this.browser.page.waitForSelector("#triggers-type");
-  await this.browser.page.click("#triggers-type");
+  await this.browser.page.waitForSelector("#triggers-reason");
+  await this.browser.page.click("#triggers-reason");
 
   await Promise.all([this.browser.page.click("button#search"), this.browser.page.waitForNavigation()]);
 
@@ -389,16 +389,6 @@ const correctOffenceException = async function (field, newValue) {
   const { page } = this.browser;
 
   await correctOffence(page, convertFieldToHtml(field), newValue);
-};
-
-const correctOffenceExceptionAndSave = async function (field, newValue) {
-  const { page } = this.browser;
-
-  const fieldHtml = convertFieldToHtml(field);
-
-  await correctOffence(page, fieldHtml, newValue);
-
-  await clickSaveButton(page, `#save-${fieldHtml}`);
 };
 
 const correctOffenceExceptionByTypeahead = async function (field, newValue) {
@@ -456,7 +446,7 @@ const switchBichard = async function () {
   await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
 
   // if feedback page is shown
-  const skip = await page.$("button[class*='SkipLink']");
+  const skip = await page.$("button[id='skip-feedback']");
   if (skip) {
     await Promise.all([skip.click(), page.waitForNavigation()]);
   }
@@ -523,8 +513,6 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
   expect(noCasesMessageMatch.length).toEqual(1);
 };
 
-const getSaveFieldNameId = (fieldName) => `#save-${fieldName}`;
-
 // eslint-disable-next-line no-unused-vars
 const invalidFieldCannotBeSubmitted = async function (_fieldName) {
   const { page } = this.browser;
@@ -538,30 +526,24 @@ const invalidFieldCannotBeSubmitted = async function (_fieldName) {
 const checkCorrectionFieldAndValue = async function (fieldName, value) {
   const { page } = this.browser;
   const fieldNameId = `#${convertFieldToHtml(fieldName)}`;
-  const saveFieldNameId = getSaveFieldNameId(convertFieldToHtml(fieldName));
-
-  clickSaveButton(page, saveFieldNameId);
 
   const correctionValue = await page.$eval(fieldNameId, (field) => field.value);
-  expect(value).toEqual(correctionValue);
+  expect(correctionValue).toEqual(value);
 };
 
-const checkCorrectionFieldAndValueOnRefresh = async function (fieldName, value) {
+const correctOffenceExceptionAndSave = async function (field, newValue) {
   const { page } = this.browser;
-  const fieldNameId = `#${convertFieldToHtml(fieldName)}`;
-  const saveFieldNameId = getSaveFieldNameId(convertFieldToHtml(fieldName));
 
-  clickSaveButton(page, saveFieldNameId);
+  const fieldHtml = convertFieldToHtml(field);
 
-  const correctionValueOnInitialSave = await page.$eval(fieldNameId, (field) => field.value);
-  expect(value).toEqual(correctionValueOnInitialSave);
+  await correctOffence(page, fieldHtml, newValue);
 
-  // Reload happens too fast to display saved info
-  await delay(0.5);
+  await clickSaveButton(page, `#save-${fieldHtml}`);
+};
+
+const reload = async function () {
+  const { page } = this.browser;
   await page.reload();
-
-  const correctionValueOnReload = await page.$eval(fieldNameId, (field) => field.value);
-  expect(value).toEqual(correctionValueOnReload);
 };
 
 const inputFieldToKeyboardPress = async function (field, keyboardButton) {
@@ -637,9 +619,9 @@ module.exports = {
   checkRecordNotStatus,
   invalidFieldCannotBeSubmitted,
   checkCorrectionFieldAndValue,
-  checkCorrectionFieldAndValueOnRefresh,
   inputFieldToKeyboardPress,
   seeCorrectionBadge,
   submitRecordAndStayOnPage,
-  goToExceptionPage
+  goToExceptionPage,
+  reload
 };
