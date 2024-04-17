@@ -6,7 +6,7 @@ The purpose of these scenarios is to populate the UAT environment with realistic
 
 Connect to the (read-only replica) production database, and find a case with the desired trigger/exception.
 
-Run the following sql, replaceing `REASON_CODE` with your required reason code. Make sure to leave the `%` either side of your reason code.
+Run the following sql, replacing `REASON_CODE` with your required reason code. Make sure to leave the `%` either side of your reason code.
 
 ```sql
 SELECT
@@ -35,7 +35,7 @@ Transfer the contents to your `incomming-message.xml` file, and delete the origi
 
 ## Retrieving PNC Response
 
-Go back to `DynamoDB` and open the `bichard-7-production-audit-log-events`. Use the `messageIdIndex` to query the `message_id`. Look check the `eventCode` column for a `pnc.response-received` event. The event source should be `PNC Access Manager`.
+Go back to `DynamoDB` and open the `bichard-7-production-audit-log-events`. Use the `messageIdIndex` to query the `message_id`. Check the `eventCode` column for a `pnc.response-received` event. The event source should be `PNC Access Manager`.
 
 Click into the event, and copy the xml from the `PNC Response Message` field. Paste this into your `pnc-data` file. You can run it through an xml formatter to make it easier to read. Check that the first line is capitalised the same way as other `pnc-message` files.
 
@@ -71,7 +71,7 @@ The seed script looks for the following strings to replace:
 
 - Replace the value of `<CorrelationID>` with `EXTERNAL_CORRELATION_ID`
 
-The message content is contained withing the `<ns2:DataStreamContent>` tag. To make editing easier, copy the value of this tag to a new file and run it through an xml formatter.
+The message content is contained within the `<ns2:DataStreamContent>` tag. To make editing easier, copy the value of this tag to a new file and run it through an xml formatter.
 
 Older cases may have escaped the xml by replacing `<` with `&lt;` and `>` with `&gt;`. You can use a find/replace to change the message content back to xml.
 
@@ -98,7 +98,7 @@ Once you are confident that no `PII` remains, minify the xml and paste back into
 - Replace the value of `<FSC>` with `K01XM`
 - Replace the value of `<IDS>` with `K00/000000X FAMILY_NAME`
 
-Once these two files have beend anonymised, you can use your local dev environment to check that they produce the type of exceptions/triggers that you expect.
+Once these two files have beend anonymised, you can use your local dev environment to check that they produce the type of exceptions/triggers that you expect. Note that these fields are expected to be a specific length. If you encounter errors in testing, double check there is no extra whitespace in these values.
 
 ## Seeding local Environment
 
