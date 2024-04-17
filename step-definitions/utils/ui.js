@@ -443,7 +443,7 @@ const clickButton = async function (value) {
 
 const switchBichard = async function () {
   const { page } = this.browser;
-  await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
+  await Promise.all([page.click(".BichardSwitch"), page.waitForNavigation()]);
 
   // if feedback page is shown
   const skip = await page.$("button[id='skip-feedback']");
