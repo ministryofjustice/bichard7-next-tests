@@ -397,6 +397,13 @@ const correctOffenceExceptionByTypeahead = async function (field, newValue) {
   await correctOffence(page, convertFieldToHtml(field), newValue);
 };
 
+const saveInput = async function (field) {
+  const { page } = this.browser;
+
+  await clickSaveButton(page, `#save-${convertFieldToHtml(field)}`);
+  // await clickSaveButton(page, `#${convertFieldToHtml(field)}`)
+};
+
 const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
@@ -623,5 +630,6 @@ module.exports = {
   seeCorrectionBadge,
   submitRecordAndStayOnPage,
   goToExceptionPage,
-  reload
+  reload,
+  saveInput
 };

@@ -55,3 +55,20 @@ Feature: Next Hearing location Next UI
 			And I click the "Offences" tab
 			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 		Then I see the Correction badge
+
+	@ExcludeOnLegacyUI
+	@NextUI
+	Scenario: Save next hearing location with save button
+		Given I am logged in as "supervisor"
+			And I view the list of exceptions
+		Then I see exception "HO100300" in the exception list table
+		When I go to the Case Details for this exception "HO100300"
+			And I click the "Offences" tab
+			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I correct "Next Hearing location" and type "B"
+			And I select the first option
+			And I save the input "Next Hearing location"
+		Then I reload the page
+    		And I click the "Offences" tab
+    		And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+    		And I see the correction for "Next Hearing location" to "B21XA00"
