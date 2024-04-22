@@ -20,7 +20,7 @@ const clickSaveButton = async (page, fieldNameId) => {
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
-  const searchField = "input[name='keywords']";
+  const searchField = "input[name='defendantName']";
   await world.browser.page.click(searchField, { clickCount: 3 });
   await world.browser.page.type(searchField, name);
   await Promise.all([world.browser.page.click("button#search"), world.browser.page.waitForNavigation()]);
@@ -443,7 +443,7 @@ const clickButton = async function (value) {
 
 const switchBichard = async function () {
   const { page } = this.browser;
-  await Promise.all([page.click("[class*='BichardSwitch']"), page.waitForNavigation()]);
+  await Promise.all([page.click(".BichardSwitch"), page.waitForNavigation()]);
 
   // if feedback page is shown
   const skip = await page.$("button[id='skip-feedback']");

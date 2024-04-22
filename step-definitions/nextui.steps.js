@@ -80,7 +80,12 @@ Then("I see {string} in the Warrants report", reports.reportContains);
 Then("I see {string} in the report", reports.reportContains);
 Then("I do not see {string} in the report", reports.reportDoesNotContain);
 
-// UI Actions
+// Old UI Actions
+When("I click the alternate {string} tab", alternateLoadTab);
+Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
+Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
+
+// New UI Actions
 When("I view the list of exceptions", ui.goToExceptionList);
 When("I open this record", ui.openRecordForCurrentTest);
 When("I open the record for {string}", ui.openRecordFor);
@@ -125,9 +130,6 @@ Then("I unlock the record and return to the list", ui.returnToCaseListUnlock);
 Then("the record for {string} does not exist", ui.noRecordsForPerson);
 Then("I see {string} in the table", ui.checkNoteExists);
 When("I switch to the alternate version of bichard", ui.switchBichard);
-When("I click the alternate {string} tab", alternateLoadTab);
-Then("the alternate exception list should contain a record for {string}", alternateFindRecordFor);
-Then("I see {string} in the {string} row of the alternate results table", alternateCheckOffenceData);
 When("I view offence {string}", ui.viewOffence);
 When("I submit the record", ui.submitRecord);
 When("I submit the record on the case details page", ui.submitRecordAndStayOnPage);
