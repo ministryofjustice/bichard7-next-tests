@@ -41,9 +41,9 @@
     "@cucumber/cucumber": "^9.5.1",
     "@cucumber/pretty-formatter": "^1.0.1",
     "@faker-js/faker": "^8.4.1",
-    "@moj-bichard7-developers/bichard7-next-data": "^2.0.157",
+    "@moj-bichard7-developers/bichard7-next-data": "^2.0.159",
     "@types/jest": "^29.5.12",
-    "aws-sdk": "^2.1599.0",
+    "aws-sdk": "^2.1603.0",
     "axios": "^1.6.8",
     "csv-parse": "^5.5.5",
     "date-fns": "^3.6.0",
@@ -60,7 +60,7 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.5",
     "uuid": "^9.0.1",
-    "zod": "^3.22.4"
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
