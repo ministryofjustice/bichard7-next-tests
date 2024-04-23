@@ -73,7 +73,7 @@ The seed script looks for the following strings to replace:
 
 The message content is contained within the `<ns2:DataStreamContent>` tag. To make editing easier, copy the value of this tag to a new file and run it through an xml formatter.
 
-Older cases may have escaped the xml by replacing `<` with `&lt;` and `>` with `&gt;`. You can use a find/replace to change the message content back to xml.
+The xml in the data stream content may have been escaped by replacing `<` with `&lt;` and `>` with `&gt;`. You can use a find/replace to change the message content back to xml.
 
 Replace the following fields:
 
@@ -91,7 +91,7 @@ Replace the following fields:
 
 Once finished, It is a good idea to have another team member check over the xml in case anything has been missed. Do this via screen share, do not send over slack or email.
 
-Once you are confident that no `PII` remains, minify the xml and paste back into the `incoming-message` file.
+Once you are confident that no `PII` remains, minify the xml, escape it (even if it wasn't originally), and paste back into the `incoming-message` file.
 
 ### Anonymising PNC Response
 
