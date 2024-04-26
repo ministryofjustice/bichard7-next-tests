@@ -31,8 +31,8 @@ Feature: {190} R4.0_BR7_CC_TR_Offence Code Qualifiers
 			And I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see exception "HO100206" in the exception list table
-			And there are no triggers raised for "fuller Sam"
-		When I open the record for "fuller Sam"
+			And there are no triggers raised for "fullerd Sam"
+		When I open the record for "fullerd Sam"
 			And I click the "Defendant" tab
 			And I correct "ASN" to "0901VK0100000342547V"
 			And I submit the record
