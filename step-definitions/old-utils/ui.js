@@ -518,7 +518,7 @@ const correctOffenceException = async function (field, newValue) {
 };
 
 const matchOffence = async function (sequenceNumber) {
-  await correctOffenceException("Sequence Number", sequenceNumber);
+  await correctOffenceException.bind(this)("Sequence Number", sequenceNumber);
 };
 
 const correctOffenceFreeTextException = async function (field, newValue) {
