@@ -397,6 +397,8 @@ const correctOffenceExceptionByTypeahead = async function (field, newValue) {
   await correctOffence(page, convertFieldToHtml(field), newValue);
 };
 
+// const matchOffence = async function (sequenceNumber) {};
+
 const saveInput = async function (field) {
   const { page } = this.browser;
 
@@ -469,7 +471,8 @@ const viewOffence = async function (offenceId) {
     return;
   }
 
-  await page.waitForSelector(`#offence-${offenceId}`).click();
+  await page.waitForSelector(`#offence-${offenceId}`);
+  await page.click(`#offence-${offenceId}`);
 };
 
 const submitRecord = async function () {

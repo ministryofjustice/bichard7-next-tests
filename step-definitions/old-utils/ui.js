@@ -517,6 +517,10 @@ const correctOffenceException = async function (field, newValue) {
   );
 };
 
+const matchOffence = async function (sequenceNumber) {
+  await correctOffenceException("Sequence Number", sequenceNumber);
+};
+
 const correctOffenceFreeTextException = async function (field, newValue) {
   await this.browser.page.$$("#br7_exception_details_court_data_table .resultsTable tbody tr").then((rows) =>
     rows.map((row) =>
@@ -712,6 +716,7 @@ module.exports = {
   checkRecordNotExists,
   correctOffenceException,
   correctOffenceFreeTextException,
+  matchOffence,
   submitRecord,
   reloadUntilStringPresent,
   reloadUntilStringNotPresent,
