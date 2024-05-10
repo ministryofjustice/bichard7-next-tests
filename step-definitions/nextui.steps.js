@@ -131,6 +131,7 @@ Then("the record for {string} does not exist", ui.noRecordsForPerson);
 Then("I see {string} in the table", ui.checkNoteExists);
 When("I switch to the alternate version of bichard", ui.switchBichard);
 When("I view offence {string}", ui.viewOffence);
+When("I match the offence to PNC offence {string}", ui.matchOffence);
 When("I submit the record", ui.submitRecord);
 When("I submit the record on the case details page", ui.submitRecordAndStayOnPage);
 Then("I reload until I don't see {string}", ui.reloadUntilStringNotPresent);

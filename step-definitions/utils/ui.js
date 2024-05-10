@@ -397,7 +397,9 @@ const correctOffenceExceptionByTypeahead = async function (field, newValue) {
   await correctOffence(page, convertFieldToHtml(field), newValue);
 };
 
-// const matchOffence = async function (sequenceNumber) {};
+// const matchOffence = async function (sequenceNumber) {
+//   const matcher = await this.browser.page.$("")
+// };
 
 const saveInput = async function (field) {
   const { page } = this.browser;
