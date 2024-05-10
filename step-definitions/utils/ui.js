@@ -165,6 +165,11 @@ const loadTab = async function (tabName) {
   await this.browser.page.click(`text=${tabName}`);
 };
 
+const returnToOffenceList = async function () {
+  const [back] = await this.browser.page.$$('xpath/.//*[contains(text(), "Back to all offences")]');
+  await back.click();
+};
+
 const reallocateCaseToForce = async function (force) {
   const { page } = this.browser;
 
@@ -397,9 +402,13 @@ const correctOffenceExceptionByTypeahead = async function (field, newValue) {
   await correctOffence(page, convertFieldToHtml(field), newValue);
 };
 
-// const matchOffence = async function (sequenceNumber) {
-//   const matcher = await this.browser.page.$("")
-// };
+const matchOffence = async function (sequenceNumber) {
+  await this.browser.page.select("select.offence-matcher", sequenceNumber);
+};
+
+const offenceAddedInCourt = async function () {
+  await this.browser.page.select("select.offence-matcher", "0");
+};
 
 const saveInput = async function (field) {
   const { page } = this.browser;
@@ -482,7 +491,7 @@ const submitRecord = async function () {
 
   await page.click("#exceptions-tab");
   await Promise.all([page.click("#submit"), page.waitForNavigation()]);
-  await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
+  await Promise.all([page.click("#confirm-submit"), page.waitForNavigation()]);
   await Promise.all([page.click("#return-to-case-list"), page.waitForNavigation()]);
 };
 
@@ -492,6 +501,12 @@ const submitRecordAndStayOnPage = async function () {
   await page.click("#exceptions-tab");
   await Promise.all([page.click("#submit"), page.waitForNavigation()]);
   await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
+};
+
+const reloadUntilStringPresent = async function (value) {
+  const content = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1"); // TODO: remove this once we update new UI to display PR0* instead of full trigger code
+  const result = await reloadUntilContent(this.browser.page, content);
+  expect(result).toBeTruthy();
 };
 
 const reloadUntilStringNotPresent = async function (content) {
@@ -593,6 +608,7 @@ module.exports = {
   cannotSeeTrigger,
   noExceptionPresentForOffender,
   loadTab,
+  returnToOffenceList,
   checkTrigger,
   checkTriggerforOffence,
   checkCompleteTriggerforOffence,
@@ -608,6 +624,8 @@ module.exports = {
   checkNoRecords,
   checkNoRecordsForThis,
   checkOffence,
+  matchOffence,
+  offenceAddedInCourt,
   getTableData,
   goToExceptionList,
   noTriggersPresentForOffender,
@@ -626,6 +644,7 @@ module.exports = {
   switchBichard,
   viewOffence,
   submitRecord,
+  reloadUntilStringPresent,
   reloadUntilStringNotPresent,
   checkRecordStatus,
   checkRecordNotStatus,
