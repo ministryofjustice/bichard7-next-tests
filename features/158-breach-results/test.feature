@@ -21,7 +21,7 @@ Feature: {158} BR7 R5.2.2-RCD518 - Result class Sentence & Adjournment Post Judg
 	Background:
 		Given the data for this test is in the PNC
 
-	@Should
+	@Should @NextUI
 	Scenario: Breach results automation
 		Given "input-message-1" is received
 			And I am logged in as "supervisor"
@@ -32,16 +32,16 @@ Feature: {158} BR7 R5.2.2-RCD518 - Result class Sentence & Adjournment Post Judg
 		When I open the record for "DDDraven Alex"
 			And I click the "Offences" tab
 			And I view offence "1"
-			And I correct "Sequence Number" to "1"
-			And I click the "Offences" tab
+			And I match the offence to PNC offence "1"
+			And I return to the offence list
 			And I view offence "2"
-			And I correct "Sequence Number" to "2"
+			And I match the offence to PNC offence "2"
 			And I submit the record
 			And I return to the list
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see exception "HO200113" in the exception list table
 		When I open the record for "DDDraven Alex"
-			And I click the "triggers" tab
+			And I click the "Triggers" tab
 		Then I see trigger "TRPR0020" for offence "2"
 			And I see trigger "TRPR0006"
 			And the PNC updates the record
