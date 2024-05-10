@@ -19,7 +19,7 @@ Feature: {050} R3.4_BR7_YZ Force Code
     Given the data for this test is in the PNC
       And "input-message" is received
 
-  @Must
+@Must @NextUI
   Scenario: YZ Force code is used in logs
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
@@ -27,11 +27,11 @@ Feature: {050} R3.4_BR7_YZ Force Code
     When I open the record for "Bass Barry"
       And I click the "Offences" tab
       And I view offence "1"
-      And I correct "Sequence Number" to "1"
-      And I click the "Offences" tab
+      And I match the offence to PNC offence "1"
+      And I return to the offence list
       And I view offence "2"
-      And I correct "Sequence Number" to "2"
-      And I click the "Offences" tab
+      And I match the offence to PNC offence "2"
+      And I return to the offence list
       And I submit the record
     Then the PNC updates the record
       And I see exception "(Submitted)" in the exception list table
