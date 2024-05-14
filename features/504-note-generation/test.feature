@@ -9,6 +9,7 @@ Feature: {504} Note generation
     Given the data for this test is in the PNC
       And "input-message" is received
 
+@NextUI
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
@@ -19,7 +20,8 @@ Feature: {504} Note generation
       And I see "Trigger codes: 1 x TRPR0004" in the table
     When I click the "Offences" tab
       And I view offence "1"
-      And I correct "Sequence Number" to "1"
+      And I wait 300 seconds
+      And I match the offence to PNC offence "1"
       And I click the "Offences" tab
       And I submit the record
     Then I see exception "(Submitted)" in the exception list table

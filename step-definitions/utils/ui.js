@@ -473,17 +473,13 @@ const switchBichard = async function () {
 };
 
 const viewOffence = async function (offenceId) {
-  const { page } = this.browser;
+  await this.browser.page.waitForSelector(`#offence-${offenceId}`);
+  await this.browser.page.click(`#offence-${offenceId}`);
+};
 
-  const [link] = await page.$$(`xpath/.//a[contains(text(), "${offenceId}")]`);
-
-  if (link) {
-    await link.click();
-    return;
-  }
-
-  await page.waitForSelector(`#offence-${offenceId}`);
-  await page.click(`#offence-${offenceId}`);
+const viewOffenceByText = async function (text) {
+  const [link] = await this.browser.page.$$(`xpath/.//a[contains(text(), "${text}")]`);
+  await link.click();
 };
 
 const submitRecord = async function () {
@@ -500,7 +496,7 @@ const submitRecordAndStayOnPage = async function () {
 
   await page.click("#exceptions-tab");
   await Promise.all([page.click("#submit"), page.waitForNavigation()]);
-  await Promise.all([page.click("#Submit"), page.waitForNavigation()]);
+  await Promise.all([page.click("#confirm-submit"), page.waitForNavigation()]);
 };
 
 const reloadUntilStringPresent = async function (value) {
@@ -643,6 +639,7 @@ module.exports = {
   clickButton,
   switchBichard,
   viewOffence,
+  viewOffenceByText,
   submitRecord,
   reloadUntilStringPresent,
   reloadUntilStringNotPresent,

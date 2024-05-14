@@ -17,11 +17,11 @@ Feature: Next Hearing location Next UI
 		Then I see exception "HO100300" in the exception list table
 		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 			And I correct "Next Hearing location" and type "B01EF01"
 		Then I submit the record on the case details page
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 		Then I see the Correction badge
 
 	@ExcludeOnLegacyUI
@@ -32,12 +32,12 @@ Feature: Next Hearing location Next UI
 		Then I see exception "HO100300" in the exception list table
 		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 			And I correct "Next Hearing location" and type "Barb"
 			And I select the first option
 		Then I submit the record on the case details page
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 		Then I see the Correction badge
 
 	@ExcludeOnLegacyUI
@@ -48,12 +48,12 @@ Feature: Next Hearing location Next UI
 		Then I see exception "HO100300" in the exception list table
 		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 			And I correct "Next Hearing location" and type "C01B"
 			And I select the first option
 		Then I submit the record on the case details page
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 		Then I see the Correction badge
 
 	@ExcludeOnLegacyUI
@@ -64,11 +64,11 @@ Feature: Next Hearing location Next UI
 		Then I see exception "HO100300" in the exception list table
 		When I go to the Case Details for this exception "HO100300"
 			And I click the "Offences" tab
-			And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 			And I correct "Next Hearing location" and type "B"
 			And I select the first option
 			And I save the input "Next Hearing location"
 		Then I reload the page
     		And I click the "Offences" tab
-    		And I view offence "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
+			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
     		And I see the correction for "Next Hearing location" to "B21XA00"

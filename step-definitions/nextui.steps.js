@@ -132,6 +132,7 @@ Then("the record for {string} does not exist", ui.noRecordsForPerson);
 Then("I see {string} in the table", ui.checkNoteExists);
 When("I switch to the alternate version of bichard", ui.switchBichard);
 When("I view offence {string}", ui.viewOffence);
+When("I view offence with text {string}", ui.viewOffenceByText);
 When("I match the offence to PNC offence {string}", ui.matchOffence);
 When("I match the offence as Added In Court", ui.offenceAddedInCourt);
 When("I submit the record", ui.submitRecord);
