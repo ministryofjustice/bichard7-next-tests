@@ -442,7 +442,7 @@ const waitForRecordStep = async function (record) {
 
 const checkNoteExists = async function (value) {
   const rows = await getTableData(this, ".notes-table tbody tr");
-  if (!rows.some((row) => row.some((cell) => cell.includes(value)))) {
+  if (!rows.some((row) => row.some((cell) => cell.toLowerCase().includes(value.toLowerCase())))) {
     throw new Error("Note does not exist");
   }
 };

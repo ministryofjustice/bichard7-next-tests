@@ -20,9 +20,10 @@ Feature: {504} Note generation
       And I see "Trigger codes: 1 x TRPR0004" in the table
     When I click the "Offences" tab
       And I view offence "1"
-      And I wait 300 seconds
       And I match the offence to PNC offence "1"
-      And I click the "Offences" tab
+      And I return to the offence list
+      And I view offence "3"
+      And I match the offence as Added In Court
       And I submit the record
     Then I see exception "(Submitted)" in the exception list table
       And the PNC updates the record
