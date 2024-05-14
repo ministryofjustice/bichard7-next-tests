@@ -441,8 +441,8 @@ const waitForRecordStep = async function (record) {
 };
 
 const checkNoteExists = async function (value) {
-  const tableData = await getTableData(this, "#br7_exception_details_display_notes .resultsTable tbody tr");
-  if (!tableData.some((row) => row[0].includes(value))) {
+  const rows = await getTableData(this, ".notes-table tbody tr");
+  if (!rows.some((row) => row.some((cell) => cell.includes(value)))) {
     throw new Error("Note does not exist");
   }
 };
