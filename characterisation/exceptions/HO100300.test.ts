@@ -41,12 +41,23 @@ describe("HO100300", () => {
       expectTriggers: false
     });
 
-    expect(exceptions).toStrictEqual([
-      {
-        code: "HO100300",
-        path: ["AnnotatedHearingOutcome", "HearingOutcome", "Hearing", "CourtHearingLocation", "OrganisationUnitCode"]
-      }
-    ]);
+    expect(exceptions).toHaveLength(3);
+    expect(exceptions).toEqual(
+      expect.arrayContaining([
+        {
+          code: "HO100300",
+          path: ["AnnotatedHearingOutcome", "HearingOutcome", "Hearing", "CourtHearingLocation", "OrganisationUnitCode"]
+        },
+        {
+          code: "HO100108",
+          path: ["AnnotatedHearingOutcome", "HearingOutcome", "Hearing", "CourtType"]
+        },
+        {
+          code: "HO100300",
+          path: ["AnnotatedHearingOutcome", "HearingOutcome", "Hearing", "CourtHouseCode"]
+        }
+      ])
+    );
   });
 
   it("should create an exception if the Next Source Organisation is not found", async () => {
