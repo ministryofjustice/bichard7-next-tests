@@ -28,8 +28,7 @@ describe("HO100236", () => {
       recordableOnPnc: false,
       description: "blah",
       homeOfficeClassification: "123/45",
-      notifiableToHo: true,
-      resultHalfLifeHours: null
+      notifiableToHo: true
     });
 
     const inputMessage = generateMessage({
@@ -55,8 +54,7 @@ describe("HO100236", () => {
       recordableOnPnc: false,
       description: "blah",
       homeOfficeClassification: "",
-      notifiableToHo: true,
-      resultHalfLifeHours: null
+      notifiableToHo: true
     });
 
     const inputMessage = generateMessage({
@@ -94,8 +92,7 @@ describe("HO100236", () => {
       recordableOnPnc: false,
       description: "blah",
       homeOfficeClassification: "467/123",
-      notifiableToHo: true,
-      resultHalfLifeHours: null
+      notifiableToHo: true
     }));
 
     const inputMessage = generateMessage({
