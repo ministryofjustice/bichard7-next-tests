@@ -142,7 +142,7 @@ Then("I reload until I don't see {string}", ui.reloadUntilStringNotPresent);
 Then("I return to the list", ui.returnToCaseListUnlock);
 Then("the {string} for {string} is {string}", ui.checkRecordStatus);
 Then("the {string} for {string} is not {string}", ui.checkRecordNotStatus);
-Then("the invalid {string} cannot be submitted", ui.invalidFieldCannotBeSubmitted);
+Then("the invalid {string} can be submitted", ui.invalidFieldCanBeSubmitted);
 When("I correct {string} to {string} and save", ui.correctOffenceExceptionAndSave);
 Then("I see the correction for {string} to {string}", ui.checkCorrectionFieldAndValue);
 Then("I correct {string} and type {string}", ui.correctOffenceExceptionByTypeahead);

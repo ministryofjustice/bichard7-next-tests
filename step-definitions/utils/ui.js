@@ -537,13 +537,13 @@ const checkRecordNotStatus = async function (recordType, _recordName, resolvedTy
 };
 
 // eslint-disable-next-line no-unused-vars
-const invalidFieldCannotBeSubmitted = async function (_fieldName) {
+const invalidFieldCanBeSubmitted = async function (_fieldName) {
   const { page } = this.browser;
 
   await page.click("#exceptions-tab");
 
   const submitDisabled = await page.$eval("#submit", (submitButton) => submitButton.disabled);
-  expect(submitDisabled).toBeTruthy();
+  expect(submitDisabled).toBeFalsy();
 };
 
 const checkCorrectionFieldAndValue = async function (fieldName, value) {
@@ -645,7 +645,7 @@ module.exports = {
   reloadUntilStringNotPresent,
   checkRecordStatus,
   checkRecordNotStatus,
-  invalidFieldCannotBeSubmitted,
+  invalidFieldCanBeSubmitted,
   checkCorrectionFieldAndValue,
   inputFieldToKeyboardPress,
   seeCorrectionBadge,
