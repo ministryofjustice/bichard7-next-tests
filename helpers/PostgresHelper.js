@@ -40,7 +40,7 @@ class PostgresHelper {
         "",
         name,
         defaultPasswordHash,
-        { exceptionsEnabled: true }
+        { exceptionsEnabled: true, offenceMatchingEnabled: true }
       ]
     );
 
