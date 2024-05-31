@@ -22,7 +22,7 @@ Feature: {296} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text IS used 
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-@Should @NextUI
+	@Should @NextUI
 	Scenario: Ensure the result text is used as the PNC disposal text
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
@@ -35,7 +35,7 @@ Feature: {296} BR7-R5.9-RCD545-Duplicate Offences-DIFFERENT Result Text IS used 
 			And I view offence "2"
 			And I match the offence to PNC offence "2"
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
+		Then I see exception "(Resolved)" in the exception list table
 			And the PNC updates the record
 		When I reload until I see "PS03 - Disposal text truncated"
 			And I open the record for "RESULTTEXTISUSED DUPLICATEOFFENCES"

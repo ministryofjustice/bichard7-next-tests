@@ -9,7 +9,7 @@ Feature: {504} Note generation
     Given the data for this test is in the PNC
       And "input-message" is received
 
-@NextUI
+  @NextUI
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
@@ -25,7 +25,7 @@ Feature: {504} Note generation
       And I view offence "3"
       And I match the offence as Added In Court
       And I submit the record
-    Then I see exception "(Submitted)" in the exception list table
+    Then I see exception "(Resolved)" in the exception list table
       And the PNC updates the record
     When I reload until I see "PS10 - Offence added to PNC"
       And I open the record for "MISMATCH OFFENCE"

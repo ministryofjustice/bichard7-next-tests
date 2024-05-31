@@ -1,7 +1,7 @@
 Feature: {410} Leaving Manual Sequence Number blank to make an offence Added in Court
 
 			"""
-			When there are duplicate offences with different results, but one is added in court, if the manual sequence number for the one
+		When there are duplicate offences with different results, but one is added in court, if the manual sequence number for the one
 			added in court is left blank it will be added to the PNC.
 			"""
 
@@ -22,5 +22,5 @@ Feature: {410} Leaving Manual Sequence Number blank to make an offence Added in 
 			And I view offence "2"
 			And I match the offence as Added In Court
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
+		Then I see exception "(Resolved)" in the exception list table
 			And the PNC updates the record
