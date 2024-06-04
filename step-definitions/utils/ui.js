@@ -354,7 +354,6 @@ const noRecordsForPerson = async function (name) {
 
 const goToExceptionList = async function () {
   if (this.config.noUi) return;
-  await this.browser.page.goto("about:blank");
   await Promise.all([this.browser.page.waitForNavigation(), this.browser.page.goto(caseListPage())]);
 };
 
