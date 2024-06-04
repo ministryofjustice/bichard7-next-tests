@@ -13,7 +13,7 @@
     "test:characterisation": "cd characterisation && jest --runInBand",
     "test:chunk:conductor": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and not @ExcludedOnConductor'",
     "test:chunk:nextUI": "NEXTUI=true bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and @NextUI'",
-    "test:chunk": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC'",
+    "test:chunk": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC' and @ExcludedOnNextUI",
     "test:file": "./node_modules/.bin/cucumber-js --require steps --no-strict --exit --format @cucumber/pretty-formatter",
     "test:must": "./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --format @cucumber/pretty-formatter --fail-fast --tags '@Must' features",
     "test:nextUI:file": "NEXTUI=true ./node_modules/.bin/cucumber-js --require steps --no-strict --exit --tags '@NextUI'",
