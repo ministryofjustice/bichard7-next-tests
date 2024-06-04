@@ -354,7 +354,6 @@ const noRecordsForPerson = async function (name) {
 
 const goToExceptionList = async function () {
   if (this.config.noUi) return;
-  await this.browser.page.goto("about:blank");
   await Promise.all([this.browser.page.waitForNavigation(), this.browser.page.goto(caseListPage())]);
 };
 
@@ -523,7 +522,7 @@ const checkRecordStatus = async function (recordType, recordName, resolvedType) 
 
   await Promise.all([filterRecords(this, resolvedType, recordType), page.waitForNavigation()]);
   expect(await this.browser.elementText("table.cases-list")).toMatch(recordName);
-  await Promise.all([page.click("#clear-filters"), page.waitForNavigation()]);
+  await this.browser.clickAndWait("#clear-filters");
 };
 
 const checkRecordNotStatus = async function (recordType, _recordName, resolvedType) {
