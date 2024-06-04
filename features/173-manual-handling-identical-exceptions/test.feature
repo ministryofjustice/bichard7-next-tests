@@ -19,7 +19,7 @@ Feature: {173} BR7 R5.3-RCD497 - Partial Match - Fine Amount
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+	@Could @NextUI
 	Scenario: Handling exceptions for identical offences with manual handling
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
@@ -28,11 +28,11 @@ Feature: {173} BR7 R5.3-RCD497 - Partial Match - Fine Amount
 		When I open the record for "Pinkerton Marcus"
 			And I click the "Offences" tab
 			And I view offence "1"
-			And I correct "Sequence Number" to "1"
-			And I click the "Offences" tab
+			And I match the offence to PNC offence "1"
+			And I return to the offence list
 			And I view offence "2"
-			And I correct "Sequence Number" to "2"
-			And I click the "Offences" tab
+			And I match the offence to PNC offence "2"
+			And I return to the offence list
 			And I submit the record
 		Then I see exception "(Submitted)" in the exception list table
 		When I reload until I don't see "(Submitted)"

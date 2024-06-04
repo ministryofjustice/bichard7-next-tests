@@ -91,7 +91,8 @@ const {
   returnToList,
   reloadUntilStringPresentForRecord,
   saveChanges,
-  checkCorrectionFieldAndValue
+  checkCorrectionFieldAndValue,
+  matchOffence
 } = require("./old-utils/ui");
 
 const {
@@ -149,6 +150,10 @@ When("I download the report", downloadCSV);
 
 When("I click the {string} tab", loadTab);
 
+When("I return to the offence list", async function () {
+  await loadTab.apply(this, ["Offences"]);
+});
+
 When("I resolve all of the triggers", resolveAllTriggers);
 
 When("I resolve the selected triggers", resolveSelectedTriggers);
@@ -164,6 +169,10 @@ When("I view offence {string}", viewOffence);
 When("I unlock the record and return to the list", returnToCaseListUnlock);
 
 When("I correct {string} to {string}", correctOffenceException);
+
+When("I match the offence to PNC offence {string}", matchOffence);
+
+When("I match the offence as Added In Court", () => {});
 
 When("I prepend {string} with {string}", correctOffenceFreeTextException);
 

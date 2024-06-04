@@ -1,5 +1,6 @@
 const defaults = {
   awsRegion: "eu-west-2",
+  awsUrl: "http://localhost:4566",
   phase1Bucket: "phase1",
   incomingMessageBucket: "incoming-messages",
   postgresHost: "localhost",

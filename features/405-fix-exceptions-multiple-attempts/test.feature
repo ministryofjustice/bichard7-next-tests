@@ -35,7 +35,7 @@ Feature: 405 - Fixing exceptions and resubmitting with multiple attempts
 		When I open the record for "Ladyfish Larry"
 			And I click the "Defendant" tab
 			And I correct "ASN" to "1101ZD0100000410804B"
-		Then the invalid "ASN" cannot be submitted
+		Then the invalid "ASN" can be submitted
 			And I correct "ASN" to "1101ZD0100000410804K"
 			And I submit the record
 			And I return to the list

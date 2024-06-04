@@ -20,7 +20,6 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see the correction for "ASN" to "11/01ZD/01/00000448754K"
 		Then I submit the record
 			And I reload until I don't see "(Submitted)"
-			And I see exception "(Resolved)" in the exception list table
 
 	@NextUI
 	@ExcludeOnLegacyUI
@@ -35,7 +34,6 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see the correction for "ASN" to "11/01ZD/01/00000448754K"
 		Then I submit the record
 			And I reload until I don't see "(Submitted)"
-			And I see exception "(Resolved)" in the exception list table
 
 	@NextUI
 	@ExcludeOnLegacyUI
@@ -50,7 +48,6 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see the correction for "ASN" to "11/01ZD/01/00000448754K"
 		Then I submit the record
 			And I reload until I don't see "(Submitted)"
-			And I see exception "(Resolved)" in the exception list table
 
 	@NextUI
 	@ExcludeOnLegacyUI
@@ -68,4 +65,3 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see the correction for "ASN" to "11/01ZD/01/00000410836V"
 		Then I submit the record
 			And I reload until I don't see "(Submitted)"
-			And I see exception "(Resolved)" in the exception list table

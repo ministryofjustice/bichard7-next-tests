@@ -22,7 +22,7 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
     Given the data for this test is in the PNC
       And "input-message" is received
 
-  @Must
+  @Must @NextUI
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
@@ -30,8 +30,10 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
     When I open the record for "MISMATCH OFFENCE"
       And I click the "Offences" tab
       And I view offence "1"
-      And I correct "Sequence Number" to "1"
-      And I click the "Offences" tab
+      And I match the offence to PNC offence "1"
+      And I return to the offence list
+      And I view offence "4"
+      And I match the offence as Added In Court
       And I submit the record
     Then I see exception "(Submitted)" in the exception list table
       And the PNC updates the record

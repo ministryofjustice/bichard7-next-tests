@@ -45,7 +45,7 @@ class Bichard extends World {
     });
 
     this.incomingMessageBucket = new IncomingMessageBucket({
-      url: process.env.AWS_URL,
+      url: process.env.AWS_URL || defaults.awsUrl,
       region: process.env.S3_REGION || defaults.awsRegion,
       incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
     });
