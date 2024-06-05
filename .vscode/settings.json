@@ -1,3 +1,9 @@
 {
-  "circleci.persistedProjectSelection": []
+  "circleci.persistedProjectSelection": [],
+  "cucumberautocomplete.steps": ["step-definitions/*.js"],
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "cucumberautocomplete.formatConfOverride": {
+    "And": 3,
+    "But": "relative"
+  }
 }
