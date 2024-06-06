@@ -9,7 +9,7 @@ class IncomingMessageBucket {
       s3ForcePathStyle: true
     };
 
-    if (config.url) {
+    if (config.url && config.url !== "none") {
       options.endpoint = config.url;
       options.credentials = {
         accessKeyId: "test",
