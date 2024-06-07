@@ -98,7 +98,7 @@ Once you are confident that no `PII` remains, minify the xml, escape it (even if
 - Replace the value of `<FSC>` with `K01XM`
 - Replace the value of `<IDS>` with `K00/000000X FAMILY_NAME`
 
-Once these two files have beend anonymised, you can use your local dev environment to check that they produce the type of exceptions/triggers that you expect. Note that these fields are expected to be a specific length. If you encounter errors in testing, double check there is no extra whitespace in these values.
+Once these two files have bend anonymised, you can use your local dev environment to check that they produce the type of exceptions/triggers that you expect. Note that these fields are expected to be a specific length. If you encounter errors in testing, double check there is no extra whitespace in these values.
 
 ## Seeding local Environment
 
