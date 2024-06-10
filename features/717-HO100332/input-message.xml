@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DeliverRequest xmlns="http://schemas.cjse.gov.uk/messages/deliver/2006-05"
+	xmlns:ex="http://schemas.cjse.gov.uk/messages/exception/2006-06"
+	xmlns:mf="http://schemas.cjse.gov.uk/messages/format/2006-05"
+	xmlns:mm="http://schemas.cjse.gov.uk/messages/metadata/2006-05"
+	xmlns:msg="http://schemas.cjse.gov.uk/messages/messaging/2006-05"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schemas.cjse.gov.uk/messages/deliver/2006-05 C:ClearCasekel-masri_BR7_0_1_intgBR7XML_ConverterSourceClassGenerationschemasReceiveDeliverServiceDeliverService-v1-0.xsd">
+	<msg:MessageIdentifier>EXTERNAL_CORRELATION_ID</msg:MessageIdentifier>
+	<msg:RequestingSystem>
+		<msg:Name>CJSE</msg:Name>
+		<msg:OrgUnitCode>Z000000</msg:OrgUnitCode>
+		<msg:Environment>Production</msg:Environment>
+	</msg:RequestingSystem>
+	<msg:AckRequested>1</msg:AckRequested>
+	<mm:MessageMetadata SchemaVersion="1.0">
+		<mm:OriginatingSystem>
+			<msg:Name>BICHARD7</msg:Name>
+			<msg:OrgUnitCode>C234567</msg:OrgUnitCode>
+			<msg:Environment>Production</msg:Environment>
+		</mm:OriginatingSystem>
+		<mm:DataController>
+			<msg:Organisation>C765432</msg:Organisation>
+			<msg:ReferencedElementURI>http://www.altova.com</msg:ReferencedElementURI>
+		</mm:DataController>
+		<mm:CreationDateTime>2001-12-17T09:30:47-05:00</mm:CreationDateTime>
+		<mm:ExpiryDateTime>2031-12-17T09:30:47-05:00</mm:ExpiryDateTime>
+		<mm:SenderRequestedDestination>String</mm:SenderRequestedDestination>
+	</mm:MessageMetadata>
+	<mf:MessageFormat SchemaVersion="1.0">
+		<mf:MessageType>
+			<msg:Type>SPIResults</msg:Type>
+			<msg:Version>1.200</msg:Version>
+		</mf:MessageType>
+		<mf:MessageSchema>
+			<msg:Namespace>http://www.dca.gov.uk/xmlschemas/libra</msg:Namespace>
+			<msg:Version>TBC</msg:Version>
+		</mf:MessageSchema>
+	</mf:MessageFormat>
+	<Message>
+		<DC:ResultedCaseMessage xmlns:DC="http://www.dca.gov.uk/xmlschemas/libra"
+			Flow="ResultedCasesForThePolice" Interface="LibraStandardProsecutorPolice"
+			SchemaVersion="0.6g">
+			<DC:Session>
+				<DC:CourtHearing>
+					<DC:Hearing>
+						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+						<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
+						<DC:TimeOfHearing>09:00:00</DC:TimeOfHearing>
+					</DC:Hearing>
+					<DC:PSAcode>2923</DC:PSAcode>
+				</DC:CourtHearing>
+				<DC:Case>
+					<DC:PTIURN>01ZD0301408</DC:PTIURN>
+					<DC:Defendant>
+						<DC:ProsecutorReference>1101ZD0100000410771Z</DC:ProsecutorReference>
+						<DC:CourtIndividualDefendant>
+							<DC:PersonDefendant>
+								<DC:BasePersonDetails>
+									<DC:PersonName>
+										<DC:PersonTitle>Mr</DC:PersonTitle>
+										<DC:PersonGivenName1>GIVEN_NAME</DC:PersonGivenName1>
+										<DC:PersonFamilyName>FAMILY_NAME</DC:PersonFamilyName>
+									</DC:PersonName>
+									<DC:Birthdate>1948-11-11</DC:Birthdate>
+									<DC:Gender>1</DC:Gender>
+								</DC:BasePersonDetails>
+								<DC:PNCidentifier>200800000GGG</DC:PNCidentifier>
+								<DC:BailConditions>Exclusion - not to sit in the front seat of any motor
+									vehicle;Residence
+									- live and sleep each night at at any address as directed by the Youth Offending
+									Team
+								</DC:BailConditions>
+							</DC:PersonDefendant>
+							<DC:BailStatus>B</DC:BailStatus>
+							<DC:Address>
+								<DC:SimpleAddress>
+									<DC:AddressLine1>ADDRESS_LINE_1</DC:AddressLine1>
+									<DC:AddressLine2>ADDRESS_LINE_2</DC:AddressLine2>
+									<DC:AddressLine3>ADDRESS_LINE_3</DC:AddressLine3>
+									<DC:AddressLine5>ADDRESS_LINE_5</DC:AddressLine5>
+								</DC:SimpleAddress>
+							</DC:Address>
+							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
+							<DC:ReasonForBailConditionsOrCustody>To ensure appearance, To prevent offending</DC:ReasonForBailConditionsOrCustody>
+						</DC:CourtIndividualDefendant>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>RT88333</DC:OffenceCode>
+								<DC:OffenceWording>On the DATE_OF_HEARING at ADDRESS_LINE_3 in the county of
+									ADDRESS_LINE_4
+									drove a motor vehicle namely Mini Vehicle Registration Number SUP3R F8ST on a road
+									namely ADDRESS_LINE_2 while disqualified from holding or obtaining a driving
+									licence.
+								</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2024-04-03</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2024-04-12</DC:ChargeDate>
+								<DC:ArrestDate>2024-04-12</DC:ArrestDate>
+								<DC:LocationOfOffence>OFFENCE_LOCATION</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2024-04-03</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>1</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultCode>4027</DC:ResultCode>
+								<DC:ResultText>RC - Remanded on conditional bail Remanded on conditional bail until
+									hearing
+									on DATE_OF_HEARING at 14:00 in Courtroom 01, ADDRESS_LINE_4 Magistrates' Court.
+									Adjournment reason: For the trial to take place, To attend or a warrant to issue.
+									Conditions: Residence - live and sleep each night at at any address as directed by
+									the
+									Youth Offending Team, Exclusion - not to sit in the front seat of any motor
+									vehicle.
+									Reasons: To ensure appearance, To prevent offending. Defendant to attend the next
+									hearing</DC:ResultText>
+								<DC:ResultCodeQualifier>GE</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>GC</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>RD</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>RB</DC:ResultCodeQualifier>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
+										<DC:TimeOfHearing>13:00:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>For the trial to take place To attend or a warrant to issue</DC:NextHearingReason>
+									<DC:BailStatusOffence>B</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>RA88001</DC:OffenceCode>
+								<DC:OffenceWording>On the DATE_OF_HEARING at ADDRESS_LINE_3 used a motor vehicle,
+									namely
+									Mini Vehicle Registration Number SUP3R F8ST, on a road, or other public place,
+									namely
+									ADDRESS_LINE_2, when there was not in force in relation to that use such a policy
+									of
+									insurance as complied with the requirements of Part VI of the Road Traffic Act
+									1988.
+								</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2024-04-03</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2024-04-03</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>1</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:Result>
+								<DC:ResultCode>4027</DC:ResultCode>
+								<DC:ResultText>RC - Remanded on conditional bail Remanded on conditional bail until
+									hearing
+									on DATE_OF_HEARING at 14:00 in Courtroom 01, ADDRESS_LINE_4 Magistrates' Court.
+									Adjournment reason: For the trial to take place, To attend or a warrant to issue.
+									Conditions: Residence - live and sleep each night at at any address as directed by
+									the
+									Youth Offending Team, Exclusion - not to sit in the front seat of any motor
+									vehicle.
+									Reasons: To ensure appearance, To prevent offending. Defendant to attend the next
+									hearing</DC:ResultText>
+								<DC:ResultCodeQualifier>GE</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>GC</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>RD</DC:ResultCodeQualifier>
+								<DC:ResultCodeQualifier>RB</DC:ResultCodeQualifier>
+								<DC:NextHearing>
+									<DC:NextHearingDetails>
+										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
+										<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
+										<DC:TimeOfHearing>13:00:00</DC:TimeOfHearing>
+									</DC:NextHearingDetails>
+									<DC:NextHearingReason>For the trial to take place To attend or a warrant to issue</DC:NextHearingReason>
+									<DC:BailStatusOffence>B</DC:BailStatusOffence>
+								</DC:NextHearing>
+							</DC:Result>
+						</DC:Offence>
+					</DC:Defendant>
+				</DC:Case>
+			</DC:Session>
+		</DC:ResultedCaseMessage>
+
+	</Message>
+</DeliverRequest>
