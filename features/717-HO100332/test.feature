@@ -16,9 +16,9 @@ Feature: {717} HO100332
     When I open the record for "AVALON MARTIN"
       And I click the "Offences" tab
       And I view offence "1"
-      And I match the offence to PNC offence "1" in case "12/2732/15R"
+      And I match the offence to PNC offence "001" in case "12/2732/000015R"
       And I return to the offence list
       And I view offence "2"
-      And I match the offence to PNC offence "2" in case "12/2732/16T"
+      And I match the offence to PNC offence "002" in case "12/2732/000016T"
       And I submit the record
     Then the PNC updates the record
