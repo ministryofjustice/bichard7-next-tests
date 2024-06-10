@@ -66,6 +66,7 @@ The seed script looks for the following strings to replace:
 | ADDRESS_LINE_4          | A random county                        |
 | ADDRESS_LINE_5          | A random postcode                      |
 | OFFENCE_LOCATION        | A random address, cut to 80 characters |
+| VICTIM_*                | A random name                          |
 
 ### Anonymising Incoming Message
 
@@ -86,7 +87,8 @@ Replace the following fields:
 - Replace the value of `<Birthdate>` with `DATE_OF_BIRTH`
 - Replace the value of `<PNCidentifier>` with `PNC_IDENTIFIER`
 - Replace the values of `<AddressLine1>` through `<AddressLine5>` with the appropriate `ADDRESS_LINE_*` string
-- Check any `<OffenceWording>` for names or addresses, replace with appropriate strings for the seed script to replace
+- Check any `<OffenceWording>` for names or addresses, replace with appropriate strings for the seed script to replace.
+  - Names other than the defendant can be replaced with `VICTIM_1`, `VICTIM_2` etc.
 - Replace any `<ConvictionDate>` tags with `DATE_OF_HEARING`
 
 Once finished, It is a good idea to have another team member check over the xml in case anything has been missed. Do this via screen share, do not send over slack or email.
