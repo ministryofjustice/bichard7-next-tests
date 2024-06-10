@@ -46,151 +46,149 @@
 				<DC:CourtHearing>
 					<DC:Hearing>
 						<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-						<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
-						<DC:TimeOfHearing>09:00:00</DC:TimeOfHearing>
+						<DC:DateOfHearing>2009-10-01</DC:DateOfHearing>
+						<DC:TimeOfHearing>10:00:00</DC:TimeOfHearing>
 					</DC:Hearing>
-					<DC:PSAcode>2923</DC:PSAcode>
+					<DC:PSAcode>2576</DC:PSAcode>
 				</DC:CourtHearing>
 				<DC:Case>
-					<DC:PTIURN>01ZD0301408</DC:PTIURN>
+					<DC:PTIURN>01VK0300208</DC:PTIURN>
 					<DC:Defendant>
-						<DC:ProsecutorReference>1101ZD0100000410771Z</DC:ProsecutorReference>
+						<DC:ProsecutorReference>1200000000000000006T</DC:ProsecutorReference>
 						<DC:CourtIndividualDefendant>
 							<DC:PersonDefendant>
 								<DC:BasePersonDetails>
 									<DC:PersonName>
 										<DC:PersonTitle>Mr</DC:PersonTitle>
-										<DC:PersonGivenName1>GIVEN_NAME</DC:PersonGivenName1>
-										<DC:PersonFamilyName>FAMILY_NAME</DC:PersonFamilyName>
+										<DC:PersonGivenName1>MARTIN</DC:PersonGivenName1>
+										<DC:PersonFamilyName>AVALON</DC:PersonFamilyName>
 									</DC:PersonName>
 									<DC:Birthdate>1948-11-11</DC:Birthdate>
 									<DC:Gender>1</DC:Gender>
 								</DC:BasePersonDetails>
-								<DC:PNCidentifier>200800000GGG</DC:PNCidentifier>
-								<DC:BailConditions>Exclusion - not to sit in the front seat of any motor
-									vehicle;Residence
-									- live and sleep each night at at any address as directed by the Youth Offending
-									Team
-								</DC:BailConditions>
 							</DC:PersonDefendant>
-							<DC:BailStatus>B</DC:BailStatus>
+							<DC:BailStatus>U</DC:BailStatus>
 							<DC:Address>
 								<DC:SimpleAddress>
-									<DC:AddressLine1>ADDRESS_LINE_1</DC:AddressLine1>
-									<DC:AddressLine2>ADDRESS_LINE_2</DC:AddressLine2>
-									<DC:AddressLine3>ADDRESS_LINE_3</DC:AddressLine3>
-									<DC:AddressLine5>ADDRESS_LINE_5</DC:AddressLine5>
+									<DC:AddressLine1>ScenarioAE Address Line 1</DC:AddressLine1>
+									<DC:AddressLine2>ScenarioAE Address Line 2</DC:AddressLine2>
+									<DC:AddressLine3>ScenarioAE Address Line 3</DC:AddressLine3>
 								</DC:SimpleAddress>
 							</DC:Address>
-							<DC:PresentAtHearing>Y</DC:PresentAtHearing>
-							<DC:ReasonForBailConditionsOrCustody>To ensure appearance, To prevent offending</DC:ReasonForBailConditionsOrCustody>
+							<DC:PresentAtHearing>A</DC:PresentAtHearing>
 						</DC:CourtIndividualDefendant>
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>RT88333</DC:OffenceCode>
-								<DC:OffenceWording>On the DATE_OF_HEARING at ADDRESS_LINE_3 in the county of
-									ADDRESS_LINE_4
-									drove a motor vehicle namely Mini Vehicle Registration Number SUP3R F8ST on a road
-									namely ADDRESS_LINE_2 while disqualified from holding or obtaining a driving
-									licence.
-								</DC:OffenceWording>
+								<DC:OffenceCode>OF61016</DC:OffenceCode>
+								<DC:OffenceWording>Wounding with intent to do grievous bodily harm offences against
+									the person act 1861 s.18</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2024-04-03</DC:OffenceDateStartDate>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
 									</DC:OffenceStart>
 								</DC:OffenceTiming>
-								<DC:ChargeDate>2024-04-12</DC:ChargeDate>
-								<DC:ArrestDate>2024-04-12</DC:ArrestDate>
-								<DC:LocationOfOffence>OFFENCE_LOCATION</DC:LocationOfOffence>
+								<DC:ChargeDate>2008-09-25</DC:ChargeDate>
+								<DC:ArrestDate>2008-09-25</DC:ArrestDate>
+								<DC:LocationOfOffence>1 Kingston High Street</DC:LocationOfOffence>
 							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2024-04-03</DC:InitiatedDate>
+							<DC:InitiatedDate>2008-09-25</DC:InitiatedDate>
 							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>1</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-10-01</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>4027</DC:ResultCode>
-								<DC:ResultText>RC - Remanded on conditional bail Remanded on conditional bail until
-									hearing
-									on DATE_OF_HEARING at 14:00 in Courtroom 01, ADDRESS_LINE_4 Magistrates' Court.
-									Adjournment reason: For the trial to take place, To attend or a warrant to issue.
-									Conditions: Residence - live and sleep each night at at any address as directed by
-									the
-									Youth Offending Team, Exclusion - not to sit in the front seat of any motor
-									vehicle.
-									Reasons: To ensure appearance, To prevent offending. Defendant to attend the next
-									hearing</DC:ResultText>
-								<DC:ResultCodeQualifier>GE</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>GC</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>RD</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>RB</DC:ResultCodeQualifier>
-								<DC:NextHearing>
-									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-										<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
-										<DC:TimeOfHearing>13:00:00</DC:TimeOfHearing>
-									</DC:NextHearingDetails>
-									<DC:NextHearingReason>For the trial to take place To attend or a warrant to issue</DC:NextHearingReason>
-									<DC:BailStatusOffence>B</DC:BailStatusOffence>
-								</DC:NextHearing>
+								<DC:ResultCode>1002</DC:ResultCode>
+								<DC:ResultText>Imprisonment for 11 Months</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>11</DC:DurationValue>
+										<DC:DurationUnit>M</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>RA88001</DC:OffenceCode>
-								<DC:OffenceWording>On the DATE_OF_HEARING at ADDRESS_LINE_3 used a motor vehicle,
-									namely
-									Mini Vehicle Registration Number SUP3R F8ST, on a road, or other public place,
-									namely
-									ADDRESS_LINE_2, when there was not in force in relation to that use such a policy
-									of
-									insurance as complied with the requirements of Part VI of the Road Traffic Act
-									1988.
-								</DC:OffenceWording>
+								<DC:OffenceCode>OF61016</DC:OffenceCode>
+								<DC:OffenceWording>Wounding with intent to do grievous bodily harm offences against
+									the person act 1861 s.18</DC:OffenceWording>
 								<DC:OffenceTiming>
 									<DC:OffenceDateCode>1</DC:OffenceDateCode>
 									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2024-04-03</DC:OffenceDateStartDate>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
 									</DC:OffenceStart>
 								</DC:OffenceTiming>
+								<DC:ChargeDate>2008-09-25</DC:ChargeDate>
+								<DC:ArrestDate>2008-09-25</DC:ArrestDate>
+								<DC:LocationOfOffence>1 Kingston High Street</DC:LocationOfOffence>
 							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2024-04-03</DC:InitiatedDate>
+							<DC:InitiatedDate>2008-09-25</DC:InitiatedDate>
 							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>1</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-10-01</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
 							<DC:Result>
-								<DC:ResultCode>4027</DC:ResultCode>
-								<DC:ResultText>RC - Remanded on conditional bail Remanded on conditional bail until
-									hearing
-									on DATE_OF_HEARING at 14:00 in Courtroom 01, ADDRESS_LINE_4 Magistrates' Court.
-									Adjournment reason: For the trial to take place, To attend or a warrant to issue.
-									Conditions: Residence - live and sleep each night at at any address as directed by
-									the
-									Youth Offending Team, Exclusion - not to sit in the front seat of any motor
-									vehicle.
-									Reasons: To ensure appearance, To prevent offending. Defendant to attend the next
-									hearing</DC:ResultText>
-								<DC:ResultCodeQualifier>GE</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>GC</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>RD</DC:ResultCodeQualifier>
-								<DC:ResultCodeQualifier>RB</DC:ResultCodeQualifier>
-								<DC:NextHearing>
-									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-										<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
-										<DC:TimeOfHearing>13:00:00</DC:TimeOfHearing>
-									</DC:NextHearingDetails>
-									<DC:NextHearingReason>For the trial to take place To attend or a warrant to issue</DC:NextHearingReason>
-									<DC:BailStatusOffence>B</DC:BailStatusOffence>
-								</DC:NextHearing>
+								<DC:ResultCode>1002</DC:ResultCode>
+								<DC:ResultText>Imprisonment for 10 Months</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>10</DC:DurationValue>
+										<DC:DurationUnit>M</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
+							</DC:Result>
+							<DC:Result>
+								<DC:ResultCode>1002</DC:ResultCode>
+								<DC:ResultText>Imprisonment for 12 Months</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>12</DC:DurationValue>
+										<DC:DurationUnit>M</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
+							</DC:Result>
+						</DC:Offence>
+						<DC:Offence>
+							<DC:BaseOffenceDetails>
+								<DC:OffenceSequenceNumber>003</DC:OffenceSequenceNumber>
+								<DC:OffenceCode>SX03001A</DC:OffenceCode>
+								<DC:OffenceWording>Wounding with intent to do grievous bodily harm offences against
+									the person act 1861 s.18</DC:OffenceWording>
+								<DC:OffenceTiming>
+									<DC:OffenceDateCode>1</DC:OffenceDateCode>
+									<DC:OffenceStart>
+										<DC:OffenceDateStartDate>2009-06-01</DC:OffenceDateStartDate>
+									</DC:OffenceStart>
+								</DC:OffenceTiming>
+								<DC:ChargeDate>2008-09-25</DC:ChargeDate>
+								<DC:ArrestDate>2008-09-25</DC:ArrestDate>
+								<DC:LocationOfOffence>1 Kingston High Street</DC:LocationOfOffence>
+							</DC:BaseOffenceDetails>
+							<DC:InitiatedDate>2008-09-25</DC:InitiatedDate>
+							<DC:Plea>2</DC:Plea>
+							<DC:ModeOfTrial>01</DC:ModeOfTrial>
+							<DC:FinalDisposalIndicator>Y</DC:FinalDisposalIndicator>
+							<DC:ConvictionDate>2009-10-01</DC:ConvictionDate>
+							<DC:Finding>G</DC:Finding>
+							<DC:Result>
+								<DC:ResultCode>1002</DC:ResultCode>
+								<DC:ResultText>Imprisonment for 12 Months</DC:ResultText>
+								<DC:Outcome>
+									<DC:Duration>
+										<DC:DurationValue>12</DC:DurationValue>
+										<DC:DurationUnit>M</DC:DurationUnit>
+									</DC:Duration>
+								</DC:Outcome>
 							</DC:Result>
 						</DC:Offence>
 					</DC:Defendant>
 				</DC:Case>
 			</DC:Session>
 		</DC:ResultedCaseMessage>
-
 	</Message>
 </DeliverRequest>
