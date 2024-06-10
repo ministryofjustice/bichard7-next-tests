@@ -82,7 +82,9 @@ const seedScenario = async (scenario) => {
     .replace(/ADDRESS_LINE_4/g, faker.location.county().toUpperCase())
     .replace(/ADDRESS_LINE_5/g, faker.location.zipCode().toUpperCase())
     .replace(/OFFENCE_LOCATION/g, offenceLocation)
-    .replace(/DATE_OF_HEARING/g, new Date().toISOString().split("T")[0]);
+    .replace(/DATE_OF_HEARING/g, new Date().toISOString().split("T")[0])
+    .replace(/VICTIM_\d+/g, faker.person.fullName().toUpperCase())
+    .replace(/SUP3R F8ST/, faker.vehicle.vrm());
 
   const s3Path = await incomingMessageBucket.upload(incomingMessage, randomUUID());
   console.log({
