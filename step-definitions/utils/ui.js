@@ -525,7 +525,7 @@ const checkRecordStatus = async function (recordType, recordName, resolvedType) 
 
   await this.browser.clickAndWait("#clear-filters");
 
-  await page.waitForFunction(() => !document.querySelector("#clear-filters"));
+  await page.waitForFunction(() => !document.querySelector("#clear-filters"), { polling: "mutation" });
 };
 
 const checkRecordNotStatus = async function (recordType, _recordName, resolvedType) {
