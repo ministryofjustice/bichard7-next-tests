@@ -92,7 +92,8 @@ const {
   reloadUntilStringPresentForRecord,
   saveChanges,
   checkCorrectionFieldAndValue,
-  matchOffence
+  matchOffence,
+  matchOffenceAndCcr
 } = require("./old-utils/ui");
 
 const {
@@ -171,6 +172,8 @@ When("I unlock the record and return to the list", returnToCaseListUnlock);
 When("I correct {string} to {string}", correctOffenceException);
 
 When("I match the offence to PNC offence {string}", matchOffence);
+
+When("I match the offence to PNC offence {string} in case {string}", matchOffenceAndCcr);
 
 When("I match the offence as Added In Court", () => {});
 

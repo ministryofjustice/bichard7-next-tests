@@ -521,6 +521,11 @@ const matchOffence = async function (sequenceNumber) {
   await correctOffenceException.bind(this)("Sequence Number", sequenceNumber);
 };
 
+const matchOffenceAndCcr = async function (sequenceNumber, ccr) {
+  await correctOffenceException.bind(this)("Sequence Number", sequenceNumber);
+  await correctOffenceException.bind(this)("Court Case Ref", ccr);
+};
+
 const correctOffenceFreeTextException = async function (field, newValue) {
   await this.browser.page.$$("#br7_exception_details_court_data_table .resultsTable tbody tr").then((rows) =>
     rows.map((row) =>
@@ -738,5 +743,6 @@ module.exports = {
   returnToList,
   reloadUntilStringPresentForRecord,
   saveChanges,
-  checkCorrectionFieldAndValue
+  checkCorrectionFieldAndValue,
+  matchOffenceAndCcr
 };
