@@ -10,6 +10,7 @@ Feature: {717} HO100332 - Two court offences matched to two PNC CCRs
     Given the data for this test is in the PNC
       And "input-message" is received
 
+  @NextUI
   Scenario: Resolving one pair of HO100332 exceptions
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
