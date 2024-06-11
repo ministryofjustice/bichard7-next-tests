@@ -18,13 +18,13 @@ Feature: {303} BR7-R5.9-RCD609-HO100332 and HO100304 combination no longer possi
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Could
+@Could @NextUI
 	Scenario: HO100332 and HO100304 is not possible
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see exception "HO100332" in the exception list table
-			And I cannot see "HO100304" in the exception list table
+			And I cannot see exception "HO100304" in the exception list table
 		When I open the record for "AVALON MARTIN"
 			And I click the "Offences" tab
 			And I view offence "1"
