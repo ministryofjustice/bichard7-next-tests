@@ -18,7 +18,7 @@ Feature: {303} BR7-R5.9-RCD609-HO100332 and HO100304 combination no longer possi
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-@Could @NextUI
+	@Could @NextUI
 	Scenario: HO100332 and HO100304 is not possible
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
