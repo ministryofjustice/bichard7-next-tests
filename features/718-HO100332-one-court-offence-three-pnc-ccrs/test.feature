@@ -1,15 +1,16 @@
-Feature: {717} HO100332
+Feature: {718} HO100332 - One court offence three PNC CCRs
       """
       Testing that we can resolve HO100332 exceptions and resubmit to successfully update the PNC
 
-      In this...(We are limited to three CCR)
+      In this test we are matching one court offence to three PNC CCRs.
+      We are limited (maximum) to three CCRs due to PNC limitations.
       """
 
   Background:
     Given the data for this test is in the PNC
       And "input-message" is received
 
-  Scenario: Resolving one pair of HO100332 exceptions
+  Scenario: Resolving one HO100332 exception
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
     Then I see exception "HO100332" in the exception list table
