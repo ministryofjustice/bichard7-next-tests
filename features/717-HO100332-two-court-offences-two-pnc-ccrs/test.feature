@@ -1,8 +1,9 @@
-Feature: {717} HO100332
+Feature: {717} HO100332 - Two court offences matched to two PNC CCRs
       """
       Testing that we can resolve HO100332 exceptions and resubmit to successfully update the PNC
 
-      In this...
+      In this test we assign two court offences to two different Court Case References in PNC.
+      So that we update the PNC with the correct CCRs and PNC offences.
       """
 
   Background:
