@@ -524,8 +524,8 @@ const checkRecordStatus = async function (recordType, recordName, resolvedType) 
   expect(await this.browser.elementText("table.cases-list")).toMatch(recordName);
 
   await this.browser.clickAndWait("#clear-filters");
-  // Happens too quick; flakey test
-  await delay(0.5);
+
+  await page.waitForFunction(() => !document.querySelector("#clear-filters"));
 };
 
 const checkRecordNotStatus = async function (recordType, _recordName, resolvedType) {
