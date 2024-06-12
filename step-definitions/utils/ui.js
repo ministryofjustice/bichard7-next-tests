@@ -405,6 +405,21 @@ const matchOffence = async function (sequenceNumber) {
   await this.browser.page.select("select.offence-matcher", sequenceNumber);
 };
 
+const matchOffenceAndCcr = async function (sequenceNumber, ccr) {
+  const { page } = this.browser;
+  const selector = "select.offence-matcher";
+
+  await page.waitForSelector(`${selector} option[value]`);
+
+  const optionValue = await page.$$eval(
+    `${selector} option[data-ccr="${ccr}"]`,
+    (select, optSequenceNumber) => select.find((opt) => opt.value === optSequenceNumber)?.innerText,
+    sequenceNumber
+  );
+
+  await page.select(selector, optionValue);
+};
+
 const offenceAddedInCourt = async function () {
   await this.browser.page.select("select.offence-matcher", "0");
 };
@@ -623,6 +638,7 @@ module.exports = {
   checkNoRecordsForThis,
   checkOffence,
   matchOffence,
+  matchOffenceAndCcr,
   offenceAddedInCourt,
   getTableData,
   goToExceptionList,
