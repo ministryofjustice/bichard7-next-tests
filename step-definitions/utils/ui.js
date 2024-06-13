@@ -413,7 +413,7 @@ const matchOffenceAndCcr = async function (sequenceNumber, ccr) {
 
   const optionValue = await page.$$eval(
     `${selector} option[data-ccr="${ccr}"]`,
-    (select, optSequenceNumber) => select.find((opt) => opt.value === optSequenceNumber)?.innerText,
+    (select, optSequenceNumber) => select.find((opt) => opt.value === optSequenceNumber)?.value,
     sequenceNumber
   );
 
