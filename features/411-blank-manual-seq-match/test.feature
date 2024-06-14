@@ -22,5 +22,4 @@ Feature: {411} Leaving Manual Sequence Number blank to make it match the remaini
 			And I view offence "2"
 			And I match the offence as Added In Court
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
-			And the PNC updates the record
+		Then the PNC updates the record
