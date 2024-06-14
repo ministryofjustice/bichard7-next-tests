@@ -415,13 +415,7 @@ const matchOffenceAndCcr = async function (sequenceNumber, ccr) {
 
   await page.waitForSelector(`${selector} option[value]`);
 
-  const optionValue = await page.$$eval(
-    `${selector} option[data-ccr="${ccr}"]`,
-    (select, optSequenceNumber) => select.find((opt) => opt.value === optSequenceNumber)?.value,
-    sequenceNumber
-  );
-
-  await page.select(selector, optionValue);
+  await page.select(selector, `${sequenceNumber}-${ccr}`);
 };
 
 const offenceAddedInCourt = async function () {
