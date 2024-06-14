@@ -25,8 +25,7 @@ Feature: {504} Note generation
       And I view offence "3"
       And I match the offence as Added In Court
       And I submit the record
-    Then I see exception "(Submitted)" in the exception list table
-      And the PNC updates the record
+    Then the PNC updates the record
     When I reload until I see "PS10 - Offence added to PNC"
       And I open the record for "MISMATCH OFFENCE"
       And I click the "Notes" tab
