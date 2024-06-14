@@ -23,5 +23,8 @@ Feature: {714} HO100310 - normal case with one offence added in court
       And I return to the offence list
       And I view offence "2"
       And I match the offence to PNC offence "2"
+      And I return to the offence list
+      And I view offence "3"
+      And I match the offence as Added In Court
       And I submit the record
     Then the PNC updates the record
