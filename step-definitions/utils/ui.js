@@ -402,7 +402,20 @@ const correctOffenceExceptionByTypeahead = async function (field, newValue) {
 };
 
 const matchOffence = async function (sequenceNumber) {
-  await this.browser.page.select("select.offence-matcher", sequenceNumber);
+  const { page } = this.browser;
+  const selector = "select.offence-matcher";
+
+  await page.waitForSelector(selector);
+  await page.select(selector, sequenceNumber);
+};
+
+const matchOffenceAndCcr = async function (sequenceNumber, ccr) {
+  const { page } = this.browser;
+  const selector = "select.offence-matcher";
+
+  await page.waitForSelector(`${selector} option[value]`);
+
+  await page.select(selector, `${sequenceNumber}-${ccr}`);
 };
 
 const offenceAddedInCourt = async function () {
@@ -623,6 +636,7 @@ module.exports = {
   checkNoRecordsForThis,
   checkOffence,
   matchOffence,
+  matchOffenceAndCcr,
   offenceAddedInCourt,
   getTableData,
   goToExceptionList,
