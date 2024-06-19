@@ -12,12 +12,6 @@ const {
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
 
-const clickSaveButton = async (page, fieldNameId) => {
-  await page.click(fieldNameId);
-  await page.waitForSelector(`${fieldNameId}[disabled]`);
-  await delay(1);
-};
-
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
   const searchField = "input[name='defendantName']";
@@ -422,13 +416,6 @@ const offenceAddedInCourt = async function () {
   await this.browser.page.select("select.offence-matcher", "0");
 };
 
-const saveInput = async function (field) {
-  const { page } = this.browser;
-
-  await clickSaveButton(page, `#save-${convertFieldToHtml(field)}`);
-  // await clickSaveButton(page, `#${convertFieldToHtml(field)}`)
-};
-
 const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
@@ -575,8 +562,6 @@ const correctOffenceExceptionAndSave = async function (field, newValue) {
   const fieldHtml = convertFieldToHtml(field);
 
   await correctOffence(page, fieldHtml, newValue);
-
-  await clickSaveButton(page, `#save-${fieldHtml}`);
 };
 
 const reload = async function () {
@@ -667,6 +652,5 @@ module.exports = {
   seeCorrectionBadge,
   submitRecordAndStayOnPage,
   goToExceptionPage,
-  reload,
-  saveInput
+  reload
 };

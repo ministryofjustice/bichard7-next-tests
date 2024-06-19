@@ -67,7 +67,6 @@ Feature: Next Hearing location Next UI
 			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"
 			And I correct "Next Hearing location" and type "B"
 			And I select the first option
-			And I save the input "Next Hearing location"
 		Then I reload the page
     		And I click the "Offences" tab
 			And I view offence with text "Aggravated vehicle taking - ( driver did not take ) and vehicle damage of £5000 or over"

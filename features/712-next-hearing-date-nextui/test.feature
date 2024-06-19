@@ -52,38 +52,4 @@ Feature: Next Hearing Date Not Found Next UI
     When I go to the Case Details for this exception "HO100322"
       And I click the "Offences" tab
       And I view offence with text "Theft - other - including theft by finding"
-      And I correct "Next Hearing date" to "08/10/2011" and save
-
-# @NextUI
-# @ExcludeOnLegacyUI
-# Scenario: Persist saved next hearing date
-#   Given I am logged in as "supervisor"
-#     And I view the list of exceptions
-#   Then I see exception "HO100322" in the exception list table
-#   When I go to the Case Details for this exception "HO100322"
-#     And I click the "Offences" tab
-#     And I view offence with text "Theft - other - including theft by finding"
-#     And I correct "Next Hearing date" to "08/10/2011" and save
-#   Then I reload the page
-#     And I click the "Offences" tab
-#     And I view offence with text "Theft - other - including theft by finding"
-#     And I see the correction for "Next Hearing date" to "2011-10-08"
-
-# @NextUI
-# @ExcludeOnLegacyUI
-# Scenario: Update saved next hearing date
-#   Given I am logged in as "supervisor"
-#     And I view the list of exceptions
-#   Then I see exception "HO100322" in the exception list table
-#   When I go to the Case Details for this exception "HO100322"
-#     And I click the "Offences" tab
-#     And I view offence with text "Theft - other - including theft by finding"
-#     And I correct "Next Hearing date" to "08/10/2011" and save
-#   Then I reload the page
-#     And I click the "Offences" tab
-#     And I view offence with text "Theft - other - including theft by finding"
-#     And I correct "Next Hearing date" to "10/01/2012" and save
-#   Then I reload the page
-#     And I click the "Offences" tab
-#     And I view offence with text "Theft - other - including theft by finding"
-#     And I see the correction for "Next Hearing date" to "2012-01-10"
+      And I correct "Next Hearing date" to "08/10/2011"
