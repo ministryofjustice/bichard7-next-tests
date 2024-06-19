@@ -151,3 +151,5 @@ Then("I correct {string} and press {string}", ui.inputFieldToKeyboardPress);
 Then("I see the Correction badge", ui.seeCorrectionBadge);
 When("I go to the Case Details for this exception {string}", ui.goToExceptionPage);
 Then("I reload the page", ui.reload);
+Then("I remove the year from {string}", ui.removeYear);
+Then("I should see an error {string}", ui.seeError);

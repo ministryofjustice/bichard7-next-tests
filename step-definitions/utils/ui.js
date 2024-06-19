@@ -593,6 +593,22 @@ const goToExceptionPage = async function (exception) {
   await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
 };
 
+const removeYear = async function (field) {
+  const { page } = this.browser;
+
+  const inputField = `input#${convertFieldToHtml(field)}`;
+
+  await page.focus(inputField);
+
+  await page.keyboard.press("Backspace");
+};
+
+const seeError = async function (errorMessage) {
+  const { page } = this.browser;
+
+  await page.$$(`xpath/.//div[@id = "error-message"]//*[text() = "${errorMessage}"]`);
+};
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -652,5 +668,7 @@ module.exports = {
   seeCorrectionBadge,
   submitRecordAndStayOnPage,
   goToExceptionPage,
-  reload
+  reload,
+  removeYear,
+  seeError
 };
