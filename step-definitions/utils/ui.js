@@ -12,12 +12,6 @@ const {
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
 
-const clickSaveButton = async (page, fieldNameId) => {
-  await page.click(fieldNameId);
-  await page.waitForSelector(`${fieldNameId}[disabled]`);
-  await delay(1);
-};
-
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
   const searchField = "input[name='defendantName']";
@@ -393,6 +387,12 @@ const correctOffenceException = async function (field, newValue) {
   const { page } = this.browser;
 
   await correctOffence(page, convertFieldToHtml(field), newValue);
+
+  try {
+    await page.waitForSelector(".success-message", { timeout: 500 });
+  } catch {
+    await page.waitForSelector(".error-message", { timeout: 500 });
+  }
 };
 
 const correctOffenceExceptionByTypeahead = async function (field, newValue) {
@@ -422,13 +422,6 @@ const offenceAddedInCourt = async function () {
   await this.browser.page.select("select.offence-matcher", "0");
 };
 
-const saveInput = async function (field) {
-  const { page } = this.browser;
-
-  await clickSaveButton(page, `#save-${convertFieldToHtml(field)}`);
-  // await clickSaveButton(page, `#${convertFieldToHtml(field)}`)
-};
-
 const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
@@ -437,6 +430,8 @@ const selectTheFirstOption = async function () {
 
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
+
+  await page.waitForSelector(".success-message");
 };
 
 const returnToCaseListUnlock = async function () {
@@ -569,16 +564,6 @@ const checkCorrectionFieldAndValue = async function (fieldName, value) {
   expect(correctionValue).toEqual(value);
 };
 
-const correctOffenceExceptionAndSave = async function (field, newValue) {
-  const { page } = this.browser;
-
-  const fieldHtml = convertFieldToHtml(field);
-
-  await correctOffence(page, fieldHtml, newValue);
-
-  await clickSaveButton(page, `#save-${fieldHtml}`);
-};
-
 const reload = async function () {
   const { page } = this.browser;
   await page.reload();
@@ -606,6 +591,22 @@ const goToExceptionPage = async function (exception) {
   const [link] = await page.$$(`xpath/.//table/tbody/tr[contains(.,"${exception}")]//a`);
 
   await Promise.all([link.click(), this.browser.page.waitForNavigation()]);
+};
+
+const removeYear = async function (field) {
+  const { page } = this.browser;
+
+  const inputField = `input#${convertFieldToHtml(field)}`;
+
+  await page.focus(inputField);
+
+  await page.keyboard.press("Backspace");
+};
+
+const seeError = async function (errorMessage) {
+  const { page } = this.browser;
+
+  await page.$$(`xpath/.//div[@class = "error-message"]//*[text() = "${errorMessage}"]`);
 };
 
 module.exports = {
@@ -642,7 +643,6 @@ module.exports = {
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
-  correctOffenceExceptionAndSave,
   correctOffenceExceptionByTypeahead,
   selectTheFirstOption,
   manuallyResolveRecord,
@@ -668,5 +668,6 @@ module.exports = {
   submitRecordAndStayOnPage,
   goToExceptionPage,
   reload,
-  saveInput
+  removeYear,
+  seeError
 };
