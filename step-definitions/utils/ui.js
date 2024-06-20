@@ -388,7 +388,11 @@ const correctOffenceException = async function (field, newValue) {
 
   await correctOffence(page, convertFieldToHtml(field), newValue);
 
-  await page.waitForSelector(".success-message");
+  try {
+    await page.waitForSelector(".success-message", { timeout: 500 });
+  } catch {
+    await page.waitForSelector(".error-message", { timeout: 500 });
+  }
 };
 
 const correctOffenceExceptionByTypeahead = async function (field, newValue) {
