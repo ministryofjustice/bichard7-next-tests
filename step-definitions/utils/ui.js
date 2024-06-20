@@ -387,6 +387,8 @@ const correctOffenceException = async function (field, newValue) {
   const { page } = this.browser;
 
   await correctOffence(page, convertFieldToHtml(field), newValue);
+
+  await page.waitForSelector(".success-message");
 };
 
 const correctOffenceExceptionByTypeahead = async function (field, newValue) {
@@ -424,6 +426,8 @@ const selectTheFirstOption = async function () {
 
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
+
+  await page.waitForSelector(".success-message");
 };
 
 const returnToCaseListUnlock = async function () {
@@ -556,14 +560,6 @@ const checkCorrectionFieldAndValue = async function (fieldName, value) {
   expect(correctionValue).toEqual(value);
 };
 
-const correctOffenceExceptionAndSave = async function (field, newValue) {
-  const { page } = this.browser;
-
-  const fieldHtml = convertFieldToHtml(field);
-
-  await correctOffence(page, fieldHtml, newValue);
-};
-
 const reload = async function () {
   const { page } = this.browser;
   await page.reload();
@@ -643,7 +639,6 @@ module.exports = {
   goToExceptionList,
   noTriggersPresentForOffender,
   correctOffenceException,
-  correctOffenceExceptionAndSave,
   correctOffenceExceptionByTypeahead,
   selectTheFirstOption,
   manuallyResolveRecord,
