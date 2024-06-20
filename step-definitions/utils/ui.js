@@ -606,7 +606,7 @@ const removeYear = async function (field) {
 const seeError = async function (errorMessage) {
   const { page } = this.browser;
 
-  await page.$$(`xpath/.//div[@id = "error-message"]//*[text() = "${errorMessage}"]`);
+  await page.$$(`xpath/.//div[@class = "error-message"]//*[text() = "${errorMessage}"]`);
 };
 
 module.exports = {
