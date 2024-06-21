@@ -6,7 +6,8 @@ const {
   reloadUntilContentInSelector,
   reloadUntilContent,
   reloadUntilNotContent,
-  reloadUntilXPathSelector
+  reloadUntilXPathSelector,
+  delay
 } = require("../../utils/puppeteer-utils");
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
@@ -425,8 +426,11 @@ const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
   await page.waitForSelector(`ul[id*="downshift"] li`);
+  await delay(0.2);
   await page.keyboard.press("ArrowDown");
+  await delay(0.2);
   await page.keyboard.press("Enter");
+  await delay(0.2);
 
   await page.waitForSelector(".success-message");
 };
