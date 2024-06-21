@@ -380,7 +380,7 @@ const correctOffence = async (page, fieldHtml, newValue) => {
   });
 
   await page.focus(inputId);
-  await page.keyboard.type(newValue);
+  await page.keyboard.type(newValue, { delay: 100 });
 };
 
 const correctOffenceException = async function (field, newValue) {
