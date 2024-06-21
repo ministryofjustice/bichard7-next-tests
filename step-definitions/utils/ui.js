@@ -428,7 +428,6 @@ const selectTheFirstOption = async function () {
   // API request happens too slow for puppeteer
   await delay(0.5);
 
-  await page.waitForSelector(`ul[id*="downshift"] li`);
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
