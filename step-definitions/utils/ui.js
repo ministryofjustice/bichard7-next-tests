@@ -6,8 +6,7 @@ const {
   reloadUntilContentInSelector,
   reloadUntilContent,
   reloadUntilNotContent,
-  reloadUntilXPathSelector,
-  delay
+  reloadUntilXPathSelector
 } = require("../../utils/puppeteer-utils");
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
@@ -425,9 +424,7 @@ const offenceAddedInCourt = async function () {
 const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
-  // API request happens too slow for puppeteer
-  await delay(0.5);
-
+  await page.waitForSelector(`ul[id*="downshift"] li`);
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
