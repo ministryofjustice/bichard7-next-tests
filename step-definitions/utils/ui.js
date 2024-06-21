@@ -424,7 +424,7 @@ const offenceAddedInCourt = async function () {
 const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
-  await page.waitForSelector(`ul[id=*"downshift"] li`);
+  await page.waitForSelector(`ul[id*="downshift"] li`);
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
