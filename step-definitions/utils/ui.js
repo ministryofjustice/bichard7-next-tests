@@ -425,12 +425,12 @@ const offenceAddedInCourt = async function () {
 const selectTheFirstOption = async function () {
   const { page } = this.browser;
 
+  // API request happens too slow for puppeteer
+  await delay(0.5);
+
   await page.waitForSelector(`ul[id*="downshift"] li`);
-  await delay(0.2);
   await page.keyboard.press("ArrowDown");
-  await delay(0.2);
   await page.keyboard.press("Enter");
-  await delay(0.2);
 
   await page.waitForSelector(".success-message");
 };
