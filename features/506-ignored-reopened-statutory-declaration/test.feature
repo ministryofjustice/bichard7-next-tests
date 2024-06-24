@@ -1,7 +1,7 @@
-Feature: {146} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
+Feature: {506} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
 
 			"""
-			{146} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
+			{506} BR7 R5.2-RCD490-TRPR0025 case reopened with original offences
 			===============
 			Q-Solution Definition:
 
