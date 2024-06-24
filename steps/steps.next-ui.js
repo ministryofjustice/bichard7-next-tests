@@ -1,20 +1,20 @@
 const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
-const { logInAs } = require("./utils/auth");
+const { logInAs } = require("../utils/auth");
 const { timeout } = require("../utils/config");
-const messages = require("./utils/message");
-const pnc = require("./old-utils/pnc");
-const reports = require("./old-utils/reports");
-const ui = require("./utils/ui");
+const messages = require("../utils/message");
+const pnc = require("../utils/pnc");
+const reports = require("../utils/reports");
+const ui = require("../utils/actions.next-ui");
 
 const {
   findRecordFor: alternateFindRecordFor,
   loadTab: alternateLoadTab,
   checkOffenceData: alternateCheckOffenceData
-} = require("./old-utils/ui");
+} = require("../utils/actions.legacy-ui");
 
-const { checkAuditLogExists } = require("./utils/auditLogging");
-const Bichard = require("./world");
+const { checkAuditLogExists } = require("../utils/auditLogging");
+const Bichard = require("../utils/world");
 
 setWorldConstructor(Bichard);
 

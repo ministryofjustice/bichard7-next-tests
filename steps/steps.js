@@ -1,6 +1,6 @@
 const { NEXTUI } = process.env;
 if (NEXTUI === "true") {
-  require("../step-definitions/nextui.steps");
+  require("./steps.next-ui");
 } else {
-  require("../step-definitions/old-cucumber-js.steps");
+  require("./steps.legacy-ui");
 }

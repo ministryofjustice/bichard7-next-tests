@@ -1,6 +1,6 @@
 const { expect } = require("expect");
-const isError = require("../../utils/isError");
-const Poller = require("../../utils/Poller");
+const isError = require("./isError");
+const Poller = require("./Poller");
 
 const checkEventByExternalCorrelationId = async (context, externalCorrelationId, eventType, contains) => {
   const { auditLogApi } = context;

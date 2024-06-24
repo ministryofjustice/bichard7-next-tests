@@ -1,10 +1,10 @@
 const { expect } = require("expect");
 const path = require("path");
 const fs = require("fs");
-const { updateExpectedRequest } = require("../../utils/tagProcessing");
-const { extractAllTags } = require("../../utils/tagProcessing");
-const Poller = require("../../utils/Poller");
-const isError = require("../../utils/isError");
+const { updateExpectedRequest } = require("./tagProcessing");
+const { extractAllTags } = require("./tagProcessing");
+const Poller = require("./Poller");
+const isError = require("./isError");
 
 const skipPNCValidation = process.env.SKIP_PNC_VALIDATION === "true";
 

@@ -1,13 +1,13 @@
 const { expect } = require("expect");
-const { caseListPage } = require("../../utils/urls");
+const { caseListPage } = require("./urls.legacy-ui");
 const {
   reloadUntilSelector,
   waitForRecord,
   reloadUntilContent,
   reloadUntilNotContent,
   reloadUntilContentInSelector
-} = require("../../utils/puppeteer-utils");
-const fsHelp = require("../../helpers/fsHelper");
+} = require("./puppeteer-utils");
+const fsHelp = require("../helpers/fsHelper");
 
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();

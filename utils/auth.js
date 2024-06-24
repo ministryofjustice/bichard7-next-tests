@@ -1,8 +1,10 @@
 const { expect } = require("expect");
 const jwt = require("jsonwebtoken");
-const { authType, timeout } = require("../../utils/config");
-const { login, authenticateUrl } = require("../../utils/urls");
-const dummyUsers = require("../../utils/dummyUserData");
+const { authType, timeout } = require("./config");
+const { login, authenticateUrl } = require("./urls.legacy-ui");
+const dummyUsers = require("./dummyUserData");
+
+const nextui = () => process.env.NEXTUI === "true" || false;
 
 const tokenSecret = () => process.env.TOKEN_SECRET || "OliverTwist";
 
@@ -45,6 +47,14 @@ const logInNormallyAs = async function (world, name) {
   await world.browser.clickAndWait("button[type='submit']");
   await page.waitForSelector('xpath/.//*[contains(text(), "Welcome ")]');
 
+  if (nextui()) {
+    const [button] = await page.$$("xpath/.//a[contains(., 'Access New Bichard')]");
+    if (button) {
+      await Promise.all([button.click(), page.waitForNavigation()]);
+    }
+    return;
+  }
+
   await world.browser.clickAndWait("a#bichard-link");
   await page.waitForSelector(".wpsToolBarUserName", { timeout });
 };
@@ -83,7 +93,8 @@ const logInAs = async function (username) {
     await logInNormallyAs(this, username);
   }
 
-  expect(await this.browser.pageText()).toMatch(new RegExp(`You are logged in as: ${username}`, "i"));
+  const match = nextui() ? new RegExp(username, "i") : new RegExp(`You are logged in as: ${username}`, "i");
+  expect(await this.browser.pageText()).toMatch(match);
 };
 
 module.exports = { logInAs };
