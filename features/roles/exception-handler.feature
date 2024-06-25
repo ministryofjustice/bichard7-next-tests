@@ -6,7 +6,7 @@ Feature: Exception handler permissions
 
   Background: Logging in
     Given there is a valid record for "Rigout Dean" in the PNC
-      And a message is received
+      And "message" is received
       And I am logged in as "exceptionhandler"
     When I view the list of exceptions
 

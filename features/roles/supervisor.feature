@@ -12,7 +12,7 @@ Feature: Supervisor role
 
   Scenario: Supervisors can see QA status of records
     Given there is a valid record for "Rigout Dean" in the PNC
-      And a message is received
+      And "message" is received
     When I am logged in as "supervisor"
     Then I can see the QA status of a record
 
