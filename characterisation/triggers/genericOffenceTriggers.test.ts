@@ -1,6 +1,6 @@
 jest.setTimeout(20000);
 
-import World from "../../step-definitions/world";
+import World from "../../utils/world";
 import generateMessage from "../helpers/generateMessage";
 import processMessage from "../helpers/processMessage";
 import { TriggerCode } from "../types/TriggerCode";

@@ -5,4 +5,4 @@ As part of refactoring old tests to work with the new UI, we've split the entry 
 to enable us to refactor into entirely new implementations, given that the old implementations
 won't need to exist once we decommission old bichard.
 
-Starting in `./steps.js`, it should be reasonably easy to follow the code through.
+Starting in `./index.js`, it should be reasonably easy to follow the code through.

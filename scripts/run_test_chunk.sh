@@ -12,4 +12,4 @@ else
   TAGS="${TAGS} and not @ExcludeOnLegacyUI"
 fi
 
-./node_modules/.bin/cucumber-js --require steps --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter  --format junit:./cucumber/results/test-results.xml --tags "${TAGS}" $CHUNK
+./node_modules/.bin/cucumber-js --require steps/index.js --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter  --format junit:./cucumber/results/test-results.xml --tags "${TAGS}" $CHUNK

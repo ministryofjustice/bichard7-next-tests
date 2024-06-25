@@ -1,14 +1,19 @@
 const { expect } = require("expect");
 const forces = require("@moj-bichard7-developers/bichard7-next-data/dist/data/forces.json");
 const { caseListPage } = require("./urls");
-const { waitForRecord } = require("./waitForRecord");
 const {
   reloadUntilContentInSelector,
   reloadUntilContent,
   reloadUntilNotContent,
   reloadUntilXPathSelector,
   delay
-} = require("../../utils/puppeteer-utils");
+} = require("./puppeteer-utils");
+
+const waitForRecord = (name, page, reloadAttempts) => {
+  const selector = `xpath/.//table/tbody/tr${name ? `[contains(.,"${name}")]` : ""}`;
+
+  return reloadUntilXPathSelector(page, selector, reloadAttempts);
+};
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
 

@@ -1,5 +1,5 @@
 import { remandStatus } from "@moj-bichard7-developers/bichard7-next-data"
-import ASN from "src/lib/asn"
+import ASN from "../../utils/asn"
 import { ExceptionCode } from "../types/ExceptionCode"
 import { z } from "zod"
 import {

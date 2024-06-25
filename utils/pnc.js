@@ -1,16 +1,16 @@
 const { expect } = require("expect");
 const path = require("path");
 const fs = require("fs");
-const { updateExpectedRequest } = require("../../utils/tagProcessing");
-const { extractAllTags } = require("../../utils/tagProcessing");
-const Poller = require("../../utils/Poller");
-const isError = require("../../utils/isError");
+const { updateExpectedRequest } = require("./tagProcessing");
+const { extractAllTags } = require("./tagProcessing");
+const Poller = require("./Poller");
+const isError = require("./isError");
 
 const skipPNCValidation = process.env.SKIP_PNC_VALIDATION === "true";
 
 const setupMockInPncEmulator = async function (specFolder) {
   // mock a response in the PNC
-  this.mocks = require(`../../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
+  this.mocks = require(`../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
 
   /* eslint-disable no-restricted-syntax */
   for (const mock of this.mocks) {
@@ -69,7 +69,7 @@ const createValidRecordInPNC = async function (record) {
   if (this.config.realPNC) return;
   // mock a response in the PNC
   this.recordId = record;
-  this.mocks = require(`../../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
+  this.mocks = require(`../fixtures/pncMocks/${record.replace(/[ ]+/g, "_")}`);
 
   const mockPromises = this.mocks.map((mock) => this.pnc.addMock(mock.matchRegex, mock.response));
   const mockIds = await Promise.all(mockPromises);

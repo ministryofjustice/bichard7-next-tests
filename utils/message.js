@@ -2,10 +2,10 @@ const uuid = require("uuid").v4;
 const { expect } = require("expect");
 const path = require("path");
 const fs = require("fs");
-const isError = require("../../utils/isError");
-const convertMessageToNewFormat = require("../../utils/convertMessageToNewFormat");
+const isError = require("./isError");
+const convertMessageToNewFormat = require("./convertMessageToNewFormat");
 const { checkAuditLogRecordExists } = require("./auditLogging");
-const { replaceAllTags } = require("../../utils/tagProcessing");
+const { replaceAllTags } = require("./tagProcessing");
 
 const uploadToS3 = async (context, message, correlationId) => {
   const fileName = await context.incomingMessageBucket.upload(message, correlationId);

@@ -3,7 +3,7 @@ const fs = require("fs");
 
 // eslint-disable-next-line import/no-unresolved
 const { parse } = require("csv-parse/sync");
-const { getTableData, getRawTableData } = require("./ui");
+const { getTableData, getRawTableData } = require("./actions.legacy-ui");
 
 const accessReport = async function (report) {
   const [, reportsBtn] = await this.browser.page.$$("span.wpsNavLevel1");
