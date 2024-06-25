@@ -1,6 +1,6 @@
 {
   "circleci.persistedProjectSelection": [],
-  "cucumberautocomplete.steps": ["step-definitions/*.js"],
+  "cucumberautocomplete.steps": ["steps/next-ui.js"],
   "cucumberautocomplete.strictGherkinCompletion": true,
   "cucumberautocomplete.formatConfOverride": {
     "And": 3,
