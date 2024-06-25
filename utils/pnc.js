@@ -10,7 +10,7 @@ const skipPNCValidation = process.env.SKIP_PNC_VALIDATION === "true";
 
 const setupMockInPncEmulator = async function (specFolder) {
   // mock a response in the PNC
-  this.mocks = require(`../../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
+  this.mocks = require(`../${specFolder}/mock-pnc-responses`)(`${specFolder}/pnc-data.xml`, this);
 
   /* eslint-disable no-restricted-syntax */
   for (const mock of this.mocks) {

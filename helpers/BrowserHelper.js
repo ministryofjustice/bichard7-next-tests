@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const fs = require("fs");
 const PuppeteerMassScreenshots = require("puppeteer-mass-screenshots");
 const { authType } = require("../utils/config");
-const { logout } = require("../utils/urls.legacy-ui");
+const { logout } = require("../utils/urls");
 
 let browser;
 

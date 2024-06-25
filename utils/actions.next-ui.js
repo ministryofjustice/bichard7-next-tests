@@ -1,6 +1,6 @@
 const { expect } = require("expect");
 const forces = require("@moj-bichard7-developers/bichard7-next-data/dist/data/forces.json");
-const { caseListPage } = require("./urls.next-ui");
+const { caseListPage } = require("./urls");
 const {
   reloadUntilContentInSelector,
   reloadUntilContent,

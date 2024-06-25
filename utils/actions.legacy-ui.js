@@ -1,5 +1,5 @@
 const { expect } = require("expect");
-const { caseListPage } = require("./urls.legacy-ui");
+const { caseListPage } = require("./urls");
 const {
   reloadUntilSelector,
   waitForRecord,
