@@ -6,7 +6,7 @@ Feature: Trigger handler permissions
 
   Background: Logging in
     Given there is a valid record for "Rigout Dean" in the PNC
-      And "message" is received
+      And "input-message" is received
       And I am logged in as "triggerhandler"
     When I view the list of exceptions
 
