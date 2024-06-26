@@ -19,7 +19,6 @@ COPY ./fixtures/ /src/fixtures
 COPY ./characterisation /src/characterisation
 COPY ./helpers/ /src/helpers
 COPY ./steps/ /src/steps
-COPY ./step-definitions /src/step-definitions
 COPY ./utils/ /src/utils
 COPY ./scripts/run_test_chunk.sh /src/scripts/run_test_chunk.sh
 COPY ./tsconfig.json /src
