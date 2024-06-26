@@ -89,7 +89,7 @@ With these settings:
 
 ```json
 {
-  "cucumberautocomplete.steps": ["step-definitions/*.js"],
+  "cucumberautocomplete.steps": ["steps/*.js"],
   "cucumberautocomplete.strictGherkinCompletion": true,
   "cucumberautocomplete.formatConfOverride": {
     "And": 3,
