@@ -15,7 +15,6 @@ RUN apt-get install -y build-essential python3 gcc
 RUN npm i
 
 COPY ./features/ /src/features
-COPY ./fixtures/ /src/fixtures
 COPY ./characterisation /src/characterisation
 COPY ./helpers/ /src/helpers
 COPY ./steps/ /src/steps
