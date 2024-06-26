@@ -50,12 +50,6 @@ Then("{string} is not in the audit log", async function (eventType) {
 });
 
 // Messages
-Given("a message is received", async function () {
-  await messages.sendMessage.apply(this);
-});
-When("message id {string} is received", async function (id) {
-  await messages.sendMessage.apply(this, [id]);
-});
 When("{string} is received", messages.sendMessageForTest);
 
 // PNC Actions

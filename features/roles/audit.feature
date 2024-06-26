@@ -5,7 +5,7 @@ Feature: Audit role
   @ExcludedOnConductor
   Scenario: Auditors have read only access
     Given there is a valid record for "Rigout Dean" in the PNC
-      And a message is received
+      And "input-message" is received
       And I am logged in as "auditor"
     When I view the list of exceptions
       And I open the record for "Rigout Dean"

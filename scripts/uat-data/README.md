@@ -23,7 +23,7 @@ Select a case from the results, and make a note of the `message_id`.
 
 ## Retrieving Original Message
 
-Create a new folder in `uat-scenarios/`. The name should be the trigger code this scenario exemplifies, eg `uat-scenarios/HO100323`. Create two files inside this new folder, `incoming-messages.xml` and `pnc-data.xml`. Leave them blank for now.
+Create a new folder in `scripts/uat-data/`. The name should be the trigger code this scenario exemplifies, eg `scripts/uat-data/HO100323`. Create two files inside this new folder, `incoming-messages.xml` and `pnc-data.xml`. Leave them blank for now.
 
 Log into the AWS console for the `production` environment. Navigate to `DynamoDB` and open the `bichard-7-production-audit-log` table. Query the `message_id` of your selected case. Make a note of the `s3Path` for your case.
 

@@ -2,7 +2,7 @@ const { Given, When, Then, setDefaultTimeout } = require("@cucumber/cucumber");
 const { setWorldConstructor } = require("@cucumber/cucumber");
 const { logInAs } = require("../utils/auth");
 const { timeout } = require("../utils/config");
-const { sendMessage, sendMessageForTest } = require("../utils/message");
+const { sendMessageForTest } = require("../utils/message");
 const {
   createValidRecordInPNC,
   checkMocks,
@@ -42,15 +42,9 @@ setDefaultTimeout(timeout);
 Given("the data for this test is in the PNC", mockPNCDataForTest);
 Given("the data for this test is not in the PNC", mockMissingPncDataForTest);
 Given("there is a valid record for {string} in the PNC", createValidRecordInPNC);
-Given("a message is received", async function () {
-  await sendMessage.apply(this);
-});
 Given("I am logged in as {string}", logInAs);
 Given("I navigate to the list of reports", ui.canSeeReports);
 
-When("message id {string} is received", async function (id) {
-  await sendMessage.apply(this, [id]);
-});
 When("{string} is received", sendMessageForTest);
 When("I view the list of exceptions", ui.goToExceptionList);
 When("I visit the Team Management screen", ui.visitTeamPage);

@@ -41,16 +41,10 @@ const sendMsg = async function (world, messagePath) {
   throw new Error(`Invalid value for MESSAGE_ENTRY_POINT: ${world.config.messageEntryPoint}`);
 };
 
-const sendMessage = async function (messageId) {
-  const messageIdValue = messageId || "court_result_input_1_custom";
-  const messagePath = `./fixtures/messages/${messageIdValue}.xml`;
-  return sendMsg(this, messagePath);
-};
-
 const sendMessageForTest = async function (messageFileName) {
   const specFolder = path.dirname(this.featureUri);
   const messagePath = `${specFolder}/${messageFileName}.xml`;
   return sendMsg(this, messagePath);
 };
 
-module.exports = { sendMessage, sendMessageForTest };
+module.exports = { sendMessageForTest };

@@ -34,7 +34,7 @@ const incomingMessageBucket = new IncomingMessageBucket({
   incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
 });
 
-const SCENARIO_PATH = "./fixtures/uat-scenarios/";
+const SCENARIO_PATH = "./scripts/uat-data/";
 
 const scenarios = fs.readdirSync(SCENARIO_PATH).filter((scenario) => scenario !== "README.md");
 
