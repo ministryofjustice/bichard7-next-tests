@@ -378,11 +378,22 @@ const noTriggersPresentForOffender = async function (name) {
 const correctOffence = async (page, fieldHtml, newValue) => {
   const inputId = `input#${fieldHtml}`;
 
-  // clear any existing value
-  await page.$eval(inputId, (e) => {
+  // Get the length of existing value
+  let elementLength = await page.$eval(inputId, (e) => {
     const element = e;
-    element.value = "";
+    elementLength = element.value.length;
+    return elementLength;
   });
+
+  await page.focus(inputId);
+
+  // Delete the existing input, triggers a change event.
+  if (elementLength > 0) {
+    new Array(elementLength).fill(0).forEach(async () => {
+      await page.keyboard.press("Delete");
+      await page.keyboard.press("Backspace");
+    });
+  }
 
   await page.focus(inputId);
   await page.keyboard.type(newValue, { delay: 100 });
