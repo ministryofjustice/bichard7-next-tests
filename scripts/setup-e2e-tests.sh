@@ -46,7 +46,7 @@ fi
 mkdir -p ./screenshots
 
 AWS_CLI_PATH="$(which aws)"
-PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pncemulator" | cut -c1-32)
+PNC_ELB_NAME=$(echo "cjse-${WORKSPACE}-bichard-7-pnc-emulator" | cut -c1-32)
 aws_credential_check
 HOSTED_ZONE=$($AWS_CLI_PATH route53 list-hosted-zones-by-name --query "HostedZones[?contains(Name, 'justice.gov.uk') && contains(Name, '${WORKSPACE}')].Name" --output text | sed 's/\.$//')
 UI_HOST="proxy.${HOSTED_ZONE}"
