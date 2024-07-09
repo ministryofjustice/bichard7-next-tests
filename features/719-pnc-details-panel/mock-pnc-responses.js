@@ -14,6 +14,7 @@ module.exports = () => [
         <COF>K002    5:7:11:10    TH68151 28112010                </COF>
         <ADJ>INOT GUILTY   GUILTY        250920110000 </ADJ>
         <DIS>I2007                                                                                                    </DIS>
+        <CCR>K21/2732/6R                    </CCR>
         <COF>K003    12:15:13:1   RT88191 28112010                </COF>
         <ADJ>INOT GUILTY   GUILTY        250920110000 </ADJ>
         <DIS>I2007                                                                                                    </DIS>
