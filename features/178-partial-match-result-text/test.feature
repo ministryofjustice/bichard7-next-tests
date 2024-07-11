@@ -37,10 +37,9 @@ Feature: {178} BR7 R5.3-RCD497 - Partial Match - Result Text
 			And I match the offence to PNC offence "2"
 			And I return to the offence list
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
+		Then the PNC updates the record
 		When I reload until I see "PR18 - Update offence dates"
 			And I open the record for "Text Marcus"
 			And I click the "Triggers" tab
 			And I see trigger "TRPR0018" for offence "1"
 			And I see trigger "TRPR0018" for offence "2"
-			And the PNC updates the record

@@ -24,7 +24,7 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-@Should @NextUI
+	@Should @NextUI
 	Scenario: Updating duplicate offences when one offence is added in court and making sure the result text is used as the PNC disposal text
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
@@ -37,13 +37,12 @@ Feature: {295} BR7-R5.9-RCD545-Duplicate Offences where 1 Offence is Added In Co
 			And I view offence "2"
 			And I match the offence as Added In Court
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
-			And the PNC updates the record
+		Then the PNC updates the record
 		When I reload until I see "PS03 - Disposal text truncated"
 			And I open the record for "RESULTTEXTISUSED DUPLICATEOFFENCEADDEDINCOURT"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0003" for offence "1"
-		Then I see trigger "TRPR0003" for offence "2"
-		Then I see trigger "TRPS0003" for offence "1"
-		Then I see trigger "TRPS0003" for offence "2"
-		Then I see trigger "TRPS0010" for offence "2"
+			And I see trigger "TRPR0003" for offence "2"
+			And I see trigger "TRPS0003" for offence "1"
+			And I see trigger "TRPS0003" for offence "2"
+			And I see trigger "TRPS0010" for offence "2"

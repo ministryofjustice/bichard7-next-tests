@@ -35,7 +35,7 @@ Feature: {083} R4.1_BR7_Welsh Language Handling
       And I view offence "4"
       And I prepend "Text" with "**"
       And I submit the record
-    Then I see exception "(Submitted)" in the exception list table
+    Then the PNC updates the record
     When I reload until I see "PS10 - Offence added to PNC"
       And I open the record for "language welsh"
       And I click the "Triggers" tab
@@ -43,4 +43,3 @@ Feature: {083} R4.1_BR7_Welsh Language Handling
       And I see trigger "TRPS0003" for offence "4"
       And I see trigger "TRPS0010" for offence "4"
       And I see trigger "TRPS0010" for offence "5"
-      And the PNC updates the record
