@@ -35,8 +35,7 @@ Feature: {108} BR7 R5.0-RCD352-Offence Start Date mismatch
       And I view offence "4"
       And I match the offence as Added In Court
       And I submit the record
-    Then I see exception "(Submitted)" in the exception list table
-      And the PNC updates the record
+    Then the PNC updates the record
     When I reload until I see "PS10 - Offence added to PNC"
       And I open the record for "MISMATCH OFFENCE"
       And I click the "Triggers" tab

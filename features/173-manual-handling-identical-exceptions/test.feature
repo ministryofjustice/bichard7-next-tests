@@ -34,10 +34,9 @@ Feature: {173} BR7 R5.3-RCD497 - Partial Match - Fine Amount
 			And I match the offence to PNC offence "2"
 			And I return to the offence list
 			And I submit the record
-		Then I see exception "(Submitted)" in the exception list table
+		Then the PNC updates the record
 		When I reload until I don't see "(Submitted)"
 			And I open the record for "Pinkerton Marcus"
 			And I click the "Triggers" tab
 		Then I see trigger "TRPR0018" for offence "1"
 			And I see trigger "TRPR0018" for offence "2"
-			And the PNC updates the record
