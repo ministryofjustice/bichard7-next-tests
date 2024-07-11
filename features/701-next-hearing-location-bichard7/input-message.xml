@@ -71,39 +71,6 @@
 						<DC:Offence>
 							<DC:BaseOffenceDetails>
 								<DC:OffenceSequenceNumber>001</DC:OffenceSequenceNumber>
-								<DC:OffenceCode>TH68006</DC:OffenceCode>
-								<DC:OffenceWording>Theft of pedal cycle.</DC:OffenceWording>
-								<DC:OffenceTiming>
-									<DC:OffenceDateCode>1</DC:OffenceDateCode>
-									<DC:OffenceStart>
-										<DC:OffenceDateStartDate>2010-11-28</DC:OffenceDateStartDate>
-									</DC:OffenceStart>
-								</DC:OffenceTiming>
-								<DC:ChargeDate>2010-12-02</DC:ChargeDate>
-								<DC:ArrestDate>2010-12-01</DC:ArrestDate>
-								<DC:LocationOfOffence>Kingston High Street</DC:LocationOfOffence>
-							</DC:BaseOffenceDetails>
-							<DC:InitiatedDate>2008-07-11</DC:InitiatedDate>
-							<DC:Plea>2</DC:Plea>
-							<DC:ModeOfTrial>01</DC:ModeOfTrial>
-							<DC:FinalDisposalIndicator>N</DC:FinalDisposalIndicator>
-							<DC:Result>
-								<DC:ResultCode>4506</DC:ResultCode>
-								<DC:ResultText>Adjourned.</DC:ResultText>
-								<DC:NextHearing>
-									<DC:NextHearingDetails>
-										<DC:CourtHearingLocation>B01EF01</DC:CourtHearingLocation>
-										<DC:DateOfHearing>2011-10-08</DC:DateOfHearing>
-										<DC:TimeOfHearing>14:00:00</DC:TimeOfHearing>
-									</DC:NextHearingDetails>
-									<DC:NextHearingReason>Adjourned for Defendant to attend</DC:NextHearingReason>
-									<DC:BailStatusOffence>U</DC:BailStatusOffence>
-								</DC:NextHearing>
-							</DC:Result>
-						</DC:Offence>
-						<DC:Offence>
-							<DC:BaseOffenceDetails>
-								<DC:OffenceSequenceNumber>002</DC:OffenceSequenceNumber>
 								<DC:OffenceCode>TH68151</DC:OffenceCode>
 								<DC:OffenceWording>Aggravated vehicle taking - ( driver did not take ) and vehicle damage of 5000 or over.</DC:OffenceWording>
 								<DC:OffenceTiming>

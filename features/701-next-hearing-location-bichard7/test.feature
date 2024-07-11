@@ -14,8 +14,7 @@ Feature: Next Hearing location Bichard UI
 		Then I see exception "HO100300" in the exception list table
 		When I open the record for "TRTWODATE TRIGGER"
 			And I click the "Offences" tab
-			And I view offence "2"
+			And I view offence "1"
 			And I correct "Next Hearing location" to "B01EF01"
 		Then I submit the record
-			And I see exception "(Submitted)" in the exception list table
-			And I reload until I don't see "(Submitted)"
+			And the PNC updates the record

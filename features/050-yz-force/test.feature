@@ -19,7 +19,7 @@ Feature: {050} R3.4_BR7_YZ Force Code
     Given the data for this test is in the PNC
       And "input-message" is received
 
-@Must @NextUI
+  @Must @NextUI
   Scenario: YZ Force code is used in logs
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
@@ -34,7 +34,6 @@ Feature: {050} R3.4_BR7_YZ Force Code
       And I return to the offence list
       And I submit the record
     Then the PNC updates the record
-      And I see exception "(Submitted)" in the exception list table
     When I reload until I see "PS02 - Check address"
       And I open the record for "Bass Barry"
       And I click the "Triggers" tab

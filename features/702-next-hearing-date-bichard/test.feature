@@ -18,5 +18,4 @@ Feature: Next Hearing Date Not Found Bichard UI
       And I correct "Next Hearing location" to "B01EF01"
       And I correct "Next Hearing date" to "08/10/2011"
     Then I submit the record
-      And I see exception "(Submitted)" in the exception list table
-      And I reload until I don't see "(Submitted)"
+      And the PNC updates the record

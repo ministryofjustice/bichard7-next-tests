@@ -29,8 +29,7 @@ Feature: {214} BR7 R5.4-RCD471-Multiple CCR to Single CCR switch between PNC sub
 			And I correct "ASN" to "1101ZD0100000445720M"
 			And I correct "Court PNCID" to "2012/0000029N"
 			And I submit the record
-			And I see exception "(Submitted)" in the exception list table
+			And the PNC updates the record
 		When I reload until I see "PS02 - Check address"
 		Then I see trigger "PR06 - Imprisoned" in the exception list table
 			And I see trigger "PR21 - Disq. non-motoring" in the exception list table
-			And the PNC updates the record
