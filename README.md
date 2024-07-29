@@ -2,6 +2,19 @@
 
 This repository contains the end-to-end and characterisation tests to run against Bichard in order to validate functionality.
 
+## Contents
+
+- [Running the end-to-end tests](#running-the-end-to-end-tests)
+  - [Locally](#locally)
+  - [Remotely (on the actual e2e environment)](#remotely-on-the-actual-e2e-environment)
+  - [Against pre-production](#against-pre-production)
+  - [Configuration parameters](#configuration-parameters)
+  - [Debugging](#debugging)
+  - [VS Code Extension](#vs-code-extension)
+- [Running the characterisation tests](#running-the-characterisation-tests)
+  - [For Core](#for-core)
+  - [For legacy Bichard](#for-legacy-bichard)
+
 ## Running the end-to-end tests
 
 ### Locally
