@@ -237,6 +237,51 @@ jobs:
       - store_test_results:
           path: ./cucumber/results
 
+  test-e2e-phase2-core:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: false
+    resource_class: large
+    parallelism: 10
+    environment:
+      RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3
+      AWS_URL: "http://localhost:4566"
+      PHASE2_CORE_CANARY_RATIO: "1.0"
+    steps:
+      - attach_workspace:
+          at: ~/
+      - set_locale
+      - node_install
+      - start_bichard7_core
+      - run_test_chunk
+      - save_artifacts
+      - store_test_results:
+          path: ./cucumber/results
+
+  test-e2e-phase2-core-new-ui:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: false
+    resource_class: large
+    parallelism: 10
+    environment:
+      RECORD: "true"
+      MESSAGE_ENTRY_POINT: s3
+      AWS_URL: "http://localhost:4566"
+      PHASE2_CORE_CANARY_RATIO: "1.0"
+    steps:
+      - attach_workspace:
+          at: ~/
+      - set_locale
+      - node_install
+      - start_bichard7_core
+      - run_test_chunk:
+          NEXTUI: "true"
+      - save_artifacts
+      - store_test_results:
+          path: ./cucumber/results
+
   test-characterisation-legacy:
     machine:
       image: ubuntu-2204:current
@@ -280,6 +325,12 @@ workflows:
           requires:
             - build
       - test-e2e-core-new-ui:
+          requires:
+            - build
+      - test-e2e-phase2-core:
+          requires:
+            - build
+      - test-e2e-phase2-core-new-ui:
           requires:
             - build
       - test-characterisation-legacy:
