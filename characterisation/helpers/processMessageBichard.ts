@@ -8,6 +8,7 @@ import type BichardResultType from "../types/BichardResultType";
 import extractExceptionsFromAho from "./extractExceptionsFromAho";
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc";
 import { ProcessMessageOptions } from "./processMessage";
+import Phase from "../types/Phase";
 
 const world = new World({});
 const { pg } = world.db as PostgresHelper;
@@ -23,11 +24,13 @@ const processMessageBichard = async (
     pncOverrides = {},
     pncCaseType = "court",
     pncMessage,
-    pncAdjudication = false
+    pncAdjudication = false,
+    phase = Phase.HEARING_OUTCOME
   }: ProcessMessageOptions
 ): Promise<BichardResultType> => {
   const correlationId = uuid();
   const messageXmlWithUuid = messageXml.replace("EXTERNAL_CORRELATION_ID", correlationId);
+
   if (expectTriggers && !expectRecord) {
     throw new Error("You can't expect triggers without a record.");
   }
@@ -42,7 +45,8 @@ const processMessageBichard = async (
   }
 
   // Push the message to MQ
-  await mq.sendMessage("COURT_RESULT_INPUT_QUEUE", messageXmlWithUuid);
+  const queue = phase === Phase.HEARING_OUTCOME ? "COURT_RESULT_INPUT_QUEUE" : "HEARING_OUTCOME_PNC_UPDATE_QUEUE";
+  await mq.sendMessage(queue, messageXmlWithUuid);
 
   // Wait for the record to appear in Postgres
   const recordQuery = `SELECT annotated_msg FROM br7own.error_list WHERE message_id = '${correlationId}'`;

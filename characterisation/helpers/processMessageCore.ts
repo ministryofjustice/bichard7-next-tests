@@ -2,6 +2,7 @@ import axios from "axios";
 import BichardResultType from "../types/BichardResultType";
 import generateMockPncQueryResult from "./generateMockPncQueryResult";
 import { ProcessMessageOptions } from "./processMessage";
+import Phase from "../types/Phase";
 
 const processMessageCore = async (
   messageXml: string,
@@ -10,17 +11,19 @@ const processMessageCore = async (
     pncOverrides = {},
     pncCaseType = "court",
     pncMessage,
-    pncAdjudication = false
+    pncAdjudication = false,
+    phase = Phase.HEARING_OUTCOME
   }: ProcessMessageOptions
 ): Promise<BichardResultType> => {
   const pncQueryResult = recordable
     ? generateMockPncQueryResult(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
     : undefined;
-  const query = {
+  const requestBody = {
     inputMessage: messageXml,
-    pncQueryResult
+    pncQueryResult,
+    phase
   };
-  const result = await axios.post<BichardResultType>("http://localhost:6000/", query);
+  const result = await axios.post<BichardResultType>("http://localhost:6000/", requestBody);
   return result.data;
 };
 
