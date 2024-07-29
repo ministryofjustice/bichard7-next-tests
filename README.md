@@ -1,6 +1,6 @@
 # Bichard7 Tests
 
-This repository contains the end-to-end tests to run against Bichard in order to validate functionality.
+This repository contains the end-to-end and characterisation tests to run against Bichard in order to validate functionality.
 
 ## Running the end-to-end tests
 
@@ -154,3 +154,35 @@ With these settings:
 If you don't have syntax highlighting you may have to change your theme. For example, if you have install the Ruby Language Server, search "Theme" and select "Text Editor" and change this setting:
 
 ![Editor > Semantic Highlighting](docs/theme.png)
+
+## Running the characterisation tests
+
+### For Core
+
+1. From the Core repository, run the test server for the characterisation tests:
+
+```bash
+npm run test:server -w packages/core
+```
+
+This runs by default on [localhost:6000](localhost:6000).
+
+2. From this tests repository, run the characterisation tests for Core:
+
+```
+npm run test:characterisation
+```
+
+### For legacy Bichard
+
+1. From the Core repository, run the infrastructure required for legacy Bichard in Docker:
+
+```bash
+npm run all-legacy
+```
+
+2. From this tests repository, run the characterisation tests for legacy Bichard:
+
+```
+npm run test:characterisation:bichard
+```
