@@ -2,6 +2,7 @@ import BichardResultType from "../types/BichardResultType";
 import { ResultedCaseMessageParsedXml } from "../types/IncomingMessage";
 import processMessageBichard from "./processMessageBichard";
 import processMessageCore from "./processMessageCore";
+import Phase from "../types/Phase";
 
 export type ProcessMessageOptions = {
   expectRecord?: boolean;
@@ -11,6 +12,7 @@ export type ProcessMessageOptions = {
   pncOverrides?: Partial<ResultedCaseMessageParsedXml>;
   pncMessage?: string;
   pncAdjudication?: boolean;
+  phase?: Phase;
 };
 
 export default (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardResultType> => {
