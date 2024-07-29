@@ -24,6 +24,7 @@ Feature: {021} R3_BR7_SC_001_Mismatch Between Offences_Adjournment with Judgemen
 
   @Must
   @Parallel
+	@Phase2Core
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as "generalhandler"
       And I view the list of exceptions
