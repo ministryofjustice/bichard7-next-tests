@@ -16,6 +16,12 @@ if [ "${PHASE2_CORE_CANARY_RATIO}x" == "1.0x" ] || [ "${PHASE2_CORE_CANARY_RATIO
   TAGS="${TAGS} and @Phase2Core"
 fi
 
-echo "Running tests using the following tags: ${TAGS}\n"
+echo "---------------------------------------------"
+echo "Running tests using the following parameters:"
+echo "Tags: ${TAGS}"
+echo "Message entry point: $MESSAGE_ENTRY_POINT"
+echo "Next UI: $NEXTUI"
+echo "Phase 2 canary ratio: $PHASE2_CORE_CANARY_RATIO"
+echo "---------------------------------------------"
 
 ./node_modules/.bin/cucumber-js --require steps/index.js --retry 5 --no-strict --exit --publish-quiet --format @cucumber/pretty-formatter  --format junit:./cucumber/results/test-results.xml --tags "${TAGS}" $CHUNK
