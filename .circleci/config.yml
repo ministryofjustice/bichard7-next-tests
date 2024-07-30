@@ -159,11 +159,14 @@ jobs:
     parallelism: 10
     parameters:
       nextUi:
-        type: boolean
+        type: enum
+        enum: ["true", "false"]
       phase2CoreCanaryRatio:
-        type: string
+        type: enum
+        enum: ["1.0", "0.0"]
       messageEntryPoint:
-        type: string
+        type: enum
+        enum: ["mq", "s3"]
     environment:
       RECORD: "true"
       AWS_URL: "http://localhost:4566"
@@ -225,42 +228,42 @@ workflows:
       - build
       - test-e2e:
           name: test-e2e-legacy
-          nextUi: false
+          nextUi: "false"
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: mq
           requires:
             - build
       - test-e2e:
           name: test-e2e-legacy-new-ui
-          nextUi: true
+          nextUi: "true"
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: mq
           requires:
             - build
       - test-e2e:
           name: test-e2e-core
-          nextUi: false
+          nextUi: "false"
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: s3
           requires:
             - build
       - test-e2e:
           name: test-e2e-core-new-ui
-          nextUi: true
+          nextUi: "true"
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: s3
           requires:
             - build
       - test-e2e:
           name: test-e2e-phase2-core
-          nextUi: false
+          nextUi: "false"
           phase2CoreCanaryRatio: "1.0"
           messageEntryPoint: s3
           requires:
             - build
       - test-e2e:
           name: test-e2e-phase2-core-new-ui
-          nextUi: true
+          nextUi: "true"
           phase2CoreCanaryRatio: "1.0"
           messageEntryPoint: s3
           requires:
