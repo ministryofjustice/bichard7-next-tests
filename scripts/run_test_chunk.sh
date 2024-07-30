@@ -6,7 +6,7 @@ TAGS=$1
 CHUNK=${CHUNK:-$(find features -iname '*.feature' | sort | awk "(NR % $TOTAL_CHUNKS == $CHUNK_NUMBER)" | paste -d ' ' -s -)}
 NEXTUI=${NEXTUI:-"false"}
 
-if [ "$NEXTUI" == "true" ]; then
+if [ "${NEXTUI}x" == "truex" ]; then
   TAGS="${TAGS} and @NextUI"
 else
   TAGS="${TAGS} and not @ExcludeOnLegacyUI"
