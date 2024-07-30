@@ -37,16 +37,11 @@ commands:
           command: make build-api-server build-event-handler-server
 
   run_test_chunk:
-    parameters:
-      NEXTUI:
-        default: "false"
-        type: "string"
     steps:
       - run:
           name: Run test chunk
           command: |
             CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
-            NEXTUI=<<parameters.NEXTUI>> \
             npm run test:chunk
 
   save_artifacts:
