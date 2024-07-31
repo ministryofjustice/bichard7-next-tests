@@ -154,8 +154,7 @@ jobs:
     parallelism: 10
     parameters:
       nextUi:
-        type: enum
-        enum: ["true", "false"]
+        type: boolean
       phase2CoreCanaryRatio:
         type: enum
         enum: ["1.0", "0.0"]
@@ -223,42 +222,42 @@ workflows:
       - build
       - test-e2e:
           name: test-e2e-legacy
-          nextUi: "false"
+          nextUi: false
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: mq
           requires:
             - build
       - test-e2e:
           name: test-e2e-legacy-new-ui
-          nextUi: "true"
+          nextUi: true
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: mq
           requires:
             - build
       - test-e2e:
           name: test-e2e-core
-          nextUi: "false"
+          nextUi: false
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: s3
           requires:
             - build
       - test-e2e:
           name: test-e2e-core-new-ui
-          nextUi: "true"
+          nextUi: true
           phase2CoreCanaryRatio: "0.0"
           messageEntryPoint: s3
           requires:
             - build
       - test-e2e:
           name: test-e2e-phase2-core
-          nextUi: "false"
+          nextUi: false
           phase2CoreCanaryRatio: "1.0"
           messageEntryPoint: s3
           requires:
             - build
       - test-e2e:
           name: test-e2e-phase2-core-new-ui
-          nextUi: "true"
+          nextUi: true
           phase2CoreCanaryRatio: "1.0"
           messageEntryPoint: s3
           requires:
