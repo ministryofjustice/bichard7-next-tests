@@ -11,7 +11,6 @@ describe("HO100324", () => {
   });
 
   it("should create an exception when there is no verdict, the case is adjourned and there is an adjudication", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -23,7 +22,6 @@ describe("HO100324", () => {
       ]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -32,7 +30,6 @@ describe("HO100324", () => {
       pncAdjudication: true
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100324",
@@ -42,7 +39,6 @@ describe("HO100324", () => {
   });
 
   it("should not create an exception when the offence was added by the court", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -74,7 +70,6 @@ describe("HO100324", () => {
       ]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -84,7 +79,6 @@ describe("HO100324", () => {
       pncMessage
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100324",

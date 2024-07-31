@@ -25,20 +25,17 @@ describe("HO100306", () => {
 
   it("should create an exception if the offence code has an invalid format", async () => {
     // Legacy Bichard raises 'Offence Code not recognised' but core raises 'Offence Code not found' exception
-    const expectedExceptionCode = process.env.USE_BICHARD ? "HO100251" : "HO100306"
-    // Generate a mock message
+    const expectedExceptionCode = process.env.USE_BICHARD ? "HO100251" : "HO100306";
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }], code: "$$$" }]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
     });
 
-    // Check the right exceptions are generated
     expect(exceptions).toStrictEqual([
       {
         code: expectedExceptionCode,

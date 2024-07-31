@@ -10,7 +10,6 @@ describe("HO100322", () => {
   });
 
   it("should create HO100322 and HO100323 exceptions when there is a recordable offence and adjourned result but no next result source organisation and hearing date", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         {
@@ -20,7 +19,6 @@ describe("HO100322", () => {
       ]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -28,7 +26,6 @@ describe("HO100322", () => {
       recordable: true
     });
 
-    // Check the right exceptions are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100322",

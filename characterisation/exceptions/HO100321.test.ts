@@ -12,13 +12,11 @@ describe("HO100321", () => {
   });
 
   it("should create an exception when there is a recordable offence but the Arrest Summons Number is a dummy", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       ASN: dummyASN,
       offences: [{ results: [{ code: 4592 }], recordable: true }]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -26,7 +24,6 @@ describe("HO100321", () => {
       recordable: true
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100321",

@@ -10,7 +10,6 @@ describe("HO100507", () => {
   });
 
   it("should create an exception when an offence was added in court and it is a penalty case", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         { code: "TH68010", results: [{}], offenceSequenceNumber: 1 },
@@ -22,7 +21,6 @@ describe("HO100507", () => {
       offences: [{ code: "TH68010", results: [{}], offenceSequenceNumber: 1 }]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -32,7 +30,6 @@ describe("HO100507", () => {
       pncMessage
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100507",

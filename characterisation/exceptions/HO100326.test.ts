@@ -11,12 +11,10 @@ describe("HO100326", () => {
   });
 
   it("should create an exception when the conviction date is before the date of hearing and there is no adjudication", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ convictionDate: "2011-09-25", results: [{}], recordable: true }]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -24,7 +22,6 @@ describe("HO100326", () => {
       recordable: true
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100326",
@@ -34,7 +31,6 @@ describe("HO100326", () => {
   });
 
   it("should not create an exception when offence was added by the court", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [
         { convictionDate: "2011-09-25", results: [{}], recordable: true, offenceSequenceNumber: 1 },
@@ -46,7 +42,6 @@ describe("HO100326", () => {
       offences: [{ convictionDate: "2011-09-25", results: [{}], recordable: true, offenceSequenceNumber: 1 }]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -55,7 +50,6 @@ describe("HO100326", () => {
       pncMessage
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100326",

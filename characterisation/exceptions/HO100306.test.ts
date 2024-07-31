@@ -24,19 +24,16 @@ describe("HO100306", () => {
   });
 
   it("should create an exception if the offence code lookup fails and offence is not ignored", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: [{ results: [{ code: 1015 }], code: "BLAHHHHH" }]
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
     });
 
-    // Check the right exceptions are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100306",

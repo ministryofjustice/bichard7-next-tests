@@ -10,12 +10,10 @@ describe("HO100331", () => {
   });
 
   it("should create an exception when there are more than 100 offences", async () => {
-    // Generate a mock message
     const inputMessage = generateMessage({
       offences: Array(101).fill({ results: [{}], recordable: true })
     });
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
@@ -23,7 +21,6 @@ describe("HO100331", () => {
       recordable: true
     });
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100331",
