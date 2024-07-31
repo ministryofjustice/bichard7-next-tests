@@ -8,7 +8,7 @@ phases:
     commands:
       - /bin/bash scripts/configure_codebuild_image.sh
       - yum groupinstall -y "Development tools"
-      - yum -y install jq gzip tar unzip openssl shadow-utils xz wget gnupg curl openvpn which chromium deltarpm
+      - yum -y install jq gzip tar unzip openssl shadow-utils xz wget gnupg curl openvpn which deltarpm
       - pip3 install --upgrade pip
       - pip3 install click botocore requests
   build:
