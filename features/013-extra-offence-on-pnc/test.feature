@@ -20,6 +20,7 @@ Feature: {013} R3_BR7_EX_001_Extra Offence on PNC
 
   @Must
   @Parallel
+  @Phase2Core
   Scenario: Exception is raised when there is a data mismatch
     Given I am logged in as "supervisor"
       And I view the list of exceptions

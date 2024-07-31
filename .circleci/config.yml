@@ -37,16 +37,11 @@ commands:
           command: make build-api-server build-event-handler-server
 
   run_test_chunk:
-    parameters:
-      NEXTUI:
-        default: "false"
-        type: "string"
     steps:
       - run:
           name: Run test chunk
           command: |
             CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
-            NEXTUI=<<parameters.NEXTUI>> \
             npm run test:chunk
 
   save_artifacts:
@@ -151,88 +146,43 @@ jobs:
           root: ~/
           paths: .
 
-  test-e2e-legacy:
+  test-e2e:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
+    parameters:
+      nextUi:
+        type: boolean
+      phase2CoreCanaryRatio:
+        type: enum
+        enum: ["1.0", "0.0"]
+      messageEntryPoint:
+        type: enum
+        enum: ["mq", "s3"]
     environment:
       RECORD: "true"
-      MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
+      MESSAGE_ENTRY_POINT: << parameters.messageEntryPoint >>
+      NEXTUI: << parameters.nextUi >>
+      PHASE2_CORE_CANARY_RATIO: << parameters.phase2CoreCanaryRatio >>
     steps:
       - attach_workspace:
           at: ~/
       - set_locale
       - node_install
-      - start_bichard7_legacy
+      - when:
+          condition:
+            equal: [ "mq", << parameters.messageEntryPoint >> ]
+          steps:
+            - start_bichard7_legacy
+      - when:
+          condition:
+            equal: [ "s3", << parameters.messageEntryPoint >> ]
+          steps:
+          - start_bichard7_core
       - run_test_chunk
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
-
-  test-e2e-legacy-new-ui:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    environment:
-      RECORD: "true"
-      MESSAGE_ENTRY_POINT: mq
-      AWS_URL: "http://localhost:4566"
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - node_install
-      - start_bichard7_legacy
-      - run_test_chunk:
-          NEXTUI: "true"
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
-
-  test-e2e-core:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    environment:
-      RECORD: "true"
-      MESSAGE_ENTRY_POINT: s3
-      AWS_URL: "http://localhost:4566"
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - node_install
-      - start_bichard7_core
-      - run_test_chunk
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
-
-  test-e2e-core-new-ui:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    environment:
-      RECORD: "true"
-      MESSAGE_ENTRY_POINT: s3
-      AWS_URL: "http://localhost:4566"
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - node_install
-      - start_bichard7_core
-      - run_test_chunk:
-          NEXTUI: "true"
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
@@ -270,16 +220,46 @@ workflows:
   deploy:
     jobs:
       - build
-      - test-e2e-legacy:
+      - test-e2e:
+          name: test-e2e-legacy
+          nextUi: false
+          phase2CoreCanaryRatio: "0.0"
+          messageEntryPoint: mq
           requires:
             - build
-      - test-e2e-legacy-new-ui:
+      - test-e2e:
+          name: test-e2e-legacy-new-ui
+          nextUi: true
+          phase2CoreCanaryRatio: "0.0"
+          messageEntryPoint: mq
           requires:
             - build
-      - test-e2e-core:
+      - test-e2e:
+          name: test-e2e-core
+          nextUi: false
+          phase2CoreCanaryRatio: "0.0"
+          messageEntryPoint: s3
           requires:
             - build
-      - test-e2e-core-new-ui:
+      - test-e2e:
+          name: test-e2e-core-new-ui
+          nextUi: true
+          phase2CoreCanaryRatio: "0.0"
+          messageEntryPoint: s3
+          requires:
+            - build
+      - test-e2e:
+          name: test-e2e-phase2-core
+          nextUi: false
+          phase2CoreCanaryRatio: "1.0"
+          messageEntryPoint: s3
+          requires:
+            - build
+      - test-e2e:
+          name: test-e2e-phase2-core-new-ui
+          nextUi: true
+          phase2CoreCanaryRatio: "1.0"
+          messageEntryPoint: s3
           requires:
             - build
       - test-characterisation-legacy:

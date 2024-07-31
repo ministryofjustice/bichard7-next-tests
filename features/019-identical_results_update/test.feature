@@ -21,6 +21,7 @@ Feature: {019} R3_BR7_PU_005_Identical Results Update
   @Must
   @Parallel
   @NextUI
+  @Phase2Core
   Scenario: PNC is updated when there are multiple identical results
     Given I am logged in as "supervisor"
       And I view the list of exceptions

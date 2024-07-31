@@ -117,3 +117,6 @@ screenshots/
 loadtest/config.json
 
 comparisons
+
+# Ignore cumcumber test results
+cucumber/
