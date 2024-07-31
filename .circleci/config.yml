@@ -146,27 +146,27 @@ jobs:
           root: ~/
           paths: .
 
-  test-e2e:
+  test_e2e:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
     parameters:
-      nextUi:
+      next-ui:
         type: boolean
-      phase2CoreCanaryRatio:
+      phase2-core-canary-ratio:
         type: enum
         enum: ["1.0", "0.0"]
-      messageEntryPoint:
+      message-entry-point:
         type: enum
         enum: ["mq", "s3"]
     environment:
       RECORD: "true"
       AWS_URL: "http://localhost:4566"
-      MESSAGE_ENTRY_POINT: << parameters.messageEntryPoint >>
-      NEXTUI: << parameters.nextUi >>
-      PHASE2_CORE_CANARY_RATIO: << parameters.phase2CoreCanaryRatio >>
+      MESSAGE_ENTRY_POINT: << parameters.message-entry-point >>
+      NEXTUI: << parameters.next-ui >>
+      PHASE2_CORE_CANARY_RATIO: << parameters.phase2-core-canary-ratio >>
     steps:
       - attach_workspace:
           at: ~/
@@ -174,12 +174,12 @@ jobs:
       - node_install
       - when:
           condition:
-            equal: [ "mq", << parameters.messageEntryPoint >> ]
+            equal: [ "mq", << parameters.message-entry-point >> ]
           steps:
             - start_bichard7_legacy
       - when:
           condition:
-            equal: [ "s3", << parameters.messageEntryPoint >> ]
+            equal: [ "s3", << parameters.message-entry-point >> ]
           steps:
           - start_bichard7_core
       - run_test_chunk
@@ -187,7 +187,7 @@ jobs:
       - store_test_results:
           path: ./cucumber/results
 
-  test-characterisation-legacy:
+  test_characterisation_legacy:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
@@ -201,7 +201,7 @@ jobs:
           ENABLE_PHASE_2: "false"
       - run: npm run test:characterisation:bichard
 
-  test-characterisation-core:
+  test_characterisation_core:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
@@ -220,51 +220,51 @@ workflows:
   deploy:
     jobs:
       - build
-      - test-e2e:
+      - test_e2e:
           name: test-e2e-legacy
-          nextUi: false
-          phase2CoreCanaryRatio: "0.0"
-          messageEntryPoint: mq
+          next-ui: false
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: mq
           requires:
             - build
-      - test-e2e:
+      - test_e2e:
           name: test-e2e-legacy-new-ui
-          nextUi: true
-          phase2CoreCanaryRatio: "0.0"
-          messageEntryPoint: mq
+          next-ui: true
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: mq
           requires:
             - build
-      - test-e2e:
-          name: test-e2e-core
-          nextUi: false
-          phase2CoreCanaryRatio: "0.0"
-          messageEntryPoint: s3
+      - test_e2e:
+          name: test-e2e-phase1-core
+          next-ui: false
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: s3
           requires:
             - build
-      - test-e2e:
-          name: test-e2e-core-new-ui
-          nextUi: true
-          phase2CoreCanaryRatio: "0.0"
-          messageEntryPoint: s3
+      - test_e2e:
+          name: test-e2e-phase1-core-new-ui
+          next-ui: true
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: s3
           requires:
             - build
-      - test-e2e:
+      - test_e2e:
           name: test-e2e-phase2-core
-          nextUi: false
-          phase2CoreCanaryRatio: "1.0"
-          messageEntryPoint: s3
+          next-ui: false
+          phase2-core-canary-ratio: "1.0"
+          message-entry-point: s3
           requires:
             - build
-      - test-e2e:
+      - test_e2e:
           name: test-e2e-phase2-core-new-ui
-          nextUi: true
-          phase2CoreCanaryRatio: "1.0"
-          messageEntryPoint: s3
+          next-ui: true
+          phase2-core-canary-ratio: "1.0"
+          message-entry-point: s3
           requires:
             - build
-      - test-characterisation-legacy:
+      - test_characterisation_legacy:
           requires:
             - build
-      - test-characterisation-core:
+      - test_characterisation_core:
           requires:
             - build
