@@ -8,12 +8,14 @@ phases:
     commands:
       - /bin/bash scripts/configure_codebuild_image.sh
       - yum groupinstall -y "Development tools"
-      - yum -y install jq gzip tar unzip openssl shadow-utils xz wget gnupg curl openvpn which deltarpm
+      - yum -y install jq gzip tar unzip openssl shadow-utils xz wget gnupg curl openvpn which chromium deltarpm
       - pip3 install --upgrade pip
       - pip3 install click botocore requests
   build:
     commands:
       - set -e
+      - export PUPPETEER_SKIP_CHROME_DOWNLOAD=true
+      - export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
       - TRIGGER=$(aws codepipeline list-pipeline-executions --pipeline-name cjse-bichard7-path-to-live-deploy-pipeline --query "pipelineExecutionSummaries[?pipelineExecutionId=='${CODEPIPELINE_EXECUTION_ID}'] .trigger.triggerDetail" --output text)
       - echo "Trying to acquire a build lock"
       - LOCK_PREFIX=${DEPLOY_ENV:-sandbox}
