@@ -147,3 +147,7 @@ When("I go to the Case Details for this exception {string}", ui.goToExceptionPag
 Then("I reload the page", ui.reload);
 Then("I remove the year from {string}", ui.removeYear);
 Then("I should see an error {string}", ui.seeError);
+Then("I apply filter {string} to be {string}", ui.filter);
+Then("I reset the filters", ui.resetFilters);
+Then("I see record for {string}", ui.canSeeContentInTable);
+Then("I do not see record for {string}", ui.cannotSeeContentInTable);
