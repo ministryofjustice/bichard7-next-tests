@@ -17,8 +17,8 @@ const waitForRecord = (name, page, reloadAttempts) => {
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-");
 
-const resetFilters = async function () {
-  await this.browser.clickAndWait("#clear-filters");
+const resetFilters = async function (browser) {
+  await browser.clickAndWait("#clear-filters");
 };
 
 const filterByRecordName = async function (world) {
@@ -239,7 +239,7 @@ const noExceptionPresentForOffender = async function (name) {
   );
   expect(noCasesMessageMatch.length).toEqual(1);
 
-  await resetFilters();
+  await resetFilters(this.browser);
 };
 
 const markTriggersComplete = async function (world) {
@@ -379,7 +379,7 @@ const noTriggersPresentForOffender = async function (name) {
   );
   expect(noCasesMessageMatch.length).toEqual(1);
 
-  await resetFilters();
+  await resetFilters(this.browser);
 };
 
 const correctOffence = async (page, fieldHtml, newValue) => {
@@ -554,7 +554,7 @@ const checkRecordStatus = async function (recordType, recordName, resolvedType) 
   await Promise.all([filterRecords(this, resolvedType, recordType), page.waitForNavigation()]);
   expect(await this.browser.elementText("table.cases-list")).toMatch(recordName);
 
-  await resetFilters();
+  await resetFilters(this.browser);
 
   await page.waitForFunction(() => !document.querySelector("#clear-filters"), { polling: "mutation" });
 };
