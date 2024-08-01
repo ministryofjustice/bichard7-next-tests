@@ -1,14 +1,14 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import { offenceResultClassPath } from "../helpers/errorPaths";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { offenceResultClassPath } from "../helpers/errorPaths"
+import generateMessage from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("HO100324", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it("should create an exception when there is no verdict, the case is adjourned and there is an adjudication", async () => {
     const inputMessage = generateMessage({
@@ -20,7 +20,7 @@ describe("HO100324", () => {
           recordable: true
         }
       ]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
@@ -28,15 +28,15 @@ describe("HO100324", () => {
       expectTriggers: false,
       recordable: true,
       pncAdjudication: true
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
         code: "HO100324",
         path: offenceResultClassPath(0, 0)
       }
-    ]);
-  });
+    ])
+  })
 
   it("should not create an exception when the offence was added by the court", async () => {
     const inputMessage = generateMessage({
@@ -56,7 +56,7 @@ describe("HO100324", () => {
           offenceSequenceNumber: 2
         }
       ]
-    });
+    })
 
     const pncMessage = generateMessage({
       offences: [
@@ -68,7 +68,7 @@ describe("HO100324", () => {
           offenceSequenceNumber: 1
         }
       ]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
@@ -77,13 +77,13 @@ describe("HO100324", () => {
       recordable: true,
       pncAdjudication: true,
       pncMessage
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
         code: "HO100324",
         path: offenceResultClassPath(0, 0)
       }
-    ]);
-  });
-});
+    ])
+  })
+})

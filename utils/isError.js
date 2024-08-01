@@ -1,3 +1,3 @@
-const isError = (result) => result instanceof Error;
+const isError = (result) => result instanceof Error
 
-module.exports = isError;
+module.exports = isError

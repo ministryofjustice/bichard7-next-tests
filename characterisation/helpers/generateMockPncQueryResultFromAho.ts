@@ -57,10 +57,12 @@ const parsePncDate = (pncDate: string): Date | null => {
   if (!pncDate || pncDate === "") {
     return null
   }
+
   const parsedDate = pncDate.match(/(\d{2})(\d{2})(\d{4})/)
   if (!parsedDate) {
     return null
   }
+
   const day = parseInt(parsedDate[1], 10)
   const month = parseInt(parsedDate[2], 10)
   const year = parseInt(parsedDate[3], 10)
@@ -72,6 +74,7 @@ const extractDates = (offence: AhoPncOffence): OffenceDates => {
   if (!startDate) {
     throw new Error(`Start date could not be processed: ${offence.COF["@_OffStartDate"]}`)
   }
+
   const dates: OffenceDates = {
     startDate
   }
@@ -123,11 +126,13 @@ export default (ahoXml: string): PncQueryResult | undefined => {
     if (!Array.isArray(cxe.CourtCases.CourtCase)) {
       cxe.CourtCases.CourtCase = [cxe.CourtCases.CourtCase]
     }
+
     for (const courtCase of cxe.CourtCases.CourtCase) {
       if (!Array.isArray(courtCase.Offences.Offence)) {
         courtCase.Offences.Offence = [courtCase.Offences.Offence]
       }
     }
+
     cases = cxe.CourtCases?.CourtCase.map((courtCase) => ({
       courtCaseReference: courtCase.CCR["@_CourtCaseRefNo"],
       offences: (courtCase.Offences.Offence as AhoPncOffence[]).map(

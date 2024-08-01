@@ -1,3 +1,3 @@
-const { mockEnquiryFromNCM } = require("../../utils/pncMocks");
+const { mockEnquiryFromNCM } = require("../../utils/pncMocks")
 
-module.exports = (ncm, world = {}) => [mockEnquiryFromNCM(ncm, world, { count: 1 })];
+module.exports = (ncm, world = {}) => [mockEnquiryFromNCM(ncm, world, { count: 1 })]

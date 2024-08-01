@@ -24,6 +24,6 @@ const defaults = {
   uiPort: "4443",
   uiHost: "localhost",
   enableCorePhase1: "false"
-};
+}
 
-module.exports = defaults;
+module.exports = defaults

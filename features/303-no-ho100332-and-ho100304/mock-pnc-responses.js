@@ -1,4 +1,4 @@
-const { dummyUpdate } = require("../../utils/pncMocks");
+const { dummyUpdate } = require("../../utils/pncMocks")
 
 module.exports = () => [
   {
@@ -21,4 +21,4 @@ module.exports = () => [
     expectedRequest: ""
   },
   dummyUpdate
-];
+]

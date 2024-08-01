@@ -1,10 +1,10 @@
-jest.setTimeout(20000);
+jest.setTimeout(20000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
-import { TriggerCode } from "../types/TriggerCode";
-import TriggerRecordable from "../types/TriggerRecordable";
+import World from "../../utils/world"
+import generateMessage from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
+import { TriggerCode } from "../types/TriggerCode"
+import TriggerRecordable from "../types/TriggerRecordable"
 
 const offenceTests = [
   {
@@ -32,23 +32,23 @@ const offenceTests = [
     resultCode: 3075,
     recordable: TriggerRecordable.Both
   }
-];
+]
 
 describe("Generic offence triggers", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   describe.each(offenceTests)("Testing generic trigger $code", ({ code, resultCode }) => {
     it("should generate a trigger correctly with single offences", async () => {
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode }] }]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage);
+      const { triggers } = await processMessage(inputMessage)
 
-      expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }]);
-    });
+      expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
+    })
 
     it("should generate multiple triggers correctly with multiple offences", async () => {
       const inputMessage = generateMessage({
@@ -57,24 +57,24 @@ describe("Generic offence triggers", () => {
           { results: [{ code: 1015 }] },
           { results: [{ code: resultCode }] }
         ]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage);
+      const { triggers } = await processMessage(inputMessage)
 
       expect(triggers).toStrictEqual([
         { code, offenceSequenceNumber: 1 },
         { code, offenceSequenceNumber: 3 }
-      ]);
-    });
+      ])
+    })
 
     it("should generate a trigger when record is recordable", async () => {
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode }] }]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage);
+      const { triggers } = await processMessage(inputMessage)
 
-      expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }]);
-    });
-  });
-});
+      expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
+    })
+  })
+})

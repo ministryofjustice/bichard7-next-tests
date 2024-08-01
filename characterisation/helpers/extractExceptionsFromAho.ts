@@ -1,6 +1,7 @@
 import { XMLParser } from "fast-xml-parser"
-import type { Result } from "../types/AnnotatedHearingOutcome"
+import type { AnnotatedHearingOutcome, Result } from "../types/AnnotatedHearingOutcome"
 import type Exception from "../types/Exception"
+import type { ExceptionCode } from "../types/ExceptionCode"
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 const extract = (el: any, path: (string | number)[] = []): Exception[] => {
@@ -8,14 +9,16 @@ const extract = (el: any, path: (string | number)[] = []): Exception[] => {
   for (const key in el) {
     if (key === "@_Error") {
       if (typeof el[key] === "string") {
-        exceptions.push({ code: el[key], path })
+        exceptions.push({ code: el[key] as ExceptionCode, path })
       }
     }
+
     if (typeof el[key] === "object") {
       const subExceptions = extract(el[key], path.concat([key.match(/\d+/) ? parseInt(key, 10) : key]))
       subExceptions.forEach((e) => exceptions.push(e))
     }
   }
+
   return exceptions
 }
 
@@ -25,14 +28,15 @@ export default (xml: string): Exception[] => {
     removeNSPrefix: true
   }
   const parser = new XMLParser(options)
-  const rawParsedObj = parser.parse(xml)
+  const rawParsedObj = parser.parse(xml) as AnnotatedHearingOutcome
   const offenceElem = rawParsedObj?.AnnotatedHearingOutcome?.HearingOutcome?.Case?.HearingDefendant?.Offence
   if (offenceElem && !Array.isArray(offenceElem)) {
     rawParsedObj.AnnotatedHearingOutcome.HearingOutcome.Case.HearingDefendant.Offence = [offenceElem]
   }
+
   const offenceArray = rawParsedObj?.AnnotatedHearingOutcome?.HearingOutcome?.Case?.HearingDefendant?.Offence
   if (offenceArray) {
-    offenceArray.forEach((offence: any) => {
+    offenceArray.forEach((offence) => {
       const results = offence.Result
       if (results && !Array.isArray(results)) {
         offence.Result = [results]
@@ -44,5 +48,6 @@ export default (xml: string): Exception[] => {
       }
     })
   }
+
   return extract(rawParsedObj)
 }

@@ -1,7 +1,25 @@
 {
+  "include": ["**/*.ts", "**/*.json", "package.json"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2021",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "lib": ["ES2021", "dom"],
+    "module": "CommonJS",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "types": ["node", "jest"],
+    "allowJs": true
   }
 }

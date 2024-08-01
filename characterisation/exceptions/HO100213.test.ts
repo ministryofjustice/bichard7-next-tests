@@ -1,25 +1,25 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import generateMessage from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("HO100213", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it.ifNewBichard("should create an exception if the Person's given name 1 is too many characters", async () => {
     const inputMessage = generateMessage({
       person: { givenName1: "X".repeat(36) },
       offences: [{ results: [] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -35,20 +35,20 @@ describe("HO100213", () => {
           0
         ]
       }
-    ]);
-  });
+    ])
+  })
 
   it.ifNewBichard("should create an exception if the Person's given name 2 is too many characters", async () => {
     const inputMessage = generateMessage({
       person: { givenName1: "one", givenName2: "X".repeat(36) },
       offences: [{ results: [] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -64,20 +64,20 @@ describe("HO100213", () => {
           1
         ]
       }
-    ]);
-  });
+    ])
+  })
 
   it.ifNewBichard("should create an exception if the Person's given name 3 is too many characters", async () => {
     const inputMessage = generateMessage({
       person: { givenName1: "one", givenName2: "Two", givenName3: "X".repeat(36) },
       offences: [{ results: [] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -93,6 +93,6 @@ describe("HO100213", () => {
           2
         ]
       }
-    ]);
-  });
-});
+    ])
+  })
+})

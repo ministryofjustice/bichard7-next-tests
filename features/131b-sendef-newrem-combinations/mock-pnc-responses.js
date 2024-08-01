@@ -1,4 +1,4 @@
-const { mockUpdate } = require("../../utils/pncMocks");
+const { mockUpdate } = require("../../utils/pncMocks")
 
 module.exports = () => [
   {
@@ -53,4 +53,4 @@ module.exports = () => [
     expectedRequest: "",
     count: 1
   }
-];
+]

@@ -1,4 +1,4 @@
-const { config } = require("./utils/config");
+const { config } = require("./utils/config")
 
 const puppeteerConfig = {
   browserContext: "incognito",
@@ -15,6 +15,6 @@ const puppeteerConfig = {
       "--ignore-certificate-errors"
     ]
   }
-};
+}
 
-module.exports = puppeteerConfig;
+module.exports = puppeteerConfig
