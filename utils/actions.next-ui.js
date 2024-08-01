@@ -21,6 +21,11 @@ const resetFilters = async function (browser) {
   await browser.clickAndWait("#clear-filters");
 };
 
+// This function needs to wrap the resetFilters fuction to work if it's being called from UI Steps
+const clearFilters = async function () {
+  await resetFilters(this.browser);
+};
+
 const filterByRecordName = async function (world) {
   const name = world.getRecordName();
   const searchField = "input[name='defendantName']";
@@ -703,5 +708,5 @@ module.exports = {
   removeYear,
   seeError,
   filter,
-  resetFilters
+  clearFilters
 };
