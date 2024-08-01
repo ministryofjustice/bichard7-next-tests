@@ -1,3 +1,4 @@
+import type { AxiosResponse } from "axios"
 import axios from "axios"
 import merge from "lodash.merge"
 import type { OffenceParsedXml, ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
@@ -97,8 +98,18 @@ const addMock = async (matchRegex: string, response: string, count: number | nul
 }
 
 const clearMocks = async (): Promise<void> => {
-  const response = await axios.delete(`http://${config.pncHost}:${config.pncPort}/mocks`)
-  if (response.status !== 204) {
+  let response: AxiosResponse | Error | undefined = undefined
+  for (let attempt = 0; attempt < 5; attempt++) {
+    response = await axios.delete(`http://${config.pncHost}:${config.pncPort}/mocks`).catch((e: Error) => e)
+
+    if (response instanceof Error) {
+      await new Promise((resolve) => setTimeout(resolve, 1_000))
+    } else {
+      break
+    }
+  }
+
+  if (response instanceof Error || response?.status !== 204) {
     throw new Error("Error clearing mocks in PNC Emulator")
   }
 }
