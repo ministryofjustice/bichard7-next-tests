@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 import {
   validateActualOffenceDateCode,
   validateCourtType,
@@ -16,32 +16,32 @@ import {
   validateVehicleCode,
   validateVerdict,
   validateYesNo
-} from "../helpers/validations";
-import { exceptionSchema } from "./Exception";
-import { ExceptionCode } from "./ExceptionCode";
-import { cjsPleaSchema } from "./Plea";
-import { pncQueryResultSchema } from "./PncQueryResult";
-import { ResultClass } from "./ResultClass";
+} from "../helpers/validations"
+import { exceptionSchema } from "./Exception"
+import { ExceptionCode } from "./ExceptionCode"
+import { cjsPleaSchema } from "./Plea"
+import { pncQueryResultSchema } from "./PncQueryResult"
+import { ResultClass } from "./ResultClass"
 
-const timeSchema = z.string().regex(/(([0-1][0-9])|([2][0-3])):[0-5][0-9]/, ExceptionCode.HO100103);
+const timeSchema = z.string().regex(/(([0-1][0-9])|([2][0-3])):[0-5][0-9]/, ExceptionCode.HO100103)
 
 const alcoholLevelSchema = z.object({
   Amount: z.string(),
   Method: z.string()
-});
+})
 
 const actualOffenceEndDateSchema = z.object({
   EndDate: z.date()
-});
+})
 
 const actualOffenceStartDateSchema = z.object({
   StartDate: z.date()
-});
+})
 
 const localOffenceCodeSchema = z.object({
   AreaCode: z.string(),
   OffenceCode: z.string()
-});
+})
 
 const offenceCodeSchema = z.discriminatedUnion("__type", [
   z.object({
@@ -66,7 +66,7 @@ const offenceCodeSchema = z.discriminatedUnion("__type", [
     Qualifier: z.string().optional(),
     FullCode: z.string()
   })
-]);
+])
 
 const offenceReasonSchema = z.discriminatedUnion("__type", [
   z.object({
@@ -77,7 +77,7 @@ const offenceReasonSchema = z.discriminatedUnion("__type", [
     __type: z.literal("NationalOffenceReason"),
     OffenceCode: offenceCodeSchema
   })
-]);
+])
 
 const organisationUnitSchema = z.object({
   TopLevelCode: z.string().optional(),
@@ -85,41 +85,41 @@ const organisationUnitSchema = z.object({
   ThirdLevelCode: z.string(),
   BottomLevelCode: z.string(),
   OrganisationUnitCode: z.string().regex(/[A-JZ0-9]{0,1}[A-Z0-9]{6}/, ExceptionCode.HO100200)
-});
+})
 
 const defendantOrOffenderSchema = z.object({
   Year: z.string(),
   OrganisationUnitIdentifierCode: organisationUnitSchema,
   DefendantOrOffenderSequenceNumber: z.string(),
   CheckDigit: z.string()
-});
+})
 
 const criminalProsecutionReferenceSchema = z.object({
   DefendantOrOffender: defendantOrOffenderSchema,
   OffenceReason: offenceReasonSchema.optional(),
   OffenceReasonSequence: z.number().or(z.null()).optional()
-});
+})
 
 const durationSchema = z.object({
   DurationType: z.string().refine(validateDurationType, ExceptionCode.HO100108),
   DurationUnit: z.string().refine(validateDurationUnit, ExceptionCode.HO100108),
   DurationLength: z.number().min(1, ExceptionCode.HO100242).max(999, ExceptionCode.HO100242)
-});
+})
 
 const dateSpecifiedInResultSchema = z.object({
   Date: z.date(),
   Sequence: z.number()
-});
+})
 
 const numberSpecifiedInResultSchema = z.object({
   Number: z.number(),
   Type: z.string()
-});
+})
 
 const amountSpecifiedInResultSchema = z.object({
   Amount: z.number(),
   Type: z.string().optional()
-});
+})
 
 const resultQualifierVariableSchema = z.object({
   Code: z
@@ -130,7 +130,7 @@ const resultQualifierVariableSchema = z.object({
   Duration: durationSchema.optional(),
   DateSpecifiedInResult: dateSpecifiedInResultSchema.array().optional(),
   Text: z.string().optional()
-});
+})
 
 const addressSchema = z.object({
   AddressLine1: z.string(),
@@ -140,7 +140,7 @@ const addressSchema = z.object({
   AddressLine5: z.string().optional(),
   UKpostcode: z.string().optional(),
   Country: z.string().optional()
-});
+})
 
 const personNameSchema = z.object({
   Title: z.string().min(1, ExceptionCode.HO100212).max(35, ExceptionCode.HO100212).optional(),
@@ -148,19 +148,19 @@ const personNameSchema = z.object({
   RequestedName: z.string().optional(),
   FamilyName: z.string(),
   Suffix: z.string().optional()
-});
+})
 
 const defendantDetailSchema = z.object({
   PersonName: personNameSchema,
   GeneratedPNCFilename: z.string().optional(),
   BirthDate: z.date().optional(),
   Gender: z.number()
-});
+})
 
 const courtReferenceSchema = z.object({
   CrownCourtReference: z.string().optional(),
   MagistratesCourtReference: z.string()
-});
+})
 
 const sourceReferenceSchema = z.object({
   DocumentName: z.string(),
@@ -171,7 +171,7 @@ const sourceReferenceSchema = z.object({
   SecurityClassification: z.string().optional(),
   SellByDate: z.date().optional(),
   XSLstylesheetURL: z.string().optional()
-});
+})
 
 const hearingSchema = z.object({
   CourtHearingLocation: organisationUnitSchema,
@@ -186,12 +186,12 @@ const hearingSchema = z.object({
   CourtType: z.string().refine(validateCourtType, ExceptionCode.HO100108).optional(), // Can't test this in Bichard because it is always set to a valid value
   CourtHouseCode: z.number(),
   CourtHouseName: z.string().optional()
-});
+})
 
 const urgentSchema = z.object({
   urgent: z.boolean(),
   urgency: z.number().min(0, ExceptionCode.HO100109).max(999, ExceptionCode.HO100110)
-});
+})
 
 const resultSchema = z.object({
   CJSresultCode: z.number().superRefine(validateResultCode),
@@ -238,7 +238,7 @@ const resultSchema = z.object({
     .min(0)
     .optional(), // Can't test as this is always set to an empty arrays
   BailCondition: z.string().min(1, ExceptionCode.HO100219).max(2500, ExceptionCode.HO100219).array().min(0).optional()
-});
+})
 
 const offenceSchema = z.object({
   CriminalProsecutionReference: criminalProsecutionReferenceSchema,
@@ -281,12 +281,12 @@ const offenceSchema = z.object({
     .optional(),
   ResultHalfLifeHours: z.number().min(1).max(999).optional(),
   AddedByTheCourt: z.boolean().optional()
-});
+})
 
-const asnSchema = z.string();
-const croNumberSchema = z.string().regex(/[0-9]{1,6}\/[0-9]{2}[A-HJ-NP-RT-Z]{1}/, ExceptionCode.HO100207);
-const driverNumberSchema = z.string().regex(/[A-Z0-9]{5}[0-9]{6}[A-Z0-9]{3}[A-Z]{2}/, ExceptionCode.HO100208);
-const pncIdentifierSchema = z.string().regex(/[0-9]{4}\/[0-9]{7}[A-HJ-NP-RT-Z]{1}/, ExceptionCode.HO100209);
+const asnSchema = z.string()
+const croNumberSchema = z.string().regex(/[0-9]{1,6}\/[0-9]{2}[A-HJ-NP-RT-Z]{1}/, ExceptionCode.HO100207)
+const driverNumberSchema = z.string().regex(/[A-Z0-9]{5}[0-9]{6}[A-Z0-9]{3}[A-Z]{2}/, ExceptionCode.HO100208)
+const pncIdentifierSchema = z.string().regex(/[0-9]{4}\/[0-9]{7}[A-HJ-NP-RT-Z]{1}/, ExceptionCode.HO100209)
 
 const hearingDefendantSchema = z.object({
   ArrestSummonsNumber: asnSchema,
@@ -303,7 +303,7 @@ const hearingDefendantSchema = z.object({
   OrganisationName: z.string().min(1, ExceptionCode.HO100211).max(255, ExceptionCode.HO100211).optional(),
   Offence: offenceSchema.array().min(0),
   Result: resultSchema.optional()
-});
+})
 
 const caseSchema = z.object({
   PTIURN: z.string().regex(/[A-Z0-9]{4}[0-9]{3,7}/, ExceptionCode.HO100201),
@@ -321,12 +321,12 @@ const caseSchema = z.object({
   RecordableOnPNCindicator: z.boolean().optional(),
   HearingDefendant: hearingDefendantSchema,
   Urgent: urgentSchema.optional()
-});
+})
 
 const hearingOutcomeSchema = z.object({
   Hearing: hearingSchema,
   Case: caseSchema
-});
+})
 
 const annotatedHearingOutcomeSchema = z.object({
   Exceptions: z.array(exceptionSchema).optional(),
@@ -335,28 +335,28 @@ const annotatedHearingOutcomeSchema = z.object({
   }),
   PncQuery: pncQueryResultSchema.optional(),
   PncQueryDate: z.date().optional()
-});
+})
 
-export { annotatedHearingOutcomeSchema, offenceReasonSchema };
+export { annotatedHearingOutcomeSchema, offenceReasonSchema }
 
-export type AnnotatedHearingOutcome = z.infer<typeof annotatedHearingOutcomeSchema>;
-export type HearingOutcome = z.infer<typeof hearingOutcomeSchema>;
-export type Case = z.infer<typeof caseSchema>;
-export type Offence = z.infer<typeof offenceSchema>;
-export type OffenceReason = z.infer<typeof offenceReasonSchema>;
-export type OffenceCode = z.infer<typeof offenceCodeSchema>;
-export type LocalOffenceCode = z.infer<typeof localOffenceCodeSchema>;
-export type Hearing = z.infer<typeof hearingSchema>;
-export type Address = z.infer<typeof addressSchema>;
-export type DefendantDetail = z.infer<typeof defendantDetailSchema>;
-export type HearingDefendant = z.infer<typeof hearingDefendantSchema>;
-export type Result = z.infer<typeof resultSchema>;
-export type OrganisationUnit = z.infer<typeof organisationUnitSchema>;
-export type Urgent = z.infer<typeof urgentSchema>;
-export type CriminalProsecutionReference = z.infer<typeof criminalProsecutionReferenceSchema>;
-export type Duration = z.infer<typeof durationSchema>;
-export type DefendantOrOffender = z.infer<typeof defendantOrOffenderSchema>;
-export type ResultQualifierVariable = z.infer<typeof resultQualifierVariableSchema>;
-export type DateSpecifiedInResult = z.infer<typeof dateSpecifiedInResultSchema>;
-export type NumberSpecifiedInResult = z.infer<typeof numberSpecifiedInResultSchema>;
-export type AmountSpecifiedInResult = z.infer<typeof amountSpecifiedInResultSchema>;
+export type AnnotatedHearingOutcome = z.infer<typeof annotatedHearingOutcomeSchema>
+export type HearingOutcome = z.infer<typeof hearingOutcomeSchema>
+export type Case = z.infer<typeof caseSchema>
+export type Offence = z.infer<typeof offenceSchema>
+export type OffenceReason = z.infer<typeof offenceReasonSchema>
+export type OffenceCode = z.infer<typeof offenceCodeSchema>
+export type LocalOffenceCode = z.infer<typeof localOffenceCodeSchema>
+export type Hearing = z.infer<typeof hearingSchema>
+export type Address = z.infer<typeof addressSchema>
+export type DefendantDetail = z.infer<typeof defendantDetailSchema>
+export type HearingDefendant = z.infer<typeof hearingDefendantSchema>
+export type Result = z.infer<typeof resultSchema>
+export type OrganisationUnit = z.infer<typeof organisationUnitSchema>
+export type Urgent = z.infer<typeof urgentSchema>
+export type CriminalProsecutionReference = z.infer<typeof criminalProsecutionReferenceSchema>
+export type Duration = z.infer<typeof durationSchema>
+export type DefendantOrOffender = z.infer<typeof defendantOrOffenderSchema>
+export type ResultQualifierVariable = z.infer<typeof resultQualifierVariableSchema>
+export type DateSpecifiedInResult = z.infer<typeof dateSpecifiedInResultSchema>
+export type NumberSpecifiedInResult = z.infer<typeof numberSpecifiedInResultSchema>
+export type AmountSpecifiedInResult = z.infer<typeof amountSpecifiedInResultSchema>

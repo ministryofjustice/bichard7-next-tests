@@ -1,21 +1,21 @@
-const { XMLParser } = require("fast-xml-parser");
-const fs = require("fs");
+const { XMLParser } = require("fast-xml-parser")
+const fs = require("fs")
 
-const parser = new XMLParser({ ignoreAttributes: false });
+const parser = new XMLParser({ ignoreAttributes: false })
 
-const filePath = process.argv[process.argv.length - 1];
-console.log(filePath);
-const xmlData = fs.readFileSync(filePath);
-const parsed = parser.parse(xmlData);
+const filePath = process.argv[process.argv.length - 1]
+console.log(filePath)
+const xmlData = fs.readFileSync(filePath)
+const parsed = parser.parse(xmlData)
 
-const forceStationCode = parsed.CXE01.FSC["@_FSCode"];
-const prosecutorRef = "000000X";
-const personFamilyName = parsed.CXE01.IDS["@_Checkname"].padEnd(12, " ");
-console.log(JSON.stringify(parsed, null, 2));
+const forceStationCode = parsed.CXE01.FSC["@_FSCode"]
+const prosecutorRef = "000000X"
+const personFamilyName = parsed.CXE01.IDS["@_Checkname"].padEnd(12, " ")
+console.log(JSON.stringify(parsed, null, 2))
 
-const toArray = (input) => (Array.isArray(input) ? input : [input]);
+const toArray = (input) => (Array.isArray(input) ? input : [input])
 
-const courtCases = toArray(parsed.CXE01.CourtCases.CourtCase);
+const courtCases = toArray(parsed.CXE01.CourtCases.CourtCase)
 
 const cofString = courtCases
   .map((courtCase) =>
@@ -31,7 +31,7 @@ const cofString = courtCases
     )
   )
   .flat()
-  .join("\n");
+  .join("\n")
 
 console.log(`<?XML VERSION="1.0" STANDALONE="YES"?>
 <CXE01>
@@ -43,4 +43,4 @@ console.log(`<?XML VERSION="1.0" STANDALONE="YES"?>
     ${cofString}
   </ASI>
   <GMT>000008073ENQR004540S</GMT>
-</CXE01>`);
+</CXE01>`)

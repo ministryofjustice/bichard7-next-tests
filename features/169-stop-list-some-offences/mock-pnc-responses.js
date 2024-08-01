@@ -1,4 +1,4 @@
-const { mockEnquiryFromNCM, mockUpdate } = require("../../utils/pncMocks");
+const { mockEnquiryFromNCM, mockUpdate } = require("../../utils/pncMocks")
 
 module.exports = (ncm, world = {}) => [
   mockEnquiryFromNCM(ncm, world),
@@ -6,4 +6,4 @@ module.exports = (ncm, world = {}) => [
     expectedRequest:
       "<FSC>K01YZ</FSC><IDS>K00/410915F MUMM-RA                 </IDS><CCR>K97/1626/8395Q                 </CCR><COU>I2576                                                                       MUMM-RA/TERRY                                         260920110000</COU><CCH>K001              HI71001 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I1002M12                   00                                                                            </DIS><ASR>K11/01ZD/01/410915F                    </ASR><ACH>I                                                                                                                                            TH68151                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     NKINGSTON HIGH STREET                                                                                                                                                                                                                   01ZD17112010                </ACH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I1015            0000100.0000                                                                            </DIS>"
   })
-];
+]

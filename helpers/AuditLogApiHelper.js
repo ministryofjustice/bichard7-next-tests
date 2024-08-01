@@ -1,19 +1,19 @@
-const axios = require("axios");
-const uuid = require("uuid").v4;
+const axios = require("axios")
+const uuid = require("uuid").v4
 
 class AuditLogApiHelper {
   constructor({ apiUrl, apiKey }) {
-    this.apiUrl = apiUrl;
-    this.apiKey = apiKey;
+    this.apiUrl = apiUrl
+    this.apiKey = apiKey
   }
 
   async getMessageByExternalCorrelationId(externalCorrelationId) {
     const response = await axios.get(`${this.apiUrl}/messages?externalCorrelationId=${externalCorrelationId}`, {
       headers: { "X-API-Key": this.apiKey },
       validateStatus: undefined
-    });
+    })
 
-    return response.data && response.data.length > 0 ? response.data[0] : undefined;
+    return response.data && response.data.length > 0 ? response.data[0] : undefined
   }
 
   createAuditLogMessage(correlationId) {
@@ -38,8 +38,8 @@ class AuditLogApiHelper {
           "X-Api-Key": this.apiKey
         }
       }
-    );
+    )
   }
 }
 
-module.exports = AuditLogApiHelper;
+module.exports = AuditLogApiHelper

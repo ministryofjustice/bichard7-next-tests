@@ -1,12 +1,12 @@
-const fs = require("fs");
-const { randomUUID } = require("crypto");
-const { organisationUnit } = require("@moj-bichard7-developers/bichard7-next-data");
-const { fakerEN_GB: faker } = require("@faker-js/faker");
-const MockPNCHelper = require("../helpers/MockPNCHelper");
-const IncomingMessageBucket = require("../helpers/IncomingMessageBucket");
-const defaults = require("../utils/defaults");
-const { mockUpdate } = require("../utils/pncMocks");
-const { ASN } = require("../utils/asn");
+const fs = require("fs")
+const { randomUUID } = require("crypto")
+const { organisationUnit } = require("@moj-bichard7-developers/bichard7-next-data")
+const { fakerEN_GB: faker } = require("@faker-js/faker")
+const MockPNCHelper = require("../helpers/MockPNCHelper")
+const IncomingMessageBucket = require("../helpers/IncomingMessageBucket")
+const defaults = require("../utils/defaults")
+const { mockUpdate } = require("../utils/pncMocks")
+const { ASN } = require("../utils/asn")
 
 // Process:
 // - find a record in the DB that matches your criteria (e.g. specific trigger)
@@ -16,54 +16,54 @@ const { ASN } = require("../utils/asn");
 // - Grab the original incoming message
 // - Anonymise it and make the PNC message match
 
-const { REPEAT_SCENARIOS = 1, DEPLOY_NAME } = process.env;
+const { REPEAT_SCENARIOS = 1, DEPLOY_NAME } = process.env
 
 if (DEPLOY_NAME !== "uat") {
-  console.error("Not running in uat environment, bailing out. Set DEPLOY_NAME='uat' if you're sure.");
-  process.exit(1);
+  console.error("Not running in uat environment, bailing out. Set DEPLOY_NAME='uat' if you're sure.")
+  process.exit(1)
 }
 
 const pnc = new MockPNCHelper({
   host: process.env.PNC_HOST || defaults.pncHost,
   port: process.env.PNC_PORT || defaults.pncPort
-});
+})
 
 const incomingMessageBucket = new IncomingMessageBucket({
   url: process.env.AWS_URL,
   region: process.env.S3_REGION || defaults.awsRegion,
   incomingMessageBucketName: process.env.S3_INCOMING_MESSAGE_BUCKET || defaults.incomingMessageBucket
-});
+})
 
-const SCENARIO_PATH = "./scripts/uat-data/";
+const SCENARIO_PATH = "./scripts/uat-data/"
 
-const scenarios = fs.readdirSync(SCENARIO_PATH).filter((scenario) => scenario !== "README.md");
+const scenarios = fs.readdirSync(SCENARIO_PATH).filter((scenario) => scenario !== "README.md")
 
-console.log(`Seeding bichard with ${scenarios.length * REPEAT_SCENARIOS} cases`);
+console.log(`Seeding bichard with ${scenarios.length * REPEAT_SCENARIOS} cases`)
 
-const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"];
+const mockUpdateCodes = ["CXU01", "CXU02", "CXU03", "CXU04", "CXU05", "CXU06", "CXU07"]
 
-const magistrateCourts = organisationUnit.filter((unit) => unit.topLevelCode === "B" && unit.secondLevelCode === "01");
+const magistrateCourts = organisationUnit.filter((unit) => unit.topLevelCode === "B" && unit.secondLevelCode === "01")
 
-let asnCounter = 100000;
+let asnCounter = 100000
 
 const seedScenario = async (scenario) => {
-  const court = magistrateCourts[Math.floor(Math.random() * magistrateCourts.length)];
-  const courtCode = `${court.topLevelCode}${court.secondLevelCode}${court.thirdLevelCode}${court.bottomLevelCode}`;
-  asnCounter += 1;
-  const asn = new ASN(`2100000000000${asnCounter.toString().padStart(6, "0")}`).toString();
-  const ptiurn = `01XX${faker.string.numeric({ length: 7 })}`;
-  const givenName = faker.person.firstName().toUpperCase();
-  const familyName = faker.person.lastName().toUpperCase();
+  const court = magistrateCourts[Math.floor(Math.random() * magistrateCourts.length)]
+  const courtCode = `${court.topLevelCode}${court.secondLevelCode}${court.thirdLevelCode}${court.bottomLevelCode}`
+  asnCounter += 1
+  const asn = new ASN(`2100000000000${asnCounter.toString().padStart(6, "0")}`).toString()
+  const ptiurn = `01XX${faker.string.numeric({ length: 7 })}`
+  const givenName = faker.person.firstName().toUpperCase()
+  const familyName = faker.person.lastName().toUpperCase()
 
   const offenceLocation =
-    `${faker.location.streetAddress()}, ${faker.location.city()}, ${faker.location.zipCode()}`.slice(0, 80);
+    `${faker.location.streetAddress()}, ${faker.location.city()}, ${faker.location.zipCode()}`.slice(0, 80)
 
   const pncData = fs
     .readFileSync(`${SCENARIO_PATH}${scenario}/pnc-data.xml`)
     .toString()
-    .replace(/FAMILY_NAME/g, familyName.padEnd(24, " "));
+    .replace(/FAMILY_NAME/g, familyName.padEnd(24, " "))
 
-  await pnc.addMock(`CXE01.*${asn.slice(-7)}`, pncData);
+  await pnc.addMock(`CXE01.*${asn.slice(-7)}`, pncData)
 
   const incomingMessage = fs
     .readFileSync(`${SCENARIO_PATH}${scenario}/incoming-message.xml`)
@@ -84,34 +84,34 @@ const seedScenario = async (scenario) => {
     .replace(/OFFENCE_LOCATION/g, offenceLocation)
     .replace(/DATE_OF_HEARING/g, new Date().toISOString().split("T")[0])
     .replace(/VICTIM_\d+/g, faker.person.fullName().toUpperCase())
-    .replace(/SUP3R F8ST/, faker.vehicle.vrm());
+    .replace(/SUP3R F8ST/, faker.vehicle.vrm())
 
-  const s3Path = await incomingMessageBucket.upload(incomingMessage, randomUUID());
+  const s3Path = await incomingMessageBucket.upload(incomingMessage, randomUUID())
   console.log({
     scenario,
     asn,
     ptiurn,
     s3Path
-  });
-};
+  })
+}
 
 const updatePncEmulator = async () => {
-  await pnc.clearMocks();
+  await pnc.clearMocks()
 
   await Promise.all(
     mockUpdateCodes.map((code) => {
-      const updateData = mockUpdate(code);
-      return pnc.addMock(updateData.matchRegex, updateData.response);
+      const updateData = mockUpdate(code)
+      return pnc.addMock(updateData.matchRegex, updateData.response)
     })
-  );
-};
+  )
+}
 
-(async () => {
-  await updatePncEmulator();
+;(async () => {
+  await updatePncEmulator()
 
   for (let i = 0; i < REPEAT_SCENARIOS; i += 1) {
-    console.log(`seeding batch ${i + 1}`);
+    console.log(`seeding batch ${i + 1}`)
     // eslint-disable-next-line no-await-in-loop
-    await Promise.all(scenarios.map(seedScenario));
+    await Promise.all(scenarios.map(seedScenario))
   }
-})();
+})()

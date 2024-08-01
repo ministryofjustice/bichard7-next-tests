@@ -1,24 +1,24 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import generateMessage from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("HO100245", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it.ifNewBichard("should be raised if the result text is too long", async () => {
     const inputMessage = generateMessage({
       offences: [{ results: [{ text: "X".repeat(2501) }] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -35,6 +35,6 @@ describe("HO100245", () => {
           "ResultVariableText"
         ]
       }
-    ]);
-  });
-});
+    ])
+  })
+})

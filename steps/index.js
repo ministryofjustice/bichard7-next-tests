@@ -1,8 +1,8 @@
-require("./hooks");
+require("./hooks")
 
-const { NEXTUI } = process.env;
+const { NEXTUI } = process.env
 if (NEXTUI === "true") {
-  require("./next-ui");
+  require("./next-ui")
 } else {
-  require("./legacy-ui");
+  require("./legacy-ui")
 }

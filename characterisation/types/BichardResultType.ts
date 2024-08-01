@@ -1,9 +1,9 @@
-import { AnnotatedHearingOutcome } from "./AnnotatedHearingOutcome";
-import type { Trigger } from "./Trigger";
+import type { AnnotatedHearingOutcome } from "./AnnotatedHearingOutcome"
+import type { Trigger } from "./Trigger"
 
 type BichardResultType = {
-  triggers: Trigger[];
-  hearingOutcome: AnnotatedHearingOutcome;
-};
+  triggers: Trigger[]
+  hearingOutcome: AnnotatedHearingOutcome
+}
 
-export default BichardResultType;
+export default BichardResultType

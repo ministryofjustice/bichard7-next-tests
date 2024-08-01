@@ -1,4 +1,4 @@
-const { mockUpdate } = require("../../utils/pncMocks");
+const { mockUpdate } = require("../../utils/pncMocks")
 
 module.exports = () => [
   {
@@ -524,4 +524,4 @@ module.exports = () => [
       "<DIS>I1015            0000100.0000                                                                            </DIS>",
     count: 1
   })
-];
+]

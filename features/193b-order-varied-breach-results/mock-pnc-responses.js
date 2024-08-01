@@ -1,4 +1,4 @@
-const { mockUpdate } = require("../../utils/pncMocks");
+const { mockUpdate } = require("../../utils/pncMocks")
 
 module.exports = () => [
   {
@@ -22,4 +22,4 @@ module.exports = () => [
       "<FSC>K01YZ</FSC><IDS>K21/18N     ORDERTOCONTI            </IDS><CCR>K21/2812/4H                    </CCR><COU>I2576                                                                       ORDERTOCONTINUETWO/STANDALONE                         261020090000</COU><CCH>K001              CJ03510 </CCH><ADJ>IGUILTY       GUILTY        261020090000 </ADJ><DIS>I1030                      00                                                                            </DIS>",
     count: 1
   })
-];
+]

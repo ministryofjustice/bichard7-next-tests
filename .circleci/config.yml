@@ -236,14 +236,14 @@ workflows:
           requires:
             - install_and_lint
       - test_e2e:
-          name: test_e2e_phase1-core
+          name: test_e2e_phase1_core
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3
           requires:
             - install_and_lint
       - test_e2e:
-          name: test_e2e_phase1-core_new_ui
+          name: test_e2e_phase1_core_new_ui
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3

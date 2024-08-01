@@ -1,17 +1,17 @@
-const uuidv4 = require("uuid").v4;
+const uuidv4 = require("uuid").v4
 
 const convertMessageToNewFormat = (message) => {
-  let resultedCaseMessage = message.match(/(<DC:ResultedCaseMessage[\s\S]*<\/DC:ResultedCaseMessage>)/)?.[0];
+  let resultedCaseMessage = message.match(/(<DC:ResultedCaseMessage[\s\S]*<\/DC:ResultedCaseMessage>)/)?.[0]
   if (!resultedCaseMessage) {
-    resultedCaseMessage = message.match(/(<ResultedCaseMessage[\s\S]*<\/ResultedCaseMessage>)/)?.[0];
+    resultedCaseMessage = message.match(/(<ResultedCaseMessage[\s\S]*<\/ResultedCaseMessage>)/)?.[0]
   }
 
-  resultedCaseMessage = `<!-- To avoid duplicate message hash: ${uuidv4()} -->${resultedCaseMessage}`;
-  resultedCaseMessage = resultedCaseMessage.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  resultedCaseMessage = `<!-- To avoid duplicate message hash: ${uuidv4()} -->${resultedCaseMessage}`
+  resultedCaseMessage = resultedCaseMessage.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
 
-  const externalCorrelationId = message.match(/<msg:MessageIdentifier>([\s\S]*)<\/msg:MessageIdentifier>/)[1]?.trim();
+  const externalCorrelationId = message.match(/<msg:MessageIdentifier>([\s\S]*)<\/msg:MessageIdentifier>/)[1]?.trim()
 
-  const result = `<?xml version="1.0" encoding="UTF-8"?>
+  return `<?xml version="1.0" encoding="UTF-8"?>
   <RouteData xmlns="http://schemas.cjse.gov.uk/common/operations" xmlns:cjseEntity="http://schemas.cjse.gov.uk/common/businessentities" xmlns:cjseType="http://schemas.cjse.gov.uk/common/businesstypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VersionNumber="1.0" RequestResponse="Request">
     <RequestFromSystem VersionNumber="1.0">
       <CorrelationID>
@@ -87,9 +87,7 @@ const convertMessageToNewFormat = (message) => {
             </Descriptor>
         </Route>
     </Routes>
-  </RouteData>`;
+  </RouteData>`
+}
 
-  return result;
-};
-
-module.exports = convertMessageToNewFormat;
+module.exports = convertMessageToNewFormat

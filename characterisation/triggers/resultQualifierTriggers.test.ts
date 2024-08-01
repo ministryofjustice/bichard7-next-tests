@@ -1,10 +1,10 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
-import { TriggerCode } from "../types/TriggerCode";
-import TriggerRecordable from "../types/TriggerRecordable";
+import World from "../../utils/world"
+import generateMessage from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
+import { TriggerCode } from "../types/TriggerCode"
+import TriggerRecordable from "../types/TriggerRecordable"
 
 const offenceTests = [
   {
@@ -19,12 +19,12 @@ const offenceTests = [
     resultQualifier: "LH",
     recordable: TriggerRecordable.Both
   }
-];
+]
 
 describe("Generic offence triggers", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   describe.each(offenceTests)("Testing result qualifier trigger $code", ({ code, resultCode, resultQualifier }) => {
     it("should generate a trigger correctly with single offences", async () => {
@@ -34,12 +34,12 @@ describe("Generic offence triggers", () => {
             results: [{ code: resultCode, qualifier: resultQualifier }]
           }
         ]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage);
+      const { triggers } = await processMessage(inputMessage)
 
-      expect(triggers).toStrictEqual([{ code }]);
-    });
+      expect(triggers).toStrictEqual([{ code }])
+    })
 
     it("should generate multiple triggers correctly with multiple offences", async () => {
       const inputMessage = generateMessage({
@@ -50,31 +50,31 @@ describe("Generic offence triggers", () => {
           { results: [{ code: 1015 }] },
           { results: [{ code: resultCode, qualifier: resultQualifier }] }
         ]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage);
+      const { triggers } = await processMessage(inputMessage)
 
-      expect(triggers).toStrictEqual([{ code }]);
-    });
+      expect(triggers).toStrictEqual([{ code }])
+    })
 
     it("should generate a trigger when record is not recordable", async () => {
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode, qualifier: resultQualifier }], recordable: false }]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage, { recordable: false });
+      const { triggers } = await processMessage(inputMessage, { recordable: false })
 
-      expect(triggers).toStrictEqual([{ code }]);
-    });
+      expect(triggers).toStrictEqual([{ code }])
+    })
 
     it("should generate a trigger when record is recordable", async () => {
       const inputMessage = generateMessage({
         offences: [{ results: [{ code: resultCode, qualifier: resultQualifier }] }]
-      });
+      })
 
-      const { triggers } = await processMessage(inputMessage);
+      const { triggers } = await processMessage(inputMessage)
 
-      expect(triggers).toStrictEqual([{ code }]);
-    });
-  });
-});
+      expect(triggers).toStrictEqual([{ code }])
+    })
+  })
+})

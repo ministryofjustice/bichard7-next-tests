@@ -1,92 +1,92 @@
 const retryDelay = async (condition, retryFunction, delay, attempts = 20) => {
-  let conditionMet = false;
-  let attemptsRemaining = attempts;
+  let conditionMet = false
+  let attemptsRemaining = attempts
 
   const wait = (ms) =>
     new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
+      setTimeout(resolve, ms)
+    })
 
   /* eslint-disable no-await-in-loop */
   while (!conditionMet && attemptsRemaining > 0) {
-    conditionMet = await condition();
+    conditionMet = await condition()
     if (!conditionMet) {
-      attemptsRemaining -= 1;
+      attemptsRemaining -= 1
       try {
-        await retryFunction();
-        await wait(delay);
+        await retryFunction()
+        await wait(delay)
       } catch (e) {
-        throw new Error(e);
+        throw new Error(e)
       }
     }
   }
-  return conditionMet;
+  return conditionMet
   /* eslint-enable no-await-in-loop */
-};
+}
 
-const reloadUntilSelector = async (page, selector, attempts) => {
-  const checkForSelector = async () => !!(await page.$(selector));
-
-  const reloadPage = async () => {
-    await page.reload();
-  };
-
-  return retryDelay(checkForSelector, reloadPage, 1000, attempts);
-};
-
-const reloadUntilXPathSelector = async (page, selector, attempts) => {
-  const checkForSelector = async () => (await page.$$(selector)).length > 0;
+const reloadUntilSelector = (page, selector, attempts) => {
+  const checkForSelector = async () => !!(await page.$(selector))
 
   const reloadPage = async () => {
-    await page.reload();
-  };
+    await page.reload()
+  }
 
-  return retryDelay(checkForSelector, reloadPage, 1000, attempts);
-};
+  return retryDelay(checkForSelector, reloadPage, 1000, attempts)
+}
 
-const reloadUntilContent = async (page, content) => {
-  const checkForContent = async () => !!(await page.evaluate(() => document.body.innerText)).includes(content);
+const reloadUntilXPathSelector = (page, selector, attempts) => {
+  const checkForSelector = async () => (await page.$$(selector)).length > 0
 
   const reloadPage = async () => {
-    await page.reload();
-  };
+    await page.reload()
+  }
 
-  return retryDelay(checkForContent, reloadPage, 1000);
-};
+  return retryDelay(checkForSelector, reloadPage, 1000, attempts)
+}
 
-const reloadUntilContentInSelector = async (page, content, selector) => {
+const reloadUntilContent = (page, content) => {
+  const checkForContent = async () => !!(await page.evaluate(() => document.body.innerText)).includes(content)
+
+  const reloadPage = async () => {
+    await page.reload()
+  }
+
+  return retryDelay(checkForContent, reloadPage, 1000)
+}
+
+const reloadUntilContentInSelector = (page, content, selector) => {
   const checkForContent = async () =>
     !!(await page.evaluate(
       (cont, sel) => [...document.querySelectorAll(sel)].map((s) => s.innerText).some((el) => el.includes(cont)),
       content,
       selector
-    ));
+    ))
 
   const reloadPage = async () => {
-    await page.reload();
-  };
+    await page.reload()
+  }
 
-  return retryDelay(checkForContent, reloadPage, 1000);
-};
+  return retryDelay(checkForContent, reloadPage, 1000)
+}
 
-const reloadUntilNotContent = async (page, content) => {
-  const checkForContent = async () => !(await page.evaluate(() => document.body.innerText)).includes(content);
+const reloadUntilNotContent = (page, content) => {
+  const checkForContent = async () => !(await page.evaluate(() => document.body.innerText)).includes(content)
 
   const reloadPage = async () => {
-    await page.reload();
-  };
+    await page.reload()
+  }
 
-  return retryDelay(checkForContent, reloadPage, 1000);
-};
+  return retryDelay(checkForContent, reloadPage, 1000)
+}
 
 const waitForRecord = async (page, reloadAttempts) => {
-  await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link", reloadAttempts);
-};
+  await reloadUntilSelector(page, ".resultsTable a.br7_exception_list_record_table_link", reloadAttempts)
+}
 
 const delay = (seconds) =>
   new Promise((resolve) => {
-    setTimeout(resolve, seconds * 1000);
-  });
+    setTimeout(resolve, seconds * 1000)
+  })
 
 module.exports = {
   delay,
@@ -97,4 +97,4 @@ module.exports = {
   reloadUntilContent,
   reloadUntilContentInSelector,
   reloadUntilNotContent
-};
+}
