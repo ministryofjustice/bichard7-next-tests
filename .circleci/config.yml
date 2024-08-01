@@ -130,7 +130,7 @@ commands:
 #################################################################################
 
 jobs:
-  build:
+  install_and_lint:
     machine:
       image: ubuntu-2204:current
     resource_class: xlarge
@@ -142,6 +142,7 @@ jobs:
       - set_locale
       - node/install-packages:
           app-dir: ~/bichard7-next-core
+      - run: npm run lint
       - persist_to_workspace:
           root: ~/
           paths: .
@@ -219,52 +220,52 @@ jobs:
 workflows:
   deploy:
     jobs:
-      - build
+      - install_and_lint
       - test_e2e:
-          name: test-e2e-legacy
+          name: test_e2e_legacy
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
           requires:
-            - build
+            - install_and_lint
       - test_e2e:
-          name: test-e2e-legacy-new-ui
+          name: test_e2e_legacy_new_ui
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
           requires:
-            - build
+            - install_and_lint
       - test_e2e:
-          name: test-e2e-phase1-core
+          name: test_e2e_phase1-core
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3
           requires:
-            - build
+            - install_and_lint
       - test_e2e:
-          name: test-e2e-phase1-core-new-ui
+          name: test_e2e_phase1-core_new_ui
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3
           requires:
-            - build
+            - install_and_lint
       - test_e2e:
-          name: test-e2e-phase2-core
+          name: test_e2e_phase2_core
           next-ui: false
           phase2-core-canary-ratio: "1.0"
           message-entry-point: s3
           requires:
-            - build
+            - install_and_lint
       - test_e2e:
-          name: test-e2e-phase2-core-new-ui
+          name: test_e2e_phase2_core_new_ui
           next-ui: true
           phase2-core-canary-ratio: "1.0"
           message-entry-point: s3
           requires:
-            - build
+            - install_and_lint
       - test_characterisation_legacy:
           requires:
-            - build
+            - install_and_lint
       - test_characterisation_core:
           requires:
-            - build
+            - install_and_lint
