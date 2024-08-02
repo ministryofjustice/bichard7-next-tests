@@ -17,6 +17,15 @@ const waitForRecord = (name, page, reloadAttempts) => {
 
 const convertFieldToHtml = (field) => field.toLowerCase().replaceAll(" ", "-")
 
+const resetFilters = async function (browser) {
+  await browser.clickAndWait("#clear-filters")
+}
+
+// This function needs to wrap the resetFilters fuction to work if it's being called from UI Steps
+const clearFilters = async function () {
+  await resetFilters(this.browser)
+}
+
 const filterByRecordName = async function (world) {
   const name = world.getRecordName()
   const searchField = "input[name='defendantName']"
@@ -199,6 +208,11 @@ const canSeeContentInTable = async function (value) {
   expect(found).toBeTruthy()
 }
 
+const cannotSeeContentInTable = async function (value) {
+  const found = await reloadUntilContentInSelector(this.browser.page, value, "table.cases-list > tbody", 2)
+  expect(found).toBeFalsy()
+}
+
 const canSeeContentInTableForThis = async function (value) {
   await filterByRecordName(this)
 
@@ -227,8 +241,7 @@ const noExceptionPresentForOffender = async function (name) {
   )
   expect(noCasesMessageMatch.length).toEqual(1)
 
-  // Reset filters
-  await this.browser.clickAndWait("#clear-filters")
+  await resetFilters(this.browser)
 }
 
 const markTriggersComplete = async function (world) {
@@ -370,8 +383,7 @@ const noTriggersPresentForOffender = async function (name) {
   )
   expect(noCasesMessageMatch.length).toEqual(1)
 
-  // Reset filters
-  await this.browser.clickAndWait("#clear-filters")
+  await resetFilters(this.browser)
 }
 
 const correctOffence = async (page, fieldHtml, newValue) => {
@@ -544,7 +556,7 @@ const checkRecordStatus = async function (recordType, recordName, resolvedType) 
   await Promise.all([filterRecords(this, resolvedType, recordType), page.waitForNavigation()])
   expect(await this.browser.elementText("table.cases-list")).toMatch(recordName)
 
-  await this.browser.clickAndWait("#clear-filters")
+  await resetFilters(this.browser)
 
   await page.waitForFunction(() => !document.querySelector("#clear-filters"), { polling: "mutation" })
 }
@@ -622,6 +634,14 @@ const seeError = async function (errorMessage) {
   await page.$$(`xpath/.//div[@class = "error-message"]//*[text() = "${errorMessage}"]`)
 }
 
+const filter = async function (fieldName, value) {
+  const { page } = this.browser
+  const fieldNameId = `#${fieldName}`
+
+  await page.focus(fieldNameId)
+  await page.keyboard.type(value, { delay: 100 })
+}
+
 module.exports = {
   checkNoPncErrors,
   findRecordFor,
@@ -629,6 +649,7 @@ module.exports = {
   openRecordFor,
   reallocateCaseToForce,
   canSeeContentInTable,
+  cannotSeeContentInTable,
   canSeeContentInTableForThis,
   cannotSeeTrigger,
   noExceptionPresentForOffender,
@@ -682,5 +703,7 @@ module.exports = {
   goToExceptionPage,
   reload,
   removeYear,
-  seeError
+  seeError,
+  filter,
+  clearFilters
 }

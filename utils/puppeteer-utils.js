@@ -54,7 +54,7 @@ const reloadUntilContent = (page, content) => {
   return retryDelay(checkForContent, reloadPage, 1000)
 }
 
-const reloadUntilContentInSelector = (page, content, selector) => {
+const reloadUntilContentInSelector = (page, content, selector, attempts = 20) => {
   const checkForContent = async () =>
     !!(await page.evaluate(
       (cont, sel) => [...document.querySelectorAll(sel)].map((s) => s.innerText).some((el) => el.includes(cont)),
@@ -66,7 +66,7 @@ const reloadUntilContentInSelector = (page, content, selector) => {
     await page.reload()
   }
 
-  return retryDelay(checkForContent, reloadPage, 1000)
+  return retryDelay(checkForContent, reloadPage, 1000, attempts)
 }
 
 const reloadUntilNotContent = (page, content) => {
