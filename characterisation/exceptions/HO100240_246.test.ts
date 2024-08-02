@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 
 const expectedExceptions = [
   {
@@ -47,7 +47,7 @@ describe("HO100240 and HO100246", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 
@@ -62,7 +62,7 @@ describe("HO100240 and HO100246", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 

@@ -2,7 +2,7 @@ jest.setTimeout(20000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 import TriggerRecordable from "../types/TriggerRecordable"
 
@@ -45,7 +45,7 @@ describe("Generic offence triggers", () => {
         offences: [{ results: [{ code: resultCode }] }]
       })
 
-      const { triggers } = await processMessage(inputMessage)
+      const { triggers } = await processPhase1Message(inputMessage)
 
       expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
     })
@@ -59,7 +59,7 @@ describe("Generic offence triggers", () => {
         ]
       })
 
-      const { triggers } = await processMessage(inputMessage)
+      const { triggers } = await processPhase1Message(inputMessage)
 
       expect(triggers).toStrictEqual([
         { code, offenceSequenceNumber: 1 },
@@ -72,7 +72,7 @@ describe("Generic offence triggers", () => {
         offences: [{ results: [{ code: resultCode }] }]
       })
 
-      const { triggers } = await processMessage(inputMessage)
+      const { triggers } = await processPhase1Message(inputMessage)
 
       expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
     })

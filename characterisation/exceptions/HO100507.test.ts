@@ -1,6 +1,6 @@
 import { generateSpiMessage } from "../helpers/generateMessage"
 import World from "../../utils/world"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 
 jest.setTimeout(30000)
 
@@ -23,7 +23,7 @@ describe("HO100507", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false,
       recordable: true,
       pncCaseType: "penalty",

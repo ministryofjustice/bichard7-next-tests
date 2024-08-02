@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
 const trigger5ResultCode = 4012
@@ -19,7 +19,7 @@ describe("TRPR0027", () => {
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0027 }])
   })
@@ -31,7 +31,7 @@ describe("TRPR0027", () => {
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0005 }])
   })

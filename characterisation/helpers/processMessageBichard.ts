@@ -4,7 +4,6 @@ import type ActiveMqHelper from "../../helpers/ActiveMqHelper"
 import type PostgresHelper from "../../helpers/PostgresHelper"
 import World from "../../utils/world"
 import type { AnnotatedHearingOutcome } from "../types/AnnotatedHearingOutcome"
-import type BichardPhase1ResultType from "../types/BichardPhase1ResultType"
 import extractExceptionsFromAho from "./extractExceptionsFromAho"
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc"
 import type { ProcessMessageOptions } from "./processMessage"
@@ -18,7 +17,7 @@ const { pg } = world.db as PostgresHelper
 const mq = world.mq as ActiveMqHelper
 const realPnc = process.env.REAL_PNC === "true"
 
-const processMessageBichard = async (
+const processMessageBichard = async <BichardResultType>(
   messageXml: string,
   {
     expectRecord = true,
@@ -30,7 +29,7 @@ const processMessageBichard = async (
     pncAdjudication = false,
     phase = Phase.HEARING_OUTCOME
   }: ProcessMessageOptions
-): Promise<BichardPhase1ResultType> => {
+): Promise<BichardResultType> => {
   const correlationId = uuid()
   const messageXmlWithUuid = messageXml.replace("EXTERNAL_CORRELATION_ID", correlationId)
 
@@ -92,9 +91,11 @@ const processMessageBichard = async (
     ...(record.trigger_item_identity ? { offenceSequenceNumber: parseInt(record.trigger_item_identity, 10) } : {})
   }))
 
-  const hearingOutcome = { Exceptions: exceptions } as AnnotatedHearingOutcome
+  if (phase === Phase.HEARING_OUTCOME) {
+    return { triggers, hearingOutcome: { Exceptions: exceptions } as AnnotatedHearingOutcome } as BichardResultType
+  }
 
-  return { triggers, hearingOutcome }
+  return { triggers, outputMessage: { Exceptions: exceptions } as AnnotatedHearingOutcome } as BichardResultType
 }
 
 export default processMessageBichard

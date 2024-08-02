@@ -3,7 +3,7 @@ jest.setTimeout(30000)
 import World from "../../utils/world"
 import { lookupOffenceByCjsCode } from "../helpers/dataLookup"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 
 describe("HO100233", () => {
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe("HO100233", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 
@@ -58,7 +58,7 @@ describe("HO100233", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 
@@ -88,7 +88,7 @@ describe("HO100233", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 

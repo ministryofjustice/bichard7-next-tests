@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 import { SpiVerdict } from "../types/Verdict"
 
@@ -24,7 +24,7 @@ describe("TRPR0004", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
@@ -40,7 +40,7 @@ describe("TRPR0004", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })
@@ -57,7 +57,7 @@ describe("TRPR0004", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([
       { code, offenceSequenceNumber: 1 },
@@ -76,7 +76,7 @@ describe("TRPR0004", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
 
     expect(triggers).toHaveLength(0)
   })
@@ -91,7 +91,7 @@ describe("TRPR0004", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
 
     expect(triggers).toHaveLength(0)
   })
@@ -105,7 +105,7 @@ describe("TRPR0004", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([
       { code, offenceSequenceNumber: 1 },
@@ -118,7 +118,7 @@ describe("TRPR0004", () => {
       offences: [{ results: [{ code: matchingResultCode }], recordable: false }]
     })
 
-    const { triggers } = await processMessage(inputMessage, { recordable: false })
+    const { triggers } = await processPhase1Message(inputMessage, { recordable: false })
 
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
   })

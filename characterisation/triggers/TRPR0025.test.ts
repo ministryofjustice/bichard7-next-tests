@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
 const code = TriggerCode.TRPR0025
@@ -24,7 +24,7 @@ describe("TRPR0025", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([{ code }])
   })
@@ -39,7 +39,7 @@ describe("TRPR0025", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage, { expectTriggers: false, expectRecord: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
 
     expect(triggers).toHaveLength(0)
   })
@@ -53,7 +53,7 @@ describe("TRPR0025", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage, { expectTriggers: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false })
 
     expect(triggers).toHaveLength(0)
   })
@@ -72,7 +72,7 @@ describe("TRPR0025", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage)
+    const { triggers } = await processPhase1Message(inputMessage)
 
     expect(triggers).toStrictEqual([{ code }])
   })
@@ -88,7 +88,7 @@ describe("TRPR0025", () => {
       ]
     })
 
-    const { triggers } = await processMessage(inputMessage, { recordable: false })
+    const { triggers } = await processPhase1Message(inputMessage, { recordable: false })
 
     expect(triggers).toStrictEqual([{ code }])
   })
