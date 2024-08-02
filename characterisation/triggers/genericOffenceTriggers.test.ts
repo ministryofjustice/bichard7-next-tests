@@ -1,7 +1,7 @@
 jest.setTimeout(20000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 import TriggerRecordable from "../types/TriggerRecordable"
@@ -41,7 +41,7 @@ describe("Generic offence triggers", () => {
 
   describe.each(offenceTests)("Testing generic trigger $code", ({ code, resultCode }) => {
     it("should generate a trigger correctly with single offences", async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [{ results: [{ code: resultCode }] }]
       })
 
@@ -51,7 +51,7 @@ describe("Generic offence triggers", () => {
     })
 
     it("should generate multiple triggers correctly with multiple offences", async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [
           { results: [{ code: resultCode }] },
           { results: [{ code: 1015 }] },
@@ -68,7 +68,7 @@ describe("Generic offence triggers", () => {
     })
 
     it("should generate a trigger when record is recordable", async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [{ results: [{ code: resultCode }] }]
       })
 

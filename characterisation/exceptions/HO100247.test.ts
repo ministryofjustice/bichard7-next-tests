@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100247", () => {
@@ -10,7 +10,7 @@ describe("HO100247", () => {
   })
 
   it.ifNewBichard("should be raised if the result qualifier code is too short", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ qualifier: "" }] }]
     })
 
@@ -39,7 +39,7 @@ describe("HO100247", () => {
   })
 
   it.ifNewBichard("should be raised if the result qualifier code is too long", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ qualifier: "XXX" }] }]
     })
 

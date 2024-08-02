@@ -15,9 +15,10 @@ const processMessageCore = async (
     phase = Phase.HEARING_OUTCOME
   }: ProcessMessageOptions
 ): Promise<BichardResultType> => {
-  const pncQueryResult = recordable
-    ? generateMockPncQueryResult(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
-    : undefined
+  const pncQueryResult =
+    phase === Phase.HEARING_OUTCOME && recordable
+      ? generateMockPncQueryResult(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
+      : undefined
   const requestBody = {
     inputMessage: messageXml,
     pncQueryResult,

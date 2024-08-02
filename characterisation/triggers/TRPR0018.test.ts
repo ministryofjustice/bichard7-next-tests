@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
 import { TriggerCode } from "../types/TriggerCode"
@@ -52,7 +52,7 @@ describe("TRPR0018", () => {
     ${"2022-02-28"} | ${undefined}    | ${"2022-02-28"} | ${"2022-03-02"} | ${"offence end date is missing and offence start date is the same as PNC start date"}
     ${"2022-02-28"} | ${"2022-03-01"} | ${"2022-02-27"} | ${undefined}    | ${"PNC end date is missing and offence start date is after the PNC start date"}
   `("should generate trigger when $description", async ({ offenceStart, offenceEnd, pncStart, pncEnd }) => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           startDate: new Date(offenceStart),
@@ -72,7 +72,7 @@ describe("TRPR0018", () => {
   })
 
   it("should generate multiple triggers for multiple matching offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           startDate: new Date("2021-02-28"),
@@ -106,7 +106,7 @@ describe("TRPR0018", () => {
   })
 
   it("should not generate triggers when the start dates match and offence end date and pnc end date is missing", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           startDate: new Date("2021-02-28"),
@@ -130,7 +130,7 @@ describe("TRPR0018", () => {
   })
 
   it("should not generate triggers when all of the dates match", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           startDate: new Date("2021-01-28"),
@@ -154,7 +154,7 @@ describe("TRPR0018", () => {
   })
 
   it("should not generate triggers when all of the dates are the same", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           startDate: new Date("2021-02-28"),

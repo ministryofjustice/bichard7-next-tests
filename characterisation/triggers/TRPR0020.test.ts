@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 import { SpiVerdict } from "../types/Verdict"
@@ -16,7 +16,7 @@ describe("TRPR0020", () => {
   })
 
   it("should generate a single case trigger for a single offence with the triggers's result code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: resultCode }]
@@ -30,7 +30,7 @@ describe("TRPR0020", () => {
   })
 
   it("should generate a single case trigger for a single offence with the triggers's offence code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,
@@ -46,7 +46,7 @@ describe("TRPR0020", () => {
   })
 
   it("should generate triggers for multiple matching offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: "MC80515",
@@ -81,7 +81,7 @@ describe("TRPR0020", () => {
   })
 
   it("should not generate trigger for matching offence code when not guilty", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,
@@ -97,7 +97,7 @@ describe("TRPR0020", () => {
   })
 
   it("should not generate trigger for matching offence code when result is not final", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,
@@ -113,7 +113,7 @@ describe("TRPR0020", () => {
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,

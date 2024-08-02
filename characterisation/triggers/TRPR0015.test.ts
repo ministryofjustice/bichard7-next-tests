@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -16,7 +16,7 @@ describe("TRPR0015", () => {
   })
 
   it("should generate a case level trigger if another trigger is generated when the case is recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: resultCode }] }, { results: [{ code: otherResultCode }] }]
     })
 
@@ -30,7 +30,7 @@ describe("TRPR0015", () => {
   })
 
   it("should generate a case level trigger if another trigger is not generated when the case is recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: resultCode }] }]
     })
 
@@ -44,7 +44,7 @@ describe("TRPR0015", () => {
   })
 
   it("should generate a case level trigger if another trigger is generated when the case is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         { results: [{ code: resultCode }], recordable: false },
         { results: [{ code: otherResultCode }], recordable: false }
@@ -61,7 +61,7 @@ describe("TRPR0015", () => {
   })
 
   it("should not generate a case level trigger if another trigger is not generated when the case is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: resultCode }], recordable: false }]
     })
 

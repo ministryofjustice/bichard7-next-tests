@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -14,7 +14,7 @@ describe("TRPR0030", () => {
   })
 
   it("should generate a trigger correctly with single non-recordable offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ code: offenceCode, results: [{ code: 1015 }], recordable: false }]
     })
 
@@ -24,7 +24,7 @@ describe("TRPR0030", () => {
   })
 
   it("should generate a single case level trigger with multiple non-recordable offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         { code: offenceCode, results: [{ code: 1015 }], recordable: false },
         { code: offenceCode, results: [{ code: 1015 }], recordable: false },
@@ -38,7 +38,7 @@ describe("TRPR0030", () => {
   })
 
   it("should not generate a trigger when record is recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ code: offenceCode, results: [{ code: 1015 }] }]
     })
 

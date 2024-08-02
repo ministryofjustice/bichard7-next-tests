@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100306", () => {
@@ -10,7 +10,7 @@ describe("HO100306", () => {
   })
 
   it("should not create an exception for a valid offence code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ code: "MC80524", results: [{ code: 4584 }] }]
     })
 
@@ -24,7 +24,7 @@ describe("HO100306", () => {
   })
 
   it("should create an exception if the offence code lookup fails and offence is not ignored", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], code: "BLAHHHHH" }]
     })
 

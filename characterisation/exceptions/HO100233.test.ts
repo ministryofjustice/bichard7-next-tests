@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { lookupOffenceByCjsCode } from "../helpers/dataLookup"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100233", () => {
@@ -26,7 +26,7 @@ describe("HO100233", () => {
       notifiableToHo: true
     })
 
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 4584 }] }]
     })
 
@@ -52,7 +52,7 @@ describe("HO100233", () => {
       notifiableToHo: true
     })
 
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }] }]
     })
 
@@ -82,7 +82,7 @@ describe("HO100233", () => {
       notifiableToHo: true
     }))
 
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }] }]
     })
 

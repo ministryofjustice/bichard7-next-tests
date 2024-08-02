@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100206", () => {
@@ -9,7 +9,7 @@ describe("HO100206", () => {
     await new World({}).db.closeConnection()
   })
   it("should be raised if the ASN is in an incorrect format", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       ASN: "ABCDEFG1234567Q",
       offences: [{ results: [{}] }]
     })
@@ -29,7 +29,7 @@ describe("HO100206", () => {
   })
 
   it("should be raised if the ASN has an incorrect check character", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       ASN: "1101ZD0100000448754Z",
       offences: [{ results: [{}] }]
     })

@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100213", () => {
@@ -10,7 +10,7 @@ describe("HO100213", () => {
   })
 
   it.ifNewBichard("should create an exception if the Person's given name 1 is too many characters", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       person: { givenName1: "X".repeat(36) },
       offences: [{ results: [] }]
     })
@@ -39,7 +39,7 @@ describe("HO100213", () => {
   })
 
   it.ifNewBichard("should create an exception if the Person's given name 2 is too many characters", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       person: { givenName1: "one", givenName2: "X".repeat(36) },
       offences: [{ results: [] }]
     })
@@ -68,7 +68,7 @@ describe("HO100213", () => {
   })
 
   it.ifNewBichard("should create an exception if the Person's given name 3 is too many characters", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       person: { givenName1: "one", givenName2: "Two", givenName3: "X".repeat(36) },
       offences: [{ results: [] }]
     })

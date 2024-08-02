@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 import { SpiVerdict } from "../types/Verdict"
@@ -16,7 +16,7 @@ describe("TRPR0004", () => {
   })
 
   it("should generate a trigger for a single offence with a main result code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: matchingResultCode }]
@@ -30,7 +30,7 @@ describe("TRPR0004", () => {
   })
 
   it("should generate a trigger for a single guilty offence with a matching offence code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: matchingOffenceCode,
@@ -46,7 +46,7 @@ describe("TRPR0004", () => {
   })
 
   it("should generate a trigger for a single offence with matching result text", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: 1015, text: "Sex Offences Act" }]
@@ -66,7 +66,7 @@ describe("TRPR0004", () => {
   })
 
   it("should not generate a trigger for a single non-guilty offence with matching offence code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: matchingOffenceCode,
@@ -82,7 +82,7 @@ describe("TRPR0004", () => {
   })
 
   it("should not generate a trigger for a single guilty offence with non-matching offence code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           finding: SpiVerdict.NotGuilty,
@@ -97,7 +97,7 @@ describe("TRPR0004", () => {
   })
 
   it("should generate multiple triggers for multiple matching offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         { results: [{ code: matchingResultCode }] },
         { results: [{ code: 1015 }] },
@@ -114,7 +114,7 @@ describe("TRPR0004", () => {
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: matchingResultCode }], recordable: false }]
     })
 

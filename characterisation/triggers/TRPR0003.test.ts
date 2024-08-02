@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -16,7 +16,7 @@ describe("TRPR0003", () => {
   })
 
   it("should generate a trigger for a single offence with a main result code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: mainResultCode }]
@@ -30,7 +30,7 @@ describe("TRPR0003", () => {
   })
 
   it("should generate a trigger for a single offence with a combination of YRO result codes", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: yroResultCode }, { code: yroSpecificRequirementResultCode }]
@@ -44,7 +44,7 @@ describe("TRPR0003", () => {
   })
 
   it("should not generate a trigger for a single offence with only one YRO result code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: yroResultCode }]
@@ -58,7 +58,7 @@ describe("TRPR0003", () => {
   })
 
   it("should not generate a trigger for a single offence with only one YRO Specific Requirement result code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: yroSpecificRequirementResultCode }]
@@ -72,7 +72,7 @@ describe("TRPR0003", () => {
   })
 
   it("should generate a trigger for a single offence with main result code and a combination of YRO result codes", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: mainResultCode }, { code: yroResultCode }, { code: yroSpecificRequirementResultCode }]
@@ -86,7 +86,7 @@ describe("TRPR0003", () => {
   })
 
   it("should generate multiple triggers for multiple matching offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: mainResultCode }, { code: yroResultCode }, { code: yroSpecificRequirementResultCode }]
@@ -111,7 +111,7 @@ describe("TRPR0003", () => {
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: mainResultCode }], recordable: false }]
     })
 

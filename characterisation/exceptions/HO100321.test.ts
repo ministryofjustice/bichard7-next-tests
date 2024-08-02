@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 const dummyASN = "0807NRPR00000038482H"
@@ -12,7 +12,7 @@ describe("HO100321", () => {
   })
 
   it("should create an exception when there is a recordable offence but the Arrest Summons Number is a dummy", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       ASN: dummyASN,
       offences: [{ results: [{ code: 4592 }], recordable: true }]
     })
@@ -35,7 +35,7 @@ describe("HO100321", () => {
   it("should not create an exception when there is no recordable offence", async () => {
     const nonRecordableOffenceCode = "BA76004"
 
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: nonRecordableOffenceCode,

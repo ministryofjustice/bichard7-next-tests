@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100201", () => {
@@ -10,7 +10,7 @@ describe("HO100201", () => {
   })
 
   it("should create an exception if the PTIURN value is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       PTIURN: "123X",
       offences: [{ results: [{ code: 1015 }] }]
     })

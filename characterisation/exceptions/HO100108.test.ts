@@ -1,8 +1,8 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import type { GenerateMessageOptions } from "../helpers/generateMessage"
-import generateMessage from "../helpers/generateMessage"
+import type { GenerateSpiMessageOptions } from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100108", () => {
@@ -11,7 +11,7 @@ describe("HO100108", () => {
   })
 
   it("should create an exception if the remand status is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       bailStatus: "X",
       offences: [{ results: [{}] }]
     })
@@ -31,7 +31,7 @@ describe("HO100108", () => {
   })
 
   it("should create an exception if the offence remand status is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ bailStatus: "X" }] }]
     })
 
@@ -60,9 +60,9 @@ describe("HO100108", () => {
   })
 
   it("should create an exception if the offence verdict is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ finding: "X", results: [{}] }]
-    } as any as GenerateMessageOptions)
+    } as any as GenerateSpiMessageOptions)
 
     const {
       hearingOutcome: { Exceptions: exceptions }
@@ -89,7 +89,7 @@ describe("HO100108", () => {
   })
 
   it("should create an exception if the offence mode of trial is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ modeOfTrial: "0", results: [{}] }]
     })
 
