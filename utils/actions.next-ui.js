@@ -195,7 +195,6 @@ const canSeeContentInTable = async function (value) {
     newValue = newValue.replace(/[()]/g, "").toUpperCase()
   }
 
-  newValue = newValue.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1") // TODO: remove this once we update new UI to display PR0* instead of full trigger code
   const found = await reloadUntilContentInSelector(this.browser.page, newValue, "table.cases-list > tbody")
   expect(found).toBeTruthy()
 }
@@ -203,15 +202,13 @@ const canSeeContentInTable = async function (value) {
 const canSeeContentInTableForThis = async function (value) {
   await filterByRecordName(this)
 
-  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1") // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-  const found = await reloadUntilContentInSelector(this.browser.page, newValue, "table.cases-list > tbody")
+  const found = await reloadUntilContentInSelector(this.browser.page, value, "table.cases-list > tbody")
   expect(found).toBeTruthy()
 }
 
 const cannotSeeTrigger = async function (value) {
   await waitForRecord(null, this.browser.page, 2)
-  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1") // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(),"${newValue}")]`)
+  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(),"${value}")]`)
   expect(noCasesMessageMatch.length).toEqual(0)
 }
 
@@ -525,8 +522,7 @@ const submitRecordAndStayOnPage = async function () {
 }
 
 const reloadUntilStringPresent = async function (value) {
-  const content = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1") // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-  const result = await reloadUntilContent(this.browser.page, content)
+  const result = await reloadUntilContent(this.browser.page, value)
   expect(result).toBeTruthy()
 }
 
@@ -538,8 +534,7 @@ const reloadUntilStringNotPresent = async function (content) {
 
 // eslint-disable-next-line no-unused-vars
 const checkOffenceDataError = async function (value, key) {
-  const newValue = value.replace(/^PR(\d+)/, "TRPR00$1").replace(/^PS(\d+)/, "TRPS00$1") // TODO: remove this once we update new UI to display PR0* instead of full trigger code
-  const found = await reloadUntilContentInSelector(this.browser.page, newValue, "#exceptions")
+  const found = await reloadUntilContentInSelector(this.browser.page, value, "#exceptions")
   expect(found).toBeTruthy()
 }
 
