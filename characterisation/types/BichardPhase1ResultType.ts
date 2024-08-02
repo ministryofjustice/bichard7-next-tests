@@ -1,9 +1,9 @@
 import type { AnnotatedHearingOutcome } from "./AnnotatedHearingOutcome"
 import type { Trigger } from "./Trigger"
 
-type BichardResultType = {
+type BichardPhase1ResultType = {
   triggers: Trigger[]
   hearingOutcome: AnnotatedHearingOutcome
 }
 
-export default BichardResultType
+export default BichardPhase1ResultType

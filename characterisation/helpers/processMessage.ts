@@ -1,4 +1,4 @@
-import type BichardResultType from "../types/BichardResultType"
+import type BichardPhase1ResultType from "../types/BichardPhase1ResultType"
 import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
 import processMessageBichard from "./processMessageBichard"
 import processMessageCore from "./processMessageCore"
@@ -15,7 +15,7 @@ export type ProcessMessageOptions = {
   phase?: Phase
 }
 
-const processMessage = (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardResultType> => {
+const processMessage = (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardPhase1ResultType> => {
   if (process.env.USE_BICHARD === "true") {
     return processMessageBichard(messageXml, options)
   }

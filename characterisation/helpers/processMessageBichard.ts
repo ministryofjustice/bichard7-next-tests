@@ -4,7 +4,7 @@ import type ActiveMqHelper from "../../helpers/ActiveMqHelper"
 import type PostgresHelper from "../../helpers/PostgresHelper"
 import World from "../../utils/world"
 import type { AnnotatedHearingOutcome } from "../types/AnnotatedHearingOutcome"
-import type BichardResultType from "../types/BichardResultType"
+import type BichardPhase1ResultType from "../types/BichardPhase1ResultType"
 import extractExceptionsFromAho from "./extractExceptionsFromAho"
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc"
 import type { ProcessMessageOptions } from "./processMessage"
@@ -30,7 +30,7 @@ const processMessageBichard = async (
     pncAdjudication = false,
     phase = Phase.HEARING_OUTCOME
   }: ProcessMessageOptions
-): Promise<BichardResultType> => {
+): Promise<BichardPhase1ResultType> => {
   const correlationId = uuid()
   const messageXmlWithUuid = messageXml.replace("EXTERNAL_CORRELATION_ID", correlationId)
 
