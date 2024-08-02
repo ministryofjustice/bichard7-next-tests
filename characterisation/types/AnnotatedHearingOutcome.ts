@@ -337,9 +337,24 @@ const annotatedHearingOutcomeSchema = z.object({
   PncQueryDate: z.date().optional()
 })
 
+const annotatedPncUpdateDatasetSchema = z.object({
+  AnnotatedPNCUpdateDataset: z.object({
+    PNCUpdateDataset: z.object({
+      Exceptions: z.array(exceptionSchema),
+      AnnotatedHearingOutcome: z.object({
+        HearingOutcome: hearingOutcomeSchema
+      }),
+      PncQuery: pncQueryResultSchema.optional(),
+      PncQueryDate: z.date().optional(),
+      PncErrorMessage: z.string().optional()
+    })
+  })
+})
+
 export { annotatedHearingOutcomeSchema, offenceReasonSchema }
 
 export type AnnotatedHearingOutcome = z.infer<typeof annotatedHearingOutcomeSchema>
+export type AnnotatedPncUpdateDataset = z.infer<typeof annotatedPncUpdateDatasetSchema>
 export type HearingOutcome = z.infer<typeof hearingOutcomeSchema>
 export type Case = z.infer<typeof caseSchema>
 export type Offence = z.infer<typeof offenceSchema>

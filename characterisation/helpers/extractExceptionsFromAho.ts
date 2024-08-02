@@ -1,5 +1,5 @@
 import { XMLParser } from "fast-xml-parser"
-import type { AnnotatedHearingOutcome, Result } from "../types/AnnotatedHearingOutcome"
+import type { AnnotatedHearingOutcome, AnnotatedPncUpdateDataset, Result } from "../types/AnnotatedHearingOutcome"
 import type Exception from "../types/Exception"
 import type { ExceptionCode } from "../types/ExceptionCode"
 
@@ -22,7 +22,7 @@ const extract = (el: any, path: (string | number)[] = []): Exception[] => {
   return exceptions
 }
 
-export default (xml: string): Exception[] => {
+const extractExceptionsFromAho = (xml: string): Exception[] => {
   const options = {
     ignoreAttributes: false,
     removeNSPrefix: true
@@ -51,3 +51,37 @@ export default (xml: string): Exception[] => {
 
   return extract(rawParsedObj)
 }
+
+export const extractExceptionsFromAnnotatedPncUpdateDataset = (xml: string): Exception[] => {
+  const options = {
+    ignoreAttributes: false,
+    removeNSPrefix: true
+  }
+  const parser = new XMLParser(options)
+  const rawParsedAnnotatedPud = parser.parse(xml) as AnnotatedPncUpdateDataset
+  const rawParsedObj = rawParsedAnnotatedPud.AnnotatedPNCUpdateDataset.PNCUpdateDataset
+  const hearingOutcome = rawParsedObj.AnnotatedHearingOutcome?.HearingOutcome
+  const offenceElem = hearingOutcome.Case?.HearingDefendant?.Offence
+  if (offenceElem && !Array.isArray(offenceElem)) {
+    hearingOutcome.Case.HearingDefendant.Offence = [offenceElem]
+  }
+
+  const offenceArray = hearingOutcome?.Case?.HearingDefendant?.Offence
+  if (offenceArray) {
+    offenceArray.forEach((offence) => {
+      const results = offence.Result
+      if (results && !Array.isArray(results)) {
+        offence.Result = [results]
+        offence.Result.forEach((result: Result) => {
+          if (result.ResultQualifierVariable && !Array.isArray(result.ResultQualifierVariable)) {
+            result.ResultQualifierVariable = [result.ResultQualifierVariable]
+          }
+        })
+      }
+    })
+  }
+
+  return extract(rawParsedObj)
+}
+
+export default extractExceptionsFromAho

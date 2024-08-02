@@ -1,6 +1,7 @@
 import { generateAhoMessage } from "../helpers/generateMessage"
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
+import { offenceResultClassPath } from "../helpers/errorPaths"
 
 jest.setTimeout(30000)
 
@@ -9,7 +10,7 @@ describe("HO200101", () => {
     await new World({}).db.closeConnection()
   })
 
-  it("creates an exception when something", async () => {
+  it("creates an exception", async () => {
     const inputMessage = generateAhoMessage({})
 
     const {
@@ -19,17 +20,7 @@ describe("HO200101", () => {
     expect(exceptions).toStrictEqual([
       {
         code: "HO200101",
-        path: [
-          "AnnotatedHearingOutcome",
-          "HearingOutcome",
-          "Case",
-          "HearingDefendant",
-          "Offence",
-          0,
-          "Result",
-          0,
-          "ResultClass"
-        ]
+        path: offenceResultClassPath(0, 0)
       }
     ])
   })

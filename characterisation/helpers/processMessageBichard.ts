@@ -4,7 +4,7 @@ import type ActiveMqHelper from "../../helpers/ActiveMqHelper"
 import type PostgresHelper from "../../helpers/PostgresHelper"
 import World from "../../utils/world"
 import type { AnnotatedHearingOutcome } from "../types/AnnotatedHearingOutcome"
-import extractExceptionsFromAho from "./extractExceptionsFromAho"
+import extractExceptionsFromAho, { extractExceptionsFromAnnotatedPncUpdateDataset } from "./extractExceptionsFromAho"
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc"
 import type { ProcessMessageOptions } from "./processMessage"
 import Phase from "../types/Phase"
@@ -37,7 +37,7 @@ const processMessageBichard = async <BichardResultType>(
     throw new Error("You can't expect triggers without a record.")
   }
 
-  if (!realPnc) {
+  if (phase === Phase.HEARING_OUTCOME && !realPnc) {
     if (recordable) {
       // Insert matching record in PNC
       await mockRecordInPnc(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
@@ -65,7 +65,11 @@ const processMessageBichard = async <BichardResultType>(
     throw new Error("No Error records found in DB")
   }
 
-  const exceptions = recordResult ? extractExceptionsFromAho(recordResult.annotated_msg) : []
+  const exceptions = recordResult
+    ? phase === Phase.HEARING_OUTCOME
+      ? extractExceptionsFromAho(recordResult.annotated_msg)
+      : extractExceptionsFromAnnotatedPncUpdateDataset(recordResult.annotated_msg)
+    : []
 
   // Wait for the record to appear in Postgres
   const triggerQuery = `SELECT t.trigger_code, t.trigger_item_identity FROM br7own.error_list AS e
