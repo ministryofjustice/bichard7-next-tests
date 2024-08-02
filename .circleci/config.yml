@@ -37,16 +37,11 @@ commands:
           command: make build-api-server build-event-handler-server
 
   run_test_chunk:
-    parameters:
-      NEXTUI:
-        default: "false"
-        type: "string"
     steps:
       - run:
           name: Run test chunk
           command: |
             CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
-            NEXTUI=<<parameters.NEXTUI>> \
             npm run test:chunk
 
   save_artifacts:
@@ -135,7 +130,7 @@ commands:
 #################################################################################
 
 jobs:
-  build:
+  install_and_lint:
     machine:
       image: ubuntu-2204:current
     resource_class: xlarge
@@ -147,97 +142,53 @@ jobs:
       - set_locale
       - node/install-packages:
           app-dir: ~/bichard7-next-core
+      - run: npm run lint
       - persist_to_workspace:
           root: ~/
           paths: .
 
-  test-e2e-legacy:
+  test_e2e:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
     parallelism: 10
+    parameters:
+      next-ui:
+        type: boolean
+      phase2-core-canary-ratio:
+        type: enum
+        enum: ["1.0", "0.0"]
+      message-entry-point:
+        type: enum
+        enum: ["mq", "s3"]
     environment:
       RECORD: "true"
-      MESSAGE_ENTRY_POINT: mq
       AWS_URL: "http://localhost:4566"
+      MESSAGE_ENTRY_POINT: << parameters.message-entry-point >>
+      NEXTUI: << parameters.next-ui >>
+      PHASE2_CORE_CANARY_RATIO: << parameters.phase2-core-canary-ratio >>
     steps:
       - attach_workspace:
           at: ~/
       - set_locale
       - node_install
-      - start_bichard7_legacy
+      - when:
+          condition:
+            equal: [ "mq", << parameters.message-entry-point >> ]
+          steps:
+            - start_bichard7_legacy
+      - when:
+          condition:
+            equal: [ "s3", << parameters.message-entry-point >> ]
+          steps:
+          - start_bichard7_core
       - run_test_chunk
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
 
-  test-e2e-legacy-new-ui:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    environment:
-      RECORD: "true"
-      MESSAGE_ENTRY_POINT: mq
-      AWS_URL: "http://localhost:4566"
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - node_install
-      - start_bichard7_legacy
-      - run_test_chunk:
-          NEXTUI: "true"
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
-
-  test-e2e-core:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    environment:
-      RECORD: "true"
-      MESSAGE_ENTRY_POINT: s3
-      AWS_URL: "http://localhost:4566"
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - node_install
-      - start_bichard7_core
-      - run_test_chunk
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
-
-  test-e2e-core-new-ui:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    environment:
-      RECORD: "true"
-      MESSAGE_ENTRY_POINT: s3
-      AWS_URL: "http://localhost:4566"
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - node_install
-      - start_bichard7_core
-      - run_test_chunk:
-          NEXTUI: "true"
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
-
-  test-characterisation-legacy:
+  test_characterisation_legacy:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
@@ -251,7 +202,7 @@ jobs:
           ENABLE_PHASE_2: "false"
       - run: npm run test:characterisation:bichard
 
-  test-characterisation-core:
+  test_characterisation_core:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
@@ -269,22 +220,52 @@ jobs:
 workflows:
   deploy:
     jobs:
-      - build
-      - test-e2e-legacy:
+      - install_and_lint
+      - test_e2e:
+          name: test_e2e_legacy
+          next-ui: false
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: mq
           requires:
-            - build
-      - test-e2e-legacy-new-ui:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_legacy_new_ui
+          next-ui: true
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: mq
           requires:
-            - build
-      - test-e2e-core:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase1_core
+          next-ui: false
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: s3
           requires:
-            - build
-      - test-e2e-core-new-ui:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase1_core_new_ui
+          next-ui: true
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: s3
           requires:
-            - build
-      - test-characterisation-legacy:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase2_core
+          next-ui: false
+          phase2-core-canary-ratio: "1.0"
+          message-entry-point: s3
           requires:
-            - build
-      - test-characterisation-core:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase2_core_new_ui
+          next-ui: true
+          phase2-core-canary-ratio: "1.0"
+          message-entry-point: s3
           requires:
-            - build
+            - install_and_lint
+      - test_characterisation_legacy:
+          requires:
+            - install_and_lint
+      - test_characterisation_core:
+          requires:
+            - install_and_lint

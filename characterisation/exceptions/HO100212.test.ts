@@ -1,25 +1,25 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("HO100212", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it.ifNewBichard("should create an exception if the Person's title is too many characters", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       person: { title: "X".repeat(36) },
       offences: [{ results: [] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -34,6 +34,6 @@ describe("HO100212", () => {
           "Title"
         ]
       }
-    ]);
-  });
-});
+    ])
+  })
+})

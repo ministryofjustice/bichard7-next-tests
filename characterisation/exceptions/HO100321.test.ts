@@ -1,44 +1,41 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
-const dummyASN = "0807NRPR00000038482H";
+const dummyASN = "0807NRPR00000038482H"
 
 describe("HO100321", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it("should create an exception when there is a recordable offence but the Arrest Summons Number is a dummy", async () => {
-    // Generate a mock message
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       ASN: dummyASN,
       offences: [{ results: [{ code: 4592 }], recordable: true }]
-    });
+    })
 
-    // Process the mock message
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false,
       recordable: true
-    });
+    })
 
-    // Check the right triggers are generated
     expect(exceptions).toStrictEqual([
       {
         code: "HO100321",
         path: ["AnnotatedHearingOutcome", "HearingOutcome", "Case", "HearingDefendant", "ArrestSummonsNumber"]
       }
-    ]);
-  });
+    ])
+  })
 
   it("should not create an exception when there is no recordable offence", async () => {
-    const nonRecordableOffenceCode = "BA76004";
+    const nonRecordableOffenceCode = "BA76004"
 
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: nonRecordableOffenceCode,
@@ -46,14 +43,14 @@ describe("HO100321", () => {
           recordable: false
         }
       ]
-    });
+    })
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false,
       recordable: false
-    });
+    })
 
-    expect(exceptions).toHaveLength(0);
-  });
-});
+    expect(exceptions).toHaveLength(0)
+  })
+})

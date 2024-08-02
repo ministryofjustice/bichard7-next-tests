@@ -1,8 +1,8 @@
-import axios from "axios";
-import BichardResultType from "../types/BichardResultType";
-import generateMockPncQueryResult from "./generateMockPncQueryResult";
-import { ProcessMessageOptions } from "./processMessage";
-import Phase from "../types/Phase";
+import axios from "axios"
+import type BichardResultType from "../types/BichardResultType"
+import generateMockPncQueryResult from "./generateMockPncQueryResult"
+import type { ProcessMessageOptions } from "./processMessage"
+import Phase from "../types/Phase"
 
 const processMessageCore = async (
   messageXml: string,
@@ -15,16 +15,17 @@ const processMessageCore = async (
     phase = Phase.HEARING_OUTCOME
   }: ProcessMessageOptions
 ): Promise<BichardResultType> => {
-  const pncQueryResult = recordable
-    ? generateMockPncQueryResult(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
-    : undefined;
+  const pncQueryResult =
+    phase === Phase.HEARING_OUTCOME && recordable
+      ? generateMockPncQueryResult(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
+      : undefined
   const requestBody = {
     inputMessage: messageXml,
     pncQueryResult,
     phase
-  };
-  const result = await axios.post<BichardResultType>("http://localhost:6000/", requestBody);
-  return result.data;
-};
+  }
+  const result = await axios.post<BichardResultType>("http://localhost:6000/", requestBody)
+  return result.data
+}
 
-export default processMessageCore;
+export default processMessageCore

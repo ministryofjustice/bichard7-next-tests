@@ -1,4 +1,4 @@
-const { mockEnquiryFromNCM } = require("../../utils/pncMocks");
+const { mockEnquiryFromNCM } = require("../../utils/pncMocks")
 
 module.exports = (ncm, world = {}) => [
   mockEnquiryFromNCM(ncm, world),
@@ -12,4 +12,4 @@ module.exports = (ncm, world = {}) => [
     </CXU02>`,
     expectedRequest: ""
   }
-];
+]

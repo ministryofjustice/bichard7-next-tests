@@ -1,26 +1,26 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("HO100211", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   // TODO: We haven't implemented organisations yet
   it.skip("should create an exception if the Organisation Name is too many characters", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       organisation: { name: "X".repeat(256) },
       offences: [{ results: [] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -35,20 +35,20 @@ describe("HO100211", () => {
           "Title"
         ]
       }
-    ]);
-  });
+    ])
+  })
 
   it.skip("should create an exception if the Organisation Name is too few characters", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       organisation: { name: "" },
       offences: [{ results: [] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -63,6 +63,6 @@ describe("HO100211", () => {
           "Title"
         ]
       }
-    ]);
-  });
-});
+    ])
+  })
+})

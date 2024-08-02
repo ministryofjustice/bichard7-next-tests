@@ -33,6 +33,7 @@ export default (file: string): ImportedComparison => {
         if (identifier) {
           result.offenceSequenceNumber = parseInt(identifier, 10)
         }
+
         return result
       }),
       ["code", "offenceSequenceNumber"]

@@ -1,38 +1,38 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("validate hearing outcome", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it("should not throw an exception for a valid offence wording", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ code: "MC80524", results: [{ code: 4584 }], offenceWording: "something" }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
-    expect(exceptions).toHaveLength(0);
-  });
+    expect(exceptions).toHaveLength(0)
+  })
 
   it("should throw an exception for an offence wording less than min length", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], offenceWording: "" }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -47,19 +47,19 @@ describe("validate hearing outcome", () => {
           "ActualOffenceWording"
         ]
       }
-    ]);
-  });
+    ])
+  })
 
   it.ifNewBichard("should throw an exception for an offence wording greater than max length", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], offenceWording: "x".repeat(3000) }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toStrictEqual([
       {
@@ -74,6 +74,6 @@ describe("validate hearing outcome", () => {
           "ActualOffenceWording"
         ]
       }
-    ]);
-  });
-});
+    ])
+  })
+})

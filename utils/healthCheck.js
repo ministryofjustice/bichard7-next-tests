@@ -1,38 +1,37 @@
-const axios = require("axios");
-const https = require("https");
-const Poller = require("./Poller");
+const axios = require("axios")
+const https = require("https")
+const Poller = require("./Poller")
 
-module.exports = async () => {
-  const uiScheme = process.env.UI_SCHEME || "https";
-  const uiHost = process.env.UI_HOST || "localhost";
-  const uiPort = process.env.UI_PORT || "4443";
+module.exports = () => {
+  const uiScheme = process.env.UI_SCHEME || "https"
+  const uiHost = process.env.UI_HOST || "localhost"
+  const uiPort = process.env.UI_PORT || "4443"
 
   const fetchHealthcheck = async () => {
-    const axiosOptions = { validateStatus: () => true };
+    const axiosOptions = { validateStatus: () => true }
     if (uiScheme.toLowerCase() === "https") {
-      const agent = new https.Agent({
+      axiosOptions.httpsAgent = new https.Agent({
         rejectUnauthorized: false
-      });
-      axiosOptions.httpsAgent = agent;
+      })
     }
-    const resp = await axios.get(`${uiScheme}://${uiHost}:${uiPort}/bichard-ui/Connectivity`, axiosOptions);
-    return resp.data;
-  };
+    const resp = await axios.get(`${uiScheme}://${uiHost}:${uiPort}/bichard-ui/Connectivity`, axiosOptions)
+    return resp.data
+  }
 
   const checkHealthcheck = (checkData) => {
     const failedSystems = Object.values(checkData)
       .reduce((acc, val) => acc.concat(val), [])
       .filter((system) => !system.healthy)
-      .map((system) => system.name);
+      .map((system) => system.name)
     if (failedSystems.length > 0) {
       // eslint-disable-next-line no-console
-      console.log(`Healthcheck failed. Unhealthy systems: ${failedSystems.join(", ")}`);
+      console.log(`Healthcheck failed. Unhealthy systems: ${failedSystems.join(", ")}`)
     } else {
       // eslint-disable-next-line no-console
-      console.log("Healthcheck passed");
+      console.log("Healthcheck passed")
     }
-    return failedSystems.length === 0;
-  };
+    return failedSystems.length === 0
+  }
 
   return new Poller(fetchHealthcheck)
     .poll({
@@ -43,6 +42,6 @@ module.exports = async () => {
     })
     .then(() => true)
     .catch(() => {
-      throw new Error("Healthcheck failed");
-    });
-};
+      throw new Error("Healthcheck failed")
+    })
+}

@@ -6,6 +6,6 @@ const getUtcDate = (date) =>
     date.getUTCHours(),
     date.getUTCMinutes(),
     date.getUTCSeconds()
-  );
+  )
 
-module.exports = getUtcDate;
+module.exports = getUtcDate

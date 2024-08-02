@@ -6,4 +6,4 @@ module.exports = {
   // installed in the environment
   setupFilesAfterEnv: ["./jest.setup.ts"],
   verbose: true
-};
+}

@@ -1,24 +1,24 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 describe("HO100242", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it.ifNewBichard("should create an exception if the duration length is too high", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { duration: { value: 1000 } } }] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toContainEqual({
       code: "HO100242",
@@ -35,19 +35,19 @@ describe("HO100242", () => {
         0,
         "DurationLength"
       ]
-    });
-  });
+    })
+  })
 
   it.ifNewBichard("should create an exception if the duration length is too low", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { duration: { value: 0 } } }] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
     expect(exceptions).toContainEqual({
       code: "HO100242",
@@ -64,6 +64,6 @@ describe("HO100242", () => {
         0,
         "DurationLength"
       ]
-    });
-  });
-});
+    })
+  })
+})

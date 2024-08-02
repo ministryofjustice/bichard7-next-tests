@@ -1,8 +1,8 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
 
 const expectedExceptions = [
   {
@@ -33,39 +33,39 @@ const expectedExceptions = [
       "PNCDisposalType"
     ]
   }
-];
+]
 
 describe("HO100240 and HO100246", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it("should create exceptions if the result code is too low", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 123 }] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
-    expect(exceptions).toStrictEqual(expectedExceptions);
-  });
+    expect(exceptions).toStrictEqual(expectedExceptions)
+  })
 
   // Masked by XML parsing error
   it.ifNewBichard("should create exceptions if the result code is too high", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 10000 }] }]
-    });
+    })
 
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processMessage(inputMessage, {
       expectTriggers: false
-    });
+    })
 
-    expect(exceptions).toStrictEqual(expectedExceptions);
-  });
-});
+    expect(exceptions).toStrictEqual(expectedExceptions)
+  })
+})

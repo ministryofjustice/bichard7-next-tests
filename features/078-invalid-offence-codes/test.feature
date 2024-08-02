@@ -21,6 +21,7 @@ Feature: {078} R4.0_BR7_Offence Code Schema Relaxation - schema Breaking  Offenc
 	@Could
 	@PreProdTest
 	@NextUI
+	@Phase2Core
 	Scenario: Testing invalid offence codes
 		Given the data for this test is not in the PNC
 			And "<messageId>" is received

@@ -128,4 +128,4 @@ module.exports = {
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   }
-};
+}

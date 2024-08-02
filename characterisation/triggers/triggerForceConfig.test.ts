@@ -1,65 +1,65 @@
-jest.setTimeout(30000);
+jest.setTimeout(30000)
 
-import World from "../../utils/world";
-import generateMessage from "../helpers/generateMessage";
-import processMessage from "../helpers/processMessage";
-import { TriggerCode } from "../types/TriggerCode";
+import World from "../../utils/world"
+import { generateSpiMessage } from "../helpers/generateMessage"
+import processMessage from "../helpers/processMessage"
+import { TriggerCode } from "../types/TriggerCode"
 
-const trigger1ResultCode = 3070;
-const trigger5ResultCode = 4012;
+const trigger1ResultCode = 3070
+const trigger5ResultCode = 4012
 
 describe("Trigger force configuration", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection();
-  });
+    await new World({}).db.closeConnection()
+  })
 
   it("should generate a trigger when only allowed by a force", async () => {
     // TRPR0005 is allowed force 01 but not by court B01DU
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: trigger5ResultCode }] }]
-    });
+    })
 
-    const { triggers } = await processMessage(inputMessage);
+    const { triggers } = await processMessage(inputMessage)
 
-    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0005 }]);
-  });
+    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0005 }])
+  })
 
   it("should generate a trigger when only allowed by a court", async () => {
     // TRPR0001 is allowed by the B01DU court but not by force 91
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       PTIURN: "91EC0303908",
       courtHearingLocation: "B01DU00",
       offences: [{ results: [{ code: trigger1ResultCode }] }]
-    });
+    })
 
-    const { triggers } = await processMessage(inputMessage);
+    const { triggers } = await processMessage(inputMessage)
 
-    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0001, offenceSequenceNumber: 1 }]);
-  });
+    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0001, offenceSequenceNumber: 1 }])
+  })
 
   it("should generate a trigger when allowed by a force and a court", async () => {
     // TRPR0001 is allowed by both force 01 and court B01DU
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       courtHearingLocation: "B01DU00",
       offences: [{ results: [{ code: trigger1ResultCode }] }]
-    });
+    })
 
-    const { triggers } = await processMessage(inputMessage);
+    const { triggers } = await processMessage(inputMessage)
 
-    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0001, offenceSequenceNumber: 1 }]);
-  });
+    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0001, offenceSequenceNumber: 1 }])
+  })
 
   it("should not generate a trigger when not allowed by a force and a court", async () => {
     // TRPR0005 is not allowed by either force 02 or court B01DU
     // Since the court and force don't match a TRPR0027 is generated since it is out of area
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       PTIURN: "02ZD0303908",
       courtHearingLocation: "B01DU00",
       offences: [{ results: [{ code: trigger5ResultCode }] }]
-    });
+    })
 
-    const { triggers } = await processMessage(inputMessage);
+    const { triggers } = await processMessage(inputMessage)
 
-    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0027 }]);
-  });
-});
+    expect(triggers).toStrictEqual([{ code: TriggerCode.TRPR0027 }])
+  })
+})

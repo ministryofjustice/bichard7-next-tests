@@ -1,4 +1,4 @@
-const { mockEnquiryFromNCM, mockUpdate } = require("../../utils/pncMocks");
+const { mockEnquiryFromNCM, mockUpdate } = require("../../utils/pncMocks")
 
 module.exports = (ncm, world = {}) => [
   mockEnquiryFromNCM(ncm, world),
@@ -10,4 +10,4 @@ module.exports = (ncm, world = {}) => [
     expectedRequest:
       "<FSC>K01YZ</FSC><IDS>K00/449824V DRUGDRIVINGT            </IDS><CCR>K97/1626/8395Q                 </CCR><COU>I2576                                                                       DRUGDRIVINGTHC/LONGNAME                               260920110000</COU><CCH>K001              RT88340 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I3096                      00                                                                            </DIS><DIS>I4047    26102011          00                                                                            </DIS><CCH>K002              MD71530 </CCH><ADJ>INOT GUILTY   GUILTY        260920110000 </ADJ><DIS>I4047    26102011          00                                                                            </DIS>"
   })
-];
+]

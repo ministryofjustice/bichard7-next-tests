@@ -9,4 +9,4 @@ module.exports = () => [
     </CXE01>`,
     expectedRequest: ""
   }
-];
+]

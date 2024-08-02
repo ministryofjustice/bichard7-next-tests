@@ -1,4 +1,4 @@
-const { mockUpdate } = require("../../utils/pncMocks");
+const { mockUpdate } = require("../../utils/pncMocks")
 
 module.exports = () => [
   {
@@ -53,4 +53,4 @@ module.exports = () => [
       "<FSC>K01YZ</FSC><IDS>K12/16Z     LANCASTER               </IDS><CCR>K12/2732/23A                   </CCR><COU>I2576                                                                       LANCASTER/MARTIN                                      201020090000</COU><CCH>K001              TH68001 </CCH><ADJ>INOT GUILTY   GUILTY        201020090000 </ADJ><DIS>I1002M14                   00                                                                            </DIS><ASR>K12/0000/00/8V                         </ASR><ACH>I                                                                                                                                            TH68151                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     NKINGSTON HIGH STREET                                                                                                                                                                                                                   01ZD02112006                </ACH><ADJ>INOT GUILTY   GUILTY        201020090000 </ADJ><DIS>I1002M14                   00                                                                            </DIS>",
     count: 1
   })
-];
+]
