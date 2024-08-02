@@ -3,6 +3,7 @@ import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
 import processMessageBichard from "./processMessageBichard"
 import processMessageCore from "./processMessageCore"
 import Phase from "../types/Phase"
+import type BichardPhase2ResultType from "../types/BichardPhase2ResultType"
 
 export type ProcessMessageOptions = {
   expectRecord?: boolean
@@ -31,3 +32,9 @@ export const processPhase1Message = (
   options: ProcessMessageOptions = {}
 ): Promise<BichardPhase1ResultType> =>
   processMessage<BichardPhase1ResultType>(messageXml, { phase: Phase.HEARING_OUTCOME, ...options })
+
+export const processPhase2Message = (
+  messageXml: string,
+  options: ProcessMessageOptions = {}
+): Promise<BichardPhase2ResultType> =>
+  processMessage<BichardPhase2ResultType>(messageXml, { phase: Phase.PNC_UPDATE, ...options })
