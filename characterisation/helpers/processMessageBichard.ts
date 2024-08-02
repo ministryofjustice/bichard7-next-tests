@@ -3,8 +3,8 @@ import { v4 as uuid } from "uuid"
 import type ActiveMqHelper from "../../helpers/ActiveMqHelper"
 import type PostgresHelper from "../../helpers/PostgresHelper"
 import World from "../../utils/world"
-import type { AnnotatedHearingOutcome } from "../types/AnnotatedHearingOutcome"
-import extractExceptionsFromAho, { extractExceptionsFromAnnotatedPncUpdateDataset } from "./extractExceptionsFromAho"
+import type { AnnotatedHearingOutcome, AnnotatedPncUpdateDataset } from "../types/AnnotatedHearingOutcome"
+import extractExceptionsFromAho from "./extractExceptionsFromAho"
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc"
 import type { ProcessMessageOptions } from "./processMessage"
 import Phase from "../types/Phase"
@@ -67,8 +67,8 @@ const processMessageBichard = async <BichardResultType>(
 
   const exceptions = recordResult
     ? phase === Phase.HEARING_OUTCOME
-      ? extractExceptionsFromAho(recordResult.annotated_msg)
-      : extractExceptionsFromAnnotatedPncUpdateDataset(recordResult.annotated_msg)
+      ? extractExceptionsFromAho<AnnotatedHearingOutcome>(recordResult.annotated_msg)
+      : extractExceptionsFromAho<AnnotatedPncUpdateDataset>(recordResult.annotated_msg)
     : []
 
   // Wait for the record to appear in Postgres

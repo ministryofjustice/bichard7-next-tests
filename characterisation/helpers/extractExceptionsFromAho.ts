@@ -22,51 +22,28 @@ const extract = (el: any, path: (string | number)[] = []): Exception[] => {
   return exceptions
 }
 
-const extractExceptionsFromAho = (xml: string): Exception[] => {
+const extractExceptionsFromAho = <OutputMessage extends AnnotatedHearingOutcome | AnnotatedPncUpdateDataset>(
+  xml: string
+): Exception[] => {
   const options = {
     ignoreAttributes: false,
     removeNSPrefix: true
   }
   const parser = new XMLParser(options)
-  const rawParsedObj = parser.parse(xml) as AnnotatedHearingOutcome
-  const offenceElem = rawParsedObj?.AnnotatedHearingOutcome?.HearingOutcome?.Case?.HearingDefendant?.Offence
-  if (offenceElem && !Array.isArray(offenceElem)) {
-    rawParsedObj.AnnotatedHearingOutcome.HearingOutcome.Case.HearingDefendant.Offence = [offenceElem]
-  }
+  const rawParsedOutputMessage = parser.parse(xml) as OutputMessage
+  const annotatedHearingOutcome: AnnotatedHearingOutcome =
+    "AnnotatedPNCUpdateDataset" in rawParsedOutputMessage
+      ? rawParsedOutputMessage.AnnotatedPNCUpdateDataset.PNCUpdateDataset
+      : rawParsedOutputMessage
 
-  const offenceArray = rawParsedObj?.AnnotatedHearingOutcome?.HearingOutcome?.Case?.HearingDefendant?.Offence
-  if (offenceArray) {
-    offenceArray.forEach((offence) => {
-      const results = offence.Result
-      if (results && !Array.isArray(results)) {
-        offence.Result = [results]
-        offence.Result.forEach((result: Result) => {
-          if (result.ResultQualifierVariable && !Array.isArray(result.ResultQualifierVariable)) {
-            result.ResultQualifierVariable = [result.ResultQualifierVariable]
-          }
-        })
-      }
-    })
-  }
+  const hearingOutcome = annotatedHearingOutcome.AnnotatedHearingOutcome.HearingOutcome
 
-  return extract(rawParsedObj)
-}
-
-export const extractExceptionsFromAnnotatedPncUpdateDataset = (xml: string): Exception[] => {
-  const options = {
-    ignoreAttributes: false,
-    removeNSPrefix: true
-  }
-  const parser = new XMLParser(options)
-  const rawParsedAnnotatedPud = parser.parse(xml) as AnnotatedPncUpdateDataset
-  const rawParsedObj = rawParsedAnnotatedPud.AnnotatedPNCUpdateDataset.PNCUpdateDataset
-  const hearingOutcome = rawParsedObj.AnnotatedHearingOutcome?.HearingOutcome
   const offenceElem = hearingOutcome.Case?.HearingDefendant?.Offence
   if (offenceElem && !Array.isArray(offenceElem)) {
     hearingOutcome.Case.HearingDefendant.Offence = [offenceElem]
   }
 
-  const offenceArray = hearingOutcome?.Case?.HearingDefendant?.Offence
+  const offenceArray = hearingOutcome.Case?.HearingDefendant?.Offence
   if (offenceArray) {
     offenceArray.forEach((offence) => {
       const results = offence.Result
@@ -81,7 +58,7 @@ export const extractExceptionsFromAnnotatedPncUpdateDataset = (xml: string): Exc
     })
   }
 
-  return extract(rawParsedObj)
+  return extract(annotatedHearingOutcome)
 }
 
 export default extractExceptionsFromAho
