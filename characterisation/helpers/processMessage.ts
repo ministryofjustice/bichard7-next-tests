@@ -15,10 +15,12 @@ export type ProcessMessageOptions = {
   phase?: Phase
 }
 
-export default (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardResultType> => {
+const processMessage = (messageXml: string, options: ProcessMessageOptions = {}): Promise<BichardResultType> => {
   if (process.env.USE_BICHARD === "true") {
     return processMessageBichard(messageXml, options)
   }
 
   return processMessageCore(messageXml, options)
 }
+
+export default processMessage

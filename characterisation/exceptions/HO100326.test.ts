@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { offenceResultClassPath } from "../helpers/errorPaths"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100326", () => {
@@ -11,7 +11,7 @@ describe("HO100326", () => {
   })
 
   it("should create an exception when the conviction date is before the date of hearing and there is no adjudication", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ convictionDate: "2011-09-25", results: [{}], recordable: true }]
     })
 
@@ -31,14 +31,14 @@ describe("HO100326", () => {
   })
 
   it("should not create an exception when offence was added by the court", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         { convictionDate: "2011-09-25", results: [{}], recordable: true, offenceSequenceNumber: 1 },
         { convictionDate: "2011-09-25", results: [{}], recordable: true, offenceSequenceNumber: 2 }
       ]
     })
 
-    const pncMessage = generateMessage({
+    const pncMessage = generateSpiMessage({
       offences: [{ convictionDate: "2011-09-25", results: [{}], recordable: true, offenceSequenceNumber: 1 }]
     })
 

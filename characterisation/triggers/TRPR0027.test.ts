@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -14,7 +14,7 @@ describe("TRPR0027", () => {
 
   it("should generate a TRPR0027 trigger if the force and court don't match and a trigger would be ignored", async () => {
     // TRPR0005 is not allowed by force 02
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       PTIURN: "02ZD0303908",
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })
@@ -26,7 +26,7 @@ describe("TRPR0027", () => {
 
   it("should not generate a TRPR0027 trigger if the force and court don't match but the original trigger is generated", async () => {
     // TRPR0005 is allowed by force 03
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       PTIURN: "03ZD0303908",
       offences: [{ results: [{ code: trigger5ResultCode }] }]
     })

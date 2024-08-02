@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100228 and HO100239", () => {
@@ -11,7 +11,7 @@ describe("HO100228 and HO100239", () => {
 
   // legacy bichard throws runtime exception Caused by: uk.gov.ocjr.mtu.br7.common.xmlconverter.UnmarshalFailedException: javax.xml.bind.UnmarshalException: the value is out of the range (minInclusive specifies 0).\n - with linked exception:
   it.ifNewBichard("should not throw an exception for a valid CourtOffenceSequenceNumber", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 4584 }], offenceSequenceNumber: 1 }]
     })
 
@@ -27,7 +27,7 @@ describe("HO100228 and HO100239", () => {
   it.ifNewBichard(
     "should create an exception if the CourtOffenceSequenceNumber is less than the min length",
     async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [{ results: [{ code: 1015 }], offenceSequenceNumber: -1 }]
       })
 
@@ -70,7 +70,7 @@ describe("HO100228 and HO100239", () => {
   it.ifNewBichard(
     "should create an exception if the CourtOffenceSequenceNumber is greater than the max length",
     async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [{ results: [{ code: 1015 }], offenceSequenceNumber: 1000 }]
       })
 

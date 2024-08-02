@@ -1,4 +1,4 @@
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import World from "../../utils/world"
 import processMessage from "../helpers/processMessage"
 
@@ -10,14 +10,14 @@ describe("HO100507", () => {
   })
 
   it("should create an exception when an offence was added in court and it is a penalty case", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         { code: "TH68010", results: [{}], offenceSequenceNumber: 1 },
         { code: "TH68151", results: [{}], offenceSequenceNumber: 2 }
       ]
     })
 
-    const pncMessage = generateMessage({
+    const pncMessage = generateSpiMessage({
       offences: [{ code: "TH68010", results: [{}], offenceSequenceNumber: 1 }]
     })
 

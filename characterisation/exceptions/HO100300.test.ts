@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100300", () => {
@@ -10,7 +10,7 @@ describe("HO100300", () => {
   })
 
   it("should create an exception if it cannot get the organisation unit from ASN", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       ASN: "1101HZ0100000376274C",
       offences: [{ results: [{ code: 1015 }] }]
     })
@@ -30,7 +30,7 @@ describe("HO100300", () => {
   })
 
   it("should create an exception if the Court Hearing Location is not found", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       courtHearingLocation: "B99EF01",
       offences: [{ results: [{ code: 1015 }] }]
     })
@@ -50,7 +50,7 @@ describe("HO100300", () => {
   })
 
   it("should create an exception if the Next Source Organisation is not found", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [

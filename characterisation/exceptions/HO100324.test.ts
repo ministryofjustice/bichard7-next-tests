@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { offenceResultClassPath } from "../helpers/errorPaths"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100324", () => {
@@ -11,7 +11,7 @@ describe("HO100324", () => {
   })
 
   it("should create an exception when there is no verdict, the case is adjourned and there is an adjudication", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           finding: null,
@@ -39,7 +39,7 @@ describe("HO100324", () => {
   })
 
   it("should not create an exception when the offence was added by the court", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           finding: null,
@@ -58,7 +58,7 @@ describe("HO100324", () => {
       ]
     })
 
-    const pncMessage = generateMessage({
+    const pncMessage = generateSpiMessage({
       offences: [
         {
           finding: null,

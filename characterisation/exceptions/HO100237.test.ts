@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100237", () => {
@@ -10,7 +10,7 @@ describe("HO100237", () => {
   })
 
   it.ifNewBichard("should create an exception if alcohol level is too high", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ alcoholLevel: { amount: 1000 }, results: [{}] }]
     })
 

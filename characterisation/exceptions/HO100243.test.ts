@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 const expectedExceptions = [
@@ -28,7 +28,7 @@ describe("HO100243", () => {
   })
 
   it.ifNewBichard("should not create an exception if the amount in the result is acceptable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { amountSterling: 100000 } }] }]
     })
 
@@ -44,7 +44,7 @@ describe("HO100243", () => {
   it.ifNewBichard(
     "should create an exception if the amount in the result is greater than 999999999999.99",
     async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [{ results: [{ outcome: { amountSterling: 1000000000000 } }] }]
       })
 
@@ -59,7 +59,7 @@ describe("HO100243", () => {
   )
 
   it.ifNewBichard("should create an exception if the amount in the result is less than 0.01", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { amountSterling: 0.001 } }] }]
     })
 
@@ -73,7 +73,7 @@ describe("HO100243", () => {
   })
 
   it.ifNewBichard("should create an exception if the amount in the result has more than 14 digits", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { amountSterling: 123456789.123456 } }] }]
     })
 
@@ -89,7 +89,7 @@ describe("HO100243", () => {
   it.ifNewBichard(
     "should create an exception if the amount in the result has more than 2 fraction digits",
     async () => {
-      const inputMessage = generateMessage({
+      const inputMessage = generateSpiMessage({
         offences: [{ results: [{ outcome: { amountSterling: 12345.123456 } }] }]
       })
 

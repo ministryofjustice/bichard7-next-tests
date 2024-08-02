@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 const expectedExceptions = [
@@ -28,7 +28,7 @@ describe("HO100244", () => {
   })
 
   it.ifNewBichard("should not be raised if the number in the result is acceptable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 3008, outcome: { penaltyPoints: 100 } }] }]
     })
 
@@ -42,7 +42,7 @@ describe("HO100244", () => {
   })
 
   it.ifNewBichard("should be raised if the number in the result is too large", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 3008, outcome: { penaltyPoints: 10000 } }] }]
     })
 
@@ -56,7 +56,7 @@ describe("HO100244", () => {
   })
 
   it.ifNewBichard("should be raised if the number in the result is too small", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 3008, outcome: { penaltyPoints: 0.1 } }] }]
     })
 

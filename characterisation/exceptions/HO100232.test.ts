@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100232", () => {
@@ -10,7 +10,7 @@ describe("HO100232", () => {
   })
 
   it("should not throw an exception for a valid offence location", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ code: "MC80524", results: [{ code: 4584 }], location: "somewhere" }]
     })
 
@@ -24,7 +24,7 @@ describe("HO100232", () => {
   })
 
   it("should create an exception if the offence location is less than the min length", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], location: "" }]
     })
 
@@ -51,7 +51,7 @@ describe("HO100232", () => {
   })
 
   it.ifNewBichard("should create an exception if the offence location is greater than the max length", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], location: "x".repeat(100) }]
     })
 

@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100331", () => {
@@ -10,7 +10,7 @@ describe("HO100331", () => {
   })
 
   it("should create an exception when there are more than 100 offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: Array(101).fill({ results: [{}], recordable: true })
     })
 

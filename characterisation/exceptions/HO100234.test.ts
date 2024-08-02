@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("validate hearing outcome", () => {
@@ -10,7 +10,7 @@ describe("validate hearing outcome", () => {
   })
 
   it("should not throw an exception for a valid offence wording", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ code: "MC80524", results: [{ code: 4584 }], offenceWording: "something" }]
     })
 
@@ -24,7 +24,7 @@ describe("validate hearing outcome", () => {
   })
 
   it("should throw an exception for an offence wording less than min length", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], offenceWording: "" }]
     })
 
@@ -51,7 +51,7 @@ describe("validate hearing outcome", () => {
   })
 
   it.ifNewBichard("should throw an exception for an offence wording greater than max length", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: 1015 }], offenceWording: "x".repeat(3000) }]
     })
 

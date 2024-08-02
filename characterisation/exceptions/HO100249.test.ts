@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100249", () => {
@@ -10,7 +10,7 @@ describe("HO100249", () => {
   })
 
   it.ifNewBichard("should be raised if the courthouse code is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       psaCode: 12345,
       offences: [{ results: [{}] }]
     })

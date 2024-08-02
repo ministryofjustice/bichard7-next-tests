@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -15,7 +15,7 @@ describe("TRPR0025", () => {
   })
 
   it("should generate a single case trigger for a single offence with matching offence and result codes", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,
@@ -30,7 +30,7 @@ describe("TRPR0025", () => {
   })
 
   it("should not generate a trigger with only the matching offence code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,
@@ -45,7 +45,7 @@ describe("TRPR0025", () => {
   })
 
   it("should not generate a trigger with only the matching result code", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: 1005 }]
@@ -59,7 +59,7 @@ describe("TRPR0025", () => {
   })
 
   it("should generate a single trigger for multiple matching offences", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,
@@ -78,7 +78,7 @@ describe("TRPR0025", () => {
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           code: offenceCode,

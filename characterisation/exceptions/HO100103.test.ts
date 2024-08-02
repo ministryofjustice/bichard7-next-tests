@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100103", () => {
@@ -10,7 +10,7 @@ describe("HO100103", () => {
   })
 
   it.ifNewBichard("should create an exception if the hearing time is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       timeOfHearing: "XXXX",
       offences: [{ results: [{}] }]
     })
@@ -28,7 +28,7 @@ describe("HO100103", () => {
   })
 
   it.ifNewBichard("should create an exception if the offence time is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ startTime: "XXXX", results: [{}] }]
     })
 
@@ -45,7 +45,7 @@ describe("HO100103", () => {
   })
 
   it.ifNewBichard("should create an exception if the offence start time is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ startTime: "XXXX", offenceDateCode: 4, results: [{}] }]
     })
 
@@ -62,7 +62,7 @@ describe("HO100103", () => {
   })
 
   it.ifNewBichard("should create an exception if the offence end time is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ endDate: new Date(), endTime: "XXXX", results: [{}] }]
     })
 
@@ -79,7 +79,7 @@ describe("HO100103", () => {
   })
 
   it.ifNewBichard("should create an exception if the next hearing time is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ nextHearing: { nextHearingDetails: { timeOfHearing: "XXXX" } } }] }]
     })
 
@@ -107,7 +107,7 @@ describe("HO100103", () => {
 
   //TODO: Needs implementing once we've implemented in core
   it.skip("should create an exception if the time specified in the result is invalid", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ endDate: new Date(), endTime: "XXXX", results: [{}] }]
     })
 

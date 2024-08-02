@@ -78,7 +78,7 @@ type Organisation = {
   name?: string
 }
 
-export type GenerateMessageOptions = {
+export type GenerateSpiMessageOptions = {
   timeOfHearing?: string
   organisation?: Organisation
   reasonForBailConditionsOrCustody?: string
@@ -101,11 +101,14 @@ const formatDate = function (date: Date): string {
   return date.toISOString().split("T")[0]
 }
 
-export default (options: GenerateMessageOptions): string => {
-  const template = readFileSync("test-data/input-message.xml.njk", "utf-8")
+const generateMessage = (templateFile: string, options: Record<string, unknown>): string => {
+  const template = readFileSync(templateFile, "utf-8")
 
   return new nunjucks.Environment()
     .addFilter("padStart", padStart)
     .addFilter("formatDate", formatDate)
     .renderString(template, options)
 }
+
+export const generateSpiMessage = (options: GenerateSpiMessageOptions) =>
+  generateMessage("test-data/SpiResults.xml.njk", options)

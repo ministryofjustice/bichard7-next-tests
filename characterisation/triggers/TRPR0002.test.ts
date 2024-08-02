@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -15,7 +15,7 @@ describe("TRPR0002", () => {
   })
 
   it("should generate a trigger for a single offence without the EO result qualifier", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: resultCode }]
@@ -29,7 +29,7 @@ describe("TRPR0002", () => {
   })
 
   it("should not generate a trigger for a single offence with the EO result qualifier", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: resultCode, qualifier: resultQualifier }]
@@ -43,7 +43,7 @@ describe("TRPR0002", () => {
   })
 
   it("should generate a single case trigger for multiple offences without the EO result qualifier", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: resultCode }] }, { results: [{ code: resultCode }] }]
     })
 
@@ -53,7 +53,7 @@ describe("TRPR0002", () => {
   })
 
   it("should not generate a trigger for multiple offences with the EO result qualifier", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         { results: [{ code: resultCode, qualifier: resultQualifier }] },
         { results: [{ code: resultCode, qualifier: resultQualifier }] }
@@ -66,7 +66,7 @@ describe("TRPR0002", () => {
   })
 
   it("should generate a trigger for multiple offences with one EO result qualifier and one without", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [
         {
           results: [{ code: resultCode, qualifier: resultQualifier }]
@@ -81,7 +81,7 @@ describe("TRPR0002", () => {
   })
 
   it("should generate a trigger when record is not recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: resultCode }], recordable: false }]
     })
 
@@ -91,7 +91,7 @@ describe("TRPR0002", () => {
   })
 
   it("should generate a trigger when record is recordable", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ code: resultCode }] }]
     })
 

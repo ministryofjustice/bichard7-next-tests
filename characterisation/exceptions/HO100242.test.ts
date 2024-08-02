@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
+import { generateSpiMessage } from "../helpers/generateMessage"
 import processMessage from "../helpers/processMessage"
 
 describe("HO100242", () => {
@@ -10,7 +10,7 @@ describe("HO100242", () => {
   })
 
   it.ifNewBichard("should create an exception if the duration length is too high", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { duration: { value: 1000 } } }] }]
     })
 
@@ -39,7 +39,7 @@ describe("HO100242", () => {
   })
 
   it.ifNewBichard("should create an exception if the duration length is too low", async () => {
-    const inputMessage = generateMessage({
+    const inputMessage = generateSpiMessage({
       offences: [{ results: [{ outcome: { duration: { value: 0 } } }] }]
     })
 
