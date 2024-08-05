@@ -10,15 +10,12 @@ describe.ifPhase2("HO200101", () => {
     await new World({}).db.closeConnection()
   })
 
-  it.each([
-    { templateFile: "test-data/AnnotatedHearingOutcome-HO200101.xml.njk", messageType: "AHO" }
-    // { templateFile: "test-data/PncUpdateDataset-HO200101.xml.njk", messageType: "PncUpdateDataset" }
-  ])("creates an exception for $messageType", async ({ templateFile }) => {
-    const inputMessage = generateMessage(templateFile, {})
+  it("creates an exception for an AHO", async () => {
+    const aho = generateMessage("test-data/AnnotatedHearingOutcome-HO200101.xml.njk", {})
 
     const {
       outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(inputMessage)
+    } = await processPhase2Message(aho)
 
     expect(exceptions).toStrictEqual([
       {
@@ -26,5 +23,15 @@ describe.ifPhase2("HO200101", () => {
         path: offenceResultClassPath(0, 0)
       }
     ])
+  })
+
+  it("doesn't create an exception for a PncUpdateDataset", async () => {
+    const pncUpdateDataset = generateMessage("test-data/PncUpdateDataset-HO200101.xml.njk", {})
+
+    const {
+      outputMessage: { Exceptions: exceptions }
+    } = await processPhase2Message(pncUpdateDataset)
+
+    expect(exceptions).toHaveLength(0)
   })
 })
