@@ -90,6 +90,9 @@ commands:
       ENABLE_PHASE_2:
         default: "true"
         type: string
+      ENABLE_PHASE_3:
+        default: "true"
+        type: string
     steps:
       - run: bash scripts/fetch_docker_image.sh nodejs-20-2023 # required for message-forwarder in core
       - build_core_images
@@ -98,7 +101,7 @@ commands:
           name: Start bichard7 legacy
           working_directory: ~/bichard7-next-core
           command: |
-            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> \
+            ENABLE_PHASE_2=<<parameters.ENABLE_PHASE_2>> ENABLE_PHASE_3=<<parameters.ENABLE_PHASE_3>> \
             .circleci/scripts/run-infrastructure.sh '' all-legacy
 
   start_bichard7_core:
@@ -175,31 +178,49 @@ jobs:
       - node_install
       - when:
           condition:
-            equal: [ "mq", << parameters.message-entry-point >> ]
+            equal: ["mq", << parameters.message-entry-point >>]
           steps:
             - start_bichard7_legacy
       - when:
           condition:
-            equal: [ "s3", << parameters.message-entry-point >> ]
+            equal: ["s3", << parameters.message-entry-point >>]
           steps:
-          - start_bichard7_core
+            - start_bichard7_core
       - run_test_chunk
       - save_artifacts
       - store_test_results:
           path: ./cucumber/results
 
-  test_characterisation_legacy:
+  test_characterisation_legacy_phase1:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
+    environment:
+      ENABLE_PHASE_2: "false"
+      ENABLE_PHASE_3: "false"
     steps:
       - attach_workspace:
           at: ~/
       - set_locale
       - node_install
-      - start_bichard7_legacy:
-          ENABLE_PHASE_2: "false"
+      - start_bichard7_legacy
+      - run: npm run test:characterisation:bichard
+
+  test_characterisation_legacy_phase2:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: false
+    resource_class: large
+    environment:
+      ENABLE_PHASE_2: "false"
+      ENABLE_PHASE_3: "false"
+    steps:
+      - attach_workspace:
+          at: ~/
+      - set_locale
+      - node_install
+      - start_bichard7_legacy
       - run: npm run test:characterisation:bichard
 
   test_characterisation_core:
@@ -263,7 +284,10 @@ workflows:
           message-entry-point: s3
           requires:
             - install_and_lint
-      - test_characterisation_legacy:
+      - test_characterisation_legacy_phase1:
+          requires:
+            - install_and_lint
+      - test_characterisation_legacy_phase2:
           requires:
             - install_and_lint
       - test_characterisation_core:
