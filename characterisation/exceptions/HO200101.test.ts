@@ -1,4 +1,4 @@
-import { generateAhoMessage } from "../helpers/generateMessage"
+import { generateMessage } from "../helpers/generateMessage"
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
 import { offenceResultClassPath } from "../helpers/errorPaths"
@@ -10,8 +10,11 @@ describe.ifPhase2("HO200101", () => {
     await new World({}).db.closeConnection()
   })
 
-  it("creates an exception", async () => {
-    const inputMessage = generateAhoMessage({})
+  it.each([
+    { templateFile: "test-data/AnnotatedHearingOutcome-HO200101.xml.njk", messageType: "AHO" }
+    // { templateFile: "test-data/PncUpdateDataset-HO200101.xml.njk", messageType: "PncUpdateDataset" }
+  ])("creates an exception for $messageType", async ({ templateFile }) => {
+    const inputMessage = generateMessage(templateFile, {})
 
     const {
       outputMessage: { Exceptions: exceptions }

@@ -103,7 +103,7 @@ const formatDate = function (date: Date): string {
   return date.toISOString().split("T")[0]
 }
 
-const generateMessage = (templateFile: string, options: Record<string, unknown>): string => {
+export const generateMessage = (templateFile: string, options: Record<string, unknown>): string => {
   const template = readFileSync(templateFile, "utf-8")
 
   return new nunjucks.Environment()
