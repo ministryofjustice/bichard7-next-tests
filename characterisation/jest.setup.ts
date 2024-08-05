@@ -6,9 +6,9 @@ test.ifNewBichard = (testDescription: string, fn?: jest.ProvidesCallback, timeou
 }
 
 describe.ifPhase1 = (description: string, fn: jest.EmptyFunction) => {
-  return phase2Enabled ? describe.skip(description, fn) : describe(description, fn)
+  return legacyBichard && phase2Enabled ? describe.skip(description, fn) : describe(description, fn)
 }
 
 describe.ifPhase2 = (description: string, fn: jest.EmptyFunction) => {
-  return !phase2Enabled ? describe.skip(description, fn) : describe(description, fn)
+  return legacyBichard && !phase2Enabled ? describe.skip(description, fn) : describe(description, fn)
 }
