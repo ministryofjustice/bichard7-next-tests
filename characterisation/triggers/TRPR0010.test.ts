@@ -9,7 +9,7 @@ const code = TriggerCode.TRPR0010
 const resultCode = 4597
 const resultQualifier = "LI"
 
-describe("TRPR0010", () => {
+describe.ifPhase1("TRPR0010", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

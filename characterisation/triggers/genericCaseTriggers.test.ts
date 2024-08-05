@@ -39,7 +39,7 @@ const offenceTests = [
   }
 ]
 
-describe("Generic case triggers", () => {
+describe.ifPhase1("Generic case triggers", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

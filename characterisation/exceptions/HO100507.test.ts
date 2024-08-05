@@ -4,7 +4,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 jest.setTimeout(30000)
 
-describe("HO100507", () => {
+describe.ifPhase1("HO100507", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

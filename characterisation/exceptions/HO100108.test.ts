@@ -5,7 +5,7 @@ import type { GenerateSpiMessageOptions } from "../helpers/generateMessage"
 import { generateSpiMessage } from "../helpers/generateMessage"
 import { processPhase1Message } from "../helpers/processMessage"
 
-describe("HO100108", () => {
+describe.ifPhase1("HO100108", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

@@ -8,7 +8,7 @@ import { TriggerCode } from "../types/TriggerCode"
 const code = TriggerCode.TRPR0030
 const offenceCode = "PL84504"
 
-describe("TRPR0030", () => {
+describe.ifPhase1("TRPR0030", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

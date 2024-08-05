@@ -35,7 +35,7 @@ const expectedExceptions = [
   }
 ]
 
-describe("HO100240 and HO100246", () => {
+describe.ifPhase1("HO100240 and HO100246", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

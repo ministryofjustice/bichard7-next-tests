@@ -10,7 +10,7 @@ const code = TriggerCode.TRPR0020
 const resultCode = 3501
 const offenceCode = "CJ03507"
 
-describe("TRPR0020", () => {
+describe.ifPhase1("TRPR0020", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

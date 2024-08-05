@@ -5,7 +5,7 @@ import { offenceResultClassPath } from "../helpers/errorPaths"
 import { generateSpiMessage } from "../helpers/generateMessage"
 import { processPhase1Message } from "../helpers/processMessage"
 
-describe("HO100325", () => {
+describe.ifPhase1("HO100325", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

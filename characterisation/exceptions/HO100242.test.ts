@@ -4,7 +4,7 @@ import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
 import { processPhase1Message } from "../helpers/processMessage"
 
-describe("HO100242", () => {
+describe.ifPhase1("HO100242", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

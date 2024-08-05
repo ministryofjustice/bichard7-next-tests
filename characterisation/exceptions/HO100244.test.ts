@@ -22,7 +22,7 @@ const expectedExceptions = [
   }
 ]
 
-describe("HO100244", () => {
+describe.ifPhase1("HO100244", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

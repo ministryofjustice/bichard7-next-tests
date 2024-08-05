@@ -6,7 +6,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 const dummyASN = "0807NRPR00000038482H"
 
-describe("HO100321", () => {
+describe.ifPhase1("HO100321", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

@@ -21,7 +21,7 @@ const offenceTests = [
   }
 ]
 
-describe("Generic offence triggers", () => {
+describe.ifPhase1("Generic offence triggers", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

@@ -10,7 +10,7 @@ import { SpiVerdict } from "../types/Verdict"
 const code = TriggerCode.TRPR0008
 const matchingOffenceCode = "BA76004"
 
-describe("TRPR0008", () => {
+describe.ifPhase1("TRPR0008", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

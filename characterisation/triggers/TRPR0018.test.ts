@@ -38,7 +38,7 @@ const pncOffenceDateOverrides = (dates: PncOffenceDateOverride[]) => ({
   } as Partial<ResultedCaseMessageParsedXml>
 })
 
-describe("TRPR0018", () => {
+describe.ifPhase1("TRPR0018", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

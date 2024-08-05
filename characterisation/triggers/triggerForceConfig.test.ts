@@ -8,7 +8,7 @@ import { TriggerCode } from "../types/TriggerCode"
 const trigger1ResultCode = 3070
 const trigger5ResultCode = 4012
 
-describe("Trigger force configuration", () => {
+describe.ifPhase1("Trigger force configuration", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

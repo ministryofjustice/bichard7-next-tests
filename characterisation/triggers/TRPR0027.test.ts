@@ -7,7 +7,7 @@ import { TriggerCode } from "../types/TriggerCode"
 
 const trigger5ResultCode = 4012
 
-describe("TRPR0027", () => {
+describe.ifPhase1("TRPR0027", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

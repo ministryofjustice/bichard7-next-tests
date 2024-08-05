@@ -5,7 +5,7 @@ import { offenceResultClassPath } from "../helpers/errorPaths"
 
 jest.setTimeout(30000)
 
-describe("HO200101", () => {
+describe.ifPhase2("HO200101", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })

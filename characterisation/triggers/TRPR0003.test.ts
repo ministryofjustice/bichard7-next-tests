@@ -10,7 +10,7 @@ const mainResultCode = 1100
 const yroResultCode = 1141
 const yroSpecificRequirementResultCode = 3104
 
-describe("TRPR0003", () => {
+describe.ifPhase1("TRPR0003", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
