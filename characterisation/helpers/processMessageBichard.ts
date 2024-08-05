@@ -3,8 +3,7 @@ import { v4 as uuid } from "uuid"
 import type ActiveMqHelper from "../../helpers/ActiveMqHelper"
 import type PostgresHelper from "../../helpers/PostgresHelper"
 import World from "../../utils/world"
-import type { AnnotatedHearingOutcome } from "../types/AnnotatedHearingOutcome"
-import type BichardResultType from "../types/BichardResultType"
+import type { AnnotatedHearingOutcome, AnnotatedPncUpdateDataset } from "../types/AnnotatedHearingOutcome"
 import extractExceptionsFromAho from "./extractExceptionsFromAho"
 import { mockEnquiryErrorInPnc, mockRecordInPnc } from "./mockRecordInPnc"
 import type { ProcessMessageOptions } from "./processMessage"
@@ -18,7 +17,7 @@ const { pg } = world.db as PostgresHelper
 const mq = world.mq as ActiveMqHelper
 const realPnc = process.env.REAL_PNC === "true"
 
-const processMessageBichard = async (
+const processMessageBichard = async <BichardResultType>(
   messageXml: string,
   {
     expectRecord = true,
@@ -38,7 +37,7 @@ const processMessageBichard = async (
     throw new Error("You can't expect triggers without a record.")
   }
 
-  if (!realPnc) {
+  if (phase === Phase.HEARING_OUTCOME && !realPnc) {
     if (recordable) {
       // Insert matching record in PNC
       await mockRecordInPnc(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
@@ -48,7 +47,12 @@ const processMessageBichard = async (
   }
 
   // Push the message to MQ
-  const queue = phase === Phase.HEARING_OUTCOME ? "COURT_RESULT_INPUT_QUEUE" : "HEARING_OUTCOME_PNC_UPDATE_QUEUE"
+  const queue =
+    phase === Phase.HEARING_OUTCOME
+      ? "COURT_RESULT_INPUT_QUEUE"
+      : messageXml.includes("PNCUpdateDataset")
+        ? "PNC_UPDATE_REQUEST_QUEUE"
+        : "HEARING_OUTCOME_PNC_UPDATE_QUEUE"
   await mq.sendMessage(queue, messageXmlWithUuid)
 
   // Wait for the record to appear in Postgres
@@ -66,7 +70,11 @@ const processMessageBichard = async (
     throw new Error("No Error records found in DB")
   }
 
-  const exceptions = recordResult ? extractExceptionsFromAho(recordResult.annotated_msg) : []
+  const exceptions = recordResult
+    ? phase === Phase.HEARING_OUTCOME
+      ? extractExceptionsFromAho<AnnotatedHearingOutcome>(recordResult.annotated_msg)
+      : extractExceptionsFromAho<AnnotatedPncUpdateDataset>(recordResult.annotated_msg)
+    : []
 
   // Wait for the record to appear in Postgres
   const triggerQuery = `SELECT t.trigger_code, t.trigger_item_identity FROM br7own.error_list AS e
@@ -92,9 +100,11 @@ const processMessageBichard = async (
     ...(record.trigger_item_identity ? { offenceSequenceNumber: parseInt(record.trigger_item_identity, 10) } : {})
   }))
 
-  const hearingOutcome = { Exceptions: exceptions } as AnnotatedHearingOutcome
+  if (phase === Phase.HEARING_OUTCOME) {
+    return { triggers, hearingOutcome: { Exceptions: exceptions } as AnnotatedHearingOutcome } as BichardResultType
+  }
 
-  return { triggers, hearingOutcome }
+  return { triggers, outputMessage: { Exceptions: exceptions } as AnnotatedHearingOutcome } as BichardResultType
 }
 
 export default processMessageBichard

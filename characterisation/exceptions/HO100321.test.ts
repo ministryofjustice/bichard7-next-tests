@@ -2,11 +2,11 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 
 const dummyASN = "0807NRPR00000038482H"
 
-describe("HO100321", () => {
+describe.ifPhase1("HO100321", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
@@ -19,7 +19,7 @@ describe("HO100321", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false,
       recordable: true
     })
@@ -46,7 +46,7 @@ describe("HO100321", () => {
     })
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false,
       recordable: false
     })

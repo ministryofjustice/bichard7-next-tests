@@ -1,10 +1,9 @@
 import axios from "axios"
-import type BichardResultType from "../types/BichardResultType"
 import generateMockPncQueryResult from "./generateMockPncQueryResult"
 import type { ProcessMessageOptions } from "./processMessage"
 import Phase from "../types/Phase"
 
-const processMessageCore = async (
+const processMessageCore = async <BichardResultType>(
   messageXml: string,
   {
     recordable = true,

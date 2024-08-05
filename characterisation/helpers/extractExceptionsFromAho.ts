@@ -1,5 +1,5 @@
 import { XMLParser } from "fast-xml-parser"
-import type { AnnotatedHearingOutcome, Result } from "../types/AnnotatedHearingOutcome"
+import type { AnnotatedHearingOutcome, AnnotatedPncUpdateDataset, Result } from "../types/AnnotatedHearingOutcome"
 import type Exception from "../types/Exception"
 import type { ExceptionCode } from "../types/ExceptionCode"
 
@@ -22,19 +22,28 @@ const extract = (el: any, path: (string | number)[] = []): Exception[] => {
   return exceptions
 }
 
-export default (xml: string): Exception[] => {
+const extractExceptionsFromAho = <OutputMessage extends AnnotatedHearingOutcome | AnnotatedPncUpdateDataset>(
+  xml: string
+): Exception[] => {
   const options = {
     ignoreAttributes: false,
     removeNSPrefix: true
   }
   const parser = new XMLParser(options)
-  const rawParsedObj = parser.parse(xml) as AnnotatedHearingOutcome
-  const offenceElem = rawParsedObj?.AnnotatedHearingOutcome?.HearingOutcome?.Case?.HearingDefendant?.Offence
+  const rawParsedOutputMessage = parser.parse(xml) as OutputMessage
+  const annotatedHearingOutcome: AnnotatedHearingOutcome =
+    "AnnotatedPNCUpdateDataset" in rawParsedOutputMessage
+      ? rawParsedOutputMessage.AnnotatedPNCUpdateDataset.PNCUpdateDataset
+      : rawParsedOutputMessage
+
+  const hearingOutcome = annotatedHearingOutcome.AnnotatedHearingOutcome.HearingOutcome
+
+  const offenceElem = hearingOutcome.Case?.HearingDefendant?.Offence
   if (offenceElem && !Array.isArray(offenceElem)) {
-    rawParsedObj.AnnotatedHearingOutcome.HearingOutcome.Case.HearingDefendant.Offence = [offenceElem]
+    hearingOutcome.Case.HearingDefendant.Offence = [offenceElem]
   }
 
-  const offenceArray = rawParsedObj?.AnnotatedHearingOutcome?.HearingOutcome?.Case?.HearingDefendant?.Offence
+  const offenceArray = hearingOutcome.Case?.HearingDefendant?.Offence
   if (offenceArray) {
     offenceArray.forEach((offence) => {
       const results = offence.Result
@@ -49,5 +58,7 @@ export default (xml: string): Exception[] => {
     })
   }
 
-  return extract(rawParsedObj)
+  return extract(annotatedHearingOutcome)
 }
+
+export default extractExceptionsFromAho

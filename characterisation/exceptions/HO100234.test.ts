@@ -2,9 +2,9 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 
-describe("validate hearing outcome", () => {
+describe.ifPhase1("validate hearing outcome", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
@@ -16,7 +16,7 @@ describe("validate hearing outcome", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 
@@ -30,7 +30,7 @@ describe("validate hearing outcome", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 
@@ -57,7 +57,7 @@ describe("validate hearing outcome", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectTriggers: false
     })
 

@@ -2,7 +2,7 @@ jest.setTimeout(30000)
 
 import World from "../../utils/world"
 import { generateSpiMessage } from "../helpers/generateMessage"
-import processMessage from "../helpers/processMessage"
+import { processPhase1Message } from "../helpers/processMessage"
 import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
 import { TriggerCode } from "../types/TriggerCode"
 
@@ -38,7 +38,7 @@ const pncOffenceDateOverrides = (dates: PncOffenceDateOverride[]) => ({
   } as Partial<ResultedCaseMessageParsedXml>
 })
 
-describe("TRPR0018", () => {
+describe.ifPhase1("TRPR0018", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
@@ -65,7 +65,7 @@ describe("TRPR0018", () => {
     const {
       triggers,
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, pncOffenceDateOverrides([{ startDate: pncStart, endDate: pncEnd }]))
+    } = await processPhase1Message(inputMessage, pncOffenceDateOverrides([{ startDate: pncStart, endDate: pncEnd }]))
 
     expect(exceptions).toHaveLength(0)
     expect(triggers).toStrictEqual([{ code, offenceSequenceNumber: 1 }])
@@ -90,7 +90,7 @@ describe("TRPR0018", () => {
     const {
       triggers,
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(
+    } = await processPhase1Message(
       inputMessage,
       pncOffenceDateOverrides([
         { startDate: "2021-02-27", endDate: "2021-03-03" },
@@ -119,7 +119,7 @@ describe("TRPR0018", () => {
     const {
       triggers,
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectRecord: false,
       expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-02-28" }])
@@ -143,7 +143,7 @@ describe("TRPR0018", () => {
     const {
       triggers,
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectRecord: false,
       expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-01-28", endDate: "2021-02-28" }])
@@ -167,7 +167,7 @@ describe("TRPR0018", () => {
     const {
       triggers,
       hearingOutcome: { Exceptions: exceptions }
-    } = await processMessage(inputMessage, {
+    } = await processPhase1Message(inputMessage, {
       expectRecord: false,
       expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-02-28", endDate: "2021-02-28" }])

@@ -191,11 +191,19 @@ npm run test:characterisation
 1. From the Core repository, run the infrastructure required for legacy Bichard in Docker:
 
 ```bash
-npm run all-legacy
+# For Phase 1:
+ENABLE_PHASE_2=false ENABLE_PHASE_3=false npm run all-legacy
+
+# For Phase 2:
+ENABLE_PHASE_2=true ENABLE_PHASE_3=false npm run all-legacy
 ```
 
 2. From this tests repository, run the characterisation tests for legacy Bichard:
 
-```
-npm run test:characterisation:bichard
+```bash
+# For Phase 1:
+ENABLE_PHASE_2=false ENABLE_PHASE_3=false npm run test:characterisation:bichard
+
+# For Phase 2:
+ENABLE_PHASE_2=true ENABLE_PHASE_3=false npm run test:characterisation:bichard
 ```

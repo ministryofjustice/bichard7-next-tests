@@ -93,6 +93,8 @@ export type GenerateSpiMessageOptions = {
   psaCode?: number
 }
 
+export type GenerateAhoMessageOptions = {}
+
 const padStart = function (str: string, maxLength: number, fillString?: string): string {
   return str.padStart(maxLength, fillString)
 }
@@ -101,7 +103,7 @@ const formatDate = function (date: Date): string {
   return date.toISOString().split("T")[0]
 }
 
-const generateMessage = (templateFile: string, options: Record<string, unknown>): string => {
+export const generateMessage = (templateFile: string, options: Record<string, unknown>): string => {
   const template = readFileSync(templateFile, "utf-8")
 
   return new nunjucks.Environment()
@@ -112,3 +114,6 @@ const generateMessage = (templateFile: string, options: Record<string, unknown>)
 
 export const generateSpiMessage = (options: GenerateSpiMessageOptions) =>
   generateMessage("test-data/SpiResults.xml.njk", options)
+
+export const generateAhoMessage = (options: GenerateAhoMessageOptions) =>
+  generateMessage("test-data/AnnotatedHearingOutcome.xml.njk", options)
