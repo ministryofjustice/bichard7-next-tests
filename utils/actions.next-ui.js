@@ -222,7 +222,9 @@ const canSeeContentInTableForThis = async function (value) {
 
 const cannotSeeTrigger = async function (value) {
   await waitForRecord(null, this.browser.page, 2)
-  const noCasesMessageMatch = await this.browser.page.$$(`xpath/.//*[contains(text(),"${value}")]`)
+  const noCasesMessageMatch = await this.browser.page.$$(
+    `xpath/.//table[@class="cases-list"]//tbody//*[contains(text(),"${value}")]`
+  )
   expect(noCasesMessageMatch.length).toEqual(0)
 }
 
