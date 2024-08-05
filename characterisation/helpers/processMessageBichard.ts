@@ -47,7 +47,12 @@ const processMessageBichard = async <BichardResultType>(
   }
 
   // Push the message to MQ
-  const queue = phase === Phase.HEARING_OUTCOME ? "COURT_RESULT_INPUT_QUEUE" : "HEARING_OUTCOME_PNC_UPDATE_QUEUE"
+  const queue =
+    phase === Phase.HEARING_OUTCOME
+      ? "COURT_RESULT_INPUT_QUEUE"
+      : messageXml.includes("PNCUpdateDataset")
+        ? "PNC_UPDATE_REQUEST_QUEUE"
+        : "HEARING_OUTCOME_PNC_UPDATE_QUEUE"
   await mq.sendMessage(queue, messageXmlWithUuid)
 
   // Wait for the record to appear in Postgres
