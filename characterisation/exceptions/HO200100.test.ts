@@ -51,12 +51,9 @@ describe.ifPhase2("HO200100", () => {
 
         const {
           outputMessage: { Exceptions: exceptions }
-        } = await processPhase2Message(inputMessage)
+        } = await processPhase2Message(inputMessage, { expectTriggers: false, expectRecord: false })
 
-        expect(exceptions).not.toContain({
-          code: "HO200100",
-          path: offenceResultClassPath(0, 0)
-        })
+        expect(exceptions).toHaveLength(0)
       }
     )
   })
