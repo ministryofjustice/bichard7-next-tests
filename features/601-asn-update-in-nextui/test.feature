@@ -78,6 +78,19 @@ Feature: 601 - ASN Update / Correction in the Next UI
 
 	@NextUI
 	@ExcludeOnLegacyUI
+	Scenario: Displays relevant resolution status when exception resolved manually and then come back into case details page from case list
+		Given I am logged in as "supervisor"
+			And I view the list of exceptions
+		Then I see exception "HO100206" in the exception list table
+		When I open the record for "SEXOFFENCE TRPRFOUR"
+			Then I manually resolve the record
+			And I see exceptions resolution status as "Manually Resolved"
+			And I return to the list
+		When I open the record for "SEXOFFENCE TRPRFOUR"
+			And I see exceptions resolution status as "Manually Resolved"
+
+	@NextUI
+	@ExcludeOnLegacyUI
 	Scenario: Displays relevant resolution status when case resubmitted and stayed on case details page
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
