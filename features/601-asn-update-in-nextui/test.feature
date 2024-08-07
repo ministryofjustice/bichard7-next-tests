@@ -78,7 +78,7 @@ Feature: 601 - ASN Update / Correction in the Next UI
 
 	@NextUI
 	@ExcludeOnLegacyUI
-	Scenario: Displays relevant resolution status when case resubmitted
+	Scenario: Displays relevant resolution status when case resubmitted and stayed on case details page
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100206" in the exception list table
@@ -92,7 +92,7 @@ Feature: 601 - ASN Update / Correction in the Next UI
 
 	@NextUI
 	@ExcludeOnLegacyUI
-	Scenario: Displays relevant resolution status when exceptions resolved by resubmission
+	Scenario: Displays relevant resolution status when case resubmitted and then come back into case details page from case list
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions
 		Then I see exception "HO100206" in the exception list table
