@@ -89,3 +89,19 @@ Feature: 601 - ASN Update / Correction in the Next UI
 			And I see the correction for "ASN" to "11/01ZD/01/00000448754K"
 		Then I submit the record on the case details page
 			Then I see exceptions resolution status as "Submitted"
+
+	@NextUI
+	@ExcludeOnLegacyUI
+	Scenario: Displays relevant resolution status when exceptions resolved by resubmission
+		Given I am logged in as "supervisor"
+			And I view the list of exceptions
+		Then I see exception "HO100206" in the exception list table
+		When I open the record for "SEXOFFENCE TRPRFOUR"
+			And I click the "Defendant" tab
+			And I correct "ASN" to "1101ZD0100000448754K"
+		Then I reload the page
+			And I see the correction for "ASN" to "11/01ZD/01/00000448754K"
+		Then I submit the record
+			And I reload until I don't see "(Submitted)"
+			And I open the record for "SEXOFFENCE TRPRFOUR"
+			Then I see exceptions resolution status as "Resolved" on case details page
