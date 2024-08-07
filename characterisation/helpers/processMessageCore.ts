@@ -23,7 +23,7 @@ const processMessageCore = async <BichardResultType>(
     pncQueryResult,
     phase
   }
-  const result = await axios.post<BichardResultType>("http://localhost:6000/", requestBody)
+  const result = await axios.post<BichardResultType>("http://localhost:6000/", requestBody, { timeout: 2000 })
   return result.data
 }
 
