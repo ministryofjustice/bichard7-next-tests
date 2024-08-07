@@ -51,7 +51,7 @@ const processMessageBichard = async <BichardResultType>(
     phase === Phase.HEARING_OUTCOME
       ? "COURT_RESULT_INPUT_QUEUE"
       : messageXml.includes("PNCUpdateDataset")
-        ? "PNC_UPDATE_REQUEST_QUEUE"
+        ? "DATA_SET_PNC_UPDATE_QUEUE"
         : "HEARING_OUTCOME_PNC_UPDATE_QUEUE"
   await mq.sendMessage(queue, messageXmlWithUuid)
 

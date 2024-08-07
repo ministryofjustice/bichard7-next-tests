@@ -213,7 +213,7 @@ jobs:
       docker_layer_caching: false
     resource_class: large
     environment:
-      ENABLE_PHASE_2: "false"
+      ENABLE_PHASE_2: "true"
       ENABLE_PHASE_3: "false"
     steps:
       - attach_workspace:

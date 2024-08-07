@@ -49,18 +49,19 @@ describe.ifPhase2("HO200108", () => {
   it.each([
     {
       templateFile: "test-data/HO200108/aho-adjournment-with-judgement-not-2060-disposal.xml.njk",
-      result: "adjournment with judgement"
+      result: "adjournment with judgement",
+      processMessageOptions: { expectRecord: false }
     },
     {
       templateFile: "test-data/HO200108/aho-judgement-with-final-result-recordable-result.xml.njk",
       result: "judgement with final result"
     }
-  ])("doesn't create a HO200108 exception when $result", async ({ templateFile }) => {
+  ])("doesn't create a HO200108 exception when $result", async ({ templateFile, processMessageOptions }) => {
     const inputMessage = generateMessage(templateFile, {})
 
     const {
       outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(inputMessage)
+    } = await processPhase2Message(inputMessage, { expectTriggers: false, ...processMessageOptions })
 
     expect(exceptions).not.toContain({
       code: "HO200108",

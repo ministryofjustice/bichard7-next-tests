@@ -34,23 +34,28 @@ describe.ifPhase2("HO200101", () => {
     {
       templateFile: "test-data/HO200101/pud-adjournment-with-judgement.xml.njk",
       messageType: "PncUpdateDataset",
-      result: "adjournment with judgement"
+      result: "adjournment with judgement",
+      processMessageOptions: { expectRecord: false }
     },
     {
       templateFile: "test-data/HO200101/pud-judgement-with-final-result.xml.njk",
       messageType: "PncUpdateDataset",
-      result: "judgement with final result"
+      result: "judgement with final result",
+      processMessageOptions: { expectRecord: false }
     }
-  ])("doesn't create a HO200101 exception for $messageType when $result", async ({ templateFile }) => {
-    const inputMessage = generateMessage(templateFile, {})
+  ])(
+    "doesn't create a HO200101 exception for $messageType when $result",
+    async ({ templateFile, processMessageOptions }) => {
+      const inputMessage = generateMessage(templateFile, {})
 
-    const {
-      outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(inputMessage)
+      const {
+        outputMessage: { Exceptions: exceptions }
+      } = await processPhase2Message(inputMessage, { expectTriggers: false, ...processMessageOptions })
 
-    expect(exceptions).not.toContain({
-      code: "HO200101",
-      path: offenceResultClassPath(0, 0)
-    })
-  })
+      expect(exceptions).not.toContain({
+        code: "HO200101",
+        path: offenceResultClassPath(0, 0)
+      })
+    }
+  )
 })
