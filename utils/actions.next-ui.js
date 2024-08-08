@@ -275,6 +275,37 @@ const manuallyResolveRecord = async function () {
   await Promise.all([await this.browser.page.click("#Resolve"), await this.browser.page.waitForNavigation()])
 }
 
+const exceptionResolutionStatus = async function (resolutionStatus) {
+  await this.browser.page.click("#exceptions-tab")
+
+  const resolution = resolutionStatus.split(" ").length > 1 ? resolutionStatus.split(" ")[1] : resolutionStatus
+
+  const headerResolutionStatus = await this.browser.page.$$(
+    `xpath/.//div[@id = "header-container"]//div[contains(@class, "exceptions-${resolution.toLowerCase()}-tag") and text() = "${resolutionStatus}"]`
+  )
+  const exceptionsPanelResolutionStatus = await this.browser.page.$$(
+    `xpath/.//section[@id = "exceptions"]//div[contains(@class, "exceptions-${resolution.toLowerCase()}-tag") and text() = "${resolutionStatus}"]`
+  )
+
+  expect(headerResolutionStatus.length).toEqual(1)
+  expect(exceptionsPanelResolutionStatus.length).toEqual(1)
+}
+
+const exceptionResolutionStatusOnCaseDetails = async function (resolutionStatus) {
+  const { page } = this.browser
+
+  const headerResolutionStatus = await page.$$(
+    `xpath/.//div[@id = "header-container"]//div[contains(@class, "exceptions-${resolutionStatus.toLowerCase()}-tag") and text() = "${resolutionStatus}"]`
+  )
+  expect(headerResolutionStatus.length).toEqual(1)
+
+  await page.click("#exceptions-tab")
+  const exceptionsPanelResolutionStatus = await page.$$(
+    `xpath/.//section[@id = "exceptions"]//div[contains(@class, "exceptions-${resolutionStatus.toLowerCase()}-tag") and text() = "${resolutionStatus}"]`
+  )
+  expect(exceptionsPanelResolutionStatus.length).toEqual(0)
+}
+
 const filterRecords = async function (world, resolvedType, recordType) {
   if (resolvedType.toLowerCase() === "resolved") {
     await world.browser.page.click("input#resolved")
@@ -707,5 +738,7 @@ module.exports = {
   removeYear,
   seeError,
   filter,
-  clearFilters
+  clearFilters,
+  exceptionResolutionStatus,
+  exceptionResolutionStatusOnCaseDetails
 }
