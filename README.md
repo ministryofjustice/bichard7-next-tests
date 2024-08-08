@@ -202,8 +202,8 @@ ENABLE_PHASE_2=true ENABLE_PHASE_3=false npm run all-legacy
 
 ```bash
 # For Phase 1:
-ENABLE_PHASE_2=false ENABLE_PHASE_3=false npm run test:characterisation:bichard
+npm run test:characterisation:bichard:phase1
 
 # For Phase 2:
-ENABLE_PHASE_2=true ENABLE_PHASE_3=false npm run test:characterisation:bichard
+npm run test:characterisation:bichard:phase2
 ```
