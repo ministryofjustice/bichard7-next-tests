@@ -196,32 +196,30 @@ jobs:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
-    environment:
-      ENABLE_PHASE_2: "false"
-      ENABLE_PHASE_3: "false"
     steps:
       - attach_workspace:
           at: ~/
       - set_locale
       - node_install
-      - start_bichard7_legacy
-      - run: npm run test:characterisation:bichard
+      - start_bichard7_legacy:
+          ENABLE_PHASE_2: "false"
+          ENABLE_PHASE_3: "false"
+      - run: npm run test:characterisation:bichard:phase1
 
   test_characterisation_legacy_phase2:
     machine:
       image: ubuntu-2204:current
       docker_layer_caching: false
     resource_class: large
-    environment:
-      ENABLE_PHASE_2: "true"
-      ENABLE_PHASE_3: "false"
     steps:
       - attach_workspace:
           at: ~/
       - set_locale
       - node_install
-      - start_bichard7_legacy
-      - run: npm run test:characterisation:bichard
+      - start_bichard7_legacy:
+          ENABLE_PHASE_2: "true"
+          ENABLE_PHASE_3: "false"
+      - run: npm run test:characterisation:bichard:phase2
 
   test_characterisation_core:
     machine:
