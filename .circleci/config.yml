@@ -114,6 +114,7 @@ commands:
           command: |
             sudo chmod +r /var/cache/apt/archive/partial || true
             sudo cp -r /var/cache/apt/archives ~/vendor
+            sudo chmod +r ~/vendor/archive/partial || true
       - save_cache:
           key: ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}
           paths:
