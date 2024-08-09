@@ -4,7 +4,7 @@ module.exports = {
     inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
-    visible_forces: [],
+    visible_forces: ["01"],
     excluded_triggers: [],
     groups: ["B7Supervisor", "B7NewUI"]
   },
@@ -12,7 +12,7 @@ module.exports = {
     inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
-    visible_forces: [],
+    visible_forces: ["01"],
     excluded_triggers: [],
     groups: ["B7GeneralHandler", "B7NewUI"]
   },
@@ -20,7 +20,7 @@ module.exports = {
     inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
-    visible_forces: [],
+    visible_forces: ["01"],
     excluded_triggers: [],
     groups: ["B7TriggerHandler", "B7NewUI"]
   },
@@ -28,7 +28,7 @@ module.exports = {
     inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
-    visible_forces: [],
+    visible_forces: ["01"],
     excluded_triggers: [],
     groups: ["B7ExceptionHandler", "B7NewUI"]
   },
@@ -36,7 +36,7 @@ module.exports = {
     inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
-    visible_forces: [],
+    visible_forces: ["01"],
     excluded_triggers: [],
     groups: ["B7Audit", "B7NewUI"]
   },
@@ -44,7 +44,7 @@ module.exports = {
     inclusionList: [],
     exclusionList: [],
     visible_courts: ["B01", "B41ME00"],
-    visible_forces: [],
+    visible_forces: ["01"],
     excluded_triggers: [],
     groups: ["B7GeneralHandler"]
   },
