@@ -89,8 +89,8 @@ commands:
       - run:
           name: Configure apt cache
           command: |
-              echo 'APT::Keep-Downloaded-Packages "true";' >/etc/apt/apt.conf.d/01keep-debs
-              echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' >>/etc/apt/apt.conf.d/01keep-debs
+              sudo sh -c "echo 'APT::Keep-Downloaded-Packages \"true\";' >/etc/apt/apt.conf.d/01keep-debs"
+              sudo sh -c "echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' >>/etc/apt/apt.conf.d/01keep-debs"
       - run:
           name: Remove apt cache purge configuration
           command: rm /etc/apt/apt.conf.d/docker-clean
@@ -103,7 +103,7 @@ commands:
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
       - run:
           name: Clean unneeded packages from cache
-          command: apt autoclean
+          command: sudo apt autoclean
       - save_cache:
           key: ubuntu-package-cache-{{ checksum ".circleci/config.yml" }}
           paths:
