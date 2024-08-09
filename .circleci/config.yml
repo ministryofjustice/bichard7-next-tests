@@ -102,7 +102,7 @@ commands:
           name: Restore archives
           command: |
             mkdir ~/vendor || true
-            sudo cp ~/vendor /var/cache/apt/archives || true
+            sudo cp -r ~/vendor /var/cache/apt/archives
       - run:
           name: Install MS Edge (dev)
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
@@ -111,7 +111,9 @@ commands:
           command: sudo apt autoclean
       - run:
           name: Copy archives
-          command: sudo cp /var/cache/apt/archives ~/vendor
+          command: |
+            sudo chmod +r /var/cache/apt/archive/partial
+            sudo cp -r /var/cache/apt/archives ~/vendor
       - save_cache:
           key: ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}
           paths:
