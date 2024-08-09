@@ -93,7 +93,7 @@ commands:
               sudo sh -c "echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' >>/etc/apt/apt.conf.d/01keep-debs"
       - run:
           name: Remove apt cache purge configuration
-          command: rm /etc/apt/apt.conf.d/docker-clean
+          command: sudo rm /etc/apt/apt.conf.d/docker-clean || true
       - restore_cache:
           keys:
               - ubuntu-package-cache-{{ checksum ".circleci/config.yml" }}
