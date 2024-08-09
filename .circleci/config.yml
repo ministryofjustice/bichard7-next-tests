@@ -89,8 +89,8 @@ commands:
       - run:
           name: Configure apt cache
           command: |
-              sudo sh -c "echo 'APT::Keep-Downloaded-Packages \"true\";' >/etc/apt/apt.conf.d/01keep-debs"
-              sudo sh -c "echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' >>/etc/apt/apt.conf.d/01keep-debs"
+              sudo sh -c "echo 'APT::Keep-Downloaded-Packages \"true\";' > /etc/apt/apt.conf.d/99keep-debs"
+              sudo sh -c "echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' > /etc/apt/apt.conf.d/98keep-debs"
       - run:
           name: Remove apt cache purge configuration
           command: sudo rm /etc/apt/apt.conf.d/docker-clean || true
@@ -100,8 +100,10 @@ commands:
       - run:
           name: Restore archives
           command: |
-            mkdir ~/vendor || true
-            sudo cp -r ~/vendor /var/cache/apt/archives
+            mkdir -p ~/vendor/apt_cache || true
+            mkdir -p ~/vendor/apt_lists || true
+            sudo cp -r ~/vendor/apt_cache /var/cache/apt
+            sudo cp -r ~/vendor/apt_lists /var/lib/apt/lists
       - run:
           name: Install MS Edge (dev)
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
@@ -111,13 +113,15 @@ commands:
       - run:
           name: Copy archives
           command: |
-            sudo chmod +r /var/cache/apt/archive/partial || true
-            sudo cp -r /var/cache/apt/archives ~/vendor
-            sudo chmod +r ~/vendor/archive/partial || true
+            sudo chmod -R +r /var/cache/apt || true
+            sudo chmod -R +r /var/lib/apt/lists || true
+            sudo cp -r /var/cache/apt ~/vendor/apt_cache
+            sudo cp -r /var/lib/apt/lists ~/vendor/apt_lists
       - save_cache:
           key: ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}
           paths:
-              - ~/vendor
+              - ~/vendor/apt_cache
+              - ~/vendor/apt_lists
 
   ################### Services
   start_bichard7_legacy:
