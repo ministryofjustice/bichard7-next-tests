@@ -87,8 +87,27 @@ commands:
   install_ms_edge:
     steps:
       - run:
+          name: Configure apt cache
+          command: |
+              echo 'APT::Keep-Downloaded-Packages "true";' >/etc/apt/apt.conf.d/01keep-debs
+              echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' >>/etc/apt/apt.conf.d/01keep-debs
+      - run:
+          name: Remove apt cache purge configuration
+          command: rm /etc/apt/apt.conf.d/docker-clean
+      - restore_cache:
+          keys:
+              - ubuntu-package-cache-{{ checksum ".circleci/config.yml" }}
+              - ubuntu-package-cache
+      - run:
           name: Install MS Edge (dev)
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
+      - run:
+          name: Clean unneeded packages from cache
+          command: apt autoclean
+      - save_cache:
+          key: ubuntu-package-cache-{{ checksum ".circleci/config.yml" }}
+          paths:
+              - "/var/cache/apt/archives"
 
   ################### Services
   start_bichard7_legacy:
