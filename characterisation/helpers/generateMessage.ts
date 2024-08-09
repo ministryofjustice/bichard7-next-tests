@@ -1,8 +1,6 @@
 import { readFileSync } from "fs"
 import nunjucks from "nunjucks"
 
-export type GenerateAhoMessageOptions = {}
-
 const padStart = function (str: string, maxLength: number, fillString?: string): string {
   return str.padStart(maxLength, fillString)
 }
@@ -19,6 +17,3 @@ export const generateMessage = (templateFile: string, options: Record<string, un
     .addFilter("formatDate", formatDate)
     .renderString(template, options)
 }
-
-export const generateAhoMessage = (options: GenerateAhoMessageOptions) =>
-  generateMessage("test-data/AnnotatedHearingOutcome.xml.njk", options)
