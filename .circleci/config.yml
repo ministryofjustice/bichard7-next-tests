@@ -186,7 +186,7 @@ jobs:
       - set_locale
       - when:
           condition:
-            equal: ["true", << parameters.ms-edge >>]
+            equal: [true, << parameters.ms-edge >>]
           steps:
             - install_ms_edge
       - node_install
