@@ -1,10 +1,8 @@
 import World from "../../utils/world"
 import { offenceResultClassPath } from "../helpers/errorPaths"
-import { generateMessage } from "../helpers/generateMessage"
+import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
 import { ResultClass } from "../types/ResultClass"
-
-jest.setTimeout(30000)
 
 describe.ifPhase2("HO200104", () => {
   afterAll(async () => {

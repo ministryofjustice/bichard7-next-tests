@@ -1,9 +1,8 @@
 import World from "../../utils/world"
-import { generateMessage } from "../helpers/generateMessage"
+import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
-
-jest.setTimeout(30000)
+import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200110", () => {
   afterAll(async () => {
@@ -11,32 +10,36 @@ describe.ifPhase2("HO200110", () => {
   })
 
   describe("when a dummy ASN", () => {
-    it.each([
-      {
-        templateFile: "test-data/HO200110/aho-recordable-on-pnc.xml.njk",
-        messageType: "AHO"
-      },
-      {
-        templateFile: "test-data/HO200110/pud-recordable-on-pnc.xml.njk",
-        messageType: "PncUpdateDataset"
+    it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+      "creates a HO200110 exception for %s when recordable on PNC",
+      async (messageType) => {
+        const inputMessage = generatePhase2Message({
+          messageType,
+          recordableOnPncIndicator: true,
+          arrestSummonsNumber: "0800PP0111111111111A",
+          offences: [{ results: [{}] }]
+        })
+
+        const {
+          outputMessage: { Exceptions: exceptions }
+        } = await processPhase2Message(inputMessage)
+
+        expect(exceptions).toStrictEqual([
+          {
+            code: "HO200110",
+            path: asnPath
+          }
+        ])
       }
-    ])("creates a HO200110 exception for $messageType when recordable on PNC", async ({ templateFile }) => {
-      const inputMessage = generateMessage(templateFile, {})
-
-      const {
-        outputMessage: { Exceptions: exceptions }
-      } = await processPhase2Message(inputMessage)
-
-      expect(exceptions).toStrictEqual([
-        {
-          code: "HO200110",
-          path: asnPath
-        }
-      ])
-    })
+    )
 
     it("doesn't create a HO200110 exception when not recordable on PNC", async () => {
-      const inputMessage = generateMessage("test-data/HO200110/aho-not-recordable-on-pnc.xml.njk", {})
+      const inputMessage = generatePhase2Message({
+        messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+        recordableOnPncIndicator: false,
+        arrestSummonsNumber: "0800PP0111111111111A",
+        offences: [{ results: [{}] }]
+      })
 
       const {
         outputMessage: { Exceptions: exceptions }
