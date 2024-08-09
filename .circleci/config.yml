@@ -99,15 +99,21 @@ commands:
               - ubuntu-package-cache-{{ checksum ".circleci/config.yml" }}
               - ubuntu-package-cache
       - run:
+          name: Restore archives
+          command: sudo cp -r ~/vendor /var/cache/apt/archives
+      - run:
           name: Install MS Edge (dev)
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
       - run:
           name: Clean unneeded packages from cache
           command: sudo apt autoclean
+      - run:
+          name: Copy archives
+          command: sudo cp -r /var/cache/apt/archives ~/vendor
       - save_cache:
           key: ubuntu-package-cache-{{ checksum ".circleci/config.yml" }}
           paths:
-              - "/var/cache/apt/archives"
+              - ~/vendor
 
   ################### Services
   start_bichard7_legacy:
