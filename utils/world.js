@@ -11,7 +11,7 @@ const AuditLogApiHelper = require("../helpers/AuditLogApiHelper")
 const { config } = require("./config")
 
 let BrowserHelper
-if (process.env.MS_EDGE) {
+if (process.env.MS_EDGE === "true") {
   BrowserHelper = require("../helpers/BrowserHelperEdge")
 } else {
   BrowserHelper = require("../helpers/BrowserHelper")
