@@ -1,5 +1,3 @@
-jest.setTimeout(20000)
-
 import World from "../../utils/world"
 import generateSpiMessage from "../helpers/generateSpiMessage"
 import { processPhase1Message } from "../helpers/processMessage"

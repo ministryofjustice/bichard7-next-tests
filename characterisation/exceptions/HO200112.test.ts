@@ -3,8 +3,6 @@ import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
 
-jest.setTimeout(30000)
-
 describe.ifPhase2("HO200112", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()

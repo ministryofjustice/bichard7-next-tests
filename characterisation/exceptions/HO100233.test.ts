@@ -1,5 +1,3 @@
-jest.setTimeout(30000)
-
 import World from "../../utils/world"
 import { lookupOffenceByCjsCode } from "../helpers/dataLookup"
 import generateSpiMessage from "../helpers/generateSpiMessage"

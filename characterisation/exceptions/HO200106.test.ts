@@ -3,8 +3,6 @@ import { offenceResultClassPath } from "../helpers/errorPaths"
 import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
 
-jest.setTimeout(30000)
-
 describe.ifPhase2("HO200106", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
