@@ -1,5 +1,5 @@
 import World from "../../utils/world"
-import { generateMessage } from "../helpers/generateMessage"
+import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
 

@@ -1,4 +1,4 @@
-import { generateMessage } from "../helpers/generateMessage"
+import generateMessage from "../helpers/generateMessage"
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
 import { offenceResultClassPath } from "../helpers/errorPaths"

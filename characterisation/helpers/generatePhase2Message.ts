@@ -1,4 +1,4 @@
-import { generateMessage } from "./generateMessage"
+import generateMessage from "./generateMessage"
 import type { ResultClass } from "../types/ResultClass"
 import type MessageType from "../types/MessageType"
 

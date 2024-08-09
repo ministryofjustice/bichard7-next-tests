@@ -1,6 +1,6 @@
 import type { SpiVerdict } from "../types/Verdict"
 import type { SpiPlea } from "../types/Plea"
-import { generateMessage } from "./generateMessage"
+import generateMessage from "./generateMessage"
 
 type NextHearingDetails = {
   courtHearingLocation?: string
