@@ -164,6 +164,7 @@ jobs:
     resource_class: xlarge
     steps:
       - checkout
+      - install_ms_edge
       - node_install
       - node/install-packages
       - checkout_core
