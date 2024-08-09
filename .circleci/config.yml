@@ -97,7 +97,6 @@ commands:
       - restore_cache:
           keys:
               - ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}
-              - ubuntu-package-cache
       - run:
           name: Restore archives
           command: |
