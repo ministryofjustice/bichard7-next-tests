@@ -1,4 +1,4 @@
-import { generateSpiMessage } from "../helpers/generateMessage"
+import generateSpiMessage from "../helpers/generateSpiMessage"
 import World from "../../utils/world"
 import { processPhase1Message } from "../helpers/processMessage"
 

@@ -1,7 +1,7 @@
 jest.setTimeout(30000)
 
 import World from "../../utils/world"
-import { generateSpiMessage } from "../helpers/generateMessage"
+import generateSpiMessage from "../helpers/generateSpiMessage"
 import { processPhase1Message } from "../helpers/processMessage"
 
 const dummyASN = "0807NRPR00000038482H"
