@@ -57,6 +57,7 @@
     "pg-promise": "^11.9.1",
     "promise-poller": "^1.9.1",
     "puppeteer": "^22.15.0",
+    "puppeteer-core": "^23.0.2",
     "puppeteer-mass-screenshots": "^1.0.15",
     "stompit": "^1.0.0",
     "ts-jest": "^29.2.4",
