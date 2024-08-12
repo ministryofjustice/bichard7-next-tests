@@ -1,8 +1,6 @@
-import { generateSpiMessage } from "../helpers/generateMessage"
+import generateSpiMessage from "../helpers/generateSpiMessage"
 import World from "../../utils/world"
 import { processPhase1Message } from "../helpers/processMessage"
-
-jest.setTimeout(30000)
 
 describe.ifPhase1("HO100507", () => {
   afterAll(async () => {

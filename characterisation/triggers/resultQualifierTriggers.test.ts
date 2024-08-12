@@ -1,7 +1,5 @@
-jest.setTimeout(30000)
-
 import World from "../../utils/world"
-import { generateSpiMessage } from "../helpers/generateMessage"
+import generateSpiMessage from "../helpers/generateSpiMessage"
 import { processPhase1Message } from "../helpers/processMessage"
 import { TriggerCode } from "../types/TriggerCode"
 import TriggerRecordable from "../types/TriggerRecordable"
