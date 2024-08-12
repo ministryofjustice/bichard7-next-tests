@@ -1,25 +1,22 @@
 import World from "../../utils/world"
 import { offenceResultClassPath } from "../helpers/errorPaths"
-import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
 import { ResultClass } from "../types/ResultClass"
+import MessageType from "../types/MessageType"
+import generatePhase2Message from "../helpers/generatePhase2Message"
 
 describe.ifPhase2("HO200104", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
 
-  it.each([
-    {
-      resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT,
-      templateFile: "test-data/HO200104/aho-judgement-with-final-result.xml.njk"
-    },
-    {
-      resultClass: ResultClass.SENTENCE,
-      templateFile: "test-data/HO200104/aho-sentence.xml.njk"
-    }
-  ])("creates an exception for an AHO when result class is $resultClass", async ({ templateFile }) => {
-    const aho = generateMessage(templateFile, {})
+  it("creates a HO200104 exception for AHO when result class is sentence", async () => {
+    const aho = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: [{ results: [{ resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true }] }],
+      pncAdjudication: {},
+      pncDisposals: [{ type: 2007 }, { type: 1000 }]
+    })
 
     const {
       outputMessage: { Exceptions: exceptions }
@@ -33,25 +30,48 @@ describe.ifPhase2("HO200104", () => {
     ])
   })
 
-  it.each([
-    {
-      resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT,
-      templateFile: "test-data/HO200104/pud-judgement-with-final-result.xml.njk"
-    },
-    {
-      resultClass: ResultClass.SENTENCE,
-      templateFile: "test-data/HO200104/pud-sentence.xml.njk"
-    }
-  ])(
-    "doesn't create an exception for a PncUpdateDataset when result class is $resultClass",
-    async ({ templateFile }) => {
-      const pncUpdateDataset = generateMessage(templateFile, {})
+  it("creates a HO200104 exception for AHO when result class is judgement with final result", async () => {
+    const aho = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: [{ results: [{ resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT, pncAdjudicationExists: true }] }]
+    })
 
-      const {
-        outputMessage: { Exceptions: exceptions }
-      } = await processPhase2Message(pncUpdateDataset, { expectTriggers: false, expectRecord: false })
+    const {
+      outputMessage: { Exceptions: exceptions }
+    } = await processPhase2Message(aho)
 
-      expect(exceptions).toHaveLength(0)
-    }
-  )
+    expect(exceptions).toStrictEqual([
+      {
+        code: "HO200104",
+        path: offenceResultClassPath(0, 0)
+      }
+    ])
+  })
+
+  it("doesn't create an exception for a PncUpdateDataset when result class is judgement with final result", async () => {
+    const pncUpdateDataset = generatePhase2Message({
+      messageType: MessageType.PNC_UPDATE_DATASET,
+      offences: [{ results: [{ resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT, pncAdjudicationExists: true }] }]
+    })
+
+    const {
+      outputMessage: { Exceptions: exceptions }
+    } = await processPhase2Message(pncUpdateDataset, { expectTriggers: false, expectRecord: false })
+
+    expect(exceptions).toHaveLength(0)
+  })
+
+  it("doesn't create an exception for a PncUpdateDataset when result class is sentence", async () => {
+    const pncUpdateDataset = generatePhase2Message({
+      messageType: MessageType.PNC_UPDATE_DATASET,
+      offences: [{ results: [{ resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true }] }],
+      pncDisposals: [{ type: 2007 }, { type: 1000 }]
+    })
+
+    const {
+      outputMessage: { Exceptions: exceptions }
+    } = await processPhase2Message(pncUpdateDataset, { expectTriggers: false, expectRecord: false })
+
+    expect(exceptions).toHaveLength(0)
+  })
 })
