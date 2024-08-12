@@ -91,6 +91,7 @@ commands:
               - ubuntu-package-cache-v1-{{ checksum ".circleci/scripts/install-ms-edge-on-linux.sh" }}
       - run:
           name: Install MS Edge (dev)
+          working_directory: ~/bichard7-next-core
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
       - save_cache:
           key: ubuntu-package-cache-v1-{{ checksum ".circleci/scripts/install-ms-edge-on-linux.sh" }}
@@ -153,11 +154,11 @@ jobs:
     resource_class: xlarge
     steps:
       - checkout
-      - install_ms_edge
       - node_install
       - node/install-packages
       - checkout_core
       - set_locale
+      - install_ms_edge
       - node/install-packages:
           app-dir: ~/bichard7-next-core
       - run: npm run lint
