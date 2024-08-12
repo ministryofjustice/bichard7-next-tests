@@ -87,6 +87,7 @@ commands:
   install_ms_edge:
     steps:
       - restore_cache:
+          working_directory: ~/bichard7-next-core
           keys:
               - ubuntu-package-cache-v1-{{ checksum ".circleci/scripts/install-ms-edge-on-linux.sh" }}
       - run:
@@ -94,6 +95,7 @@ commands:
           working_directory: ~/bichard7-next-core
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
       - save_cache:
+          working_directory: ~/bichard7-next-core
           key: ubuntu-package-cache-v1-{{ checksum ".circleci/scripts/install-ms-edge-on-linux.sh" }}
           paths:
               - ~/vendor/apt_cache
