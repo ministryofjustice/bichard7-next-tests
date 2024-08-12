@@ -165,6 +165,16 @@
                  OffenceQualifier1="" OffenceQualifier2=""
                  OffenceTitle="Use a motor vehicle on a road / public place without third party insurance"
                  ReferenceNumber="001" />
+            {% if pncAdjudication %}
+            <ADJ Adjudication1="GUILTY" DateOfSentence="26092007" IntfcUpdateType="I" OffenceTICNumber="0000" Plea="NOT GUILTY" WeedFlag=""/>
+            {% endif %}
+            {% if pncDisposals | length %}
+            <DISList>
+              {% for pncDisposal in pncDisposals %}
+              <DIS IntfcUpdateType="I" QtyDate="" QtyDuration="W2" QtyMonetaryValue="" QtyUnitsFined="" Qualifiers="ABS     W12" Text="" Type="{{ pncDisposal.type }}"/>
+              {% endfor %}
+            </DISList>
+            {% endif %}
           </Offence>
         </Offences>
       </CourtCase>

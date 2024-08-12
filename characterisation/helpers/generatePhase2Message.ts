@@ -2,6 +2,12 @@ import generateMessage from "./generateMessage"
 import type { ResultClass } from "../types/ResultClass"
 import type MessageType from "../types/MessageType"
 
+type PncDisposal = {
+  type: number
+}
+
+type PncAdjudication = {}
+
 type Result = {
   cjsResultCode?: number
   resultVariableText?: string
@@ -20,6 +26,8 @@ export type GeneratePhase2MessageOptions = {
   recordableOnPncIndicator?: boolean
   arrestSummonsNumber?: string
   offences?: Offence[]
+  pncAdjudication?: PncAdjudication
+  pncDisposals?: PncDisposal[]
 }
 
 const generatePhase2Message = (options: GeneratePhase2MessageOptions) =>
