@@ -1,26 +1,31 @@
 import World from "../../utils/world"
-import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
+import MessageType from "../types/MessageType"
+import generatePhase2Message from "../helpers/generatePhase2Message"
+import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200112", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
 
-  it.each([
-    {
-      templateFile: "test-data/HO200112/aho.xml.njk",
-      messageType: "AHO"
-    },
-    {
-      templateFile: "test-data/HO200112/pud.xml.njk",
-      messageType: "PncUpdateDataset"
-    }
-  ])(
-    "creates a HO200112 exception for $messageType when result with judgement with final result and sentence",
-    async ({ templateFile }) => {
-      const inputMessage = generateMessage(templateFile, {})
+  it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+    "creates a HO200112 exception for %s when results with judgement with final result and sentence",
+    async (messageType) => {
+      const inputMessage = generatePhase2Message({
+        messageType,
+        offences: [
+          {
+            results: [
+              { resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT, pncAdjudicationExists: false },
+              { resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true }
+            ]
+          }
+        ],
+        pncAdjudication: {},
+        pncDisposals: [{ type: 1000 }]
+      })
 
       const {
         outputMessage: { Exceptions: exceptions }
