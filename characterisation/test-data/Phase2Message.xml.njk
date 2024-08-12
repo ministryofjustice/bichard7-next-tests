@@ -118,6 +118,11 @@
           <ds:ConvictionDate>2011-09-26</ds:ConvictionDate>
           <br7:CommittedOnBail Literal="Don't Know">D</br7:CommittedOnBail>
           <br7:CourtOffenceSequenceNumber>3</br7:CourtOffenceSequenceNumber>
+          {% if offence.addedByTheCourt %}
+          <br7:AddedByTheCourt Literal="Yes">Y</br7:AddedByTheCourt>
+          {% else %}
+          <br7:AddedByTheCourt Literal="No">N</br7:AddedByTheCourt>
+          {% endif %}
           {% for result in offence.results %}
           <br7:Result hasError="false" SchemaVersion="2.0">
             <ds:CJSresultCode>{{ result.cjsResultCode if result.cjsResultCode else "1015" }}</ds:CJSresultCode>

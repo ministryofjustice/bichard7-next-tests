@@ -18,6 +18,7 @@ type Result = {
 
 type Offence = {
   recordableOnPncIndicator?: boolean
+  addedByTheCourt?: boolean
   results?: Result[]
 }
 
