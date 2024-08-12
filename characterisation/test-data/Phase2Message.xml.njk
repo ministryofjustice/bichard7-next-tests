@@ -40,7 +40,7 @@
       <br7:CourtReference>
         <ds:MagistratesCourtReference>01ZD0303208</ds:MagistratesCourtReference>
       </br7:CourtReference>
-      {% if recordableOnPncIndicator %}
+      {% if recordableOnPncIndicator or recordableOnPncIndicator == undefined %}
       <br7:RecordableOnPNCindicator Literal="Yes">Y</br7:RecordableOnPNCindicator>
       {% else %}
       <br7:RecordableOnPNCindicator Literal="No">N</br7:RecordableOnPNCindicator>
@@ -118,6 +118,11 @@
           <ds:ConvictionDate>2011-09-26</ds:ConvictionDate>
           <br7:CommittedOnBail Literal="Don't Know">D</br7:CommittedOnBail>
           <br7:CourtOffenceSequenceNumber>3</br7:CourtOffenceSequenceNumber>
+          {% if offence.addedByTheCourt %}
+          <br7:AddedByTheCourt Literal="Yes">Y</br7:AddedByTheCourt>
+          {% else %}
+          <br7:AddedByTheCourt Literal="No">N</br7:AddedByTheCourt>
+          {% endif %}
           {% for result in offence.results %}
           <br7:Result hasError="false" SchemaVersion="2.0">
             <ds:CJSresultCode>{{ result.cjsResultCode if result.cjsResultCode else "1015" }}</ds:CJSresultCode>
@@ -139,7 +144,7 @@
             <ds:ResultHalfLifeHours>72</ds:ResultHalfLifeHours>
             <br7:PNCDisposalType>{{ result.pncDisposalType if result.pncDisposalType else "1015" }}</br7:PNCDisposalType>
             <br7:ResultClass>{{ result.resultClass if result.resultClass else "Adjournment pre Judgement" }}</br7:ResultClass>
-            {% if offence.pncAdjudicationExists %}
+            {% if result.pncAdjudicationExists %}
             <br7:PNCAdjudicationExists Literal="Yes">Y</br7:PNCAdjudicationExists>
             {% else %}
             <br7:PNCAdjudicationExists Literal="No">N</br7:PNCAdjudicationExists>
@@ -165,6 +170,16 @@
                  OffenceQualifier1="" OffenceQualifier2=""
                  OffenceTitle="Use a motor vehicle on a road / public place without third party insurance"
                  ReferenceNumber="001" />
+            {% if pncAdjudication %}
+            <ADJ Adjudication1="GUILTY" DateOfSentence="26092007" IntfcUpdateType="I" OffenceTICNumber="0000" Plea="NOT GUILTY" WeedFlag=""/>
+            {% endif %}
+            {% if pncDisposals | length %}
+            <DISList>
+              {% for pncDisposal in pncDisposals %}
+              <DIS IntfcUpdateType="I" QtyDate="" QtyDuration="W2" QtyMonetaryValue="" QtyUnitsFined="" Qualifiers="ABS     W12" Text="" Type="{{ pncDisposal.type }}"/>
+              {% endfor %}
+            </DISList>
+            {% endif %}
           </Offence>
         </Offences>
       </CourtCase>

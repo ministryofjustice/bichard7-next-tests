@@ -1,7 +1,9 @@
-import generateMessage from "../helpers/generateMessage"
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
 import { offenceResultClassPath } from "../helpers/errorPaths"
+import MessageType from "../types/MessageType"
+import { ResultClass } from "../types/ResultClass"
+import generatePhase2Message from "../helpers/generatePhase2Message"
 
 describe.ifPhase2("HO200108", () => {
   afterAll(async () => {
@@ -10,27 +12,31 @@ describe.ifPhase2("HO200108", () => {
 
   it.each([
     {
-      templateFile: "test-data/HO200108/aho-adjournment-with-judgement.xml.njk",
-      messageType: "AHO",
-      result: "adjournment with judgement"
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      resultClass: ResultClass.ADJOURNMENT_WITH_JUDGEMENT
     },
     {
-      templateFile: "test-data/HO200108/pud-adjournment-with-judgement.xml.njk",
-      messageType: "PncUpdateDataset",
-      result: "adjournment with judgement"
+      messageType: MessageType.PNC_UPDATE_DATASET,
+      resultClass: ResultClass.ADJOURNMENT_WITH_JUDGEMENT
     },
     {
-      templateFile: "test-data/HO200108/aho-judgement-with-final-result.xml.njk",
-      messageType: "AHO",
-      result: "judgement with final result"
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT
     },
     {
-      templateFile: "test-data/HO200108/pud-judgement-with-final-result.xml.njk",
-      messageType: "PncUpdateDataset",
-      result: "judgement with final result"
+      messageType: MessageType.PNC_UPDATE_DATASET,
+      resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT
     }
-  ])("creates a HO200108 exception for $messageType when $result", async ({ templateFile }) => {
-    const inputMessage = generateMessage(templateFile, {})
+  ])("creates a HO200108 exception for $messageType when $resultClass", async ({ messageType, resultClass }) => {
+    const inputMessage = generatePhase2Message({
+      messageType,
+      offences: [
+        {
+          results: [{ resultClass, pncDisposalType: 2060 }],
+          addedByTheCourt: false
+        }
+      ]
+    })
 
     const {
       outputMessage: { Exceptions: exceptions }
@@ -44,22 +50,41 @@ describe.ifPhase2("HO200108", () => {
     ])
   })
 
-  it.each([
-    {
-      templateFile: "test-data/HO200108/aho-adjournment-with-judgement-not-2060-disposal.xml.njk",
-      result: "adjournment with judgement",
-      processMessageOptions: { expectRecord: false }
-    },
-    {
-      templateFile: "test-data/HO200108/aho-judgement-with-final-result-recordable-result.xml.njk",
-      result: "judgement with final result"
-    }
-  ])("doesn't create a HO200108 exception when $result", async ({ templateFile, processMessageOptions }) => {
-    const inputMessage = generateMessage(templateFile, {})
+  it("doesn't create a HO200108 exception when not 2060 disposal type", async () => {
+    const inputMessage = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: [
+        {
+          results: [{ resultClass: ResultClass.ADJOURNMENT_WITH_JUDGEMENT, pncDisposalType: 1015 }],
+          addedByTheCourt: false
+        }
+      ]
+    })
 
     const {
       outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(inputMessage, { expectTriggers: false, ...processMessageOptions })
+    } = await processPhase2Message(inputMessage, { expectTriggers: false, expectRecord: false })
+
+    expect(exceptions).not.toContainEqual({
+      code: "HO200108",
+      path: offenceResultClassPath(0, 0)
+    })
+  })
+
+  it("doesn't create a HO200108 exception when reportable result", async () => {
+    const inputMessage = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: [
+        {
+          results: [{ resultClass: ResultClass.JUDGEMENT_WITH_FINAL_RESULT, pncDisposalType: 1505 }],
+          addedByTheCourt: false
+        }
+      ]
+    })
+
+    const {
+      outputMessage: { Exceptions: exceptions }
+    } = await processPhase2Message(inputMessage)
 
     expect(exceptions).not.toContainEqual({
       code: "HO200108",

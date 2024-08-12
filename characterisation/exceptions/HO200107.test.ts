@@ -1,7 +1,9 @@
-import generateMessage from "../helpers/generateMessage"
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
 import { offenceResultClassPath } from "../helpers/errorPaths"
+import MessageType from "../types/MessageType"
+import generatePhase2Message from "../helpers/generatePhase2Message"
+import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200107", () => {
   afterAll(async () => {
@@ -9,19 +11,17 @@ describe.ifPhase2("HO200107", () => {
   })
 
   describe("when appeal outcome for offence result", () => {
-    it.each([
-      {
-        templateFile: "test-data/HO200107/aho-no-pnc-adjudication-exists.xml.njk",
-        messageType: "AHO"
-      },
-      {
-        templateFile: "test-data/HO200107/pud-no-pnc-adjudication-exists.xml.njk",
-        messageType: "PncUpdateDataset"
-      }
-    ])(
-      "creates a HO200107 exception for $messageType when PNC adjudication doesn't exist",
-      async ({ templateFile }) => {
-        const inputMessage = generateMessage(templateFile, {})
+    it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+      "creates a HO200107 exception for %s when PNC adjudication doesn't exist",
+      async (messageType) => {
+        const inputMessage = generatePhase2Message({
+          messageType,
+          offences: [
+            {
+              results: [{ resultClass: ResultClass.APPEAL_OUTCOME, pncAdjudicationExists: false }]
+            }
+          ]
+        })
 
         const {
           outputMessage: { Exceptions: exceptions }
@@ -36,19 +36,17 @@ describe.ifPhase2("HO200107", () => {
       }
     )
 
-    it.each([
-      {
-        templateFile: "test-data/HO200107/aho-pnc-adjudication-exists.xml.njk",
-        messageType: "AHO"
-      },
-      {
-        templateFile: "test-data/HO200107/pud-pnc-adjudication-exists.xml.njk",
-        messageType: "PncUpdateDataset"
-      }
-    ])(
-      "doesn't create a HO200107 exception for $messageType when PNC adjudication exists",
-      async ({ templateFile }) => {
-        const inputMessage = generateMessage(templateFile, {})
+    it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+      "doesn't create a HO200107 exception for %s when PNC adjudication exists",
+      async (messageType) => {
+        const inputMessage = generatePhase2Message({
+          messageType,
+          offences: [
+            {
+              results: [{ resultClass: ResultClass.APPEAL_OUTCOME, pncAdjudicationExists: true }]
+            }
+          ]
+        })
 
         const {
           outputMessage: { Exceptions: exceptions }
