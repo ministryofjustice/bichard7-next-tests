@@ -86,39 +86,14 @@ commands:
 
   install_ms_edge:
     steps:
-      - run:
-          name: Configure apt cache
-          command: |
-              sudo sh -c "echo 'APT::Keep-Downloaded-Packages \"true\";' > /etc/apt/apt.conf.d/99keep-debs"
-              sudo sh -c "echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' > /etc/apt/apt.conf.d/98keep-debs"
-      - run:
-          name: Remove apt cache purge configuration
-          command: sudo rm /etc/apt/apt.conf.d/docker-clean || true
       - restore_cache:
           keys:
-              - ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}
-      - run:
-          name: Restore archives
-          command: |
-            mkdir -p ~/vendor/apt_cache || true
-            mkdir -p ~/vendor/apt_lists || true
-            sudo cp -r ~/vendor/apt_cache /var/cache/apt
-            sudo cp -r ~/vendor/apt_lists /var/lib/apt/lists
+              - ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum ".circleci/scripts/install-ms-edge-on-linux.sh" }}
       - run:
           name: Install MS Edge (dev)
           command: bash .circleci/scripts/install-ms-edge-on-linux.sh
-      - run:
-          name: Clean unneeded packages from cache
-          command: sudo apt autoclean
-      - run:
-          name: Copy archives
-          command: |
-            sudo chmod -R +r /var/cache/apt || true
-            sudo chmod -R +r /var/lib/apt/lists || true
-            sudo cp -r /var/cache/apt ~/vendor/apt_cache
-            sudo cp -r /var/lib/apt/lists ~/vendor/apt_lists
       - save_cache:
-          key: ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}
+          key: ubuntu-package-cache-v1-{{ checksum ".circleci/config.yml" }}-{{ checksum ".circleci/scripts/install-ms-edge-on-linux.sh" }}
           paths:
               - ~/vendor/apt_cache
               - ~/vendor/apt_lists
