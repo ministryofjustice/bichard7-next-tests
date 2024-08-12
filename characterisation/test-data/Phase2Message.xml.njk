@@ -139,7 +139,7 @@
             <ds:ResultHalfLifeHours>72</ds:ResultHalfLifeHours>
             <br7:PNCDisposalType>{{ result.pncDisposalType if result.pncDisposalType else "1015" }}</br7:PNCDisposalType>
             <br7:ResultClass>{{ result.resultClass if result.resultClass else "Adjournment pre Judgement" }}</br7:ResultClass>
-            {% if offence.pncAdjudicationExists %}
+            {% if result.pncAdjudicationExists %}
             <br7:PNCAdjudicationExists Literal="Yes">Y</br7:PNCAdjudicationExists>
             {% else %}
             <br7:PNCAdjudicationExists Literal="No">N</br7:PNCAdjudicationExists>
