@@ -1,7 +1,9 @@
 import World from "../../utils/world"
 import { offenceResultClassPath } from "../helpers/errorPaths"
-import generateMessage from "../helpers/generateMessage"
 import { processPhase2Message } from "../helpers/processMessage"
+import MessageType from "../types/MessageType"
+import generatePhase2Message from "../helpers/generatePhase2Message"
+import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200106", () => {
   afterAll(async () => {
@@ -9,19 +11,18 @@ describe.ifPhase2("HO200106", () => {
   })
 
   describe("when sentence for offence result", () => {
-    it.each([
-      {
-        templateFile: "test-data/HO200106/aho-sentence.xml.njk",
-        messageType: "AHO"
-      },
-      {
-        templateFile: "test-data/HO200106/pud-sentence.xml.njk",
-        messageType: "PncUpdateDataset"
-      }
-    ])(
-      "creates a HO200106 exception for $messageType when PNC adjudication exists and not added by the court",
-      async ({ templateFile }) => {
-        const inputMessage = generateMessage(templateFile, {})
+    it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+      "creates a HO200106 exception for %s when PNC adjudication doesn't exist and not added by the court",
+      async (messageType) => {
+        const inputMessage = generatePhase2Message({
+          messageType,
+          offences: [
+            {
+              results: [{ resultClass: ResultClass.SENTENCE, pncAdjudicationExists: false }],
+              addedByTheCourt: false
+            }
+          ]
+        })
 
         const {
           outputMessage: { Exceptions: exceptions }
@@ -36,21 +37,41 @@ describe.ifPhase2("HO200106", () => {
       }
     )
 
-    it.each([
-      {
-        templateFile: "test-data/HO200106/aho-pnc-adjudication-exists.xml.njk",
-        context: "PNC adjudication doesn't exist"
-      },
-      {
-        templateFile: "test-data/HO200106/aho-pnc-adjudication-exists-and-added-by-the-court.xml.njk",
-        context: "PNC adjudication exists but added by the court"
-      }
-    ])("doesn't create a HO200106 exception when $context", async ({ templateFile }) => {
-      const inputMessage = generateMessage(templateFile, {})
+    it("doesn't create a HO200106 exception when PNC adjudication exists", async () => {
+      const inputMessage = generatePhase2Message({
+        messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+        offences: [
+          {
+            results: [{ resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true }],
+            addedByTheCourt: false
+          }
+        ]
+      })
 
       const {
         outputMessage: { Exceptions: exceptions }
-      } = await processPhase2Message(inputMessage, { expectTriggers: false, expectRecord: true })
+      } = await processPhase2Message(inputMessage, { expectTriggers: false, expectRecord: false })
+
+      expect(exceptions).not.toContainEqual({
+        code: "HO200106",
+        path: offenceResultClassPath(0, 0)
+      })
+    })
+
+    it("doesn't create a HO200106 exception when PNC adjudication doesn't exist but added by the court", async () => {
+      const inputMessage = generatePhase2Message({
+        messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+        offences: [
+          {
+            results: [{ resultClass: ResultClass.SENTENCE, pncAdjudicationExists: false }],
+            addedByTheCourt: true
+          }
+        ]
+      })
+
+      const {
+        outputMessage: { Exceptions: exceptions }
+      } = await processPhase2Message(inputMessage)
 
       expect(exceptions).not.toContainEqual({
         code: "HO200106",
