@@ -8,12 +8,19 @@ type PncDisposal = {
 
 type PncAdjudication = {}
 
+type Duration = {
+  type: string
+  unit: string
+  length: number
+}
+
 type Result = {
   cjsResultCode?: number
   resultVariableText?: string
   pncDisposalType?: number
   resultClass?: ResultClass
   pncAdjudicationExists?: boolean
+  durations?: Duration[]
 }
 
 type Offence = {
@@ -27,6 +34,7 @@ export type GeneratePhase2MessageOptions = {
   recordableOnPncIndicator?: boolean
   arrestSummonsNumber?: string
   offences?: Offence[]
+  pncId?: string
   pncAdjudication?: PncAdjudication
   pncDisposals?: PncDisposal[]
 }
