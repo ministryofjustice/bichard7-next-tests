@@ -12,6 +12,17 @@ class BrowserHelper {
     this.browser = null
     this.page = null
     this.authTokenCookie = null
+
+    this.defaultArgsForPuppeteer = [
+      // Required for Docker version of Puppeteer
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      // This will write shared memory files into /tmp instead of /dev/shm,
+      // because Docker's default for /dev/shm is 64MB
+      "--disable-dev-shm-usage",
+      "--window-size=1024,1024",
+      "--lang=en_GB"
+    ]
   }
 
   async newPage(path) {
@@ -19,16 +30,7 @@ class BrowserHelper {
       browser = await puppeteer.launch({
         ignoreHTTPSErrors: true,
         headless: this.options.headless ? "new" : false,
-        args: [
-          // Required for Docker version of Puppeteer
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          // This will write shared memory files into /tmp instead of /dev/shm,
-          // because Docker’s default for /dev/shm is 64MB
-          "--disable-dev-shm-usage",
-          "--window-size=1024,1024",
-          "--lang=en_GB"
-        ]
+        args: this.defaultArgsForPuppeteer
       })
     }
     const context = await browser.createBrowserContext()
