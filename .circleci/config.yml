@@ -84,6 +84,21 @@ commands:
           working_directory: ~/bichard7-next-core
           command: bash .circleci/scripts/set-locale.sh
 
+  install_ms_edge:
+    steps:
+      - restore_cache:
+          keys:
+              - ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
+      - run:
+          name: Install MS Edge (dev)
+          working_directory: ~/bichard7-next-core
+          command: bash .circleci/scripts/install-ms-edge-on-linux.sh
+      - save_cache:
+          key: ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
+          paths:
+              - ~/vendor/apt_cache
+              - ~/vendor/apt_lists
+
   ################### Services
   start_bichard7_legacy:
     parameters:
@@ -143,6 +158,7 @@ jobs:
       - node/install-packages
       - checkout_core
       - set_locale
+      - install_ms_edge
       - node/install-packages:
           app-dir: ~/bichard7-next-core
       - run: npm run lint
@@ -165,16 +181,24 @@ jobs:
       message-entry-point:
         type: enum
         enum: ["mq", "s3"]
+      ms-edge:
+        type: boolean
     environment:
       RECORD: "true"
       AWS_URL: "http://localhost:4566"
       MESSAGE_ENTRY_POINT: << parameters.message-entry-point >>
       NEXTUI: << parameters.next-ui >>
       PHASE2_CORE_CANARY_RATIO: << parameters.phase2-core-canary-ratio >>
+      MS_EDGE: << parameters.ms-edge >>
     steps:
       - attach_workspace:
           at: ~/
       - set_locale
+      - when:
+          condition:
+            equal: [true, << parameters.ms-edge >>]
+          steps:
+            - install_ms_edge
       - node_install
       - when:
           condition:
@@ -240,11 +264,14 @@ workflows:
   deploy:
     jobs:
       - install_and_lint
+
+      # Chrome tests
       - test_e2e:
           name: test_e2e_legacy
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
+          ms-edge: false
           requires:
             - install_and_lint
       - test_e2e:
@@ -252,6 +279,7 @@ workflows:
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
+          ms-edge: false
           requires:
             - install_and_lint
       - test_e2e:
@@ -259,6 +287,7 @@ workflows:
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3
+          ms-edge: false
           requires:
             - install_and_lint
       - test_e2e:
@@ -266,6 +295,7 @@ workflows:
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3
+          ms-edge: false
           requires:
             - install_and_lint
       - test_e2e:
@@ -273,6 +303,7 @@ workflows:
           next-ui: false
           phase2-core-canary-ratio: "1.0"
           message-entry-point: s3
+          ms-edge: false
           requires:
             - install_and_lint
       - test_e2e:
@@ -280,8 +311,61 @@ workflows:
           next-ui: true
           phase2-core-canary-ratio: "1.0"
           message-entry-point: s3
+          ms-edge: false
           requires:
             - install_and_lint
+
+      # MS Edge tests
+      - test_e2e:
+          name: test_e2e_legacy_ms_edge
+          next-ui: false
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: mq
+          ms-edge: true
+          requires:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_legacy_new_ui_ms_edge
+          next-ui: true
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: mq
+          ms-edge: true
+          requires:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase1_core_ms_edge
+          next-ui: false
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: s3
+          ms-edge: true
+          requires:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase1_core_new_ui_ms_edge
+          next-ui: true
+          phase2-core-canary-ratio: "0.0"
+          message-entry-point: s3
+          ms-edge: true
+          requires:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase2_core_ms_edge
+          next-ui: false
+          phase2-core-canary-ratio: "1.0"
+          message-entry-point: s3
+          ms-edge: true
+          requires:
+            - install_and_lint
+      - test_e2e:
+          name: test_e2e_phase2_core_new_ui_ms_edge
+          next-ui: true
+          phase2-core-canary-ratio: "1.0"
+          message-entry-point: s3
+          ms-edge: true
+          requires:
+            - install_and_lint
+
+      # Characterisation tests
       - test_characterisation_legacy_phase1:
           requires:
             - install_and_lint

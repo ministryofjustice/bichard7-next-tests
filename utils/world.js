@@ -6,10 +6,16 @@ const ActiveMqHelper = require("../helpers/ActiveMqHelper")
 const MockPNCHelper = require("../helpers/MockPNCHelper")
 const PNCTestTool = require("../helpers/PNCTestTool")
 const IncomingMessageBucket = require("../helpers/IncomingMessageBucket")
-const BrowserHelper = require("../helpers/BrowserHelper")
 const defaults = require("./defaults")
 const AuditLogApiHelper = require("../helpers/AuditLogApiHelper")
 const { config } = require("./config")
+
+let BrowserHelper
+if (process.env.MS_EDGE === "true") {
+  BrowserHelper = require("../helpers/BrowserHelperEdge")
+} else {
+  BrowserHelper = require("../helpers/BrowserHelper")
+}
 
 class Bichard extends World {
   constructor(options) {
