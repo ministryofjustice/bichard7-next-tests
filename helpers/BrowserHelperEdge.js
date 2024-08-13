@@ -18,17 +18,10 @@ class BrowserHelperEdge extends BrowserHelper {
         ignoreHTTPSErrors: true,
         headless: this.options.headless ? "new" : false,
         args: [
-          // Required for Docker version of Puppeteer
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          // This will write shared memory files into /tmp instead of /dev/shm,
-          // because Docker's default for /dev/shm is 64MB
-          "--disable-dev-shm-usage",
-          "--window-size=1024,1024",
-          "--lang=en_GB",
           "--ignore-certificate-errors",
           "--ignore-certificate-errors-spki-list",
-          "--enable-features=NetworkService"
+          "--enable-features=NetworkService",
+          ...this.defaultArgsForPuppeteer
         ]
       })
     }
