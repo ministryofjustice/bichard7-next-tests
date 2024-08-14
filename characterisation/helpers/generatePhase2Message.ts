@@ -21,6 +21,7 @@ type Result = {
   resultClass?: ResultClass
   pncAdjudicationExists?: boolean
   durations?: Duration[]
+  resultQualifierVariables?: number[]
 }
 
 type Offence = {
