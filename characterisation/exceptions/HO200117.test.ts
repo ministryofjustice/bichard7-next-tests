@@ -11,7 +11,7 @@ describe.ifPhase2("HO200117", () => {
     await new World({}).db.closeConnection()
   })
 
-  it("creates a HO200117 exception when there are more than 10 recordable results (there are 11)", async () => {
+  it("creates a HO200117 exception when there are more than 10 recordable results", async () => {
     const recordableResults = Array.from({ length: 11 }, () => ({
       cjsResultCode: 1015,
       recordableOnPncIndicator: true
