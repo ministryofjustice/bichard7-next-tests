@@ -9,27 +9,29 @@ describe.ifPhase2("HO200116", () => {
     await new World({}).db.closeConnection()
   })
 
-  it("creates a HO200116 exception when there are more than 100 offences", async () => {
+  it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+    "creates a HO200116 exception when there are more than 100 offences",
+    async () => {
+      const offences = Array.from({ length: 110 }, () => ({
+        results: [{ cjsResultCode: 1015 }]
+      }))
 
-    const offences = Array.from({ length: 110 }, () => ({
-      results: [{ cjsResultCode: 1015 }]
-    }))
+      const inputMessage = generatePhase2Message({
+        messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+        offences: offences
+      })
 
-    const inputMessage = generatePhase2Message({
-      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
-      offences: offences
-    })
+      const {
+        outputMessage: { Exceptions: exceptions }
+      } = await processPhase2Message(inputMessage)
 
-    const {
-      outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(inputMessage)
-
-    expect(exceptions).toStrictEqual([
-      {
-        code: "HO200116",
-        path: asnPath
-      }
-    ])
-  })
+      expect(exceptions).toStrictEqual([
+        {
+          code: "HO200116",
+          path: asnPath
+        }
+      ])
+    }
+  )
 
 })
