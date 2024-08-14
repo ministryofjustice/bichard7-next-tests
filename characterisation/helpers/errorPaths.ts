@@ -35,3 +35,21 @@ export const offenceReasonPath = (offenceIndex: number): (string | number)[] => 
   "OffenceCode",
   "Reason"
 ]
+
+export const resultQualifierVariableCodePath = (
+  offenceIndex: number,
+  resultIndex: number,
+  resultQualifierVariableIndex: number
+): (string | number)[] => [
+  "AnnotatedHearingOutcome",
+  "HearingOutcome",
+  "Case",
+  "HearingDefendant",
+  "Offence",
+  offenceIndex,
+  "Result",
+  resultIndex,
+  "ResultQualifierVariable",
+  resultQualifierVariableIndex,
+  "Code"
+]
