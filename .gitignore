@@ -120,3 +120,7 @@ comparisons
 
 # Ignore cumcumber test results
 cucumber/
+
+# Ignore uat helper files
+escaped-message-content.xml
+message-content.xml
