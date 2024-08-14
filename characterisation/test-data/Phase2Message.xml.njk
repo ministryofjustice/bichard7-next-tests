@@ -160,6 +160,11 @@
             <br7:PNCAdjudicationExists Literal="No">N</br7:PNCAdjudicationExists>
             {% endif %}
             <br7:NumberOfOffencesTIC>1</br7:NumberOfOffencesTIC>
+            {% for resultQualifierVariable in result.resultQualifierVariables %}
+            <br7:ResultQualifierVariable SchemaVersion="3.0">
+              <ds:Code>{{ resultQualifierVariable }}</ds:Code>
+            </br7:ResultQualifierVariable>
+            {% endfor %}
           </br7:Result>
           {% endfor %}
         </br7:Offence>
