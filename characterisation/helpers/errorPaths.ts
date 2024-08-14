@@ -23,7 +23,7 @@ export const offenceResultClassPath = (offenceIndex: number, resultIndex: number
   "ResultClass"
 ]
 
-export const reasonPath = (offenceIndex: number): (string | number)[] => [
+export const offenceReasonPath = (offenceIndex: number): (string | number)[] => [
   "AnnotatedHearingOutcome",
   "HearingOutcome",
   "Case",

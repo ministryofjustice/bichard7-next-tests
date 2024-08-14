@@ -1,10 +1,8 @@
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
-import { reasonPath } from "../helpers/errorPaths"
+import { offenceReasonPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import MessageType from "../types/MessageType"
-
-jest.setTimeout(30000)
 
 describe.ifPhase2("HO200117", () => {
   afterAll(async () => {
@@ -33,7 +31,7 @@ describe.ifPhase2("HO200117", () => {
     expect(exceptions).toStrictEqual([
       {
         code: "HO200117",
-        path: reasonPath(0)
+        path: offenceReasonPath(0)
       }
     ])
   })
