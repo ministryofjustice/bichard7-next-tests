@@ -1,9 +1,8 @@
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
-import generateMessage from "../helpers/generateMessage"
 import generatePhase2Message from "../helpers/generatePhase2Message"
-import type MessageType from "../types/MessageType"
+import MessageType from "../types/MessageType"
 
 jest.setTimeout(30000)
 
@@ -13,15 +12,15 @@ describe.ifPhase2("HO200116", () => {
   })
 
   it("creates a HO200116 exception when there are more than 100 offences (there are 110)", async () => {
-    // const inputMessage = generateMessage("test-data/HO200116/Aho110Offences.xml.njk", {})
+
+    const offences = Array.from({ length: 110 }, () => ({
+      results: [{ cjsResultCode: 1015 }]
+    }))
 
     const inputMessage = generatePhase2Message({
-        MessageType.ANNOTATED_HEARING_OUTCOME,
-        offences: [
-          {
-          }
-        ]
-      })
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: offences
+    })
 
     const {
       outputMessage: { Exceptions: exceptions }
@@ -36,7 +35,14 @@ describe.ifPhase2("HO200116", () => {
   })
 
   it("does not create a HO200116 exception when there are 100 offences", async () => {
-    const inputMessage = generateMessage("test-data/HO200116/Aho100Offences.xml.njk", {})
+    const offences = Array.from({ length: 100 }, () => ({
+      results: [{ cjsResultCode: 1015 }]
+    }))
+
+    const inputMessage = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: offences
+    })
 
     const {
       outputMessage: { Exceptions: exceptions }
@@ -46,7 +52,14 @@ describe.ifPhase2("HO200116", () => {
   })
 
   it("does not create a HO200116 exception when there are less than 100 offences (there are 99)", async () => {
-    const inputMessage = generateMessage("test-data/HO200116/Aho99Offences.xml.njk", {})
+    const offences = Array.from({ length: 99 }, () => ({
+      results: [{ cjsResultCode: 1015 }]
+    }))
+
+    const inputMessage = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      offences: offences
+    })
 
     const {
       outputMessage: { Exceptions: exceptions }
