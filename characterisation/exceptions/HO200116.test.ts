@@ -11,7 +11,7 @@ describe.ifPhase2("HO200116", () => {
     await new World({}).db.closeConnection()
   })
 
-  it("creates a HO200116 exception when there are more than 100 offences (there are 110)", async () => {
+  it("creates a HO200116 exception when there are more than 100 offences", async () => {
 
     const offences = Array.from({ length: 110 }, () => ({
       results: [{ cjsResultCode: 1015 }]
