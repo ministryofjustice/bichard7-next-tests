@@ -39,4 +39,35 @@ describe.ifPhase2("HO200113", () => {
       ])
     }
   )
+
+  it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
+    "creates a HO200113 exception for %s when SENDEF exists and there is a remand CCR",
+    async (messageType) => {
+      const inputMessage = generatePhase2Message({
+        messageType: messageType,
+        offences: [
+          {
+            recordableOnPncIndicator: true,
+            results: [
+              { cjsResultCode: 1015, resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true },
+              { cjsResultCode: 1015, resultClass: ResultClass.ADJOURNMENT_POST_JUDGEMENT, pncAdjudicationExists: true }
+            ],
+            addedByTheCourt: true,
+            courtCaseReferenceNumber: true
+          }
+        ]
+      })
+
+      const {
+        outputMessage: { Exceptions: exceptions }
+      } = await processPhase2Message(inputMessage)
+
+      expect(exceptions).toStrictEqual([
+        {
+          code: "HO200113",
+          path: asnPath
+        }
+      ])
+    }
+  )
 })

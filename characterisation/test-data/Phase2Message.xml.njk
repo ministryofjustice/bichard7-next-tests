@@ -115,6 +115,9 @@
           {% endif %}
           <ds:NotifiableToHOindicator Literal="No">N</ds:NotifiableToHOindicator>
           <ds:HomeOfficeClassification>809/01</ds:HomeOfficeClassification>
+          {% if offence.courtCaseReferenceNumber == true %}
+            <br7:CourtCaseReferenceNumber>97/1626/008395Q</br7:CourtCaseReferenceNumber>
+          {% endif %}          
           <ds:ConvictionDate>2011-09-26</ds:ConvictionDate>
           <br7:CommittedOnBail Literal="Don't Know">D</br7:CommittedOnBail>
           <br7:CourtOffenceSequenceNumber>3</br7:CourtOffenceSequenceNumber>
