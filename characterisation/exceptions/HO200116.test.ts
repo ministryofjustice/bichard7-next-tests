@@ -1,29 +1,24 @@
 import World from "../../utils/world"
 import { processPhase2Message } from "../helpers/processMessage"
-import { offenceReasonPath } from "../helpers/errorPaths"
+import { asnPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import MessageType from "../types/MessageType"
 
-describe.ifPhase2("HO200117", () => {
+describe.ifPhase2("HO200116", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
 
 it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
-  "creates a HO200117 exception for %s when there are more than 10 recordable results",
+  "creates a HO200116 exception for %s when there are more than 100 offences",
   async (messageType) => {
-    const recordableResults = Array.from({ length: 11 }, () => ({
-      cjsResultCode: 1015,
-      recordableOnPncIndicator: true
+    const offences = Array.from({ length: 110 }, () => ({
+      results: [{ cjsResultCode: 1015 }]
     }))
 
     const inputMessage = generatePhase2Message({
       messageType: messageType,
-      offences: [
-        {
-          results: recordableResults
-        }
-      ]
+      offences: offences
     })
 
     const {
@@ -32,11 +27,12 @@ it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])
 
     expect(exceptions).toStrictEqual([
       {
-        code: "HO200117",
-        path: offenceReasonPath(0)
+        code: "HO200116",
+        path: asnPath
       }
     ])
   }
 )
+
 
 })
