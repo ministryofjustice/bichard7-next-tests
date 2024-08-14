@@ -139,6 +139,13 @@
             <ds:CourtType>MCA</ds:CourtType>
             <ds:ResultHearingType Literal="Other">OTHER</ds:ResultHearingType>
             <ds:ResultHearingDate>2011-09-26</ds:ResultHearingDate>
+            {% for duration in result.durations %}
+            <ds:Duration>
+              <ds:DurationType>{{ duration.type }}</ds:DurationType>
+              <ds:DurationUnit>{{ duration.unit }}</ds:DurationUnit>
+              <ds:DurationLength>{{ duration.length }}</ds:DurationLength>
+            </ds:Duration>
+            {% endfor %}
             <ds:AmountSpecifiedInResult Type="Fine">100.00</ds:AmountSpecifiedInResult>
             <ds:PleaStatus Literal="Not Guilty">NG</ds:PleaStatus>
             <ds:Verdict Literal="Guilty">G</ds:Verdict>
@@ -152,6 +159,7 @@
             {% else %}
             <br7:PNCAdjudicationExists Literal="No">N</br7:PNCAdjudicationExists>
             {% endif %}
+            <br7:NumberOfOffencesTIC>1</br7:NumberOfOffencesTIC>
           </br7:Result>
           {% endfor %}
         </br7:Offence>
@@ -162,7 +170,7 @@
   <br7:HasError>false</br7:HasError>
   <CXE01 xmlns="">
     <FSC FSCode="01ZD" IntfcUpdateType="K" />
-    <IDS CRONumber="" Checkname="SMITH" IntfcUpdateType="K" PNCID="" />
+    <IDS CRONumber="" Checkname="SMITH" IntfcUpdateType="K" PNCID="{{ pncId if pncId else "" }}" />
     <CourtCases>
       <CourtCase>
         <CCR CourtCaseRefNo="97/1626/008395Q" CrimeOffenceRefNo="" IntfcUpdateType="K" />
@@ -174,7 +182,7 @@
                  OffenceTitle="Use a motor vehicle on a road / public place without third party insurance"
                  ReferenceNumber="001" />
             {% if pncAdjudication %}
-            <ADJ Adjudication1="GUILTY" DateOfSentence="26092007" IntfcUpdateType="I" OffenceTICNumber="0000" Plea="NOT GUILTY" WeedFlag=""/>
+            <ADJ Adjudication1="GUILTY" DateOfSentence="26092011" IntfcUpdateType="I" OffenceTICNumber="0001" Plea="NOT GUILTY" WeedFlag=""/>
             {% endif %}
             {% if pncDisposals | length %}
             <DISList>
