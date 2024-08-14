@@ -143,7 +143,13 @@
               <ds:DurationLength>{{ duration.length }}</ds:DurationLength>
             </ds:Duration>
             {% endfor %}
+            {% if result.amountSpecifiedInResults | length %}
+                {% for amountSpecifiedInResult in result.amountSpecifiedInResults %}
+                <ds:AmountSpecifiedInResult Type="Fine">{{ amountSpecifiedInResult }}</ds:AmountSpecifiedInResult>
+                {% endfor %}
+            {% else %}
             <ds:AmountSpecifiedInResult Type="Fine">100.00</ds:AmountSpecifiedInResult>
+            {% endif %}
             <ds:PleaStatus Literal="Not Guilty">NG</ds:PleaStatus>
             <ds:Verdict Literal="Guilty">G</ds:Verdict>
             <ds:ModeOfTrialReason Literal="Summary only">SUM</ds:ModeOfTrialReason>
