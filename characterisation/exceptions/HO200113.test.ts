@@ -11,10 +11,10 @@ describe.ifPhase2("HO200113", () => {
   })
 
   it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
-    "creates a HO200113 exception when NEWREM exists, there are no remand CCRs, and SENDEF exists",
-    async () => {
+    "creates a HO200113 exception for %s when NEWREM exists, there are no remand CCRs, and SENDEF exists",
+    async (messageType) => {
       const inputMessage = generatePhase2Message({
-        messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+        messageType: messageType,
         offences: [
           {
             recordableOnPncIndicator: true,
@@ -31,7 +31,6 @@ describe.ifPhase2("HO200113", () => {
         outputMessage: { Exceptions: exceptions }
       } = await processPhase2Message(inputMessage)
 
-      console.log((await processPhase2Message(inputMessage)).outputMessage)
       expect(exceptions).toStrictEqual([
         {
           code: "HO200113",
