@@ -14,7 +14,16 @@ describe.ifPhase2("HO200202", () => {
     async (messageType) => {
       const inputMessage = generatePhase2Message({
         messageType,
-        offences: [{ results: [{ resultQualifierVariables: [1, 2, 3, 4, 5], pncAdjudicationExists: true }] }],
+        offences: [
+          {
+            results: [
+              {
+                resultQualifierVariables: [{ code: 1 }, { code: 2 }, { code: 3 }, { code: 4 }, { code: 5 }],
+                pncAdjudicationExists: true
+              }
+            ]
+          }
+        ],
         pncId: "2000/0000000X",
         pncAdjudication: {},
         pncDisposals: [{ type: 1000 }]
@@ -40,7 +49,7 @@ describe.ifPhase2("HO200202", () => {
     async (messageType) => {
       const inputMessage = generatePhase2Message({
         messageType,
-        offences: [{ results: [{ resultQualifierVariables: [1], pncAdjudicationExists: true }] }],
+        offences: [{ results: [{ resultQualifierVariables: [{ code: 1 }], pncAdjudicationExists: true }] }],
         pncId: "2000/0000000X",
         pncAdjudication: {},
         pncDisposals: [{ type: 1000 }]

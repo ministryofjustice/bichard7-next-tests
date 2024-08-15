@@ -165,7 +165,14 @@
             <br7:NumberOfOffencesTIC>1</br7:NumberOfOffencesTIC>
             {% for resultQualifierVariable in result.resultQualifierVariables %}
             <br7:ResultQualifierVariable SchemaVersion="3.0">
-              <ds:Code>{{ resultQualifierVariable }}</ds:Code>
+              <ds:Code>{{ resultQualifierVariable.code }}</ds:Code>
+              {% if resultQualifierVariable.duration %}
+              <ds:Duration>
+                <ds:DurationType>{{ resultQualifierVariable.duration.type }}</ds:DurationType>
+                <ds:DurationUnit>{{ resultQualifierVariable.duration.unit }}</ds:DurationUnit>
+                <ds:DurationLength>{{ resultQualifierVariable.duration.length }}</ds:DurationLength>
+              </ds:Duration>
+              {% endif %}
             </br7:ResultQualifierVariable>
             {% endfor %}
           </br7:Result>
