@@ -70,3 +70,22 @@ export const amountSpecifiedInResultPath = (
   "AmountSpecifiedInResult",
   amountSpecifiedInResultIndex
 ]
+
+export const resultQualifierVariableDurationTypePath = (
+  offenceIndex: number,
+  resultIndex: number,
+  resultQualifierVariableIndex: number
+): (string | number)[] => [
+  "AnnotatedHearingOutcome",
+  "HearingOutcome",
+  "Case",
+  "HearingDefendant",
+  "Offence",
+  offenceIndex,
+  "Result",
+  resultIndex,
+  "ResultQualifierVariable",
+  resultQualifierVariableIndex,
+  "Duration",
+  "DurationType"
+]
