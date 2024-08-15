@@ -18,10 +18,7 @@ describe.ifPhase2("HO200113", () => {
         offences: [
           {
             recordableOnPncIndicator: true,
-            results: [
-              { cjsResultCode: 1015 },
-              { cjsResultCode: 1015, resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true }
-            ],
+            results: [{}, { resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true }],
             addedByTheCourt: true
           }
         ]
@@ -49,8 +46,8 @@ describe.ifPhase2("HO200113", () => {
           {
             recordableOnPncIndicator: true,
             results: [
-              { cjsResultCode: 1015, resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true },
-              { cjsResultCode: 1015, resultClass: ResultClass.ADJOURNMENT_POST_JUDGEMENT, pncAdjudicationExists: true }
+              { resultClass: ResultClass.SENTENCE, pncAdjudicationExists: true },
+              { resultClass: ResultClass.ADJOURNMENT_POST_JUDGEMENT, pncAdjudicationExists: true }
             ],
             addedByTheCourt: true,
             courtCaseReferenceNumber: true
