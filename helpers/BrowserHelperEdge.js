@@ -15,7 +15,7 @@ class BrowserHelperEdge extends BrowserHelper {
     if (!browser) {
       browser = await puppeteer.launch({
         executablePath: edgePaths[process.platform],
-        ignoreHTTPSErrors: true,
+        acceptInsecureCerts: true,
         headless: this.options.headless ? "new" : false,
         args: [
           "--ignore-certificate-errors",

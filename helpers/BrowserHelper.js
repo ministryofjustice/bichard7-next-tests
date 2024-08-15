@@ -28,7 +28,7 @@ class BrowserHelper {
   async newPage(path) {
     if (!browser) {
       browser = await puppeteer.launch({
-        ignoreHTTPSErrors: true,
+        acceptInsecureCerts: true,
         headless: this.options.headless ? "new" : false,
         args: this.defaultArgsForPuppeteer
       })
