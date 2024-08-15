@@ -8,7 +8,7 @@ type PncDisposal = {
 
 type PncAdjudication = {}
 
-type Duration = {
+export type Duration = {
   type: string
   unit: string
   length: number
@@ -22,6 +22,8 @@ type Result = {
   pncAdjudicationExists?: boolean
   durations?: Duration[]
   resultQualifierVariables?: number[]
+  amountSpecifiedInResults?: number[]
+
 }
 
 type Offence = {
