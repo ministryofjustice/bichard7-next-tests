@@ -1,16 +1,16 @@
 import World from "../../utils/world"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
-import { resultQualifierVariableCodePath } from "../helpers/errorPaths"
 import MessageType from "../types/MessageType"
+import { resultQualifierVariableDurationTypePath } from "../helpers/errorPaths"
 
-describe.ifPhase2("HO200202", () => {
+describe.ifPhase2("HO200201", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
 
   it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
-    "creates a HO200202 exception for %s when too many qualifier variables for results",
+    "creates a HO200201 exception for %s when qualifier variable for result contains duration",
     async (messageType) => {
       const inputMessage = generatePhase2Message({
         messageType,
@@ -18,7 +18,7 @@ describe.ifPhase2("HO200202", () => {
           {
             results: [
               {
-                resultQualifierVariables: [{ code: 1 }, { code: 2 }, { code: 3 }, { code: 4 }, { code: 5 }],
+                resultQualifierVariables: [{ code: 1, duration: { type: "Custodial", unit: "D", length: 30 } }],
                 pncAdjudicationExists: true
               }
             ]
@@ -33,23 +33,28 @@ describe.ifPhase2("HO200202", () => {
         outputMessage: { Exceptions: exceptions }
       } = await processPhase2Message(inputMessage)
 
-      expect(exceptions).toStrictEqual(
-        expect.arrayContaining(
-          Array.from({ length: 5 }, (_, index) => ({
-            code: "HO200202",
-            path: resultQualifierVariableCodePath(0, 0, index)
-          }))
-        )
-      )
+      expect(exceptions).toContainEqual({
+        code: "HO200201",
+        path: resultQualifierVariableDurationTypePath(0, 0, 0)
+      })
     }
   )
 
   it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
-    "doesn't create a HO200202 exception for %s when within limit for qualifier variables for results",
+    "doesn't create a HO200201 exception for %s when qualifier variable for result doesn't contain a duration",
     async (messageType) => {
       const inputMessage = generatePhase2Message({
         messageType,
-        offences: [{ results: [{ resultQualifierVariables: [{ code: 1 }], pncAdjudicationExists: true }] }],
+        offences: [
+          {
+            results: [
+              {
+                resultQualifierVariables: [{ code: 1 }],
+                pncAdjudicationExists: true
+              }
+            ]
+          }
+        ],
         pncId: "2000/0000000X",
         pncAdjudication: {},
         pncDisposals: [{ type: 1000 }]
@@ -60,8 +65,8 @@ describe.ifPhase2("HO200202", () => {
       } = await processPhase2Message(inputMessage)
 
       expect(exceptions).not.toContainEqual({
-        code: "HO200202",
-        path: resultQualifierVariableCodePath(0, 0, 0)
+        code: "HO200201",
+        path: resultQualifierVariableDurationTypePath(0, 0, 0)
       })
     }
   )

@@ -14,6 +14,11 @@ export type Duration = {
   length: number
 }
 
+type ResultQualifierVariable = {
+  code: number
+  duration?: Duration
+}
+
 type Result = {
   cjsResultCode?: number
   resultVariableText?: string
@@ -21,7 +26,7 @@ type Result = {
   resultClass?: ResultClass
   pncAdjudicationExists?: boolean
   durations?: Duration[]
-  resultQualifierVariables?: number[]
+  resultQualifierVariables?: ResultQualifierVariable[]
   amountSpecifiedInResults?: number[]
 }
 
