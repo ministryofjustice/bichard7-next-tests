@@ -28,12 +28,14 @@ type Result = {
   durations?: Duration[]
   resultQualifierVariables?: ResultQualifierVariable[]
   amountSpecifiedInResults?: number[]
+
 }
 
 type Offence = {
   recordableOnPncIndicator?: boolean
   addedByTheCourt?: boolean
   results?: Result[]
+  courtCaseReferenceNumber?: true
 }
 
 export type GeneratePhase2MessageOptions = {

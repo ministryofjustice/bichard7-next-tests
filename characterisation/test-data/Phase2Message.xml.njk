@@ -123,6 +123,9 @@
           {% else %}
           <br7:AddedByTheCourt Literal="No">N</br7:AddedByTheCourt>
           {% endif %}
+          {% if offence.courtCaseReferenceNumber == true %}
+          <br7:CourtCaseReferenceNumber>97/1626/008395Q</br7:CourtCaseReferenceNumber>
+          {% endif %}
           {% for result in offence.results %}
           <br7:Result hasError="false" SchemaVersion="2.0">
             <ds:CJSresultCode>{{ result.cjsResultCode if result.cjsResultCode else "1015" }}</ds:CJSresultCode>
