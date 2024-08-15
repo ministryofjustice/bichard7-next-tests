@@ -53,3 +53,20 @@ export const resultQualifierVariableCodePath = (
   resultQualifierVariableIndex,
   "Code"
 ]
+
+export const amountSpecifiedInResultPath = (
+  offenceIndex: number,
+  resultIndex: number,
+  amountSpecifiedInResultIndex: number
+): (string | number)[] => [
+  "AnnotatedHearingOutcome",
+  "HearingOutcome",
+  "Case",
+  "HearingDefendant",
+  "Offence",
+  offenceIndex,
+  "Result",
+  resultIndex,
+  "AmountSpecifiedInResult",
+  amountSpecifiedInResultIndex
+]
