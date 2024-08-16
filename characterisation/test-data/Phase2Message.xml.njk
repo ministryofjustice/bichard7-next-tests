@@ -96,9 +96,11 @@
                 <ds:Reason>191</ds:Reason>
               </ds:OffenceCode>
             </ds:OffenceReason>
-            <ds:OffenceReasonSequence>001</ds:OffenceReasonSequence>
+            {% if offence.offenceReasonSequence or offence.offenceReasonSequence == undefined %}
+            <ds:OffenceReasonSequence>{{ offence.offenceReasonSequence if offence.offenceReasonSequence else loop.index | string | padStart(3, "0") }}</ds:OffenceReasonSequence>
+            {% endif %}
           </ds:CriminalProsecutionReference>
-          <ds:OffenceCategory Literal="Summary Motoring">CM</ds:OffenceCategory>
+          <ds:OffenceCategory Literal="{{ offence.offenceCategory.description if offence.offenceCategory.description else "Summary Motoring" }}">{{ offence.offenceCategory.code if offence.offenceCategory.code else "CM" }}</ds:OffenceCategory>
           <ds:ArrestDate>2010-12-01</ds:ArrestDate>
           <ds:ChargeDate>2010-12-02</ds:ChargeDate>
           <ds:ActualOffenceDateCode Literal="on or in">1</ds:ActualOffenceDateCode>
@@ -123,7 +125,7 @@
           {% else %}
           <br7:AddedByTheCourt Literal="No">N</br7:AddedByTheCourt>
           {% endif %}
-          {% if offence.courtCaseReferenceNumber == true %}
+          {% if offence.courtCaseReferenceNumber %}
           <br7:CourtCaseReferenceNumber>97/1626/008395Q</br7:CourtCaseReferenceNumber>
           {% endif %}
           {% for result in offence.results %}
