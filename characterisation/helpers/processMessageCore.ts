@@ -1,7 +1,7 @@
 import axios from "axios"
+import Phase from "../types/Phase"
 import generateMockPncQueryResult from "./generateMockPncQueryResult"
 import type { ProcessMessageOptions } from "./processMessage"
-import Phase from "../types/Phase"
 
 const processMessageCore = async <BichardResultType>(
   messageXml: string,
@@ -11,12 +11,19 @@ const processMessageCore = async <BichardResultType>(
     pncCaseType = "court",
     pncMessage,
     pncAdjudication = false,
-    phase = Phase.HEARING_OUTCOME
+    phase = Phase.HEARING_OUTCOME,
+    courtCaseReferenceOverride
   }: ProcessMessageOptions
 ): Promise<BichardResultType> => {
   const pncQueryResult =
     phase === Phase.HEARING_OUTCOME && recordable
-      ? generateMockPncQueryResult(pncMessage ? pncMessage : messageXml, pncOverrides, pncCaseType, pncAdjudication)
+      ? generateMockPncQueryResult(
+          pncMessage ? pncMessage : messageXml,
+          pncOverrides,
+          pncCaseType,
+          pncAdjudication,
+          courtCaseReferenceOverride
+        )
       : undefined
   const requestBody = {
     inputMessage: messageXml,
