@@ -28,10 +28,16 @@ type Result = {
   durations?: Duration[]
   resultQualifierVariables?: ResultQualifierVariable[]
   amountSpecifiedInResults?: number[]
+}
 
+type OffenceCategory = {
+  code: string
+  description: string
 }
 
 type Offence = {
+  offenceReasonSequence?: boolean
+  offenceCategory?: OffenceCategory
   recordableOnPncIndicator?: boolean
   addedByTheCourt?: boolean
   results?: Result[]
