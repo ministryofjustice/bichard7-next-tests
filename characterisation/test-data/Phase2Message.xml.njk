@@ -40,6 +40,9 @@
       <br7:CourtReference>
         <ds:MagistratesCourtReference>01ZD0303208</ds:MagistratesCourtReference>
       </br7:CourtReference>
+      {% if penaltyNoticeCaseReference %}
+      <br7:PenaltyNoticeCaseReference>12345</br7:PenaltyNoticeCaseReference>
+      {% endif %}
       {% if recordableOnPncIndicator or recordableOnPncIndicator == undefined %}
       <br7:RecordableOnPNCindicator Literal="Yes">Y</br7:RecordableOnPNCindicator>
       {% else %}
