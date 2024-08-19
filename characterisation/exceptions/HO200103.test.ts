@@ -18,7 +18,7 @@ describe.ifPhase2("HO200103", () => {
         offences: [
           {
             recordableOnPncIndicator: true,
-            results: [{}, { resultClass: ResultClass.ADJOURNMENT_POST_JUDGEMENT, pncAdjudicationExists: false }],
+            results: [{ resultClass: ResultClass.ADJOURNMENT_POST_JUDGEMENT, pncAdjudicationExists: false }],
             addedByTheCourt: false
           }
         ]
@@ -31,7 +31,7 @@ describe.ifPhase2("HO200103", () => {
       expect(exceptions).toStrictEqual([
         {
           code: "HO200103",
-          path: offenceResultClassPath(0, 1)
+          path: offenceResultClassPath(0, 0)
         }
       ])
     }
