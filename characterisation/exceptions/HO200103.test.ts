@@ -5,7 +5,7 @@ import generatePhase2Message from "../helpers/generatePhase2Message"
 import MessageType from "../types/MessageType"
 import { ResultClass } from "../types/ResultClass"
 
-describe.ifPhase2("HO200113", () => {
+describe.ifPhase2("HO200103", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
   })
