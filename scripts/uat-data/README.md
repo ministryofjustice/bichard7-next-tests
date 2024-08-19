@@ -111,5 +111,5 @@ AWS_URL=http://localhost:4566 REPEAT_SCENARIOS=1 DEPLOY_NAME=uat node scripts/in
 ## Seeding UAT Environment
 
 ```bash
-S3_INCOMING_MESSAGE_BUCKET=bichard-7-uat-incoming-messages PNC_HOST=cjse-uat-bichard-7-pncemulator-b3eed4ed1fc828f4.elb.eu-west-2.amazonaws.com PNC_PORT=3000 DEPLOY_NAME=uat REPEAT_SCENARIOS=1 aws-vault exec bichard7-shared-load-test -- node scripts/insert-uat-data.js
+S3_INCOMING_MESSAGE_BUCKET=bichard-7-uat-incoming-messages PNC_HOST=cjse-uat-bichard-7-pnc-emulator-75e8686f94f102b8.elb.eu-west-2.amazonaws.com PNC_PORT=3000 DEPLOY_NAME=uat REPEAT_SCENARIOS=1 aws-vault exec bichard7-shared-load-test -- node scripts/insert-uat-data.js
 ```
