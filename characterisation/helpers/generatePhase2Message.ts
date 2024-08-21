@@ -1,8 +1,6 @@
-import type MessageType from "../types/MessageType"
+import MessageType from "../types/MessageType"
 import { ResultClass } from "../types/ResultClass"
 import generateMessage from "./generateMessage"
-
-type HearingOutcomeTemplate = "NoOperationsAndExceptions" | "AintCase"
 
 type PncDisposal = {
   type: number
@@ -48,7 +46,7 @@ type Offence = {
 
 export type GeneratePhase2MessageOptions = {
   messageType: MessageType
-  hoTemplate?: HearingOutcomeTemplate
+  hoTemplate?: "NoOperationsAndExceptions" | "AintCase"
   recordableOnPncIndicator?: boolean
   arrestSummonsNumber?: string
   penaltyNoticeCaseReferenceNumber?: string
@@ -61,6 +59,17 @@ export type GeneratePhase2MessageOptions = {
 const updateOptionsForNoOperationsAndExceptions = (
   options: GeneratePhase2MessageOptions
 ): GeneratePhase2MessageOptions => {
+  if (process.env.USE_BICHARD === "true" && options.messageType === MessageType.PNC_UPDATE_DATASET) {
+    console.error(`
+      ** This test only works in the new Bichard. **
+
+      Old Bichard doesn't populate AnnotatedPNCUpdateDataset object when
+      input message type is PNCUpdateDataset (Resubmission) and only triggers are generated,
+      resulting in runtime exception when trying to retrieve the correlation ID from AnnotatedPNCUpdateDataset.
+      `)
+    throw Error("This test only works in the new Bichard")
+  }
+
   options.recordableOnPncIndicator = true
   if (!options.offences || options.offences.length === 0) {
     options.offences = [{}]

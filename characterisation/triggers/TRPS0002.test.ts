@@ -11,11 +11,23 @@ describe.ifPhase2("TRPS0002", () => {
     await new World({}).db.closeConnection()
   })
 
-  it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(
-    "creates a TRPS0002 for %s when no operations and exceptions are generated and result code is 3107",
-    async (messageType) => {
+  it("creates a TRPS0002 for AnnotatedHearingOutcome when no operations and exceptions are generated and result code is 3107", async () => {
+    const inputMessage = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      hoTemplate: "NoOperationsAndExceptions",
+      offences: [{ results: [{ cjsResultCode: 3107 }] }]
+    })
+
+    const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+
+    expect(triggers).toContainEqual({ code })
+  })
+
+  it.ifNewBichard(
+    "creates a TRPS0002 for PncUpdateDataset when no operations and exceptions are generated and result code is 3107",
+    async () => {
       const inputMessage = generatePhase2Message({
-        messageType,
+        messageType: MessageType.PNC_UPDATE_DATASET,
         hoTemplate: "NoOperationsAndExceptions",
         offences: [{ results: [{ cjsResultCode: 3107 }] }]
       })
