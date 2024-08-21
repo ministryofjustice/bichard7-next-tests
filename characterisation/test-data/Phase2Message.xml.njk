@@ -100,7 +100,7 @@
               </ds:OffenceCode>
             </ds:OffenceReason>
             {% if offence.offenceReasonSequence or offence.offenceReasonSequence == undefined %}
-            <ds:OffenceReasonSequence>{{ offence.offenceReasonSequence if offence.offenceReasonSequence else loop.index | string | padStart(3, "0") }}</ds:OffenceReasonSequence>
+            <ds:OffenceReasonSequence>{{ loop.index | string | padStart(3, "0") }}</ds:OffenceReasonSequence>
             {% endif %}
           </ds:CriminalProsecutionReference>
           <ds:OffenceCategory Literal="{{ offence.offenceCategory.description if offence.offenceCategory.description else "Summary Motoring" }}">{{ offence.offenceCategory.code if offence.offenceCategory.code else "CM" }}</ds:OffenceCategory>
