@@ -21,4 +21,23 @@ describe.ifPhase2("TRPS0011", () => {
       expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
     }
   )
+
+  it("creates a TRPS0011 for AnnotatedHearingOutcome when hearing outcome is aint case", async () => {
+    const inputMessage = generatePhase2Message({
+      messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
+      hoTemplate: "AintCase",
+      offences: [
+        {},
+        {
+          addedByTheCourt: true,
+          offenceReasonSequence: true,
+          results: [{}]
+        }
+      ]
+    })
+
+    const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+
+    expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
+  })
 })

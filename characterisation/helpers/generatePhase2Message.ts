@@ -81,9 +81,26 @@ const updateOptionsForNoOperationsAndExceptions = (
   return options
 }
 
+const updateOptionsForAintCase = (options: GeneratePhase2MessageOptions): GeneratePhase2MessageOptions => {
+  options.recordableOnPncIndicator = true
+  if (!options.offences || options.offences.length === 0) {
+    options.offences = [{}]
+  }
+
+  const offence = options.offences[0]
+  offence.addedByTheCourt = false
+  offence.results = !offence.results || offence.results.length === 0 ? [{}] : offence.results
+  offence.results[0].pncDisposalType = 1000
+  offence.results[0].resultVariableText = "Hearing on 01/01/2025 confirmed."
+
+  return options
+}
+
 const generatePhase2Message = (options: GeneratePhase2MessageOptions): string => {
   if (options.hoTemplate === "NoOperationsAndExceptions") {
     options = updateOptionsForNoOperationsAndExceptions(options)
+  } else if (options.hoTemplate === "AintCase") {
+    options = updateOptionsForAintCase(options)
   }
 
   return generateMessage("test-data/Phase2Message.xml.njk", options)
