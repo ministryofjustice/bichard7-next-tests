@@ -45,6 +45,9 @@
       {% else %}
       <br7:RecordableOnPNCindicator Literal="No">N</br7:RecordableOnPNCindicator>
       {% endif %}
+      {% if penaltyNoticeCaseReferenceNumber %}
+      <br7:PenaltyNoticeCaseReferenceNumber>{{ penaltyNoticeCaseReferenceNumber }}</br7:PenaltyNoticeCaseReferenceNumber>
+      {% endif %}
       <br7:Urgent>
         <br7:urgent Literal="Yes">Y</br7:urgent>
         <br7:urgency>24</br7:urgency>
@@ -100,6 +103,9 @@
             <ds:OffenceReasonSequence>{{ offence.offenceReasonSequence if offence.offenceReasonSequence else loop.index | string | padStart(3, "0") }}</ds:OffenceReasonSequence>
             {% endif %}
           </ds:CriminalProsecutionReference>
+          {% if offence.addedByTheCourt %}
+          <br7:AddedByTheCourt Literal={{ "Yes" if offence.addedByTheCourt else "No" }}>{{ "Y" if offence.addedByTheCourt else "N" }}</br7:AddedByTheCourt>
+          {% endif %}
           <ds:OffenceCategory Literal="{{ offence.offenceCategory.description if offence.offenceCategory.description else "Summary Motoring" }}">{{ offence.offenceCategory.code if offence.offenceCategory.code else "CM" }}</ds:OffenceCategory>
           <ds:ArrestDate>2010-12-01</ds:ArrestDate>
           <ds:ChargeDate>2010-12-02</ds:ChargeDate>
@@ -120,11 +126,6 @@
           <ds:ConvictionDate>2011-09-26</ds:ConvictionDate>
           <br7:CommittedOnBail Literal="Don't Know">D</br7:CommittedOnBail>
           <br7:CourtOffenceSequenceNumber>3</br7:CourtOffenceSequenceNumber>
-          {% if offence.addedByTheCourt %}
-          <br7:AddedByTheCourt Literal="Yes">Y</br7:AddedByTheCourt>
-          {% else %}
-          <br7:AddedByTheCourt Literal="No">N</br7:AddedByTheCourt>
-          {% endif %}
           {% if offence.courtCaseReferenceNumber %}
           <br7:CourtCaseReferenceNumber>97/1626/008395Q</br7:CourtCaseReferenceNumber>
           {% endif %}

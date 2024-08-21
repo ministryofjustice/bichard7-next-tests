@@ -1,6 +1,8 @@
-import generateMessage from "./generateMessage"
-import type { ResultClass } from "../types/ResultClass"
 import type MessageType from "../types/MessageType"
+import { ResultClass } from "../types/ResultClass"
+import generateMessage from "./generateMessage"
+
+type HearingOutcomeTemplate = "NoOperationsAndExceptions" | "AintCase"
 
 type PncDisposal = {
   type: number
@@ -46,15 +48,45 @@ type Offence = {
 
 export type GeneratePhase2MessageOptions = {
   messageType: MessageType
+  hoTemplate?: HearingOutcomeTemplate
   recordableOnPncIndicator?: boolean
   arrestSummonsNumber?: string
+  penaltyNoticeCaseReferenceNumber?: string
   offences?: Offence[]
   pncId?: string
   pncAdjudication?: PncAdjudication
   pncDisposals?: PncDisposal[]
 }
 
-const generatePhase2Message = (options: GeneratePhase2MessageOptions) =>
-  generateMessage("test-data/Phase2Message.xml.njk", options)
+const updateOptionsForNoOperationsAndExceptions = (
+  options: GeneratePhase2MessageOptions
+): GeneratePhase2MessageOptions => {
+  options.recordableOnPncIndicator = true
+  if (!options.offences || options.offences.length === 0) {
+    options.offences = [{}]
+  }
+
+  options.offences?.forEach((offence) => {
+    offence.addedByTheCourt = true
+    if (!offence.results || offence.results.length === 0) {
+      offence.results = [{}]
+    }
+
+    offence.results?.forEach((result) => {
+      result.resultClass = ResultClass.SENTENCE
+      result.pncAdjudicationExists = false
+    })
+  })
+
+  return options
+}
+
+const generatePhase2Message = (options: GeneratePhase2MessageOptions): string => {
+  if (options.hoTemplate === "NoOperationsAndExceptions") {
+    options = updateOptionsForNoOperationsAndExceptions(options)
+  }
+
+  return generateMessage("test-data/Phase2Message.xml.njk", options)
+}
 
 export default generatePhase2Message
