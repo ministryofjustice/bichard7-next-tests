@@ -60,13 +60,6 @@ const updateOptionsForNoOperationsAndExceptions = (
   options: GeneratePhase2MessageOptions
 ): GeneratePhase2MessageOptions => {
   if (process.env.USE_BICHARD === "true" && options.messageType === MessageType.PNC_UPDATE_DATASET) {
-    console.error(`
-      ** This test only works in the new Bichard. **
-
-      Old Bichard doesn't populate AnnotatedPNCUpdateDataset object when
-      input message type is PNCUpdateDataset (Resubmission) and only triggers are generated,
-      resulting in runtime exception when trying to retrieve the correlation ID from AnnotatedPNCUpdateDataset.
-      `)
     throw Error("This test only works in the new Bichard")
   }
 

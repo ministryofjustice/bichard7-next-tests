@@ -18,7 +18,7 @@ describe.ifPhase2("TRPS0002", () => {
       offences: [{ results: [{ cjsResultCode: 3107 }] }]
     })
 
-    const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+    const { triggers } = await processPhase2Message(inputMessage)
 
     expect(triggers).toContainEqual({ code })
   })
@@ -32,7 +32,7 @@ describe.ifPhase2("TRPS0002", () => {
         offences: [{ results: [{ cjsResultCode: 3107 }] }]
       })
 
-      const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+      const { triggers } = await processPhase2Message(inputMessage)
 
       expect(triggers).toContainEqual({ code })
     }
@@ -45,7 +45,7 @@ describe.ifPhase2("TRPS0002", () => {
       offences: [{ results: [{ cjsResultCode: 3107 }] }]
     })
 
-    const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+    const { triggers } = await processPhase2Message(inputMessage)
 
     expect(triggers).toContainEqual({ code })
   })

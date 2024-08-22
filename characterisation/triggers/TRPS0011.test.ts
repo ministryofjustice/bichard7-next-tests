@@ -17,7 +17,7 @@ describe.ifPhase2("TRPS0011", () => {
       hoTemplate: "NoOperationsAndExceptions"
     })
 
-    const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+    const { triggers } = await processPhase2Message(inputMessage)
 
     expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
   })
@@ -30,7 +30,7 @@ describe.ifPhase2("TRPS0011", () => {
         hoTemplate: "NoOperationsAndExceptions"
       })
 
-      const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+      const { triggers } = await processPhase2Message(inputMessage)
 
       expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
     }
@@ -50,7 +50,7 @@ describe.ifPhase2("TRPS0011", () => {
       ]
     })
 
-    const { triggers } = await processPhase2Message(inputMessage, { recordable: false })
+    const { triggers } = await processPhase2Message(inputMessage)
 
     expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
   })
