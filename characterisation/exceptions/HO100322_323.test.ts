@@ -20,7 +20,6 @@ describe.ifPhase1("HO100322", () => {
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processPhase1Message(inputMessage, {
-      expectTriggers: false,
       recordable: true
     })
 
@@ -72,7 +71,6 @@ describe.ifPhase1("HO100322", () => {
     const {
       hearingOutcome: { Exceptions: exceptions }
     } = await processPhase1Message(inputMessage, {
-      expectTriggers: false,
       recordable: false
     })
 

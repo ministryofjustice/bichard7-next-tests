@@ -68,7 +68,6 @@ describe.ifPhase1("TRPR0015", () => {
       hearingOutcome: { Exceptions: exceptions }
     } = await processPhase1Message(inputMessage, {
       recordable: false,
-      expectTriggers: false,
       expectRecord: false
     })
 

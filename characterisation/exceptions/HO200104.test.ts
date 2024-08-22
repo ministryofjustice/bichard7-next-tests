@@ -1,9 +1,9 @@
 import World from "../../utils/world"
 import { offenceResultClassPath } from "../helpers/errorPaths"
-import { processPhase2Message } from "../helpers/processMessage"
-import { ResultClass } from "../types/ResultClass"
-import MessageType from "../types/MessageType"
 import generatePhase2Message from "../helpers/generatePhase2Message"
+import { processPhase2Message } from "../helpers/processMessage"
+import MessageType from "../types/MessageType"
+import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200104", () => {
   afterAll(async () => {
@@ -56,7 +56,7 @@ describe.ifPhase2("HO200104", () => {
 
     const {
       outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(pncUpdateDataset, { expectTriggers: false, expectRecord: false })
+    } = await processPhase2Message(pncUpdateDataset, { expectRecord: false })
 
     expect(exceptions).toHaveLength(0)
   })
@@ -70,7 +70,7 @@ describe.ifPhase2("HO200104", () => {
 
     const {
       outputMessage: { Exceptions: exceptions }
-    } = await processPhase2Message(pncUpdateDataset, { expectTriggers: false, expectRecord: false })
+    } = await processPhase2Message(pncUpdateDataset, { expectRecord: false })
 
     expect(exceptions).toHaveLength(0)
   })

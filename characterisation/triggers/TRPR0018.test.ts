@@ -119,7 +119,6 @@ describe.ifPhase1("TRPR0018", () => {
       hearingOutcome: { Exceptions: exceptions }
     } = await processPhase1Message(inputMessage, {
       expectRecord: false,
-      expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-02-28" }])
     })
 
@@ -143,7 +142,6 @@ describe.ifPhase1("TRPR0018", () => {
       hearingOutcome: { Exceptions: exceptions }
     } = await processPhase1Message(inputMessage, {
       expectRecord: false,
-      expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-01-28", endDate: "2021-02-28" }])
     })
 
@@ -167,7 +165,6 @@ describe.ifPhase1("TRPR0018", () => {
       hearingOutcome: { Exceptions: exceptions }
     } = await processPhase1Message(inputMessage, {
       expectRecord: false,
-      expectTriggers: false,
       ...pncOffenceDateOverrides([{ startDate: "2021-02-28", endDate: "2021-02-28" }])
     })
 

@@ -1,7 +1,7 @@
 import World from "../../utils/world"
-import { processPhase2Message } from "../helpers/processMessage"
 import { offenceResultClassPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
+import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
 import { ResultClass } from "../types/ResultClass"
 
@@ -53,7 +53,7 @@ describe.ifPhase2("HO200101", () => {
 
       const {
         outputMessage: { Exceptions: exceptions }
-      } = await processPhase2Message(inputMessage, { expectTriggers: false, ...processMessageOptions })
+      } = await processPhase2Message(inputMessage, processMessageOptions)
 
       expect(exceptions).not.toContainEqual({
         code: "HO200101",
