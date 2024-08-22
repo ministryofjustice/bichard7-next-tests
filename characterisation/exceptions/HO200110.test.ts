@@ -1,7 +1,7 @@
 import World from "../../utils/world"
+import { asnPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
-import { asnPath } from "../helpers/errorPaths"
 import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200110", () => {
@@ -43,7 +43,7 @@ describe.ifPhase2("HO200110", () => {
 
       const {
         outputMessage: { Exceptions: exceptions }
-      } = await processPhase2Message(inputMessage, { expectTriggers: false, expectRecord: false })
+      } = await processPhase2Message(inputMessage, { expectRecord: false })
 
       expect(exceptions).not.toContainEqual({
         code: "HO200110",

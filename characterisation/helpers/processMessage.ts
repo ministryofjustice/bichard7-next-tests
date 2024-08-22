@@ -1,13 +1,12 @@
 import type BichardPhase1ResultType from "../types/BichardPhase1ResultType"
+import type BichardPhase2ResultType from "../types/BichardPhase2ResultType"
 import type { ResultedCaseMessageParsedXml } from "../types/IncomingMessage"
+import Phase from "../types/Phase"
 import processMessageBichard from "./processMessageBichard"
 import processMessageCore from "./processMessageCore"
-import Phase from "../types/Phase"
-import type BichardPhase2ResultType from "../types/BichardPhase2ResultType"
 
 export type ProcessMessageOptions = {
   expectRecord?: boolean
-  expectTriggers?: boolean
   recordable?: boolean
   pncCaseType?: string
   pncOverrides?: Partial<ResultedCaseMessageParsedXml>

@@ -64,7 +64,7 @@ describe.ifPhase1("TRPR0010", () => {
     const {
       triggers,
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
+    } = await processPhase1Message(inputMessage, { expectRecord: false })
 
     expect(triggers).toHaveLength(0)
     expect(exceptions).toHaveLength(0)

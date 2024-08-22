@@ -35,9 +35,7 @@ describe.ifPhase1("HO100236", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toHaveLength(0)
     expect(lookupOffenceByCjsCode).toHaveBeenCalled()
@@ -61,9 +59,7 @@ describe.ifPhase1("HO100236", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toStrictEqual([
       {
@@ -99,9 +95,7 @@ describe.ifPhase1("HO100236", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toStrictEqual([
       {

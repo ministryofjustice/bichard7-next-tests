@@ -57,7 +57,7 @@ describe.ifPhase1("TRPR0008", () => {
       ]
     })
 
-    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectRecord: false })
 
     expect(triggers).toHaveLength(0)
   })
@@ -78,7 +78,7 @@ describe.ifPhase1("TRPR0008", () => {
       ]
     })
 
-    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectRecord: false })
 
     expect(triggers).toHaveLength(0)
   })
@@ -94,7 +94,7 @@ describe.ifPhase1("TRPR0008", () => {
       ]
     })
 
-    const { triggers } = await processPhase1Message(inputMessage, { expectTriggers: false, expectRecord: false })
+    const { triggers } = await processPhase1Message(inputMessage, { expectRecord: false })
 
     expect(triggers).toHaveLength(0)
   })

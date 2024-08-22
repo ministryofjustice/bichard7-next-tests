@@ -41,7 +41,6 @@ describe.ifPhase1("TRPR0030", () => {
     })
 
     const { triggers } = await processPhase1Message(inputMessage, {
-      expectTriggers: false,
       expectRecord: false
     })
 

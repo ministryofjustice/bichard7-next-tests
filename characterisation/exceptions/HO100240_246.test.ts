@@ -45,9 +45,7 @@ describe.ifPhase1("HO100240 and HO100246", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toStrictEqual(expectedExceptions)
   })
@@ -60,9 +58,7 @@ describe.ifPhase1("HO100240 and HO100246", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toStrictEqual(expectedExceptions)
   })

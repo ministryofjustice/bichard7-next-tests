@@ -50,7 +50,7 @@ describe.ifPhase2("HO200212", () => {
 
       const {
         outputMessage: { Exceptions: exceptions }
-      } = await processPhase2Message(inputMessage, { expectTriggers: false, expectRecord: false })
+      } = await processPhase2Message(inputMessage, { expectRecord: false })
 
       expect(exceptions).toHaveLength(0)
     }

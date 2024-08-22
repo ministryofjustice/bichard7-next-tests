@@ -15,9 +15,7 @@ describe.ifPhase1("HO100103", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toContainEqual({
       code: "HO100103",
@@ -32,9 +30,7 @@ describe.ifPhase1("HO100103", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toContainEqual({
       code: "HO100103",
@@ -49,9 +45,7 @@ describe.ifPhase1("HO100103", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toContainEqual({
       code: "HO100103",
@@ -66,9 +60,7 @@ describe.ifPhase1("HO100103", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toContainEqual({
       code: "HO100103",
@@ -83,9 +75,7 @@ describe.ifPhase1("HO100103", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toContainEqual({
       code: "HO100103",
@@ -111,9 +101,7 @@ describe.ifPhase1("HO100103", () => {
 
     const {
       hearingOutcome: { Exceptions: exceptions }
-    } = await processPhase1Message(inputMessage, {
-      expectTriggers: false
-    })
+    } = await processPhase1Message(inputMessage)
 
     expect(exceptions).toContainEqual({
       code: "HO100103",
