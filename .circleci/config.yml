@@ -88,7 +88,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-              - ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
+            - ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
       - run:
           name: Install MS Edge (dev)
           working_directory: ~/bichard7-next-core
@@ -96,8 +96,8 @@ commands:
       - save_cache:
           key: ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
           paths:
-              - ~/vendor/apt_cache
-              - ~/vendor/apt_lists
+            - ~/vendor/apt_cache
+            - ~/vendor/apt_lists
 
   ################### Services
   start_bichard7_legacy:
@@ -267,7 +267,7 @@ workflows:
 
       # Chrome tests
       - test_e2e:
-          name: test_e2e_legacy
+          name: test_e2e_legacy_core_legacy_ui
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
@@ -275,7 +275,7 @@ workflows:
           requires:
             - install_and_lint
       - test_e2e:
-          name: test_e2e_legacy_new_ui
+          name: test_e2e_legacy_core_new_ui
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
@@ -283,7 +283,7 @@ workflows:
           requires:
             - install_and_lint
       - test_e2e:
-          name: test_e2e_phase1_core
+          name: test_e2e_phase1_core_legacy_ui
           next-ui: false
           phase2-core-canary-ratio: "0.0"
           message-entry-point: s3
@@ -291,24 +291,8 @@ workflows:
           requires:
             - install_and_lint
       - test_e2e:
-          name: test_e2e_phase1_core_new_ui
-          next-ui: true
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: s3
-          ms-edge: false
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase2_core
+          name: test_e2e_phase2_core_legacy_ui
           next-ui: false
-          phase2-core-canary-ratio: "1.0"
-          message-entry-point: s3
-          ms-edge: false
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase2_core_new_ui
-          next-ui: true
           phase2-core-canary-ratio: "1.0"
           message-entry-point: s3
           ms-edge: false
@@ -317,50 +301,10 @@ workflows:
 
       # MS Edge tests
       - test_e2e:
-          name: test_e2e_legacy_ms_edge
-          next-ui: false
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: mq
-          ms-edge: true
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_legacy_new_ui_ms_edge
+          name: test_e2e_legacy_core_new_ui_ms_edge
           next-ui: true
           phase2-core-canary-ratio: "0.0"
           message-entry-point: mq
-          ms-edge: true
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase1_core_ms_edge
-          next-ui: false
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: s3
-          ms-edge: true
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase1_core_new_ui_ms_edge
-          next-ui: true
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: s3
-          ms-edge: true
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase2_core_ms_edge
-          next-ui: false
-          phase2-core-canary-ratio: "1.0"
-          message-entry-point: s3
-          ms-edge: true
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase2_core_new_ui_ms_edge
-          next-ui: true
-          phase2-core-canary-ratio: "1.0"
-          message-entry-point: s3
           ms-edge: true
           requires:
             - install_and_lint
