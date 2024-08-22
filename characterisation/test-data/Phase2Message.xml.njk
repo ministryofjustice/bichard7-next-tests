@@ -48,6 +48,9 @@
       {% else %}
       <br7:RecordableOnPNCindicator Literal="No">N</br7:RecordableOnPNCindicator>
       {% endif %}
+      {% if penaltyNoticeCaseReferenceNumber %}
+      <br7:PenaltyNoticeCaseReferenceNumber>{{ penaltyNoticeCaseReferenceNumber }}</br7:PenaltyNoticeCaseReferenceNumber>
+      {% endif %}
       <br7:Urgent>
         <br7:urgent Literal="Yes">Y</br7:urgent>
         <br7:urgency>24</br7:urgency>
@@ -100,7 +103,7 @@
               </ds:OffenceCode>
             </ds:OffenceReason>
             {% if offence.offenceReasonSequence or offence.offenceReasonSequence == undefined %}
-            <ds:OffenceReasonSequence>{{ offence.offenceReasonSequence if offence.offenceReasonSequence else loop.index | string | padStart(3, "0") }}</ds:OffenceReasonSequence>
+            <ds:OffenceReasonSequence>{{ loop.index | string | padStart(3, "0") }}</ds:OffenceReasonSequence>
             {% endif %}
           </ds:CriminalProsecutionReference>
           <ds:OffenceCategory Literal="{{ offence.offenceCategory.description if offence.offenceCategory.description else "Summary Motoring" }}">{{ offence.offenceCategory.code if offence.offenceCategory.code else "CM" }}</ds:OffenceCategory>
