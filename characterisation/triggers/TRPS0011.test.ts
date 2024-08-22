@@ -4,8 +4,6 @@ import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
 import { TriggerCode } from "../types/TriggerCode"
 
-const code = TriggerCode.TRPS0011
-
 describe.ifPhase2("TRPS0011", () => {
   afterAll(async () => {
     await new World({}).db.closeConnection()
@@ -19,7 +17,7 @@ describe.ifPhase2("TRPS0011", () => {
 
     const { triggers } = await processPhase2Message(inputMessage)
 
-    expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
+    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 3 })
   })
 
   it.ifNewBichard(
@@ -32,7 +30,7 @@ describe.ifPhase2("TRPS0011", () => {
 
       const { triggers } = await processPhase2Message(inputMessage)
 
-      expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
+      expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 3 })
     }
   )
 
@@ -52,6 +50,6 @@ describe.ifPhase2("TRPS0011", () => {
 
     const { triggers } = await processPhase2Message(inputMessage)
 
-    expect(triggers).toContainEqual({ code, offenceSequenceNumber: 3 })
+    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 3 })
   })
 })
