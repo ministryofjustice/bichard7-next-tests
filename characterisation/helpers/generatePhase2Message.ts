@@ -41,12 +41,13 @@ type Offence = {
   recordableOnPncIndicator?: boolean
   addedByTheCourt?: boolean
   results?: Result[]
-  courtCaseReferenceNumber?: true
+  courtCaseReferenceNumber?: boolean
 }
 
 export type GeneratePhase2MessageOptions = {
   messageType: MessageType
   hoTemplate?: "NoOperationsAndExceptions" | "AintCase"
+  penaltyNoticeCaseReference?: boolean
   recordableOnPncIndicator?: boolean
   arrestSummonsNumber?: string
   penaltyNoticeCaseReferenceNumber?: string
