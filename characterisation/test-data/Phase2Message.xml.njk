@@ -224,7 +224,16 @@
   </CXE01>
   <br7:PNCQueryDate>2022-03-22</br7:PNCQueryDate>
 </br7:AnnotatedHearingOutcome>
-
 {% if messageType == "PncUpdateDataset" %}
+  {% for pncOperation in pncOperations %}
+  <Operation>
+    <operationCode>
+      {% if pncOperation.code == "NEWREM" %}
+      <NEWREM/>
+      {% endif %}
+    </operationCode>
+    <operationStatus>{{ pncOperation.status if pncOperation.status else "N" }}</operationStatus>
+  </Operation>
+  {% endfor %}
 </PNCUpdateDataset>
 {% endif %}

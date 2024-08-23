@@ -8,6 +8,17 @@ type PncDisposal = {
 
 type PncAdjudication = {}
 
+enum PncOperationStatus {
+  F = "Failed",
+  C = "Completed",
+  N = "NotAttempted"
+}
+
+type PncOperation = {
+  code: "NEWREM"
+  status?: PncOperationStatus
+}
+
 export type Duration = {
   type: string
   unit: string
@@ -55,6 +66,7 @@ export type GeneratePhase2MessageOptions = {
   pncId?: string
   pncAdjudication?: PncAdjudication
   pncDisposals?: PncDisposal[]
+  pncOperations?: PncOperation[]
 }
 
 const updateOptionsForNoOperationsAndExceptions = (
