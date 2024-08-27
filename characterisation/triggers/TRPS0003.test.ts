@@ -18,7 +18,8 @@ describe.ifPhase2("TRPS0003", () => {
           results: [
             {
               cjsResultCode: 1100,
-              resultVariableText: `Exclusion order made for 6 months. The defendant is not to enter ${"A".repeat(100)}.`
+              resultVariableText: `Exclusion order made for 6 months. The defendant is not to enter ${"A".repeat(100)}.`,
+              numberOfOffencesTic: true
             }
           ]
         }
@@ -42,7 +43,8 @@ describe.ifPhase2("TRPS0003", () => {
           results: [
             {
               cjsResultCode: 1100,
-              resultVariableText: `Exclusion order made for 6 months. The defendant is not to enter ${"A".repeat(100)}.`
+              resultVariableText: `Exclusion order made for 6 months. The defendant is not to enter ${"A".repeat(100)}.`,
+              numberOfOffencesTic: true
             }
           ]
         }

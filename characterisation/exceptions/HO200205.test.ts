@@ -1,9 +1,9 @@
 import World from "../../utils/world"
+import { amountSpecifiedInResultPath } from "../helpers/errorPaths"
 import type { Duration, GeneratePhase2MessageOptions } from "../helpers/generatePhase2Message"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
-import { amountSpecifiedInResultPath } from "../helpers/errorPaths"
 
 describe.ifPhase2("HO200205", () => {
   afterAll(async () => {
@@ -23,7 +23,8 @@ describe.ifPhase2("HO200205", () => {
             cjsResultCode: 1100,
             amountSpecifiedInResults,
             durations,
-            pncAdjudicationExists: true
+            pncAdjudicationExists: true,
+            numberOfOffencesTic: true
           }
         ]
       }

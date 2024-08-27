@@ -1,7 +1,7 @@
 import World from "../../utils/world"
+import { resultQualifierVariableCodePath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
-import { resultQualifierVariableCodePath } from "../helpers/errorPaths"
 import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200202", () => {
@@ -19,7 +19,8 @@ describe.ifPhase2("HO200202", () => {
             results: [
               {
                 resultQualifierVariables: [{ code: 1 }, { code: 2 }, { code: 3 }, { code: 4 }, { code: 5 }],
-                pncAdjudicationExists: true
+                pncAdjudicationExists: true,
+                numberOfOffencesTic: true
               }
             ]
           }

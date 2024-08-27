@@ -1,8 +1,8 @@
 import World from "../../utils/world"
+import { resultQualifierVariableDurationTypePath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
-import { resultQualifierVariableDurationTypePath } from "../helpers/errorPaths"
 
 describe.ifPhase2("HO200201", () => {
   afterAll(async () => {
@@ -19,7 +19,8 @@ describe.ifPhase2("HO200201", () => {
             results: [
               {
                 resultQualifierVariables: [{ code: 1, duration: { type: "Custodial", unit: "D", length: 30 } }],
-                pncAdjudicationExists: true
+                pncAdjudicationExists: true,
+                numberOfOffencesTic: true
               }
             ]
           }

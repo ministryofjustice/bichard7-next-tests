@@ -173,7 +173,9 @@
             {% else %}
             <br7:PNCAdjudicationExists Literal="No">N</br7:PNCAdjudicationExists>
             {% endif %}
+            {% if result.numberOfOffencesTic %}
             <br7:NumberOfOffencesTIC>1</br7:NumberOfOffencesTIC>
+            {% endif %}
             {% for resultQualifierVariable in result.resultQualifierVariables %}
             <br7:ResultQualifierVariable SchemaVersion="3.0">
               <ds:Code>{{ resultQualifierVariable.code }}</ds:Code>

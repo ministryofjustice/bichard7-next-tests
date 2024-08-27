@@ -12,12 +12,13 @@ describe.ifPhase2("TRPS0013", () => {
   it("creates a TRPS0013 for AnnotatedHearingOutcome when no operations and exceptions are generated", async () => {
     const inputMessage = generatePhase2Message({
       messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
-      hoTemplate: "NoOperationsAndExceptions"
+      hoTemplate: "NoOperationsAndExceptions",
+      offences: [{ offenceReasonSequence: true, results: [{ numberOfOffencesTic: true }] }]
     })
 
     const { triggers } = await processPhase2Message(inputMessage)
 
-    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0013, offenceSequenceNumber: 3 })
+    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0013, offenceSequenceNumber: 1 })
   })
 
   it.ifNewBichard(
@@ -25,23 +26,25 @@ describe.ifPhase2("TRPS0013", () => {
     async () => {
       const inputMessage = generatePhase2Message({
         messageType: MessageType.PNC_UPDATE_DATASET,
-        hoTemplate: "NoOperationsAndExceptions"
+        hoTemplate: "NoOperationsAndExceptions",
+        offences: [{ offenceReasonSequence: true, results: [{ numberOfOffencesTic: true }] }]
       })
 
       const { triggers } = await processPhase2Message(inputMessage)
 
-      expect(triggers).toContainEqual({ code: TriggerCode.TRPS0013, offenceSequenceNumber: 3 })
+      expect(triggers).toContainEqual({ code: TriggerCode.TRPS0013, offenceSequenceNumber: 1 })
     }
   )
 
   it("creates a TRPS0013 for AnnotatedHearingOutcome when hearing outcome is aint case", async () => {
     const inputMessage = generatePhase2Message({
       messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
-      hoTemplate: "AintCase"
+      hoTemplate: "AintCase",
+      offences: [{ offenceReasonSequence: true, results: [{ numberOfOffencesTic: true }] }]
     })
 
     const { triggers } = await processPhase2Message(inputMessage)
 
-    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0013, offenceSequenceNumber: 3 })
+    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0013, offenceSequenceNumber: 1 })
   })
 })

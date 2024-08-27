@@ -21,7 +21,8 @@ describe.ifPhase2("HO200200", () => {
               { type: "Custodial", unit: "D", length: 30 },
               { type: "Community Punishment", unit: "H", length: 123 }
             ],
-            pncAdjudicationExists: true
+            pncAdjudicationExists: true,
+            numberOfOffencesTic: true
           }
         ]
       }

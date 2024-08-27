@@ -28,6 +28,7 @@ type Result = {
   durations?: Duration[]
   resultQualifierVariables?: ResultQualifierVariable[]
   amountSpecifiedInResults?: number[]
+  numberOfOffencesTic?: boolean
 }
 
 type OffenceCategory = {
