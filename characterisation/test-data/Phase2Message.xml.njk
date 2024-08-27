@@ -125,7 +125,7 @@
           <ds:HomeOfficeClassification>809/01</ds:HomeOfficeClassification>
           <ds:ConvictionDate>2011-09-26</ds:ConvictionDate>
           <br7:CommittedOnBail Literal="Don't Know">D</br7:CommittedOnBail>
-          <br7:CourtOffenceSequenceNumber>3</br7:CourtOffenceSequenceNumber>
+          <br7:CourtOffenceSequenceNumber>{{ loop.index }}</br7:CourtOffenceSequenceNumber>
           {% if offence.addedByTheCourt %}
           <br7:AddedByTheCourt Literal="Yes">Y</br7:AddedByTheCourt>
           {% else %}

@@ -17,7 +17,7 @@ describe.ifPhase2("TRPS0011", () => {
 
     const { triggers } = await processPhase2Message(inputMessage)
 
-    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 3 })
+    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 1 })
   })
 
   it.ifNewBichard(
@@ -30,11 +30,11 @@ describe.ifPhase2("TRPS0011", () => {
 
       const { triggers } = await processPhase2Message(inputMessage)
 
-      expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 3 })
+      expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 1 })
     }
   )
 
-  it("creates a TRPS0011 for AnnotatedHearingOutcome when hearing outcome is aint case", async () => {
+  it("creates a TRPS0011 for AnnotatedHearingOutcome when hearing outcome is AINT case", async () => {
     const inputMessage = generatePhase2Message({
       messageType: MessageType.ANNOTATED_HEARING_OUTCOME,
       hoTemplate: "AintCase",
@@ -50,6 +50,6 @@ describe.ifPhase2("TRPS0011", () => {
 
     const { triggers } = await processPhase2Message(inputMessage)
 
-    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 3 })
+    expect(triggers).toContainEqual({ code: TriggerCode.TRPS0011, offenceSequenceNumber: 2 })
   })
 })
