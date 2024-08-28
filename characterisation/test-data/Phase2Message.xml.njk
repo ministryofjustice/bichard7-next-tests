@@ -228,5 +228,13 @@
 </br7:AnnotatedHearingOutcome>
 
 {% if messageType == "PncUpdateDataset" %}
+  {% if hasCompletedDisarrOperation %}
+  <Operation>
+    <operationCode>
+      <DISARR/>
+    </operationCode>
+    <operationStatus>C</operationStatus>
+  </Operation>
+  {% endif %}
 </PNCUpdateDataset>
 {% endif %}

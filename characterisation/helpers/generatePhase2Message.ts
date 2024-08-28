@@ -56,6 +56,7 @@ export type GeneratePhase2MessageOptions = {
   pncId?: string
   pncAdjudication?: PncAdjudication
   pncDisposals?: PncDisposal[]
+  hasCompletedDisarrOperation?: boolean
 }
 
 const updateOptionsForNoOperationsAndExceptions = (
