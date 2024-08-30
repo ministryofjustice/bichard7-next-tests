@@ -19,7 +19,7 @@ Feature: {089} R4.1.1_BR7_Court Location from Text Exception
     Given the data for this test is in the PNC
       And "input-message" is received
 
-  @Should @NextUI @Phase2Core
+  @Should @NextUI
   Scenario: Updating the PNC with the court location from Text Exception
     Given I am logged in as "supervisor"
       And I view the list of exceptions

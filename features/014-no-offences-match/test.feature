@@ -20,7 +20,6 @@ Feature: {014} R3_BR7_EX_001a_No Offences Match
 			And "input-message" is received
 
 	@Should
-	@Phase2Core
 	Scenario: Test that PNC detects a mismatch on offences and they can be manually resolved
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

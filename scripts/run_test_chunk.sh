@@ -12,10 +12,6 @@ else
   TAGS="${TAGS} and not @ExcludeOnLegacyUI"
 fi
 
-if [ "${PHASE2_CORE_CANARY_RATIO}x" == "1.0x" ] || [ "${PHASE2_CORE_CANARY_RATIO}x" == "1x" ]; then
-  TAGS="${TAGS} and @Phase2Core"
-fi
-
 echo "---------------------------------------------"
 echo "Running tests using the following parameters:"
 echo "Tags: ${TAGS}"
