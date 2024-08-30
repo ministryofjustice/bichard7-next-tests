@@ -21,7 +21,6 @@ Feature: {075} R4.0_BR7_Personal Details Trigger
 
 	@Could
 	@NextUI
-	@Phase2Core
 	Scenario: Revising ASN on the UI and removing specific result codes
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions

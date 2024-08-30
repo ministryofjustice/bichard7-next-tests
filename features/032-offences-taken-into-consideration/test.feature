@@ -18,7 +18,7 @@ Feature: {032} 3.2 UAT - TIC Change
 		Given the data for this test is in the PNC
 			And "input-message" is received
 
-	@Should @NextUI @Phase2Core
+	@Should @NextUI
 	Scenario: Offences Taken Into Consideration update PNC and raise a trigger
 		Given I am logged in as "supervisor"
 			And I view the list of exceptions

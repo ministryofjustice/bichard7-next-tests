@@ -16,7 +16,6 @@ Feature: {035} R3.3_BR7_Remove HO Exception for No Results
 		Given "input-message" is received
 
 	@Should
-	@Phase2Core
 	Scenario: No exceptions and triggers are created, nor is PNC called
 		Given I am logged in as "generalhandler"
 			And I view the list of exceptions
