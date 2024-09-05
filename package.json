@@ -9,10 +9,10 @@
     "lint": "npm run lint:js && npm run lint:features",
     "test:browser-noteardown": "NO_TEARDOWN=true npm run test:browser",
     "test:browser": "HEADLESS=false npm run test",
-    "test:characterisation:bichard": "cd characterisation && USE_BICHARD=true  jest --runInBand",
+    "test:characterisation:bichard": "cd characterisation && USE_BICHARD=true  jest --runInBand --workerThreads=true",
     "test:characterisation:bichard:phase1": "ENABLE_PHASE_2=false ENABLE_PHASE_3=false npm run test:characterisation:bichard",
     "test:characterisation:bichard:phase2": "ENABLE_PHASE_2=true ENABLE_PHASE_3=false npm run test:characterisation:bichard",
-    "test:characterisation": "cd characterisation && jest --runInBand",
+    "test:characterisation": "cd characterisation && jest --runInBand --workerThreads=true",
     "test:chunk:conductor": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and not @ExcludedOnConductor'",
     "test:chunk:nextUI": "NEXTUI=true bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC and @NextUI'",
     "test:chunk": "bash ./scripts/run_test_chunk.sh 'not @Excluded and not @ExcludedOnMaster and not @OnlyRunsOnPNC' and @ExcludedOnNextUI",
@@ -66,6 +66,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@swc/core": "^1.7.23",
+    "@swc/jest": "^0.2.36",
     "@types/lodash.merge": "^4.6.9",
     "@types/nunjucks": "^3.2.6",
     "@types/promise-poller": "^1.7.4",
