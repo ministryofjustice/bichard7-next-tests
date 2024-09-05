@@ -82,6 +82,7 @@ When("I fake the data for the operational trigger report", fakeTriggerReportData
 When("I fake the data for the Live Status Detail - Exceptions report", fakeLiveStatusExceptionsReportData)
 When("I switch to the alternate version of bichard", ui.switchBichard)
 When("I click the alternate {string} tab", alternateLoadTab)
+When("I search by state {string}", ui.searchByState)
 
 Then("I reload until I see {string}", ui.reloadUntilStringPresent)
 Then("I reload until I see {string} for this record", ui.reloadUntilStringPresentForRecord)

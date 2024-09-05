@@ -640,6 +640,20 @@ const switchBichard = async function () {
   await this.browser.page.waitForSelector(".moj-header__logo")
 }
 
+const searchByState = async function (status) {
+  const { page } = this.browser
+  const dropdown = await page.$('[name="statusFilter"]')
+
+  let option = ""
+  if (status === "Unresolved") {
+    option = "1"
+  } else if (status === "Resolved") {
+    option = "2"
+  }
+
+  await dropdown.select(option)
+}
+
 const cannotSeeBichardSwitcher = async function () {
   const bichardSwitcher = await this.browser.page.$$(".wpsToolBarBichardSwitch")
   expect(bichardSwitcher.length).toEqual(0)
@@ -740,6 +754,7 @@ module.exports = {
   getRawTableData,
   recordsForPerson,
   switchBichard,
+  searchByState,
   cannotSeeBichardSwitcher,
   returnToList,
   reloadUntilStringPresentForRecord,
