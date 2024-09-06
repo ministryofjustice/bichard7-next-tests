@@ -2,6 +2,8 @@
 
 set -e
 
+echo "Retrieving environment variables from ${WORKSPACE} in AWS..."
+
 env_check() {
   if [ -z "$WORKSPACE" ]
   then
@@ -97,20 +99,21 @@ mkdir -p workspaces
 rm -f $TEST_ENV_FILE
 
 echo "export DB_HOST=\"${DB_HOST}\"" >> $TEST_ENV_FILE
-echo "export UI_HOST=\"${UI_HOST}\""  >> $TEST_ENV_FILE
-echo "export UI_PORT=\"443\""  >> $TEST_ENV_FILE
-echo "export UI_SCHEME=\"https\""  >> $TEST_ENV_FILE
-echo "export USERS_SCHEME=\"https\""  >> $TEST_ENV_FILE
-echo "export USERS_HOST=\"${USERS_HOST}\""  >> $TEST_ENV_FILE
-echo "export USERS_PORT=\"80\""  >> $TEST_ENV_FILE
+echo "export UI_HOST=\"${UI_HOST}\"" >> $TEST_ENV_FILE
+echo "export UI_PORT=\"443\"" >> $TEST_ENV_FILE
+echo "export UI_SCHEME=\"https\"" >> $TEST_ENV_FILE
+echo "export USERS_SCHEME=\"https\"" >> $TEST_ENV_FILE
+echo "export USERS_HOST=\"${USERS_HOST}\"" >> $TEST_ENV_FILE
+echo "export USERS_PORT=\"80\"" >> $TEST_ENV_FILE
 if [[ "${REAL_PNC}x" != "truex" ]]; then
-  echo "export PNC_HOST=\"${PNC_HOST}\""  >> $TEST_ENV_FILE
+  echo "export PNC_HOST=\"${PNC_HOST}\"" >> $TEST_ENV_FILE
 fi
 echo "export MQ_URL=\"${BROKER_URL}\"" >> $TEST_ENV_FILE
 fetchParam "DB_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/rds/db/password"
 fetchParam "MQ_PASSWORD" "/cjse-${WORKSPACE}-bichard-7/mq/password"
 fetchParam "TOKEN_SECRET" "/cjse-${WORKSPACE}-bichard-7/jwt-secret"
-echo "export MQ_USER=\"bichard\""  >> $TEST_ENV_FILE
+echo "export MQ_USER=\"bichard\"" >> $TEST_ENV_FILE
+echo "export AWS_URL=\"none\"" >> $TEST_ENV_FILE
 echo "export S3_INCOMING_MESSAGE_BUCKET=\"${S3_INCOMING_MESSAGE_BUCKET}\"" >> $TEST_ENV_FILE
 echo "export S3_REGION=\"${S3_REGION}\"" >> $TEST_ENV_FILE
 echo "export INCOMING_MESSAGE_HANDLER_REGION=\"${INCOMING_MESSAGE_HANDLER_REGION}\"" >> $TEST_ENV_FILE
@@ -125,4 +128,4 @@ echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
 if [[ "${REAL_PNC}x" == "truex" ]]; then
   echo "export PNC_PORT=\"102\"" >> $TEST_ENV_FILE
 fi
-echo 'Done'
+echo "Done - created ${TEST_ENV_FILE}"
