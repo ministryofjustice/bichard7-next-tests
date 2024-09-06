@@ -1,13 +1,13 @@
 import World from "../../utils/world"
+import { asnPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
 import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
 import { ResultClass } from "../types/ResultClass"
-import { asnPath } from "../helpers/errorPaths"
 
 describe.ifPhase2("HO200115", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   describe("when the input message generates a DISARR and SUBVAR operation", () => {

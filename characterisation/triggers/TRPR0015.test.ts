@@ -10,7 +10,7 @@ const otherResultCode = 4597
 
 describe.ifPhase1("TRPR0015", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a case level trigger if another trigger is generated when the case is recordable", async () => {

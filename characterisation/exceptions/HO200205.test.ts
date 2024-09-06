@@ -7,7 +7,7 @@ import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200205", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   const generateOptions = (

@@ -1,13 +1,13 @@
 import World from "../../utils/world"
-import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
+import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
 import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200114", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("creates a HO200114 exception for PncUpdateDataset when results with judgement with final result and sentence", async () => {

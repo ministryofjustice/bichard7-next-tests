@@ -163,6 +163,7 @@ jobs:
       - node/install-packages:
           app-dir: ~/bichard7-next-core
       - run: npm run lint
+      - run: npm run check
       - persist_to_workspace:
           root: ~/
           paths: .

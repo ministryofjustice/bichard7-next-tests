@@ -22,7 +22,7 @@ const expectedExceptions = [
 
 describe.ifPhase1("HO100243", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it.ifNewBichard("should not create an exception if the amount in the result is acceptable", async () => {

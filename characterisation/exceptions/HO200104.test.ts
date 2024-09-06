@@ -7,7 +7,7 @@ import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200104", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("creates a HO200104 exception for AHO when result class is sentence", async () => {

@@ -6,7 +6,7 @@ import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200110", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   describe("when a dummy ASN", () => {

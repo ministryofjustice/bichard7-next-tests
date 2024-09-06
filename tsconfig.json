@@ -1,6 +1,6 @@
 {
-  "include": ["**/*.js", "**/*.ts", "**/*.json", "package.json"],
-  "exclude": ["dist", "node_modules"],
+  "include": ["**/*.js", "**/*.ts", "**/*.json", "package.json", "declarations.d.ts"],
+  "exclude": ["dist", "node_modules", "**/jest.config.js", "babel.config.js", "scripts/*.js", "jest-puppeteer.config.js"],
   "compilerOptions": {
     "target": "ES2021",
     "esModuleInterop": true,
@@ -19,7 +19,14 @@
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,
+    "typeRoots": ["./declarations.d.ts", "./node_modules/@types"],
     "types": ["node", "jest"],
     "allowJs": true
-  }
+  },
+  "ts-node": {
+    "files": true
+  },
+  "files": [
+    "declarations.d.ts"
+  ],
 }

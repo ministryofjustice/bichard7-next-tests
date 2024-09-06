@@ -8,7 +8,7 @@ const trigger5ResultCode = 4012
 
 describe.ifPhase1("Trigger force configuration", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a trigger when only allowed by a force", async () => {

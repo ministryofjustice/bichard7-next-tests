@@ -10,7 +10,7 @@ const yroSpecificRequirementResultCode = 3104
 
 describe.ifPhase1("TRPR0003", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a trigger for a single offence with a main result code", async () => {

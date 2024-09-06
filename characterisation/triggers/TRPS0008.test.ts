@@ -6,7 +6,7 @@ import { TriggerCode } from "../types/TriggerCode"
 
 describe.ifPhase2("TRPS0008", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("creates a TRPS0008 for AnnotatedHearingOutcome when no operations and exceptions are generated and result code is 3105", async () => {
