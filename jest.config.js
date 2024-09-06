@@ -6,5 +6,8 @@ module.exports = {
   setupFilesAfterEnv: ["./jest.setup.js"],
   maxConcurrency: 1,
   maxWorkers: 1,
-  verbose: true
+  verbose: true,
+  transform: {
+    "^.+\\.(t|j)sx?$": "@swc/jest"
+  }
 }

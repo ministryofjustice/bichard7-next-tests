@@ -124,3 +124,6 @@ cucumber/
 # Ignore uat helper files
 escaped-message-content.xml
 message-content.xml
+
+# SWC cache
+.swc/
