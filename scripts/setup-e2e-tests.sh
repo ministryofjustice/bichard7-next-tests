@@ -2,6 +2,8 @@
 
 set -e
 
+echo "Retrieving environment variables from ${WORKSPACE} in AWS..."
+
 env_check() {
   if [ -z "$WORKSPACE" ]
   then
@@ -126,4 +128,4 @@ echo "export DB_SSL_MODE=\"require\"" >> $TEST_ENV_FILE
 if [[ "${REAL_PNC}x" == "truex" ]]; then
   echo "export PNC_PORT=\"102\"" >> $TEST_ENV_FILE
 fi
-echo 'Done'
+echo "Done - created ${TEST_ENV_FILE}"
