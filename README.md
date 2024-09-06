@@ -6,7 +6,7 @@ This repository contains the end-to-end and characterisation tests to run agains
 
 - [Running the end-to-end tests](#running-the-end-to-end-tests)
   - [Locally](#locally)
-  - [Remotely (on the actual e2e environment)](#remotely-on-the-actual-e2e-environment)
+  - [Against E2E Test environment](#against-e2e-test-environment)
   - [Against pre-production](#against-pre-production)
   - [Configuration parameters](#configuration-parameters)
   - [Debugging](#debugging)
@@ -39,11 +39,33 @@ Error: Could not find expected browser (chrome) locally.
 
 Run `npm install` to download the correct Chromium revision (856583), then run `node node_modules/puppeteer/install.js`.
 
-### Remotely (on the actual e2e environment)
+### Against E2E Test environment
 
-Connect to the e2e vpn
+> ⚠️ You'll need to pause the deployment pipeline as it's highly likely a deployment will conflict with your tests.
 
-Then run the codebuild job `apply-dev-sgs-to-e2e-test` in `bichard7-shared`, then run your tests and remember to run `remove-dev-sgs-from-e2e-test` when you are finished.
+1. [Connect to the VPN for the E2E Test environment](https://github.com/ministryofjustice/bichard7-next/wiki/Connecting-to-the-VPN).
+2. [Enable dev security group rules for the E2E Test environment](https://github.com/ministryofjustice/bichard7-next/wiki/Enabling-the-dev-security-group-rules).
+3. Retrieve the environment variables required for E2E test by running:
+
+```bash
+WORKSPACE=e2e-test aws-vault exec bichard7-shared-e2e-test -- ./scripts/setup-e2e-tests.sh
+```
+
+This creates a `./workspaces/e2e-test.env` file (which is ignored by Git).
+
+4. Add `export AWS_URL="none"` to the environment variables file.
+5. Source the environment variables file:
+
+```bash
+. ./workspaces/e2e-test.env
+```
+
+6. Run your test(s) with AWS Vault.
+
+```bash
+# For example, to run a feature against E2E Test environment:
+aws-vault exec bichard7-shared-e2e-test -- npm run test:file features/719*
+```
 
 ### Against pre-production
 
