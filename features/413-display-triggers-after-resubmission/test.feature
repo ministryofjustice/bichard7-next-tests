@@ -1,7 +1,7 @@
 Feature: Display correct number of triggers after case is resubmitted
 
       """
-      When an exception is raised for a case, then resolved, and the case is resubmitted, the case should display the correct number of triggers on the trigger tab.
+      When an exception is raised for a case, then resolved, and the case is resubmitted. Then, if the case has triggers, it should display the correct number of triggers on the trigger tab.
       """
 
   Background:
