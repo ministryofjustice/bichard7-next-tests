@@ -26,7 +26,7 @@ const sendMsg = async function (world, messagePath) {
 
   if (world.config.messageEntryPoint === "s3") {
     messageData = convertMessageToNewFormat(messageData)
-    const uploadResult = await uploadToS3(world, messageData, correlationId)
+    const uploadResult = await uploadToS3(world, messageData, correlationId).catch((e) => e)
     expect(isError(uploadResult)).toBeFalsy()
     const checkEventResult = await checkAuditLogRecordExists(world, correlationId)
     expect(isError(checkEventResult)).toBeFalsy()

@@ -553,6 +553,12 @@ const submitRecord = async function () {
   await this.browser.clickAndWait("input[type='submit'][value='OK']")
 }
 
+const submitUnchangedRecord = async function () {
+  await this.browser.clickAndWait("input[type='submit'][value='Submit']")
+  await this.browser.page.click("input[name='acknowledgedExceptionNotChanged']")
+  await this.browser.clickAndWait("input[type='submit'][value='OK']")
+}
+
 const reloadUntilStringPresent = async function (content) {
   const result = await reloadUntilContent(this.browser.page, content)
   expect(result).toBeTruthy()
@@ -724,6 +730,7 @@ module.exports = {
   correctOffenceFreeTextException,
   matchOffence,
   submitRecord,
+  submitUnchangedRecord,
   reloadUntilStringPresent,
   reloadUntilStringNotPresent,
   checkNoExceptions,
