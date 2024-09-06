@@ -53,14 +53,13 @@ WORKSPACE=e2e-test aws-vault exec bichard7-shared-e2e-test -- ./scripts/setup-e2
 
 This creates a `./workspaces/e2e-test.env` file (which is ignored by Git).
 
-4. Add `export AWS_URL="none"` to the environment variables file.
-5. Source the environment variables file:
+4. Source the environment variables file:
 
 ```bash
 . ./workspaces/e2e-test.env
 ```
 
-6. Run your test(s) with AWS Vault.
+5. Run your test(s) with AWS Vault.
 
 ```bash
 # For example, to run a feature against E2E Test environment:
