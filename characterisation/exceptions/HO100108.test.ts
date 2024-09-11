@@ -5,7 +5,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 describe.ifPhase1("HO100108", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should create an exception if the remand status is invalid", async () => {

@@ -35,7 +35,7 @@ const expectedExceptions = [
 
 describe.ifPhase1("HO100240 and HO100246", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should create exceptions if the result code is too low", async () => {

@@ -9,7 +9,7 @@ describe.ifPhase1("HO100233", () => {
   })
 
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   // It's impossible to test this as it relies on the standing data being incorrect

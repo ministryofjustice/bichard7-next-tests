@@ -4,7 +4,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 describe.ifPhase1("HO100331", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should create an exception when there are more than 100 offences", async () => {

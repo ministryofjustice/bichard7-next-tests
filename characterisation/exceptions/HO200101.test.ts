@@ -7,7 +7,7 @@ import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200101", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("creates a HO200101 exception for AHO when adjournment with judgement", async () => {

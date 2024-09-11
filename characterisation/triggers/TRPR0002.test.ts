@@ -9,7 +9,7 @@ const resultQualifier = "EO"
 
 describe.ifPhase1("TRPR0002", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a trigger for a single offence without the EO result qualifier", async () => {

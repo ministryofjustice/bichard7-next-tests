@@ -5,7 +5,7 @@ import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200212", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(

@@ -4,7 +4,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 describe.ifPhase1("HO100306", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should not create an exception for a valid offence code format", async () => {

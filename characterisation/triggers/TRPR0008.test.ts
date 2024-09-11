@@ -10,7 +10,7 @@ const matchingOffenceCode = "BA76004"
 
 describe.ifPhase1("TRPR0008", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a case trigger for a single guilty offence with a matching offence code", async () => {

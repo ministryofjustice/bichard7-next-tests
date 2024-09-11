@@ -5,7 +5,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 describe.ifPhase1("HO100326", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should create an exception when the conviction date is before the date of hearing and there is no adjudication", async () => {

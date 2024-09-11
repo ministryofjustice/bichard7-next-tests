@@ -7,7 +7,7 @@ import { ResultClass } from "../types/ResultClass"
 
 describe.ifPhase2("HO200108", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it.each([

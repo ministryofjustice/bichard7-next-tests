@@ -1,12 +1,12 @@
 import World from "../../utils/world"
-import { processPhase2Message } from "../helpers/processMessage"
 import { asnPath } from "../helpers/errorPaths"
 import generatePhase2Message from "../helpers/generatePhase2Message"
+import { processPhase2Message } from "../helpers/processMessage"
 import MessageType from "../types/MessageType"
 
 describe.ifPhase2("HO200116", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it.each([MessageType.ANNOTATED_HEARING_OUTCOME, MessageType.PNC_UPDATE_DATASET])(

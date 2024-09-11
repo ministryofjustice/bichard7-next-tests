@@ -6,7 +6,7 @@ const dummyASN = "0807NRPR00000038482H"
 
 describe.ifPhase1("HO100321", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should create an exception when there is a recordable offence but the Arrest Summons Number is a dummy", async () => {

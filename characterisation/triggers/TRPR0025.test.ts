@@ -9,7 +9,7 @@ const resultCode = 4584
 
 describe.ifPhase1("TRPR0025", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a single case trigger for a single offence with matching offence and result codes", async () => {

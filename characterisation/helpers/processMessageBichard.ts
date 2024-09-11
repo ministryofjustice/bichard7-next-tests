@@ -13,7 +13,7 @@ import type { ProcessMessageOptions } from "./processMessage"
 
 type TriggerEntity = { trigger_code: TriggerCode; trigger_item_identity?: string }
 
-const world = new World({})
+const world = new World()
 const { pg } = world.db as PostgresHelper
 const mq = world.mq as ActiveMqHelper
 const realPnc = process.env.REAL_PNC === "true"

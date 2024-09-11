@@ -8,7 +8,7 @@ const offenceCode = "PL84504"
 
 describe.ifPhase1("TRPR0030", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a trigger correctly with single non-recordable offences", async () => {

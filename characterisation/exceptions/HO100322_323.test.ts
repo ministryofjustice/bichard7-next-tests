@@ -4,7 +4,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 describe.ifPhase1("HO100322", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should create HO100322 and HO100323 exceptions when there is a recordable offence and adjourned result but no next result source organisation and hearing date", async () => {

@@ -4,7 +4,7 @@ import { processPhase1Message } from "../helpers/processMessage"
 
 describe.ifPhase1("HO100228 and HO100239", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   // legacy bichard throws runtime exception Caused by: uk.gov.ocjr.mtu.br7.common.xmlconverter.UnmarshalFailedException: javax.xml.bind.UnmarshalException: the value is out of the range (minInclusive specifies 0).\n - with linked exception:

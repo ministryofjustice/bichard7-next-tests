@@ -9,7 +9,7 @@ const offenceCodeForGranted = "CD98516"
 
 describe.ifPhase1("TRPR0029", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a trigger for offence with the correct offence code", async () => {

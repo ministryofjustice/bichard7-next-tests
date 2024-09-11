@@ -21,7 +21,7 @@ const offenceTests = [
 
 describe.ifPhase1("Generic offence triggers", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   describe.each(offenceTests)("Testing result qualifier trigger $code", ({ code, resultCode, resultQualifier }) => {

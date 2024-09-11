@@ -7,7 +7,7 @@ const trigger5ResultCode = 4012
 
 describe.ifPhase1("TRPR0027", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   it("should generate a TRPR0027 trigger if the force and court don't match and a trigger would be ignored", async () => {

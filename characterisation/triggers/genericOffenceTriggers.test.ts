@@ -34,7 +34,7 @@ const offenceTests = [
 
 describe.ifPhase1("Generic offence triggers", () => {
   afterAll(async () => {
-    await new World({}).db.closeConnection()
+    await new World().db.closeConnection()
   })
 
   describe.each(offenceTests)("Testing generic trigger $code", ({ code, resultCode }) => {

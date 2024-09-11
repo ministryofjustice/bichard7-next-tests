@@ -153,7 +153,7 @@ export default (ahoXml: string): PncQueryResult | undefined => {
     forceStationCode: cxe.FSC["@_FSCode"],
     checkName,
     pncId: cxe.IDS["@_PNCID"],
-    cases
+    courtCases: cases
   }
   return result
 }
