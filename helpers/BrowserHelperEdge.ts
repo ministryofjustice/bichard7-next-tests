@@ -27,17 +27,17 @@ class BrowserHelperEdge extends BrowserHelper {
     }
 
     const context = await browser.createBrowserContext()
-    this.page = await context.newPage()
+    this.currentPage = await context.newPage()
     await this.page.setViewport({
       width: 1024,
       height: 1024
     })
-    await this.page.setExtraHTTPHeaders({
+    await this.currentPage.setExtraHTTPHeaders({
       "Accept-Language": "en_GB"
     })
     await this.record()
     await this.visitUrl(path)
-    return this.page
+    return this.currentPage
   }
 }
 

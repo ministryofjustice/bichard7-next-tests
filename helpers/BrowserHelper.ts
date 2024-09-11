@@ -18,7 +18,7 @@ type BrowserHelperOptions = {
 class BrowserHelper {
   options: BrowserHelperOptions
   browser: Browser | null
-  page: Page
+  currentPage: Page | null
   authTokenCookie: string | null
   recorder: PuppeteerMassScreenshots
   defaultArgsForPuppeteer = [
@@ -35,7 +35,7 @@ class BrowserHelper {
   constructor(options: BrowserHelperOptions) {
     this.options = options
     this.browser = null
-    this.page
+    this.currentPage = null
     this.authTokenCookie = null
   }
 
@@ -49,21 +49,29 @@ class BrowserHelper {
     }
 
     const context = await browser.createBrowserContext()
-    this.page = await context.newPage()
-    await this.page.setViewport({
+    this.currentPage = await context.newPage()
+    await this.currentPage.setViewport({
       width: 1024,
       height: 1024
     })
-    await this.page.setExtraHTTPHeaders({
+    await this.currentPage.setExtraHTTPHeaders({
       "Accept-Language": "en_GB"
     })
     await this.record()
     await this.visitUrl(path)
-    return this.page
+    return this.currentPage
   }
 
   setAuthCookie(value: string) {
     this.authTokenCookie = value
+  }
+
+  get page(): Page {
+    if (!this.currentPage) {
+      throw new Error("Page does not exist")
+    }
+
+    return this.currentPage
   }
 
   async record() {
@@ -76,10 +84,6 @@ class BrowserHelper {
       })
       await this.recorder.start()
     }
-  }
-
-  currentPage() {
-    return this.page
   }
 
   async visitUrl(url: string) {
@@ -112,8 +116,8 @@ class BrowserHelper {
       await this.recorder.stop()
     }
 
-    if (this.page) {
-      this.page.close()
+    if (this.currentPage) {
+      this.currentPage.close()
     }
   }
 
