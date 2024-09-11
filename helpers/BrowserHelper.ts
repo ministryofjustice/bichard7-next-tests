@@ -101,13 +101,13 @@ class BrowserHelper {
   }
 
   async logout() {
-    if (this.page) {
-      await this.page.goto(logout())
-      await this.page.waitForSelector("input[type=submit][value=OK]")
-      await this.page.click("input[type=submit][value=OK]")
+    if (this.currentPage) {
+      await this.currentPage.goto(logout())
+      await this.currentPage.waitForSelector("input[type=submit][value=OK]")
+      await this.currentPage.click("input[type=submit][value=OK]")
 
       const selector = this.options.world.config.authType === authType.bichard ? "#username" : ".infoMessage"
-      await this.page.waitForSelector(selector)
+      await this.currentPage.waitForSelector(selector)
     }
   }
 
@@ -147,9 +147,8 @@ class BrowserHelper {
       fs.rmSync("./tmp", { recursive: true })
     }
 
-    if (this.page) {
-      // TODO: Make sure this still works
-      const cdpSession = await this.page.createCDPSession()
+    if (this.currentPage) {
+      const cdpSession = await this.currentPage.createCDPSession()
       cdpSession.send("Page.setDownloadBehavior", { behavior: "allow", downloadPath: folder })
     }
   }
