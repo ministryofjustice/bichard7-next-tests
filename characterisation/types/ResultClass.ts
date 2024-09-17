@@ -5,6 +5,5 @@ export enum ResultClass {
   UNRESULTED = "Unresulted",
   SENTENCE = "Sentence",
   ADJOURNMENT_POST_JUDGEMENT = "Adjournment post Judgement",
-  ADJOURNMENT_PRE_JUDGEMENT = "Adjournment pre Judgement",
-  APPEAL_OUTCOME = "Appeal Outcome"
+  ADJOURNMENT_PRE_JUDGEMENT = "Adjournment pre Judgement"
 }
