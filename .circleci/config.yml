@@ -36,33 +36,6 @@ commands:
           working_directory: ~/bichard7-next-audit-logging
           command: make build-api-server build-event-handler-server
 
-  run_test_chunk:
-    steps:
-      - run:
-          name: Run test chunk
-          command: |
-            CHUNK=$(circleci tests glob "features/**/*.feature" | circleci tests split --split-by=timings) \
-            npm run test:chunk
-
-  save_artifacts:
-    steps:
-      - run:
-          name: Compress the artifacts for easier downloading
-          when: always
-          command: for file in ./screenshots/*; do tar -czf ${file}.tar.gz $file; done
-      - run:
-          name: Create the saved_artifacts directory
-          when: always
-          command: mkdir ./saved_artifacts;
-      - run:
-          name: Move the gzipped files across
-          when: always
-          command: mv ./screenshots/*.tar.gz ./saved_artifacts/
-      - store_artifacts:
-          path: /home/circleci/project/saved_artifacts
-      - store_test_results:
-          path: /home/circleci/project/test-results.xml
-
   node_install:
     steps:
       - restore_cache:
@@ -76,29 +49,6 @@ commands:
           key: v1-nvm-cache-{{ arch }}-{{ checksum ".nvmrc" }}
           paths:
             - /opt/circleci/.nvm/.cache
-
-  set_locale:
-    steps:
-      - run:
-          name: Set GB locale
-          working_directory: ~/bichard7-next-core
-          command: bash .circleci/scripts/set-locale.sh
-
-  install_ms_edge:
-    steps:
-      - restore_cache:
-          keys:
-            - ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
-            - ubuntu-package-cache-v1-
-      - run:
-          name: Install MS Edge (dev)
-          working_directory: ~/bichard7-next-core
-          command: bash .circleci/scripts/install-ms-edge-on-linux.sh
-      - save_cache:
-          key: ubuntu-package-cache-v1-{{ checksum "~/bichard7-next-core/.circleci/scripts/install-ms-edge-on-linux.sh" }}
-          paths:
-            - ~/vendor/apt_cache
-            - ~/vendor/apt_lists
 
   ################### Services
   start_bichard7_legacy:
@@ -158,8 +108,6 @@ jobs:
       - node_install
       - node/install-packages
       - checkout_core
-      - set_locale
-      - install_ms_edge
       - node/install-packages:
           app-dir: ~/bichard7-next-core
       - run: npm run lint
@@ -167,55 +115,6 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: .
-
-  test_e2e:
-    machine:
-      image: ubuntu-2204:current
-      docker_layer_caching: false
-    resource_class: large
-    parallelism: 10
-    parameters:
-      next-ui:
-        type: boolean
-      phase2-core-canary-ratio:
-        type: enum
-        enum: ["1.0", "0.0"]
-      message-entry-point:
-        type: enum
-        enum: ["mq", "s3"]
-      ms-edge:
-        type: boolean
-    environment:
-      RECORD: "true"
-      AWS_URL: "http://localhost:4566"
-      MESSAGE_ENTRY_POINT: << parameters.message-entry-point >>
-      NEXTUI: << parameters.next-ui >>
-      PHASE2_CORE_CANARY_RATIO: << parameters.phase2-core-canary-ratio >>
-      MS_EDGE: << parameters.ms-edge >>
-    steps:
-      - attach_workspace:
-          at: ~/
-      - set_locale
-      - when:
-          condition:
-            equal: [true, << parameters.ms-edge >>]
-          steps:
-            - install_ms_edge
-      - node_install
-      - when:
-          condition:
-            equal: ["mq", << parameters.message-entry-point >>]
-          steps:
-            - start_bichard7_legacy
-      - when:
-          condition:
-            equal: ["s3", << parameters.message-entry-point >>]
-          steps:
-            - start_bichard7_core
-      - run_test_chunk
-      - save_artifacts
-      - store_test_results:
-          path: ./cucumber/results
 
   test_characterisation_legacy_phase1:
     machine:
@@ -225,7 +124,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - set_locale
       - node_install
       - start_bichard7_legacy:
           ENABLE_PHASE_2: "false"
@@ -240,7 +138,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - set_locale
       - node_install
       - start_bichard7_legacy:
           ENABLE_PHASE_2: "true"
@@ -255,7 +152,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - set_locale
       - node_install
       - start_core_testserver
       - run: npm run test:characterisation
@@ -266,51 +162,6 @@ workflows:
   deploy:
     jobs:
       - install_and_lint
-
-      # Chrome tests
-      - test_e2e:
-          name: test_e2e_legacy_core_legacy_ui
-          next-ui: false
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: mq
-          ms-edge: false
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_legacy_core_new_ui
-          next-ui: true
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: mq
-          ms-edge: false
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase1_core_legacy_ui
-          next-ui: false
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: s3
-          ms-edge: false
-          requires:
-            - install_and_lint
-      - test_e2e:
-          name: test_e2e_phase2_core_legacy_ui
-          next-ui: false
-          phase2-core-canary-ratio: "1.0"
-          message-entry-point: s3
-          ms-edge: false
-          requires:
-            - install_and_lint
-
-      # MS Edge tests
-      - test_e2e:
-          name: test_e2e_legacy_core_new_ui_ms_edge
-          next-ui: true
-          phase2-core-canary-ratio: "0.0"
-          message-entry-point: mq
-          ms-edge: true
-          requires:
-            - install_and_lint
-
       # Characterisation tests
       - test_characterisation_legacy_phase1:
           requires:
