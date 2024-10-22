@@ -1,6 +1,0 @@
-paths-ignore:
-  - artillery-loadtest
-  - helpers
-  - utils
-  - steps
-  - scripts/build_locks.py
